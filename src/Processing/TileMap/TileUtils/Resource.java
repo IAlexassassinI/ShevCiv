@@ -11,14 +11,18 @@ public class Resource extends TileLayer implements Serializable {
 
     public static HashMap<String, Resource> AllResource = new HashMap<>();
     public static final Resource none = new Resource("none", 0, 0,
-            BattleModifier.none, new Wealth());
+            BattleModifier.none, new Wealth(), WhereCanSpawn.noPreference);
     public static final Resource Iron = new Resource("Iron", 0, 0,
-            BattleModifier.none, new Wealth());
+            BattleModifier.none, new Wealth(), WhereCanSpawn.onLandNoMountain);
     public static final Resource Horses = new Resource("Horses", 0, 0,
-            BattleModifier.none, new Wealth());
+            BattleModifier.none, new Wealth(), WhereCanSpawn.onLandNoMountain);
 
-    Resource(String modElementName, int additionalActionPointCost, int additionalVision, BattleModifier battleModifier, Wealth wealth){
+    public WhereCanSpawn whereCanSpawn;
+
+
+    Resource(String modElementName, int additionalActionPointCost, int additionalVision, BattleModifier battleModifier, Wealth wealth, WhereCanSpawn whereCanSpawn){
         super(modElementName, additionalActionPointCost, additionalVision, battleModifier, wealth);
         AllResource.put(this.elementName,(Resource)this.setType(AllResource.size()));
+        this.whereCanSpawn = whereCanSpawn;
     }
 }

@@ -2,7 +2,12 @@ package Processing.Units;
 
 import Processing.TileMap.TileUtils.Resource;
 
-public class UnitPattern {
+import java.io.Serializable;
+
+
+public class UnitPattern implements Serializable {
+    static final long serialVersionUID = 15L;
+
     String NameOfUnit;
 
     int productionCost;
