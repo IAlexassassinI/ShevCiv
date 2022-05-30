@@ -1,8 +1,13 @@
 package Processing.TileMap;
 
+import Processing.TileMap.TileUtils.Resource;
+import Processing.TileMap.TileUtils.TypeOfFlora;
+import Processing.TileMap.TileUtils.WhereCanSpawn;
 import Processing.Utilits.Point;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class GameMap implements Serializable {
     static final long serialVersionUID = 0L;
@@ -75,5 +80,46 @@ public class GameMap implements Serializable {
     }
 
     //TODO AddRandomizedResources generator
+
+    //Can process for a long time
+    //TODO IN PROCESS
+    private void generateRandomResource(int minIfPossible, int maxIfPossible){
+        Resource AllRes[] = (Resource[])Resource.AllResource.values().toArray();
+
+        LinkedList<Tile> Base = new LinkedList<>();
+        LinkedList<Tile> Found = new LinkedList<>();
+
+        for(int i = 0; i < AllRes.length; i++){
+            Resource TMP_Res = AllRes[i];
+            if(TMP_Res.elementName.equals(Resource.none)){
+                continue;
+            }
+
+            WhereCanSpawn TMP_WerWhereCanSpawn = TMP_Res.whereCanSpawn;
+
+            for(int y = 0; y < height; y++){
+                for(int x = 0; x < width; y++){
+                    for(int j = 0; j < TMP_WerWhereCanSpawn.typesOfFloraWhereCanSpawn.length; j++){
+                        if(Map[y][x].typeOfFlora == TypeOfFlora.AllTypeOfFlora.get(TMP_WerWhereCanSpawn.typesOfFloraWhereCanSpawn[j])){
+                            Found.add(Map[y][x]);
+                        }
+                    }
+                }
+            }
+
+            for(int y = 0; y < height; y++){
+                for(int x = 0; x < width; y++){
+                    for(int j = 0; j < TMP_WerWhereCanSpawn.typesOfHeightWhereCanSpawn.length; j++){
+                        if(Map[y][x].typeOfFlora == TypeOfFlora.AllTypeOfFlora.get(TMP_WerWhereCanSpawn.typesOfHeightWhereCanSpawn[j])){
+                            Found.add(Map[y][x]);
+                        }
+                    }
+                }
+            }
+
+        }
+
+
+    }
 
 }
