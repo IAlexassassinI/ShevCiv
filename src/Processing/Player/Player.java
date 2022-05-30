@@ -1,4 +1,4 @@
-package Player;
+package Processing.Player;
 
 import java.io.Serializable;
 

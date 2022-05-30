@@ -1,10 +1,11 @@
-package TileMap;
+package Processing.TileMap;
 
-import City.City;
-import Player.Player;
-import TileMap.TileUtils.*;
-import Units.Unit;
-import Utilits.Point;
+import Processing.City.City;
+import Processing.Player.Player;
+import Processing.TileMap.TileUtils.*;
+import Processing.Units.Unit;
+import Processing.Utilits.Point;
+import Processing.Utilits.Wealth;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,9 +41,15 @@ public class Tile implements Serializable {
     boolean isBridgeLeft = false;
     boolean isBridgeBottom = false;
 
+    Wealth wealth = new Wealth(); //TODO must be empty
+
     Tile(Point coordinates, GameMap map){
         this.coordinates = coordinates;
         this.map = map;
+    }
+
+    public void CalculateWealth(){
+        this.wealth.toZero().dWealth(height.wealth).dWealth(typeOfLand.wealth).dWealth(resource.wealth).dWealth(typeOfBuilding.wealth).dWealth(typeOfFlora.wealth);
     }
 
     public GameMap getMap() {
@@ -62,6 +69,7 @@ public class Tile implements Serializable {
     }
 
     public void setHeight(Height height) {
+
         this.height = height;
     }
 
@@ -77,6 +85,7 @@ public class Tile implements Serializable {
         return resource;
     }
 
+    //allow weird set for future ability of terraform
     public void setResource(Resource resource) {
         this.resource = resource;
     }
@@ -171,6 +180,18 @@ public class Tile implements Serializable {
         return isRiverRight;
     }
 
+    public void setMap(GameMap map) {
+        this.map = map;
+    }
+
+    public Wealth getWealth() {
+        return wealth;
+    }
+
+    public void setWealth(Wealth wealth) {
+        this.wealth = wealth;
+    }
+
     public void setRiverRight(boolean riverRight) {
         Tile TMP_Tile = map.getTile(coordinates.LookAt(1,0));
         if(TMP_Tile != null){
@@ -250,4 +271,5 @@ public class Tile implements Serializable {
         }
         isBridgeBottom = bridgeBottom;
     }
+
 }

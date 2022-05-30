@@ -1,7 +1,9 @@
-package MainPackage;
+package Processing.MainPackage;
 
-import static FileHandler.SaveLoadInterface.*;
-import TileMap.GameMap;
+import static Processing.FileHandler.SaveLoadInterface.*;
+import Processing.TileMap.GameMap;
+import Processing.TileMap.Tile;
+import Processing.Utilits.Point;
 
 public class Main {
 
@@ -16,5 +18,8 @@ public class Main {
         System.out.println("DeSerializing Map");
         GameMap GMD = (GameMap)deserializeFromFile("Maps\\Map1.map");
         System.out.println("DeSerialized Map");
+        System.out.println("Getting Tile");
+        Tile TMP_Tile = GMD.getTile(new Point(-1,-5));
+        System.out.println("Got Tile");
     }
 }
