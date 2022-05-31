@@ -15,7 +15,7 @@ public class Tile implements Serializable {
 
     Point coordinates;
     GameMap map;
-    Height height = Height.DeepOcean;
+    Height height = Height.FlatLand;
     TypeOfLand typeOfLand = TypeOfLand.Green;
     Resource resource = Resource.none;
     TypeOfBuilding typeOfBuilding = TypeOfBuilding.none;
@@ -69,7 +69,6 @@ public class Tile implements Serializable {
     }
 
     public void setHeight(Height height) {
-
         this.height = height;
     }
 
@@ -78,6 +77,11 @@ public class Tile implements Serializable {
     }
 
     public void setTypeOfLand(TypeOfLand typeOfLand) {
+        if(this.typeOfFlora.whereCanExist.containsKey(TypeOfLand.Void.elementName) || this.typeOfFlora.whereCanExist.containsKey(typeOfLand.elementName)){
+            this.typeOfLand = typeOfLand;
+            return;
+        }
+        this.typeOfFlora = TypeOfFlora.none;
         this.typeOfLand = typeOfLand;
     }
 
@@ -94,16 +98,24 @@ public class Tile implements Serializable {
         return typeOfBuilding;
     }
 
-    //TODO Maybe need something more
     public void setTypeOfBuilding(TypeOfBuilding typeOfBuilding) {
-        this.typeOfBuilding = typeOfBuilding;
+        if(typeOfBuilding.whatLandIsNeeded.containsKey(TypeOfLand.Void.elementName) || typeOfBuilding.whatLandIsNeeded.containsKey(this.typeOfLand.elementName)){
+            if(typeOfBuilding.whatResourceIsNeeded.containsKey(Resource.none.elementName) || typeOfBuilding.whatResourceIsNeeded.containsKey(this.resource.elementName)){
+                if(typeOfBuilding.whatFloraIsNeeded.containsKey(TypeOfFlora.none.elementName) || typeOfBuilding.whatFloraIsNeeded.containsKey(this.typeOfFlora.elementName)){
+                    if(typeOfBuilding.destroyFlora){
+                        this.typeOfFlora = TypeOfFlora.none;
+                    }
+                    this.typeOfBuilding = typeOfBuilding;
+                }
+            }
+        }
     }
 
     public TypeOfFlora getTypeOfFlora() {
         return typeOfFlora;
     }
 
-    //TODO Maybe need something more
+    //TODO Maybe need something more TODO TODO
     public void setTypeOfFlora(TypeOfFlora typeOfFlora) {
         this.typeOfFlora = typeOfFlora;
     }

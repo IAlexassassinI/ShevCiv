@@ -3,8 +3,6 @@ package Processing.MainPackage;
 import static Processing.FileHandler.SaveLoadInterface.*;
 import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
-import Processing.TileMap.TileUtils.Height;
-import Processing.TileMap.TileUtils.Resource;
 import Processing.Utilits.Point;
 
 public class Main {
@@ -12,8 +10,10 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
         //15
+        //LinkedHashMap or HashMap
         System.out.println("Creating Map");
         GameMap GM = new GameMap(10, 10);
+        GM.generateRandomResource(50,50);
         System.out.println("Created Map");
         System.out.println("Serializing Map");
         serializeObjectToFile(GM, "Maps\\Map1.map");
@@ -23,6 +23,8 @@ public class Main {
         System.out.println("DeSerialized Map");
         System.out.println("Getting Tile");
         Tile TMP_Tile = GMD.getTile(new Point(-1,-5));
+        System.out.println("Got Tile");
+        //Object ARR = WhereCanSpawn.AllWhereCanSpawn.get(12);
         System.out.println("Got Tile");
 
     }
