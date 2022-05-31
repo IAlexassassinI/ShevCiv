@@ -18,10 +18,7 @@ public class UnitPattern implements Serializable {
 
     int maxActionPoints;
 
-    boolean canMoveOnGround;
-    boolean canMoveOnMountain;
-    boolean canMoveOnShores;
-    boolean canMoveOnDeepOcean;
+   //WhereCanMove tile layers, high
 
     boolean isRanged;
     int rangeOfAttack;

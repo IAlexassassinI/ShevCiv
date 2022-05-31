@@ -1,16 +1,18 @@
 package Processing.TileMap;
 
-import Processing.TileMap.TileUtils.Resource;
-import Processing.TileMap.TileUtils.TypeOfFlora;
-import Processing.TileMap.TileUtils.WhereCanSpawn;
+import Processing.Game.Game;
+import Processing.TileMap.TileUtils.*;
 import Processing.Utilits.Point;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class GameMap implements Serializable {
     static final long serialVersionUID = 0L;
+
+    final static private int HEIGHT_NUM = 0;
+    final static private int TYPE_OF_FLORA_NUM = 1;
+    final static private int TYPE_OF_LAND_NUM = 2;
 
     Tile Map[][];
     int height;
@@ -79,47 +81,164 @@ public class GameMap implements Serializable {
         return ScreenMap;
     }
 
-    //TODO AddRandomizedResources generator
-
     //Can process for a long time
-    //TODO IN PROCESS
-    private void generateRandomResource(int minIfPossible, int maxIfPossible){
-        Resource AllRes[] = (Resource[])Resource.AllResource.values().toArray();
+    public void generateRandomResource(int minIfPossible, int maxIfPossible){
+        Resource AllRes[] = Resource.AllResource.values().toArray(new Resource[0]);
 
-        LinkedList<Tile> Base = new LinkedList<>();
+        //HashMap point|tile
         LinkedList<Tile> Found = new LinkedList<>();
 
-        for(int i = 0; i < AllRes.length; i++){
+        for(int i = 1; i < AllRes.length; i++){
             Resource TMP_Res = AllRes[i];
-            if(TMP_Res.elementName.equals(Resource.none)){
+
+            /*
+            if(TMP_Res == Resource.none){
                 continue;
             }
+             */
 
-            WhereCanSpawn TMP_WerWhereCanSpawn = TMP_Res.whereCanSpawn;
+            WhereCanSpawn TMP_WhereCanSpawn = TMP_Res.whereCanSpawn;
 
             for(int y = 0; y < height; y++){
-                for(int x = 0; x < width; y++){
-                    for(int j = 0; j < TMP_WerWhereCanSpawn.typesOfFloraWhereCanSpawn.length; j++){
-                        if(Map[y][x].typeOfFlora == TypeOfFlora.AllTypeOfFlora.get(TMP_WerWhereCanSpawn.typesOfFloraWhereCanSpawn[j])){
-                            Found.add(Map[y][x]);
-                        }
+                for(int x = 0; x < width; x++){
+                    Tile ProcessedTile = Map[y][x];
+
+                    if(ProcessedTile.resource != Resource.none){
+                        continue;
                     }
+
+                    if(PositiveCheck_JavaPorevo(ProcessedTile, TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
+                        continue;
+                    }
+                    if(NegativeCheck_JavaPorevo(ProcessedTile, TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
+                        continue;
+                    }
+                    if(PositiveCheck_JavaPorevo(ProcessedTile, HEIGHT_NUM, TMP_WhereCanSpawn)){
+                        continue;
+                    }
+                    if(NegativeCheck_JavaPorevo(ProcessedTile, HEIGHT_NUM, TMP_WhereCanSpawn)){
+                        continue;
+                    }
+                    if(PositiveCheck_JavaPorevo(ProcessedTile, TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
+                        continue;
+                    }
+                    if(NegativeCheck_JavaPorevo(ProcessedTile, TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
+                        continue;
+                    }
+
+                    Found.add(ProcessedTile);
+
                 }
             }
 
-            for(int y = 0; y < height; y++){
-                for(int x = 0; x < width; y++){
-                    for(int j = 0; j < TMP_WerWhereCanSpawn.typesOfHeightWhereCanSpawn.length; j++){
-                        if(Map[y][x].typeOfFlora == TypeOfFlora.AllTypeOfFlora.get(TMP_WerWhereCanSpawn.typesOfHeightWhereCanSpawn[j])){
-                            Found.add(Map[y][x]);
-                        }
-                    }
+
+            int NumberOfCurrentRes = 0;
+            if(minIfPossible < maxIfPossible){
+                NumberOfCurrentRes = Game.RandomGen.nextInt(minIfPossible, maxIfPossible);
+            }
+            else if(maxIfPossible == minIfPossible){
+                NumberOfCurrentRes = minIfPossible;
+            }
+
+            for(int j = 0; j < NumberOfCurrentRes; j++){
+                if(Found.size() > 0) {
+                    Tile TileToChangeRes = Found.get(Game.RandomGen.nextInt(Found.size()));
+                    TileToChangeRes.resource = TMP_Res;
+                    Found.remove(TileToChangeRes);
+                }
+                else{
+                    break;
                 }
             }
+
+
 
         }
 
 
     }
+
+    /*
+    static private boolean PositiveCheck(TileLayer TileTypeForCheck, HashMap<String,TileLayer> FromWhatGetTypeForCheck, String[] TMP_TypeForCheck){
+        if(TMP_TypeForCheck == null || TMP_TypeForCheck.length == 0){
+            return false;
+        }
+        else{
+            for(int j = 0; j < TMP_TypeForCheck.length; j++){
+                if(TileTypeForCheck == FromWhatGetTypeForCheck.get(TMP_TypeForCheck[j])){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+     */
+
+
+
+    static private boolean PositiveCheck_JavaPorevo(Tile ProcessedTile, int LayerType, WhereCanSpawn TMP_WhereCanSpawn){
+        switch(LayerType){
+            case HEIGHT_NUM:
+                //Height
+                if(TMP_WhereCanSpawn.typesOfHeightWhereCanSpawn == null || TMP_WhereCanSpawn.typesOfHeightWhereCanSpawn.containsKey(ProcessedTile.height.elementName)){
+                    return false;
+                }
+                break;
+            case TYPE_OF_FLORA_NUM:
+                //TypeOfFlora
+                if(TMP_WhereCanSpawn.typesOfFloraWhereCanSpawn == null || TMP_WhereCanSpawn.typesOfFloraWhereCanSpawn.containsKey(ProcessedTile.typeOfFlora.elementName)){
+                    return false;
+                }
+                break;
+            case TYPE_OF_LAND_NUM:
+                //TypeOfLand
+                if(TMP_WhereCanSpawn.typesOfLandWhereCanSpawn == null || TMP_WhereCanSpawn.typesOfLandWhereCanSpawn.containsKey(ProcessedTile.typeOfLand.elementName)){
+                    return false;
+                }
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    static private boolean NegativeCheck_JavaPorevo(Tile ProcessedTile, int LayerType, WhereCanSpawn TMP_WhereCanSpawn){
+        switch(LayerType){
+            case HEIGHT_NUM:
+                //Height
+                if(TMP_WhereCanSpawn.typesOfHeightWhereDontSpawn == null || TMP_WhereCanSpawn.typesOfHeightWhereDontSpawn.containsKey(ProcessedTile.height.elementName)){
+                    return true;
+                }
+                break;
+            case TYPE_OF_FLORA_NUM:
+                //TypeOfFlora
+                if(TMP_WhereCanSpawn.typesOfFloraWhereDontSpawn == null || TMP_WhereCanSpawn.typesOfFloraWhereDontSpawn.containsKey(ProcessedTile.height.elementName)){
+                    return true;
+                }
+                break;
+            case TYPE_OF_LAND_NUM:
+                //TypeOfLand
+                if(TMP_WhereCanSpawn.typesOfLandWhereDontSpawn == null || TMP_WhereCanSpawn.typesOfFloraWhereDontSpawn.containsKey(ProcessedTile.height.elementName)){
+                    return true;
+                }
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
+
+    /*
+    static private boolean NegativeCheck(TileLayer TileTypeForCheck, HashMap<String,TileLayer> FromWhatGetTypeForCheck, String[] TMP_TypeForCheck){
+        if(TMP_TypeForCheck != null){
+            for(int j = 0; j < TMP_TypeForCheck.length; j++){
+                if(TileTypeForCheck == FromWhatGetTypeForCheck.get(TMP_TypeForCheck[j])){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+     */
 
 }

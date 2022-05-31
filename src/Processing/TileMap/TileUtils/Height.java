@@ -4,12 +4,14 @@ import Processing.Units.BattleModifier;
 import Processing.Utilits.Wealth;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Height extends TileLayer implements Serializable {
     static final long serialVersionUID = 6L;
 
-    public static HashMap<String, Height> AllHeight = new HashMap<>();
+    public static LinkedHashMap<String, Height> AllHeight = new LinkedHashMap<>();
+    public static final Height Void = new Height("Void",0, 0,
+            BattleModifier.none, new Wealth());
     public static final Height DeepOcean = new Height("DeepOcean",0, 0,
             BattleModifier.none, new Wealth());
     public static final Height Shores = new Height("Shores", 0, 0,
