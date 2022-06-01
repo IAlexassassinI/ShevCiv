@@ -3,6 +3,7 @@ package Processing.TileMap;
 import Processing.Game.Game;
 import Processing.TileMap.TileUtils.*;
 import Processing.Utilits.Point;
+import Processing.Utilits.WhereCanBe;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -10,9 +11,7 @@ import java.util.LinkedList;
 public class GameMap implements Serializable {
     static final long serialVersionUID = 0L;
 
-    final static private int HEIGHT_NUM = 0;
-    final static private int TYPE_OF_FLORA_NUM = 1;
-    final static private int TYPE_OF_LAND_NUM = 2;
+
 
     Tile Map[][];
     int height;
@@ -97,7 +96,7 @@ public class GameMap implements Serializable {
             }
              */
 
-            WhereCanSpawn TMP_WhereCanSpawn = TMP_Res.whereCanSpawn;
+            WhereCanBe TMP_WhereCanSpawn = TMP_Res.whereCanSpawn;
 
             for(int y = 0; y < height; y++){
                 for(int x = 0; x < width; x++){
@@ -107,22 +106,16 @@ public class GameMap implements Serializable {
                         continue;
                     }
 
-                    if(PositiveCheck_JavaPorevo(ProcessedTile, TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
+                    if(WhereCanBe.PositiveCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
                         continue;
                     }
-                    if(NegativeCheck_JavaPorevo(ProcessedTile, TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
+                    if(WhereCanBe.NegativeCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
                         continue;
                     }
-                    if(PositiveCheck_JavaPorevo(ProcessedTile, HEIGHT_NUM, TMP_WhereCanSpawn)){
+                    if(WhereCanBe.PositiveCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
                         continue;
                     }
-                    if(NegativeCheck_JavaPorevo(ProcessedTile, HEIGHT_NUM, TMP_WhereCanSpawn)){
-                        continue;
-                    }
-                    if(PositiveCheck_JavaPorevo(ProcessedTile, TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
-                        continue;
-                    }
-                    if(NegativeCheck_JavaPorevo(ProcessedTile, TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
+                    if(WhereCanBe.NegativeCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
                         continue;
                     }
 
@@ -158,87 +151,6 @@ public class GameMap implements Serializable {
 
     }
 
-    /*
-    static private boolean PositiveCheck(TileLayer TileTypeForCheck, HashMap<String,TileLayer> FromWhatGetTypeForCheck, String[] TMP_TypeForCheck){
-        if(TMP_TypeForCheck == null || TMP_TypeForCheck.length == 0){
-            return false;
-        }
-        else{
-            for(int j = 0; j < TMP_TypeForCheck.length; j++){
-                if(TileTypeForCheck == FromWhatGetTypeForCheck.get(TMP_TypeForCheck[j])){
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-     */
 
-
-
-    static private boolean PositiveCheck_JavaPorevo(Tile ProcessedTile, int LayerType, WhereCanSpawn TMP_WhereCanSpawn){
-        switch(LayerType){
-            case HEIGHT_NUM:
-                //Height
-                if(TMP_WhereCanSpawn.typesOfHeightWhereCanSpawn == null || TMP_WhereCanSpawn.typesOfHeightWhereCanSpawn.containsKey(ProcessedTile.height.elementName)){
-                    return false;
-                }
-                break;
-            case TYPE_OF_FLORA_NUM:
-                //TypeOfFlora
-                if(TMP_WhereCanSpawn.typesOfFloraWhereCanSpawn == null || TMP_WhereCanSpawn.typesOfFloraWhereCanSpawn.containsKey(ProcessedTile.typeOfFlora.elementName)){
-                    return false;
-                }
-                break;
-            case TYPE_OF_LAND_NUM:
-                //TypeOfLand
-                if(TMP_WhereCanSpawn.typesOfLandWhereCanSpawn == null || TMP_WhereCanSpawn.typesOfLandWhereCanSpawn.containsKey(ProcessedTile.typeOfLand.elementName)){
-                    return false;
-                }
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-
-    static private boolean NegativeCheck_JavaPorevo(Tile ProcessedTile, int LayerType, WhereCanSpawn TMP_WhereCanSpawn){
-        switch(LayerType){
-            case HEIGHT_NUM:
-                //Height
-                if(TMP_WhereCanSpawn.typesOfHeightWhereDontSpawn == null || TMP_WhereCanSpawn.typesOfHeightWhereDontSpawn.containsKey(ProcessedTile.height.elementName)){
-                    return true;
-                }
-                break;
-            case TYPE_OF_FLORA_NUM:
-                //TypeOfFlora
-                if(TMP_WhereCanSpawn.typesOfFloraWhereDontSpawn == null || TMP_WhereCanSpawn.typesOfFloraWhereDontSpawn.containsKey(ProcessedTile.height.elementName)){
-                    return true;
-                }
-                break;
-            case TYPE_OF_LAND_NUM:
-                //TypeOfLand
-                if(TMP_WhereCanSpawn.typesOfLandWhereDontSpawn == null || TMP_WhereCanSpawn.typesOfFloraWhereDontSpawn.containsKey(ProcessedTile.height.elementName)){
-                    return true;
-                }
-                break;
-            default:
-                break;
-        }
-        return false;
-    }
-
-    /*
-    static private boolean NegativeCheck(TileLayer TileTypeForCheck, HashMap<String,TileLayer> FromWhatGetTypeForCheck, String[] TMP_TypeForCheck){
-        if(TMP_TypeForCheck != null){
-            for(int j = 0; j < TMP_TypeForCheck.length; j++){
-                if(TileTypeForCheck == FromWhatGetTypeForCheck.get(TMP_TypeForCheck[j])){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-     */
 
 }
