@@ -6,6 +6,7 @@ import Processing.TileMap.TileUtils.*;
 import Processing.Units.Unit;
 import Processing.Utilits.Point;
 import Processing.Utilits.Wealth;
+import Processing.Utilits.WhereCanBe;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,13 +14,12 @@ import java.util.ArrayList;
 public class Tile implements Serializable {
     static final long serialVersionUID = 111L;
 
-    Point coordinates;
+    public Point coordinates;
     GameMap map;
-    Height height = Height.FlatLand;
-    TypeOfLand typeOfLand = TypeOfLand.Green;
-    Resource resource = Resource.none;
-    TypeOfBuilding typeOfBuilding = TypeOfBuilding.none;
-    TypeOfFlora typeOfFlora = TypeOfFlora.none;
+    public TypeOfLand typeOfLand = TypeOfLand.DeepOcean;
+    public Resource resource = Resource.none;
+    public TypeOfBuilding typeOfBuilding = TypeOfBuilding.none;
+    public TypeOfFlora typeOfFlora = TypeOfFlora.none;
 
     boolean isThereRoad = false;
 
@@ -49,7 +49,7 @@ public class Tile implements Serializable {
     }
 
     public void CalculateWealth(){
-        this.wealth.toZero().dWealth(height.wealth).dWealth(typeOfLand.wealth).dWealth(resource.wealth).dWealth(typeOfBuilding.wealth).dWealth(typeOfFlora.wealth);
+        this.wealth.toZero().dWealth(typeOfLand.wealth).dWealth(resource.wealth).dWealth(typeOfBuilding.wealth).dWealth(typeOfFlora.wealth);
     }
 
     public GameMap getMap() {
@@ -64,20 +64,12 @@ public class Tile implements Serializable {
         this.coordinates = coordinates;
     }
 
-    public Height getHeight() {
-        return height;
-    }
-
-    public void setHeight(Height height) {
-        this.height = height;
-    }
-
     public TypeOfLand getTypeOfLand() {
         return typeOfLand;
     }
 
     public void setTypeOfLand(TypeOfLand typeOfLand) {
-        if(this.typeOfFlora.whereCanExist.containsKey(TypeOfLand.Void.elementName) || this.typeOfFlora.whereCanExist.containsKey(typeOfLand.elementName)){
+        if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_LAND_NUM, this.typeOfFlora.whereCanExist)){
             this.typeOfLand = typeOfLand;
             return;
         }
@@ -99,9 +91,9 @@ public class Tile implements Serializable {
     }
 
     public void setTypeOfBuilding(TypeOfBuilding typeOfBuilding) {
-        if(typeOfBuilding.whatLandIsNeeded.containsKey(TypeOfLand.Void.elementName) || typeOfBuilding.whatLandIsNeeded.containsKey(this.typeOfLand.elementName)){
-            if(typeOfBuilding.whatResourceIsNeeded.containsKey(Resource.none.elementName) || typeOfBuilding.whatResourceIsNeeded.containsKey(this.resource.elementName)){
-                if(typeOfBuilding.whatFloraIsNeeded.containsKey(TypeOfFlora.none.elementName) || typeOfBuilding.whatFloraIsNeeded.containsKey(this.typeOfFlora.elementName)){
+        if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_LAND_NUM, this.typeOfBuilding.whereCanExist)){
+            if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_RESOURCE_NUM, this.typeOfBuilding.whereCanExist)){
+                if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_FLORA_NUM, this.typeOfBuilding.whereCanExist)){
                     if(typeOfBuilding.destroyFlora){
                         this.typeOfFlora = TypeOfFlora.none;
                     }
@@ -117,7 +109,21 @@ public class Tile implements Serializable {
 
     //TODO Maybe need something more TODO TODO
     public void setTypeOfFlora(TypeOfFlora typeOfFlora) {
-        this.typeOfFlora = typeOfFlora;
+        if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_LAND_NUM, this.typeOfFlora.whereCanExist)){
+            this.typeOfFlora = typeOfFlora;
+        }
+    }
+
+    public void setMap(GameMap map) {
+        this.map = map;
+    }
+
+    public Wealth getWealth() {
+        return wealth;
+    }
+
+    public void setWealth(Wealth wealth) {
+        this.wealth = wealth;
     }
 
     public boolean isThereRoad() {
@@ -190,18 +196,6 @@ public class Tile implements Serializable {
 
     public boolean isRiverRight() {
         return isRiverRight;
-    }
-
-    public void setMap(GameMap map) {
-        this.map = map;
-    }
-
-    public Wealth getWealth() {
-        return wealth;
-    }
-
-    public void setWealth(Wealth wealth) {
-        this.wealth = wealth;
     }
 
     public void setRiverRight(boolean riverRight) {

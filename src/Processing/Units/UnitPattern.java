@@ -1,6 +1,7 @@
 package Processing.Units;
 
 import Processing.TileMap.TileUtils.Resource;
+import Processing.Utilits.WhereCanBe;
 
 import java.io.Serializable;
 
@@ -18,11 +19,22 @@ public class UnitPattern implements Serializable {
 
     int maxActionPoints;
 
-   //WhereCanMove tile layers, high
+    boolean isFlying;
+    WhereCanBe whereCanMove;
 
     boolean isRanged;
     int rangeOfAttack;
     int rangedDamage;
+
+    int attackMelee;
+    int defenceMelee;
+    int defenceRanged;
+    int maxHitPoints;
+    int visionRange;
+    int maxNumberOfAttacks;
+    int defenceBonusFromSkipTurn;
+
+
 
 
 
