@@ -15,41 +15,50 @@ public class Tile implements Serializable {
     static final long serialVersionUID = 111L;
 
     public Point coordinates;
-    GameMap map;
+    public GameMap map;
     public TypeOfLand typeOfLand = TypeOfLand.DeepOcean;
     public Resource resource = Resource.none;
     public TypeOfBuilding typeOfBuilding = TypeOfBuilding.none;
     public TypeOfFlora typeOfFlora = TypeOfFlora.none;
 
-    boolean isThereRoad = false;
+    public boolean isThereRoad = false;
 
-    Unit unit = null; //TODO INIT by NONE
-    City city = null; //TODO INIT by NONE
-    City owner = null; //TODO INIT by NONE
-    boolean isProcessedByPeople = false;
+    public Unit unit = null; //TODO INIT by NONE
+    public City city = null; //TODO INIT by NONE
+    public City owner = null; //TODO INIT by NONE
+    public boolean isProcessedByPeople = false;
 
-    ArrayList<Player> isVisibleFor = new ArrayList<>();
-    ArrayList<Player> isFogOfWarFor = new ArrayList<>();
+    public ArrayList<Player> isVisibleFor = new ArrayList<>();
+    public ArrayList<Player> isFogOfWarFor = new ArrayList<>();
 
-    boolean isRiverTop = false;
-    boolean isRiverRight = false;
-    boolean isRiverLeft = false;
-    boolean isRiverBottom = false;
+    public boolean isRiverTop = false;
+    public boolean isRiverRight = false;
+    public boolean isRiverLeft = false;
+    public boolean isRiverBottom = false;
 
-    boolean isBridgeTop = false;
-    boolean isBridgeRight = false;
-    boolean isBridgeLeft = false;
-    boolean isBridgeBottom = false;
+    public boolean isBridgeTop = false;
+    public boolean isBridgeRight = false;
+    public boolean isBridgeLeft = false;
+    public boolean isBridgeBottom = false;
 
-    Wealth wealth = new Wealth(); //TODO must be empty
+    public Wealth wealth = new Wealth(); //TODO must be empty
+    public double ActionCost = 0;
 
-    Tile(Point coordinates, GameMap map){
+    public Tile(Point coordinates, GameMap map){
         this.coordinates = coordinates;
         this.map = map;
     }
 
     public void CalculateWealth(){
         this.wealth.toZero().dWealth(typeOfLand.wealth).dWealth(resource.wealth).dWealth(typeOfBuilding.wealth).dWealth(typeOfFlora.wealth);
+    }
+
+    public void CalculateActionCost(){
+        this.ActionCost = typeOfBuilding.additionalActionPointCost+typeOfLand.additionalActionPointCost+typeOfFlora.additionalActionPointCost+resource.additionalActionPointCost;
+    }
+
+    public double getActionCost() {
+        return ActionCost;
     }
 
     public GameMap getMap() {
@@ -69,7 +78,7 @@ public class Tile implements Serializable {
     }
 
     public void setTypeOfLand(TypeOfLand typeOfLand) {
-        if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_LAND_NUM, this.typeOfFlora.whereCanExist)){
+        if(WhereCanBe.FullCheck(this, this.typeOfFlora.whereCanExist)){
             this.typeOfLand = typeOfLand;
             return;
         }
@@ -83,7 +92,9 @@ public class Tile implements Serializable {
 
     //allow weird set for future ability of terraform
     public void setResource(Resource resource) {
-        this.resource = resource;
+        if(WhereCanBe.FullCheck(this, this.resource.whereCanSpawn)){
+            this.resource = resource;
+        }
     }
 
     public TypeOfBuilding getTypeOfBuilding() {
@@ -91,15 +102,11 @@ public class Tile implements Serializable {
     }
 
     public void setTypeOfBuilding(TypeOfBuilding typeOfBuilding) {
-        if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_LAND_NUM, this.typeOfBuilding.whereCanExist)){
-            if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_RESOURCE_NUM, this.typeOfBuilding.whereCanExist)){
-                if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_FLORA_NUM, this.typeOfBuilding.whereCanExist)){
-                    if(typeOfBuilding.destroyFlora){
-                        this.typeOfFlora = TypeOfFlora.none;
-                    }
-                    this.typeOfBuilding = typeOfBuilding;
-                }
+        if(WhereCanBe.FullCheck(this, this.typeOfBuilding.whereCanExist)){
+            if(typeOfBuilding.destroyFlora){
+                this.typeOfFlora = TypeOfFlora.none;
             }
+            this.typeOfBuilding = typeOfBuilding;
         }
     }
 
@@ -109,7 +116,7 @@ public class Tile implements Serializable {
 
     //TODO Maybe need something more TODO TODO
     public void setTypeOfFlora(TypeOfFlora typeOfFlora) {
-        if(WhereCanBe.PositiveCheck_JavaPorevo(this, WhereCanBe.TYPE_OF_LAND_NUM, this.typeOfFlora.whereCanExist)){
+        if(WhereCanBe.FullCheck(this, this.typeOfFlora.whereCanExist)){
             this.typeOfFlora = typeOfFlora;
         }
     }

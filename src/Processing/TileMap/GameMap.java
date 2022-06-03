@@ -106,21 +106,9 @@ public class GameMap implements Serializable {
                         continue;
                     }
 
-                    if(WhereCanBe.PositiveCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
-                        continue;
+                    if(WhereCanBe.FullCheck(ProcessedTile, TMP_WhereCanSpawn)){
+                        Found.add(ProcessedTile);
                     }
-                    if(WhereCanBe.NegativeCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
-                        continue;
-                    }
-                    if(WhereCanBe.PositiveCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
-                        continue;
-                    }
-                    if(WhereCanBe.NegativeCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
-                        continue;
-                    }
-
-                    Found.add(ProcessedTile);
-
                 }
             }
 
