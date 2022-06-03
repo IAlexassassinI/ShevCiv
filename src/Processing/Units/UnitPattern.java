@@ -9,33 +9,33 @@ import java.io.Serializable;
 public class UnitPattern implements Serializable {
     static final long serialVersionUID = 15L;
 
-    String NameOfUnit;
+    public String NameOfUnit;
 
-    int productionCost;
-    int moneyCost;
-    Resource NeededResources[];
+    public double productionCost;
+    public double moneyCost;
+    public Resource NeededResources[];
 
-    int moneyUpkeep;
+    public double moneyUpkeep;
 
-    int maxActionPoints;
+    public double maxActionPoints;
 
-    boolean isFlying;
-    WhereCanBe whereCanMove;
+    public boolean isFlying;
+    public WhereCanBe whereCanMove;
 
-    boolean isRanged;
-    int rangeOfAttack;
-    int rangedDamage;
+    public boolean isRanged;
+    public double rangeOfAttack;
+    public double rangedDamage;
 
-    int attackMelee;
-    int defenceMelee;
-    int defenceRanged;
-    int maxHitPoints;
-    int visionRange;
-    int maxNumberOfAttacks;
-    int defenceBonusFromSkipTurn;
+    public double attackMelee;
+    public double defenceMelee;
+    public double defenceRanged;
+    public double maxHitPoints;
+    public double visionRange;
+    public double maxNumberOfAttacks;
+    public double defenceBonusFromSkipTurn;
 
-
-
+    public double maxCapacity;
+    public SpecialAbility Abilities[];
 
 
 }
