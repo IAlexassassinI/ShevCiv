@@ -5,27 +5,27 @@ import java.io.Serializable;
 public class BattleModifier implements Serializable {
     static final long serialVersionUID = 2L;
 
-    public int additionalDefenseMelee;
-    public int additionalDefenseRanged;
+    public double additionalDefenseMelee;
+    public double additionalDefenseRanged;
 
-    public int additionalAttackMelee;
-    public int additionalAttackRanged;
+    public double additionalAttackMelee;
+    public double additionalAttackRanged;
 
-    public int additionalShootingRange;
+    public double additionalShootingRange;
 
-    public int additionalHealing;
+    public double additionalHealing;
 
     public static final BattleModifier none = new BattleModifier(0, 0,0, 0, 0,0);
 
-    BattleModifier(int additionalDefenseMelee,
-                   int additionalDefenseRanged,
+    BattleModifier(double additionalDefenseMelee,
+                   double additionalDefenseRanged,
 
-                   int additionalAttackMelee,
-                   int additionalAttackRanged,
+                   double additionalAttackMelee,
+                   double additionalAttackRanged,
 
-                   int additionalShootingRange,
+                   double additionalShootingRange,
 
-                   int additionalHealing){
+                   double additionalHealing){
 
         this.additionalDefenseMelee = additionalDefenseMelee;
         this.additionalDefenseRanged = additionalDefenseRanged;
