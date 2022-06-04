@@ -1,9 +1,7 @@
 package Processing.Utilits;
 
-import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Path {
@@ -24,5 +22,9 @@ public class Path {
 
     public LinkedList<Tile> getTilePath() {
         return tilePath;
+    }
+
+    public double getCurrentActionPoints() {
+        return currentActionPoints;
     }
 }

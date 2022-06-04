@@ -6,6 +6,8 @@ import Processing.Utilits.Path;
 import Processing.Utilits.PathFinder;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Unit implements Serializable {
     static final long serialVersionUID = 3L;
@@ -18,17 +20,30 @@ public class Unit implements Serializable {
     public double currentHitPoints;
     public double currentNumberOfAttacks;
 
-    public Path[] getAllTPathInMoveRange(){
-        return PathFinder.findMovePath(currentActionPoints, onTile);
+    static private HashMap<Tile,Path> generatedPath; //TODO
+    public HashMap<Tile,Path> getAllTPathInMoveRange(){
+        generatedPath = PathFinder.findMovePath(currentActionPoints, onTile);
+        return generatedPath;
     }
 
     public Tile[] getAllTilesInMoveRange(){
-        Path Pathes[] = PathFinder.findMovePath(currentActionPoints, onTile);
+        Path Pathes[] = getAllTPathInMoveRange().values().toArray(new Path[0]);
         Tile Res[] = new Tile[Pathes.length];
         for(int i = 0; i < Pathes.length; i++){
             Res[i] = Pathes[i].getTilePath().peekLast();
         }
         return Res;
+    }
+
+    public LinkedList<Tile> Move(Tile toTile){
+        Path pathToTile = generatedPath.get(toTile);
+        if(pathToTile != null){
+            this.onTile.unit = null;
+            pathToTile.getTilePath().peekLast().unit = this;
+            this.currentActionPoints = pathToTile.getCurrentActionPoints();
+            return pathToTile.tilePath;
+        }
+        return null;
     }
 
     /*

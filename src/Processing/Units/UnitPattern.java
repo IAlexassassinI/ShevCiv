@@ -21,6 +21,10 @@ public class UnitPattern implements Serializable {
 
     public boolean isFlying;
     public WhereCanBe whereCanMove;
+    public double moveModifier;
+    public double howMuchAffectedByLandAdditionalAPCost;
+    public double howMuchAffectedByFloraAdditionalAPCost;
+    public double howMuchAffectedByResourceAdditionalAPCost;
 
     public boolean isRanged;
     public double rangeOfAttack;
