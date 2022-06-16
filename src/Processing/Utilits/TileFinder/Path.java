@@ -1,4 +1,4 @@
-package Processing.Utilits;
+package Processing.Utilits.TileFinder;
 
 import Processing.TileMap.Tile;
 

@@ -16,7 +16,6 @@ public class TileLayer implements Serializable {
     }
 
     public int additionalActionPointCost;
-    public int additionalVision;
 
     public BattleModifier battleModifier;
 
@@ -27,7 +26,6 @@ public class TileLayer implements Serializable {
                      //int type,
 
                      int additionalActionPointCost,
-                     int additionalVision,
 
                      BattleModifier battleModifier,
 
@@ -36,7 +34,6 @@ public class TileLayer implements Serializable {
         this.elementName = elementName;
         //this.Type = type;
         this.additionalActionPointCost = additionalActionPointCost;
-        this.additionalVision = additionalVision;
 
         this.battleModifier = battleModifier;
 

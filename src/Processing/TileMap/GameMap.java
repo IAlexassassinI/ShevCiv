@@ -33,9 +33,12 @@ public class GameMap implements Serializable {
         return Map;
     }
 
-    //TODO Set params from file maybe Not
-    private void LoadMapLayers(){
+    public int getHeight() {
+        return height;
+    }
 
+    public int getWidth() {
+        return width;
     }
 
     public Tile getTile(int x, int y){

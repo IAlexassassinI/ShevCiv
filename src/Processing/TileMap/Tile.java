@@ -28,18 +28,8 @@ public class Tile implements Serializable {
     public City owner = null; //TODO INIT by NONE
     public boolean isProcessedByPeople = false;
 
-    public ArrayList<Player> isVisibleFor = new ArrayList<>();
-    public ArrayList<Player> isFogOfWarFor = new ArrayList<>();
 
-    public boolean isRiverTop = false;
-    public boolean isRiverRight = false;
-    public boolean isRiverLeft = false;
-    public boolean isRiverBottom = false;
-
-    public boolean isBridgeTop = false;
-    public boolean isBridgeRight = false;
-    public boolean isBridgeLeft = false;
-    public boolean isBridgeBottom = false;
+    //TODO add more bridge position and calculate it in pathfinder
 
     public Wealth wealth = new Wealth(); //TODO must be empty
     public double ActionCost = 0;
@@ -56,6 +46,18 @@ public class Tile implements Serializable {
     public void CalculateActionCost(){
         this.ActionCost = typeOfBuilding.additionalActionPointCost+typeOfLand.additionalActionPointCost+typeOfFlora.additionalActionPointCost+resource.additionalActionPointCost;
     }
+
+    public boolean isVisibleFor(Player player){
+        if(player.VisionMap[this.coordinates.y][this.coordinates.x] > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isFogOfWarFor(Player player){
+        return !player.OpenFOWMap[this.coordinates.y][this.coordinates.x];
+    }
+
 
     public double getActionCost() {
         return ActionCost;
@@ -114,7 +116,6 @@ public class Tile implements Serializable {
         return typeOfFlora;
     }
 
-    //TODO Maybe need something more TODO TODO
     public void setTypeOfFlora(TypeOfFlora typeOfFlora) {
         if(WhereCanBe.FullCheck(this, this.typeOfFlora.whereCanExist)){
             this.typeOfFlora = typeOfFlora;
@@ -173,116 +174,60 @@ public class Tile implements Serializable {
         isProcessedByPeople = processedByPeople;
     }
 
-    public ArrayList<Player> getIsVisibleFor() {
-        return isVisibleFor;
+    boolean River[] = new boolean[8];
+    boolean Bridge[] = new boolean[8];
+
+    public boolean isRiver(int direction){
+        return  River[direction];
     }
 
-    public void setIsVisibleFor(ArrayList<Player> isVisibleFor) {
-        this.isVisibleFor = isVisibleFor;
-    }
+    public void setRiver(int direction, boolean value){
+        if((direction & 1) == 0){
+            Tile TMP_Tile = map.getTile(this.coordinates.LookAt(Point.ALL_SIDES[direction]));
+            if(TMP_Tile != null){
+                TMP_Tile.River[direction+4%8] = value;
+            }
+            River[direction] = value;
 
-    public ArrayList<Player> getIsFogOfWarFor() {
-        return isFogOfWarFor;
-    }
+            boolean setLeft = false;
+            boolean setRight= false;
+            if(value){
+                if(River[(direction+6)%8]){
+                    setLeft = true;
+                }
+                if(River[(direction+2)%8]){
+                    setRight = true;
+                }
+                TMP_Tile = map.getTile(this.coordinates.LookAt(Point.ALL_SIDES[(direction+7)%8]));
+                if(TMP_Tile != null){
+                    if(TMP_Tile.isRiver((direction+4)%8)){
+                        setLeft = true;
+                    }
+                }
+                TMP_Tile = map.getTile(this.coordinates.LookAt(Point.ALL_SIDES[(direction+1)%8]));
+                if(TMP_Tile != null){
+                    if(TMP_Tile.isRiver((direction+4)%8)){
+                        setRight = true;
+                    }
+                }
+            }
 
-    public void setIsFogOfWarFor (ArrayList<Player> isFogOfWarFor) {
-        this.isFogOfWarFor = isFogOfWarFor;
-    }
+            River[(direction+7)%8] = setLeft;
+            River[(direction+1)%8] = setRight;
 
-    public boolean isRiverTop() {
-        return isRiverTop;
-    }
-
-    public void setRiverTop(boolean riverTop) {
-        Tile TMP_Tile = map.getTile(coordinates.LookAt(0,-1));
-        if(TMP_Tile != null){
-            TMP_Tile.isRiverBottom = riverTop;
         }
-        isRiverTop = riverTop;
     }
 
-    public boolean isRiverRight() {
-        return isRiverRight;
+    public boolean isBridge(int direction) {
+        return Bridge[direction];
     }
 
-    public void setRiverRight(boolean riverRight) {
-        Tile TMP_Tile = map.getTile(coordinates.LookAt(1,0));
+    public void setBridge(int direction, boolean value){
+        Tile TMP_Tile = map.getTile(this.coordinates.LookAt(Point.ALL_SIDES[direction]));
         if(TMP_Tile != null){
-            TMP_Tile.isRiverLeft = riverRight;
+            TMP_Tile.Bridge[direction+4%8] = value;
         }
-        isRiverRight = riverRight;
-    }
-
-    public boolean isRiverLeft() {
-        return isRiverLeft;
-    }
-
-    public void setRiverLeft(boolean riverLeft) {
-        Tile TMP_Tile = map.getTile(coordinates.LookAt(-1,0));
-        if(TMP_Tile != null){
-            TMP_Tile.isRiverRight = riverLeft;
-        }
-        isRiverLeft = riverLeft;
-    }
-
-    public boolean isRiverBottom() {
-        return isRiverBottom;
-    }
-
-    public void setRiverBottom(boolean riverBottom) {
-        Tile TMP_Tile = map.getTile(coordinates.LookAt(0,1));
-        if(TMP_Tile != null){
-            TMP_Tile.isRiverTop = riverBottom;
-        }
-        isRiverBottom = riverBottom;
-    }
-
-    public boolean isBridgeTop() {
-        return isBridgeTop;
-    }
-
-    public void setBridgeTop(boolean bridgeTop) {
-        Tile TMP_Tile = map.getTile(coordinates.LookAt(0,-1));
-        if(TMP_Tile != null){
-            TMP_Tile.isBridgeBottom = bridgeTop;
-        }
-        isBridgeTop = bridgeTop;
-    }
-
-    public boolean isBridgeRight() {
-        return isBridgeRight;
-    }
-
-    public void setBridgeRight(boolean bridgeRight) {
-        Tile TMP_Tile = map.getTile(coordinates.LookAt(1,0));
-        if(TMP_Tile != null){
-            TMP_Tile.isBridgeLeft = bridgeRight;
-        }
-        isBridgeRight = bridgeRight;
-    }
-
-    public boolean isBridgeLeft() {
-        return isBridgeLeft;
-    }
-
-    public void setBridgeLeft(boolean bridgeLeft) {
-        Tile TMP_Tile = map.getTile(coordinates.LookAt(-1,0));
-        if(TMP_Tile != null){
-            TMP_Tile.isBridgeRight = bridgeLeft;
-        }
-        isBridgeLeft = bridgeLeft;
-    }
-
-    public boolean isBridgeBottom() {
-        return isBridgeBottom;
-    }
-
-    public void setBridgeBottom(boolean bridgeBottom) {
-        Tile TMP_Tile = map.getTile(coordinates.LookAt(0,1));
-        if(TMP_Tile != null){
-            TMP_Tile.isBridgeTop = bridgeBottom;
-        }
-        isBridgeBottom = bridgeBottom;
+        Bridge[direction] = value;
     }
 
 }
