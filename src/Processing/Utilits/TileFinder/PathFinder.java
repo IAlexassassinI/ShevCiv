@@ -1,15 +1,17 @@
-package Processing.Utilits;
+package Processing.Utilits.TileFinder;
 
 import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
 import Processing.Units.Unit;
+import Processing.Utilits.Point;
+import Processing.Utilits.WhereCanBe;
 
 import java.util.HashMap;
 
 public class PathFinder {
 
-    final static public double WITHOUT_ROAD_MODIFIER = 1.25D;
-    final static public double WITH_ROAD_MODIFIER = 1D;
+    final static public double WITHOUT_ROAD_MODIFIER = 1D;
+    final static public double WITH_ROAD_MODIFIER = 0.5D;
     final static public double DIAGONAL_MODIFIER = 1.41D;
     final static public double BASIC_AP_COST = 1D;
 
@@ -27,20 +29,23 @@ public class PathFinder {
     }
 
     private static void Pathfinder(Path path){
-        for(int i = 1; i < Point.ALL_SIDES.length; i++){
+        for(int i = 0; i < Point.ALL_SIDES.length-1; i++){
             Tile TMP_Tile = CurrentMap.getTile(Point.ALL_SIDES[i]);
             if(TMP_Tile != null){
                 if(TMP_Tile.unit != null){
+                    continue;
+                }
+                if(TMP_Tile.isFogOfWarFor(CurrentUnit.owner)){
                     continue;
                 }
                 if(WhereCanBe.FullCheck(TMP_Tile, CurrentUnit.typeOfUnit.whereCanMove)){
                     if(path.currentActionPoints > 0){
                         double modifiers;
                         if((i & 1) == 0){
-                            modifiers = CurrentUnit.typeOfUnit.moveModifier;
+                            modifiers = CurrentUnit.typeOfUnit.moveModifier*DIAGONAL_MODIFIER;
                         }
                         else{
-                            modifiers = CurrentUnit.typeOfUnit.moveModifier*DIAGONAL_MODIFIER;
+                            modifiers = CurrentUnit.typeOfUnit.moveModifier;
                         }
                         double actionCost = BASIC_AP_COST;
                         //final modifier
@@ -77,74 +82,13 @@ public class PathFinder {
         }
     }
 
-    private static void CaseTree(Path path, Tile CurrentTile, int num, double ActionCost){
+    private static void CaseTree(Path path, Tile CurrentTile, int direction, double ActionCost){
         double ActionPointsLeft = path.currentActionPoints - ActionCost;
-        switch(num){
-            case Point.TOP_NUM:
-                if(CurrentTile.isRiverBottom && !CurrentTile.isBridgeBottom){
-                    ActionPointsLeft = 0;
-                }
-                break;
-            case Point.TOP_RIGHT_NUM:
-                if(CurrentTile.isRiverLeft && CurrentTile.isRiverBottom){
-                    ActionPointsLeft = 0;
-                }
-                if(CurrentTile.isRiverLeft && path.tilePath.peekLast().isRiverRight){
-                    ActionPointsLeft = 0;
-                }
-                if(CurrentTile.isRiverBottom && path.tilePath.peekLast().isRiverTop){
-                    ActionPointsLeft = 0;
-                }
-                break;
-            case Point.RIGHT_NUM:
-                if(CurrentTile.isRiverLeft && !CurrentTile.isBridgeLeft){
-                    ActionPointsLeft = 0;
-                }
-                break;
-            case Point.BOTTOM_RIGHT_NUM:
-                if(CurrentTile.isRiverLeft && CurrentTile.isRiverTop){
-                    ActionPointsLeft = 0;
-                }
-                if(CurrentTile.isRiverLeft && path.tilePath.peekLast().isRiverRight){
-                    ActionPointsLeft = 0;
-                }
-                if(CurrentTile.isRiverTop && path.tilePath.peekLast().isRiverBottom){
-                    ActionPointsLeft = 0;
-                }
-                break;
-            case Point.BOTTOM_NUM:
-                if(CurrentTile.isRiverTop && !CurrentTile.isBridgeTop){
-                    ActionPointsLeft = 0;
-                }
-                break;
-            case Point.BOTTOM_LEFT_NUM:
-                if(CurrentTile.isRiverRight && CurrentTile.isRiverTop){
-                    ActionPointsLeft = 0;
-                }
-                if(CurrentTile.isRiverRight && path.tilePath.peekLast().isRiverLeft){
-                    ActionPointsLeft = 0;
-                }
-                if(CurrentTile.isRiverTop && path.tilePath.peekLast().isRiverBottom){
-                    ActionPointsLeft = 0;
-                }
-                break;
-            case Point.LEFT_NUM:
-                if(CurrentTile.isRiverRight && !CurrentTile.isBridgeRight){
-                    ActionPointsLeft = 0;
-                }
-                break;
-            case Point.TOP_LEFT_NUM:
-                if(CurrentTile.isRiverRight && CurrentTile.isRiverBottom){
-                    ActionPointsLeft = 0;
-                }
-                if(CurrentTile.isRiverRight && path.tilePath.peekLast().isRiverLeft){
-                    ActionPointsLeft = 0;
-                }
-                if(CurrentTile.isRiverBottom && path.tilePath.peekLast().isRiverTop){
-                    ActionPointsLeft = 0;
-                }
-                break;
+
+        if(CurrentTile.isRiver(direction) && !CurrentTile.isBridge(direction)){
+            ActionPointsLeft = 0;
         }
+
         if(AllPath.containsKey(CurrentTile)){
             if(AllPath.get(CurrentTile).currentActionPoints >= ActionPointsLeft){
                 return;

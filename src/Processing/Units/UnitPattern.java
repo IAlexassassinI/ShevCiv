@@ -27,8 +27,9 @@ public class UnitPattern implements Serializable {
     public double howMuchAffectedByResourceAdditionalAPCost;
 
     public boolean isRanged;
+    public Projectile projectile;
     public double rangeOfAttack;
-    public double rangedDamage;
+    public double rangedAttack;
 
     public double attackMelee;
     public double defenceMelee;

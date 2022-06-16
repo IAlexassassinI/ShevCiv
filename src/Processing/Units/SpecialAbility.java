@@ -1,5 +1,7 @@
 package Processing.Units;
 
+import Processing.Utilits.WhereCanBe;
+
 import java.util.HashMap;
 
 public abstract class SpecialAbility {
