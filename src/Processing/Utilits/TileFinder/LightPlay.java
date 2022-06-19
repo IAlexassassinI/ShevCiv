@@ -6,7 +6,7 @@ import Processing.Units.Projectile;
 import Processing.Units.Unit;
 import Processing.Utilits.GeneralUtility;
 import Processing.Utilits.Point;
-import Processing.Utilits.TwoTTT;
+import Processing.Utilits.Wrapers.TwoTTT;
 import Processing.Utilits.WhereCanBe;
 
 import java.util.HashMap;

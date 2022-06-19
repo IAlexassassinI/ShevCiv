@@ -1,9 +1,12 @@
 package Processing.Units;
 
 import Processing.TileMap.TileUtils.Resource;
+import Processing.Units.Ability.SpecialAbility;
 import Processing.Utilits.WhereCanBe;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class UnitPattern implements Serializable {
@@ -40,7 +43,9 @@ public class UnitPattern implements Serializable {
     public double defenceBonusFromSkipTurn;
 
     public double maxCapacity;
-    public SpecialAbility Abilities[];
+    public ArrayList<SpecialAbility> Abilities;
+    public double workEfficiency = 1;
+    public String Tags[];
 
 
 }
