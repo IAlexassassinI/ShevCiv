@@ -7,9 +7,9 @@ import Processing.Units.Unit;
 import Processing.Utilits.Point;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
+import Processing.Utilits.Wrapers.CreatableObject;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Tile implements Serializable {
     static final long serialVersionUID = 111L;
@@ -18,18 +18,20 @@ public class Tile implements Serializable {
     public GameMap map;
     public TypeOfLand typeOfLand = TypeOfLand.DeepOcean;
     public Resource resource = Resource.none;
-    public TypeOfBuilding typeOfBuilding = TypeOfBuilding.none;
     public TypeOfFlora typeOfFlora = TypeOfFlora.none;
+    public TypeOfBuilding typeOfBuilding = TypeOfBuilding.none;
 
-    public boolean isThereRoad = false;
+    public CreatableObject buildingInProcess = null;
+
+    //public boolean isThereRoad = false;
+    //boolean Bridge[] = new boolean[8];
+    public RoadBridge roadAndBridges = new RoadBridge();
+    public boolean river[] = new boolean[8];
 
     public Unit unit = null; //TODO INIT by NONE
     public City city = null; //TODO INIT by NONE
     public City owner = null; //TODO INIT by NONE
     public boolean isProcessedByPeople = false;
-
-
-    //TODO add more bridge position and calculate it in pathfinder
 
     public Wealth wealth = new Wealth(); //TODO must be empty
     public double ActionCost = 0;
@@ -41,10 +43,6 @@ public class Tile implements Serializable {
 
     public void CalculateWealth(){
         this.wealth.toZero().dWealth(typeOfLand.wealth).dWealth(resource.wealth).dWealth(typeOfBuilding.wealth).dWealth(typeOfFlora.wealth);
-    }
-
-    public void CalculateActionCost(){
-        this.ActionCost = typeOfBuilding.additionalActionPointCost+typeOfLand.additionalActionPointCost+typeOfFlora.additionalActionPointCost+resource.additionalActionPointCost;
     }
 
     public boolean isVisibleFor(Player player){
@@ -135,11 +133,11 @@ public class Tile implements Serializable {
     }
 
     public boolean isThereRoad() {
-        return isThereRoad;
+        return roadAndBridges.roadAndBridges[Point.CENTER_NUM];
     }
 
     public void setThereRoad(boolean thereRoad) {
-        isThereRoad = thereRoad;
+        roadAndBridges.roadAndBridges[Point.CENTER_NUM] = thereRoad;
     }
 
     public Unit getUnit() {
@@ -174,28 +172,25 @@ public class Tile implements Serializable {
         isProcessedByPeople = processedByPeople;
     }
 
-    boolean River[] = new boolean[8];
-    boolean Bridge[] = new boolean[8];
-
     public boolean isRiver(int direction){
-        return  River[direction];
+        return  river[direction];
     }
 
     public void setRiver(int direction, boolean value){
         if((direction & 1) == 0){
             Tile TMP_Tile = map.getTile(this.coordinates.LookAt(Point.ALL_SIDES[direction]));
             if(TMP_Tile != null){
-                TMP_Tile.River[direction+4%8] = value;
+                TMP_Tile.river[direction+4%8] = value;
             }
-            River[direction] = value;
+            river[direction] = value;
 
             boolean setLeft = false;
             boolean setRight= false;
             if(value){
-                if(River[(direction+6)%8]){
+                if(river[(direction+6)%8]){
                     setLeft = true;
                 }
-                if(River[(direction+2)%8]){
+                if(river[(direction+2)%8]){
                     setRight = true;
                 }
                 TMP_Tile = map.getTile(this.coordinates.LookAt(Point.ALL_SIDES[(direction+7)%8]));
@@ -212,22 +207,22 @@ public class Tile implements Serializable {
                 }
             }
 
-            River[(direction+7)%8] = setLeft;
-            River[(direction+1)%8] = setRight;
+            river[(direction+7)%8] = setLeft;
+            river[(direction+1)%8] = setRight;
 
         }
     }
 
     public boolean isBridge(int direction) {
-        return Bridge[direction];
+        return roadAndBridges.roadAndBridges[direction];
     }
 
     public void setBridge(int direction, boolean value){
         Tile TMP_Tile = map.getTile(this.coordinates.LookAt(Point.ALL_SIDES[direction]));
         if(TMP_Tile != null){
-            TMP_Tile.Bridge[direction+4%8] = value;
+            TMP_Tile.roadAndBridges.roadAndBridges[direction+4%8] = value;
         }
-        Bridge[direction] = value;
+        roadAndBridges.roadAndBridges[direction] = value;
     }
 
 }

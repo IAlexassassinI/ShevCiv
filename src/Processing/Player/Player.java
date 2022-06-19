@@ -1,8 +1,11 @@
 package Processing.Player;
 
 import Processing.TileMap.GameMap;
+import Processing.TileMap.TileUtils.TypeOfBuilding;
+import Processing.Utilits.Wrapers.TwoTTT;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 public class Player implements Serializable {
     static final long serialVersionUID = 12L;
@@ -16,6 +19,10 @@ public class Player implements Serializable {
 
     public int VisionMap[][];
     public boolean OpenFOWMap[][];
+
+    public LinkedList<TwoTTT<TypeOfBuilding, Boolean>> availableUpgradesOfTile = new LinkedList<>();
+
+    public int colonizationSquare = 4;
 
 
 

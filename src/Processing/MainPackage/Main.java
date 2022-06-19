@@ -5,7 +5,11 @@ import static Processing.FileHandler.SaveLoadInterface.*;
 import Processing.Player.Player;
 import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
+import Processing.Units.Ability.ConstructSomethingOnTile;
+import Processing.Units.Ability.SpecialAbility;
 import Processing.Utilits.Point;
+
+import java.util.HashMap;
 
 public class Main {
 
@@ -14,6 +18,7 @@ public class Main {
         //6
         //15
         //LinkedHashMap or HashMap
+        /*
         double A = 1/0D;
         System.out.println("Creating Map");
         GameMap GM = new GameMap(10, 10);
@@ -31,6 +36,8 @@ public class Main {
         Player Alex = new Player(GMD);
         //Object ARR = WhereCanSpawn.AllWhereCanSpawn.get(12);
         System.out.println("Got Tile");
+
+         */
 
     }
 }

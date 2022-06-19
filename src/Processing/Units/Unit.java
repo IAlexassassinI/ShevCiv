@@ -6,7 +6,7 @@ import Processing.Utilits.Point;
 import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.TileFinder.Path;
 import Processing.Utilits.TileFinder.PathFinder;
-import Processing.Utilits.TwoTTT;
+import Processing.Utilits.Wrapers.TwoTTT;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class Unit implements Serializable {
     public double currentHitPoints;
     public double currentNumberOfAttacks;
 
-    static private HashMap<Tile,Path> generatedPath; //TODO
+    static private HashMap<Tile,Path> generatedPath;
     static private LinkedList<Tile> whereCanAttackMelee;
     static private LinkedList<Integer> whereCanAttackDirection;
     static private Tile[] whereCanShoot;
@@ -79,8 +79,8 @@ public class Unit implements Serializable {
 
     public Tile[] PrepareToShoot(){
         TwoTTT<Tile[], HashMap<Point, Tile>> TMP_Two = LightPlay.findShootingRange(this.onTile);
-        whereCanShoot = TMP_Two.First;
-        whereCanShootAndThereUnit = TMP_Two.Second;
+        whereCanShoot = TMP_Two.first;
+        whereCanShootAndThereUnit = TMP_Two.second;
         return whereCanShoot;
     }
 
@@ -164,14 +164,17 @@ public class Unit implements Serializable {
         }
     }
 
-    private Unit destroy(){
+    public Unit destroy(){
         LightPlay.removeFromPlayerVision(this);
         onTile.unit = null;
         //TODO delete from player list of units
         return this;
     }
 
+    //TODO prepare to next turn
+    public void prepareToNextTur(){
 
+    }
 
 
 }

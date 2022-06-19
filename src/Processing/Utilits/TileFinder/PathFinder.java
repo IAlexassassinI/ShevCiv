@@ -49,7 +49,7 @@ public class PathFinder {
                         }
                         double actionCost = BASIC_AP_COST;
                         //final modifier
-                        if(TMP_Tile.isThereRoad){
+                        if(TMP_Tile.isThereRoad()){
                             modifiers = modifiers * WITH_ROAD_MODIFIER;
                             //there dont counted flora mod and resource mod also can be applied WITH_ROAD_MODIFIER that now is 1
                             actionCost = actionCost + TMP_Tile.typeOfBuilding.additionalActionPointCost;
@@ -66,7 +66,6 @@ public class PathFinder {
                         CaseTree(path, TMP_Tile, i, actionCost*modifiers);
                     }
 
-                    //TODO TALK ABOUT IT
                     /*
                     //Like in civ
                     if(path.currentActionPoints > 0){
