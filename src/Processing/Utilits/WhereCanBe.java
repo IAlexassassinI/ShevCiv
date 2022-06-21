@@ -16,35 +16,35 @@ public class WhereCanBe implements Serializable {
     final static public int TYPE_OF_LAND_NUM = 1;
     final static public int TYPE_OF_RESOURCE_NUM = 2;
 
-    public WhereCanBe(String nameOfWhereCanSpawn, TypeOfLand land[], TypeOfFlora flora[], Resource resource[], TypeOfLand noLand[], TypeOfFlora noFlora[], Resource noResource[]){
-        this.nameOfWhereCanSpawn = nameOfWhereCanSpawn;
+    public WhereCanBe(String nameOfWhereCanBe, TypeOfLand land[], TypeOfFlora flora[], Resource resource[], TypeOfLand noLand[], TypeOfFlora noFlora[], Resource noResource[]){
+        this.nameOfWhereCanBe = nameOfWhereCanBe;
 
 
         for(int i = 0; i < land.length; i++){
-            this.typesOfLandWhereCanSpawn.put(land[i].elementName, land[i]);
+            this.typesOfLandWhereCanBe.put(land[i].elementName, land[i]);
         }
         for(int i = 0; i < flora.length; i++){
-            this.typesOfFloraWhereCanSpawn.put(flora[i].elementName, flora[i]);
+            this.typesOfFloraWhereCanBe.put(flora[i].elementName, flora[i]);
         }
         for(int i = 0; i < resource.length; i++){
-            this.typesOfResourceWhereCanSpawn.put(resource[i].elementName, resource[i]);
+            this.typesOfResourceWhereCanBe.put(resource[i].elementName, resource[i]);
         }
 
 
         for(int i = 0; i < noLand.length; i++){
-            this.typesOfLandWhereDontSpawn.put(noLand[i].elementName, noLand[i]);
+            this.typesOfLandWhereDontBe.put(noLand[i].elementName, noLand[i]);
         }
         for(int i = 0; i < noFlora.length; i++){
-            this.typesOfFloraWhereDontSpawn.put(noFlora[i].elementName, noFlora[i]);
+            this.typesOfFloraWhereDontBe.put(noFlora[i].elementName, noFlora[i]);
         }
         for(int i = 0; i < noResource.length; i++){
-            this.typesOfResourceWhereDontSpawn.put(noResource[i].elementName, noResource[i]);
+            this.typesOfResourceWhereDontBe.put(noResource[i].elementName, noResource[i]);
         }
 
 
 
 
-        AllWhereCanSpawn.put(this.nameOfWhereCanSpawn, this);
+        AllWhereCanSpawn.put(this.nameOfWhereCanBe, this);
     }
     public static LinkedHashMap<String, WhereCanBe> AllWhereCanSpawn = new LinkedHashMap<>();
 
@@ -82,68 +82,101 @@ public class WhereCanBe implements Serializable {
             new TypeOfFlora[]{},
             new Resource[]{});
 
-    public String nameOfWhereCanSpawn;
+    public String nameOfWhereCanBe;
 
-    public HashMap<String,TypeOfLand> typesOfLandWhereCanSpawn = new HashMap<>();
-    public HashMap<String,TypeOfFlora> typesOfFloraWhereCanSpawn = new HashMap<>();
-    public HashMap<String,Resource> typesOfResourceWhereCanSpawn = new HashMap<>();
+    public HashMap<String,TypeOfLand> typesOfLandWhereCanBe = new HashMap<>();
+    public HashMap<String,TypeOfFlora> typesOfFloraWhereCanBe = new HashMap<>();
+    public HashMap<String,Resource> typesOfResourceWhereCanBe = new HashMap<>();
 
-    public HashMap<String,TypeOfLand> typesOfLandWhereDontSpawn = new HashMap<>();
-    public HashMap<String,TypeOfFlora> typesOfFloraWhereDontSpawn = new HashMap<>();
-    public HashMap<String,Resource> typesOfResourceWhereDontSpawn = new HashMap<>();
-
-
+    public HashMap<String,TypeOfLand> typesOfLandWhereDontBe = new HashMap<>();
+    public HashMap<String,TypeOfFlora> typesOfFloraWhereDontBe = new HashMap<>();
+    public HashMap<String,Resource> typesOfResourceWhereDontBe = new HashMap<>();
 
 
 
-    static public boolean PositiveCheck_JavaPorevo(Tile ProcessedTile, int LayerType, WhereCanBe TMP_WhereCanSpawn){
+
+
+    static public boolean PositiveCheck_Specific(Tile ProcessedTile, int LayerType, WhereCanBe whereCanBe){
         switch(LayerType){
             case TYPE_OF_FLORA_NUM:
                 //TypeOfFlora
-                if(TMP_WhereCanSpawn.typesOfFloraWhereCanSpawn.containsKey(ProcessedTile.typeOfFlora.elementName) || TMP_WhereCanSpawn.typesOfFloraWhereCanSpawn.containsKey(TypeOfFlora.none.elementName)){
-                    return false;
+                if(whereCanBe.typesOfFloraWhereCanBe.containsKey(ProcessedTile.typeOfFlora.elementName) || whereCanBe.typesOfFloraWhereCanBe.containsKey(TypeOfFlora.none.elementName)){
+                    return true;
                 }
                 break;
             case TYPE_OF_LAND_NUM:
                 //TypeOfLand
-                if(TMP_WhereCanSpawn.typesOfLandWhereCanSpawn.containsKey(ProcessedTile.typeOfLand.elementName) || TMP_WhereCanSpawn.typesOfLandWhereCanSpawn.containsKey(TypeOfLand.Void.elementName)){
-                    return false;
+                if(whereCanBe.typesOfLandWhereCanBe.containsKey(ProcessedTile.typeOfLand.elementName) || whereCanBe.typesOfLandWhereCanBe.containsKey(TypeOfLand.Void.elementName)){
+                    return true;
                 }
                 break;
             case TYPE_OF_RESOURCE_NUM:
                 //TypeOfLand
-                if(TMP_WhereCanSpawn.typesOfResourceWhereCanSpawn.containsKey(ProcessedTile.resource.elementName) || TMP_WhereCanSpawn.typesOfResourceWhereCanSpawn.containsKey(Resource.none.elementName)){
-                    return false;
+                if(whereCanBe.typesOfResourceWhereCanBe.containsKey(ProcessedTile.resource.elementName) || whereCanBe.typesOfResourceWhereCanBe.containsKey(Resource.none.elementName)){
+                    return true;
                 }
                 break;
             default:
                 break;
         }
-        return true;
+        return false;
     }
 
-    static public boolean NegativeCheck_JavaPorevo(Tile ProcessedTile, int LayerType, WhereCanBe TMP_WhereCanSpawn){
+    static public boolean PositiveCheck_Full(Tile ProcessedTile, WhereCanBe whereCanBe){
+        if(whereCanBe.typesOfLandWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, whereCanBe)){
+            if(whereCanBe.typesOfResourceWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_RESOURCE_NUM, whereCanBe)){
+                if(whereCanBe.typesOfFloraWhereCanBe.size() == 0  || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, whereCanBe)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static public boolean NegativeCheck_Specific(Tile ProcessedTile, int LayerType, WhereCanBe whereCanBe){
         switch(LayerType){
             case TYPE_OF_FLORA_NUM:
                 //TypeOfFlora
-                if(TMP_WhereCanSpawn.typesOfFloraWhereDontSpawn.containsKey(ProcessedTile.typeOfFlora.elementName) || TMP_WhereCanSpawn.typesOfFloraWhereDontSpawn.containsKey(TypeOfFlora.none.elementName)){
+                if(whereCanBe.typesOfFloraWhereDontBe.containsKey(ProcessedTile.typeOfFlora.elementName) || whereCanBe.typesOfFloraWhereDontBe.containsKey(TypeOfFlora.none.elementName)){
                     return true;
                 }
                 break;
             case TYPE_OF_LAND_NUM:
                 //TypeOfLand
-                if(TMP_WhereCanSpawn.typesOfLandWhereDontSpawn.containsKey(ProcessedTile.typeOfLand.elementName) || TMP_WhereCanSpawn.typesOfLandWhereDontSpawn.containsKey(TypeOfLand.Void.elementName)){
+                if(whereCanBe.typesOfLandWhereDontBe.containsKey(ProcessedTile.typeOfLand.elementName) || whereCanBe.typesOfLandWhereDontBe.containsKey(TypeOfLand.Void.elementName)){
                     return true;
                 }
                 break;
             case TYPE_OF_RESOURCE_NUM:
                 //TypeOfLand
-                if(TMP_WhereCanSpawn.typesOfResourceWhereDontSpawn.containsKey(ProcessedTile.resource.elementName) || TMP_WhereCanSpawn.typesOfResourceWhereDontSpawn.containsKey(Resource.none.elementName)){
+                if(whereCanBe.typesOfResourceWhereDontBe.containsKey(ProcessedTile.resource.elementName) || whereCanBe.typesOfResourceWhereDontBe.containsKey(Resource.none.elementName)){
                     return true;
                 }
                 break;
             default:
                 break;
+        }
+        return false;
+    }
+
+    static public boolean NegativeCheck_Full(Tile ProcessedTile, WhereCanBe whereCanBe){
+        if(WhereCanBe.NegativeCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, whereCanBe)){
+            return true;
+        }
+        if(WhereCanBe.NegativeCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_RESOURCE_NUM, whereCanBe)){
+            return true;
+        }
+        if(WhereCanBe.NegativeCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, whereCanBe)){
+            return true;
+        }
+        return false;
+    }
+
+    static public boolean FullCheck(Tile ProcessedTile, WhereCanBe whereCanBe){
+        if(WhereCanBe.PositiveCheck_Full(ProcessedTile, whereCanBe)){
+            if(!WhereCanBe.NegativeCheck_Full(ProcessedTile, whereCanBe)){
+                return true;
+            }
         }
         return false;
     }

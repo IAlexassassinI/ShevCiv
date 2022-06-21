@@ -33,9 +33,12 @@ public class GameMap implements Serializable {
         return Map;
     }
 
-    //TODO Set params from file maybe Not
-    private void LoadMapLayers(){
+    public int getHeight() {
+        return height;
+    }
 
+    public int getWidth() {
+        return width;
     }
 
     public Tile getTile(int x, int y){
@@ -106,21 +109,9 @@ public class GameMap implements Serializable {
                         continue;
                     }
 
-                    if(WhereCanBe.PositiveCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
-                        continue;
+                    if(WhereCanBe.FullCheck(ProcessedTile, TMP_WhereCanSpawn)){
+                        Found.add(ProcessedTile);
                     }
-                    if(WhereCanBe.NegativeCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, TMP_WhereCanSpawn)){
-                        continue;
-                    }
-                    if(WhereCanBe.PositiveCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
-                        continue;
-                    }
-                    if(WhereCanBe.NegativeCheck_JavaPorevo(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, TMP_WhereCanSpawn)){
-                        continue;
-                    }
-
-                    Found.add(ProcessedTile);
-
                 }
             }
 

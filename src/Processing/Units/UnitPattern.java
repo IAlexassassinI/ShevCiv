@@ -1,41 +1,51 @@
 package Processing.Units;
 
 import Processing.TileMap.TileUtils.Resource;
+import Processing.Units.Ability.SpecialAbility;
 import Processing.Utilits.WhereCanBe;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 
 public class UnitPattern implements Serializable {
     static final long serialVersionUID = 15L;
 
-    String NameOfUnit;
+    public String NameOfUnit;
 
-    int productionCost;
-    int moneyCost;
-    Resource NeededResources[];
+    public double productionCost;
+    public double moneyCost;
+    public Resource NeededResources[];
 
-    int moneyUpkeep;
+    public double moneyUpkeep;
 
-    int maxActionPoints;
+    public double maxActionPoints;
 
-    boolean isFlying;
-    WhereCanBe whereCanMove;
+    public boolean isFlying;
+    public WhereCanBe whereCanMove;
+    public double moveModifier;
+    public double howMuchAffectedByLandAdditionalAPCost;
+    public double howMuchAffectedByFloraAdditionalAPCost;
+    public double howMuchAffectedByResourceAdditionalAPCost;
 
-    boolean isRanged;
-    int rangeOfAttack;
-    int rangedDamage;
+    public boolean isRanged;
+    public Projectile projectile;
+    public double rangeOfAttack;
+    public double rangedAttack;
 
-    int attackMelee;
-    int defenceMelee;
-    int defenceRanged;
-    int maxHitPoints;
-    int visionRange;
-    int maxNumberOfAttacks;
-    int defenceBonusFromSkipTurn;
+    public double attackMelee;
+    public double defenceMelee;
+    public double defenceRanged;
+    public double maxHitPoints;
+    public double visionRange;
+    public double maxNumberOfAttacks;
+    public double defenceBonusFromSkipTurn;
 
-
-
+    public double maxCapacity;
+    public ArrayList<SpecialAbility> Abilities;
+    public double workEfficiency = 1;
+    public String Tags[];
 
 
 }

@@ -1,32 +1,51 @@
 package Processing.Units;
 
+import Processing.TileMap.TileUtils.TypeOfLand;
+
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 
 public class BattleModifier implements Serializable {
     static final long serialVersionUID = 2L;
 
-    public int additionalDefenseMelee;
-    public int additionalDefenseRanged;
+    static final public double ATTACK_CONST = 10;
+    static final public double RESPONSE_WHEN_KILLED = 0.5D;
 
-    public int additionalAttackMelee;
-    public int additionalAttackRanged;
+    static final public double ATTACK_ACROSS_THE_RIVER_MODIFIER = 0.50D;
+    static final public double ATTACK_ACROSS_THE_BRIDGE_MODIFIER = 0.75D;
 
-    public int additionalShootingRange;
+    static final public double DEFENCE_ACROSS_THE_RIVER_MODIFIER = 1D;
+    static final public double DEFENCE_ACROSS_THE_BRIDGE_MODIFIER = 1D;
 
-    public int additionalHealing;
+    public String name;
 
-    public static final BattleModifier none = new BattleModifier(0, 0,0, 0, 0,0);
+    public double additionalDefenseMelee;
+    public double additionalDefenseRanged;
 
-    BattleModifier(int additionalDefenseMelee,
-                   int additionalDefenseRanged,
+    public double additionalAttackMelee;
+    public double additionalAttackRanged;
 
-                   int additionalAttackMelee,
-                   int additionalAttackRanged,
+    public double additionalShootingRange;
+    public double additionalVisionRange;
 
-                   int additionalShootingRange,
+    public double additionalHealing;
 
-                   int additionalHealing){
+    public static LinkedHashMap<String, BattleModifier> AllTypeOfBattleModifier = new LinkedHashMap<>();
+    public static final BattleModifier none = new BattleModifier("None", 1, 1, 1,1, 1, 1,1);
 
+    BattleModifier(String name,
+                   double additionalDefenseMelee,
+                   double additionalDefenseRanged,
+
+                   double additionalAttackMelee,
+                   double additionalAttackRanged,
+
+                   double additionalShootingRange,
+                   double additionalVisionRange,
+
+                   double additionalHealing){
+
+        this.name = name;
         this.additionalDefenseMelee = additionalDefenseMelee;
         this.additionalDefenseRanged = additionalDefenseRanged;
 
@@ -34,9 +53,10 @@ public class BattleModifier implements Serializable {
         this.additionalAttackRanged = additionalAttackRanged;
 
         this.additionalShootingRange = additionalShootingRange;
+        this.additionalVisionRange = additionalVisionRange;
 
         this.additionalHealing = additionalHealing;
-
+        AllTypeOfBattleModifier.put(name, this);
     }
 
 
