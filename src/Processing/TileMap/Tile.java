@@ -43,9 +43,13 @@ public class Tile implements Serializable {
 
     Wealth wealth = new Wealth(); //TODO must be empty
 
-    Tile(Point coordinates, GameMap map){
+    public Tile(Point coordinates, GameMap map){
         this.coordinates = coordinates;
         this.map = map;
+    }
+
+    public Tile() {
+
     }
 
     public void CalculateWealth(){
