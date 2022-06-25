@@ -142,6 +142,10 @@ public class GameMap implements Serializable {
     }
 
 
+    public Tile[][] getTiles() {
+        return Map;
+    }
+
     public void GenerateSettlers(Game game){
         LinkedList<Tile> Found = new LinkedList<>();
         for(int y = 0; y < height; y++){

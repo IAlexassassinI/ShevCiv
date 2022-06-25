@@ -41,6 +41,10 @@ public class Tile implements Serializable {
         this.map = map;
     }
 
+    public Tile() {
+
+    }
+
     public void CalculateWealth(){ //TODO Use to init
         this.wealth.toZero().dWealth(typeOfLand.wealth).dWealth(resource.wealth).dWealth(typeOfBuilding.wealth).dWealth(typeOfFlora.wealth);
     }

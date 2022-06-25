@@ -1,0 +1,71 @@
+package graphics.states;
+
+import graphics.components.button.ButtonComponent;
+import graphics.loads.Images;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+
+public class MainMenu extends BasicGameState implements ComponentListener {
+
+    public static final int ID = 1;
+
+    private ButtonComponent newGameButton;
+    private ButtonComponent editMapButton;
+    private ButtonComponent exitButton;
+
+    private StateBasedGame game;
+    private GameContainer gameContainer;
+
+    @Override
+    public int getID() {
+        return ID;
+    }
+
+    @Override
+    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
+        this.newGameButton = new ButtonComponent(gameContainer, Images.buttonNewGame, 710,540,500,75);
+        this.newGameButton.addListener(this);
+        this.editMapButton = new ButtonComponent(gameContainer, Images.buttonEditMap, 710,640,500,75);
+        this.editMapButton.addListener(this);
+        this.exitButton = new ButtonComponent(gameContainer, Images.buttonExit, 710, 740, 500, 75);
+        this.exitButton.addListener(this);
+
+        this.game = stateBasedGame;
+        this.gameContainer = gameContainer;
+
+        //stateBasedGame.addState(new EditMap());
+    }
+
+    @Override
+    public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
+        newGameButton.render(gameContainer, graphics);
+        editMapButton.render(gameContainer, graphics);
+        exitButton.render(gameContainer, graphics);
+    }
+
+    @Override
+    public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int i) throws SlickException {
+
+    }
+
+    @Override
+    public void componentActivated(AbstractComponent abstractComponent) {
+        if(abstractComponent instanceof ButtonComponent) {
+            if(abstractComponent == this.newGameButton) {
+
+            }
+            else if(abstractComponent == this.editMapButton) {
+                game.enterState(EditMap.ID);
+            }
+            else if(abstractComponent == this.exitButton) {
+                System.out.println(1);
+                this.gameContainer.exit();
+            }
+        }
+    }
+}
