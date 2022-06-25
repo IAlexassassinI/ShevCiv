@@ -13,22 +13,22 @@ public class TypeOfBuilding extends TileLayer implements Serializable {
     static final long serialVersionUID = 9L;
 
     public static LinkedHashMap<String, TypeOfBuilding> AllTypeOfBuilding = new LinkedHashMap<>();
-    public static final TypeOfBuilding none = new TypeOfBuilding("none",  false, 0,
+    public static TypeOfBuilding none = new TypeOfBuilding("none",  false, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 0, false).initBuildings();
-    public static final TypeOfBuilding City = new TypeOfBuilding("City", true, 0,
+    public static TypeOfBuilding City = new TypeOfBuilding("City", true, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 0, false).initBuildings();
-    public static final TypeOfBuilding Ruins = new TypeOfBuilding("Ruins", false, 0,
+    public static TypeOfBuilding Ruins = new TypeOfBuilding("Ruins", false, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 0, true).initBuildings();
-    public static final TypeOfBuilding Farmland = new TypeOfBuilding("Farmland", true, 0,
+    public static TypeOfBuilding Farmland = new TypeOfBuilding("Farmland", true, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 2, true).initBuildings();
-    public static final TypeOfBuilding Mine = new TypeOfBuilding("Mine", true, 0,
+    public static TypeOfBuilding Mine = new TypeOfBuilding("Mine", true, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain,  2, true).initBuildings();
-    public static final TypeOfBuilding Sawmill = new TypeOfBuilding("Sawmill", false, 0,
+    public static TypeOfBuilding Sawmill = new TypeOfBuilding("Sawmill", false, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onForest, 2, true).initBuildings();
 

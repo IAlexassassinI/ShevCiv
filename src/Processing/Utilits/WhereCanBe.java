@@ -16,7 +16,11 @@ public class WhereCanBe implements Serializable {
     final static public int TYPE_OF_LAND_NUM = 1;
     final static public int TYPE_OF_RESOURCE_NUM = 2;
 
-    public WhereCanBe(String nameOfWhereCanBe, TypeOfLand land[], TypeOfFlora flora[], Resource resource[], TypeOfLand noLand[], TypeOfFlora noFlora[], Resource noResource[]){
+    public WhereCanBe(){
+
+    }
+
+    public void rewriteWhereCanBe(String nameOfWhereCanBe, TypeOfLand land[], TypeOfFlora flora[], Resource resource[], TypeOfLand noLand[], TypeOfFlora noFlora[], Resource noResource[]){
         this.nameOfWhereCanBe = nameOfWhereCanBe;
 
 
@@ -49,38 +53,45 @@ public class WhereCanBe implements Serializable {
     public static LinkedHashMap<String, WhereCanBe> AllWhereCanSpawn = new LinkedHashMap<>();
 
     //if null then don`t count
-    public static final WhereCanBe noPreference = new WhereCanBe(
-            "noPreference",
-            new TypeOfLand[]{},
-            new TypeOfFlora[]{},
-            new Resource[]{},
-            new TypeOfLand[]{},
-            new TypeOfFlora[]{},
-            new Resource[]{});
-    public static final WhereCanBe noMountain = new WhereCanBe(
-            "noMountain",
-            new TypeOfLand[]{},
-            new TypeOfFlora[]{},
-            new Resource[]{},
-            new TypeOfLand[]{TypeOfLand.Mountains},
-            new TypeOfFlora[]{},
-            new Resource[]{});
-    public static final WhereCanBe onForest = new WhereCanBe(
-            "onForest",
-            new TypeOfLand[]{},
-            new TypeOfFlora[]{TypeOfFlora.Forest},
-            new Resource[]{},
-            new TypeOfLand[]{TypeOfLand.Mountains, TypeOfLand.Shores, TypeOfLand.DeepOcean},
-            new TypeOfFlora[]{},
-            new Resource[]{});
-    public static final WhereCanBe onLandNoMountain = new WhereCanBe(
-            "onLandNoMountain",
-            new TypeOfLand[]{},
-            new TypeOfFlora[]{},
-            new Resource[]{},
-            new TypeOfLand[]{TypeOfLand.Mountains, TypeOfLand.Shores, TypeOfLand.DeepOcean},
-            new TypeOfFlora[]{},
-            new Resource[]{});
+    public static WhereCanBe noPreference = new WhereCanBe();
+    public static WhereCanBe noMountain = new WhereCanBe();
+    public static WhereCanBe onForest = new WhereCanBe();
+    public static WhereCanBe onLandNoMountain = new WhereCanBe();
+
+    public static void initTypes(){
+        noPreference.rewriteWhereCanBe(
+                "noPreference",
+                new TypeOfLand[]{},
+                new TypeOfFlora[]{},
+                new Resource[]{},
+                new TypeOfLand[]{},
+                new TypeOfFlora[]{},
+                new Resource[]{});
+        noMountain.rewriteWhereCanBe(
+                "noMountain",
+                new TypeOfLand[]{},
+                new TypeOfFlora[]{},
+                new Resource[]{},
+                new TypeOfLand[]{TypeOfLand.Mountains},
+                new TypeOfFlora[]{},
+                new Resource[]{});
+        onForest.rewriteWhereCanBe(
+                "onForest",
+                new TypeOfLand[]{},
+                new TypeOfFlora[]{TypeOfFlora.Forest},
+                new Resource[]{},
+                new TypeOfLand[]{TypeOfLand.Mountains, TypeOfLand.Shores, TypeOfLand.DeepOcean},
+                new TypeOfFlora[]{},
+                new Resource[]{});
+        onLandNoMountain.rewriteWhereCanBe(
+                "onLandNoMountain",
+                new TypeOfLand[]{},
+                new TypeOfFlora[]{},
+                new Resource[]{},
+                new TypeOfLand[]{TypeOfLand.Mountains, TypeOfLand.Shores, TypeOfLand.DeepOcean},
+                new TypeOfFlora[]{},
+                new Resource[]{});
+    }
 
     public String nameOfWhereCanBe;
 

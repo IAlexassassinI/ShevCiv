@@ -2,9 +2,10 @@ package Processing.Utilits.TileFinder;
 
 import Processing.TileMap.Tile;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Path {
+public class Path implements Serializable {
     static final long serialVersionUID = 23L;
     Path(double currentActionPoints){
         this.currentActionPoints = currentActionPoints;

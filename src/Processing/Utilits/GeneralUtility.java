@@ -1,6 +1,8 @@
 package Processing.Utilits;
 
-public class GeneralUtility {
+import java.io.Serializable;
+
+public class GeneralUtility implements Serializable {
     static final long serialVersionUID = 29L;
     static public int Round(double toRound){
 
@@ -11,6 +13,10 @@ public class GeneralUtility {
         else{
             return IntPart+1;
         }
+    }
+
+    static public void initAllProcessingNeeds(){
+        WhereCanBe.initTypes();
     }
 
 

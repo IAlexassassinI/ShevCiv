@@ -1,5 +1,7 @@
 package Processing.FileHandler;
 
+import Processing.Utilits.GeneralUtility;
+
 import java.io.*;
 
 public class SaveLoadInterface {
@@ -19,6 +21,7 @@ public class SaveLoadInterface {
 
     public static Object deserializeFromFile(String filePath) {
         Object savedObject = null;
+        //GeneralUtility.initAllProcessingNeeds();
 
         try {
             FileInputStream fis = new FileInputStream(filePath);

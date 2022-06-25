@@ -2,9 +2,10 @@ package Processing.Units.Ability;
 
 import Processing.Units.Unit;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public abstract class SpecialAbility {
+public abstract class SpecialAbility implements Serializable {
     static final long serialVersionUID = 17L;
     /*
     public static String nameOfAbility;

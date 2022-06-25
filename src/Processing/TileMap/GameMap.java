@@ -4,6 +4,7 @@ import Processing.Game.Game;
 import Processing.TileMap.TileUtils.*;
 import Processing.Units.Unit;
 import Processing.Units.UnitPattern;
+import Processing.Utilits.GeneralUtility;
 import Processing.Utilits.Point;
 import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.WhereCanBe;
@@ -21,6 +22,7 @@ public class GameMap implements Serializable {
     int width;
 
     public GameMap(int height, int width){
+        GeneralUtility.initAllProcessingNeeds();
         this.Map = CreateBlankGameMap(height, width);
         this.height = height;
         this.width = width;

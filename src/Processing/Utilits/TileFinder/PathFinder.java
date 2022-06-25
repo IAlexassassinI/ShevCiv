@@ -6,9 +6,10 @@ import Processing.Units.Unit;
 import Processing.Utilits.Point;
 import Processing.Utilits.WhereCanBe;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class PathFinder {
+public class PathFinder implements Serializable {
     static final long serialVersionUID = 24L;
     final static public double WITHOUT_ROAD_MODIFIER = 1D;
     final static public double WITH_ROAD_MODIFIER = 0.5D;

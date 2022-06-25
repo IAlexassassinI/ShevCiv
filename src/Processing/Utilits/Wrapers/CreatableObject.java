@@ -1,6 +1,8 @@
 package Processing.Utilits.Wrapers;
 
-public class CreatableObject<TTT> {
+import java.io.Serializable;
+
+public class CreatableObject<TTT> implements Serializable {
     static final long serialVersionUID = 25L;
     public TTT object;
     public double goal;

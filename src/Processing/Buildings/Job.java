@@ -2,9 +2,10 @@ package Processing.Buildings;
 
 import Processing.Utilits.Wealth;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class Job {
+public class Job implements Serializable {
     static final long serialVersionUID = 1L;
 
     public Wealth wealth;

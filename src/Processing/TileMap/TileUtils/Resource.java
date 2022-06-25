@@ -11,11 +11,11 @@ public class Resource extends TileLayer implements Serializable {
     static final long serialVersionUID = 6L;
 
     public static LinkedHashMap<String, Resource> AllResource = new LinkedHashMap<>();
-    public static final Resource none = new Resource("none", 0,
+    public static Resource none = new Resource("none", 0,
             BattleModifier.none, new Wealth(), WhereCanBe.noPreference);
-    public static final Resource Iron = new Resource("Iron",  0,
+    public static Resource Iron = new Resource("Iron",  0,
             BattleModifier.none, new Wealth(), WhereCanBe.onLandNoMountain);
-    public static final Resource Horses = new Resource("Horses", 0,
+    public static Resource Horses = new Resource("Horses", 0,
             BattleModifier.none, new Wealth(), WhereCanBe.onLandNoMountain);
 
     public WhereCanBe whereCanSpawn;

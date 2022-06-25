@@ -142,18 +142,6 @@ public class UnitPattern extends Tag implements Serializable {
         }
     }
 
-    @Override
-    public boolean equals(Object object){
-        if(object == null){
-            return false;
-        }
-        if(object.getClass() == this.getClass()){
-            if(this.NameOfUnit.hashCode() == ((UnitPattern) object).NameOfUnit.hashCode()){
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void doUpkeep(Player owner){
         owner.getMoney(-moneyUpkeep);
