@@ -3,7 +3,7 @@ package Processing.Utilits;
 import java.io.Serializable;
 
 public class Point implements Serializable {
-    static final long serialVersionUID = 4L;
+    static final long serialVersionUID = 30L;
 
     final public static Point CENTER = new Point(0,0);
     final public static Point TOP = new Point(0,-1);

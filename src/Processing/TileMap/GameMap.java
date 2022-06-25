@@ -2,14 +2,17 @@ package Processing.TileMap;
 
 import Processing.Game.Game;
 import Processing.TileMap.TileUtils.*;
+import Processing.Units.Unit;
+import Processing.Units.UnitPattern;
 import Processing.Utilits.Point;
+import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.WhereCanBe;
 
 import java.io.Serializable;
 import java.util.LinkedList;
 
 public class GameMap implements Serializable {
-    static final long serialVersionUID = 0L;
+    static final long serialVersionUID = 12L;
 
 
 
@@ -28,6 +31,7 @@ public class GameMap implements Serializable {
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){
                 Map[i][j] = new Tile(new Point(j,i), this);
+                Map[i][j].CalculateWealth();
             }
         }
         return Map;
@@ -127,22 +131,37 @@ public class GameMap implements Serializable {
             for(int j = 0; j < NumberOfCurrentRes; j++){
                 if(Found.size() > 0) {
                     Tile TileToChangeRes = Found.get(Game.RandomGen.nextInt(Found.size()));
-                    TileToChangeRes.resource = TMP_Res;
+                    TileToChangeRes.setResource(TMP_Res);
                     Found.remove(TileToChangeRes);
                 }
                 else{
                     break;
                 }
             }
-
-
-
         }
-
-
     }
+
 
     public Tile[][] getTiles() {
         return Map;
     }
+
+    public void GenerateSettlers(Game game){
+        LinkedList<Tile> Found = new LinkedList<>();
+        for(int y = 0; y < height; y++){
+            for(int x = 0; x < width; x++){
+                Tile ProcessedTile = Map[y][x];
+                if(WhereCanBe.FullCheck(ProcessedTile, UnitPattern.Settler.whereCanMove)){
+                    Found.add(ProcessedTile);
+                }
+            }
+        }
+        for(int i = 0; i < game.numberOfPlayers; i++){
+            Tile TMP_Tile = Found.get(Game.RandomGen.nextInt(Found.size()));
+            Found.remove(TMP_Tile);
+            TMP_Tile.unit = new Unit(UnitPattern.Settler, game.players[i], TMP_Tile);
+            LightPlay.addToPlayerVision(TMP_Tile.unit);
+        }
+    }
+
 }

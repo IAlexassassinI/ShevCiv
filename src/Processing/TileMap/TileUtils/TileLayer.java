@@ -1,11 +1,12 @@
 package Processing.TileMap.TileUtils;
 
 import Processing.Units.BattleModifier;
+import Processing.Utilits.Tag;
 import Processing.Utilits.Wealth;
 
 import java.io.Serializable;
 
-public class TileLayer implements Serializable {
+public class TileLayer extends Tag implements Serializable {
     static final long serialVersionUID = 8L;
 
     public int Type;

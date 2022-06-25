@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class WhereCanBe implements Serializable {
-    static final long serialVersionUID = 14L;
+    static final long serialVersionUID = 33L;
 
     final static public int TYPE_OF_FLORA_NUM = 0;
     final static public int TYPE_OF_LAND_NUM = 1;

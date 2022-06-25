@@ -3,6 +3,7 @@ package Processing.FileHandler;
 import java.io.*;
 
 public class SaveLoadInterface {
+    static final long serialVersionUID = 3L;
 
     public static void serializeObjectToFile(Object object, String filePath) {
         try {

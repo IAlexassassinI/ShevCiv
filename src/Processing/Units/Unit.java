@@ -2,6 +2,8 @@ package Processing.Units;
 
 import Processing.Player.Player;
 import Processing.TileMap.Tile;
+import Processing.Units.Ability.GetCargoSmall;
+import Processing.Units.Ability.SpecialAbility;
 import Processing.Utilits.Point;
 import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.TileFinder.Path;
@@ -9,11 +11,27 @@ import Processing.Utilits.TileFinder.PathFinder;
 import Processing.Utilits.Wrapers.TwoTTT;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Unit implements Serializable {
-    static final long serialVersionUID = 3L;
+    static final long serialVersionUID = 20L;
+
+    public Unit(UnitPattern pattern, Player owner, Tile onTile){
+        this.typeOfUnit = pattern;
+        this.owner = owner;
+        this.onTile = onTile;
+
+        this.currentActionPoints = pattern.maxActionPoints;
+        this.currentHitPoints = pattern.maxHitPoints;
+        this.currentNumberOfAttacks = pattern.maxNumberOfAttacks;
+        Iterator<String> iterator = pattern.Abilities.iterator();
+        while(iterator.hasNext()){
+            this.Abilities.add(SpecialAbility.fabricateSpecialAbility(iterator.next(), this));
+        }
+    }
 
     public UnitPattern typeOfUnit;
     public Player owner;
@@ -22,6 +40,7 @@ public class Unit implements Serializable {
     public double currentActionPoints;
     public double currentHitPoints;
     public double currentNumberOfAttacks;
+    public ArrayList<SpecialAbility> Abilities;
 
     static private HashMap<Tile,Path> generatedPath;
     static private LinkedList<Tile> whereCanAttackMelee;
@@ -105,6 +124,9 @@ public class Unit implements Serializable {
             attackOwn = this.typeOfUnit.rangedAttack * onTile.resource.battleModifier.additionalAttackRanged * onTile.typeOfBuilding.battleModifier.additionalAttackRanged * onTile.typeOfFlora.battleModifier.additionalAttackRanged * onTile.typeOfLand.battleModifier.additionalAttackRanged;
             defenceTarget = whatAttack.unit.typeOfUnit.defenceRanged * whatAttack.resource.battleModifier.additionalDefenseRanged * whatAttack.typeOfBuilding.battleModifier.additionalDefenseRanged * whatAttack.typeOfFlora.battleModifier.additionalDefenseRanged * whatAttack.typeOfLand.battleModifier.additionalDefenseRanged;
 
+            attackOwn = attackOwn * this.owner.battleModifier.additionalAttackRanged;
+            defenceTarget =  defenceTarget * whatAttack.unit.owner.battleModifier.additionalDefenseRanged;
+
             whatAttack.unit.hit(calculateDamage(attackOwn, defenceTarget));
         }
         else{
@@ -116,6 +138,12 @@ public class Unit implements Serializable {
 
             attackTarget = whatAttack.unit.typeOfUnit.attackMelee * whatAttack.resource.battleModifier.additionalAttackMelee * whatAttack.typeOfBuilding.battleModifier.additionalAttackMelee * whatAttack.typeOfFlora.battleModifier.additionalAttackMelee * whatAttack.typeOfLand.battleModifier.additionalAttackMelee;
             defenceTarget = whatAttack.unit.typeOfUnit.defenceMelee * whatAttack.resource.battleModifier.additionalDefenseMelee * whatAttack.typeOfBuilding.battleModifier.additionalDefenseMelee * whatAttack.typeOfFlora.battleModifier.additionalDefenseMelee * whatAttack.typeOfLand.battleModifier.additionalDefenseMelee;
+
+            attackOwn = attackOwn * this.owner.battleModifier.additionalAttackMelee;
+            defenceOwn = defenceOwn * this.owner.battleModifier.additionalDefenseMelee;
+
+            attackTarget = attackTarget * whatAttack.unit.owner.battleModifier.additionalAttackMelee;
+            defenceTarget =  defenceTarget * whatAttack.unit.owner.battleModifier.additionalDefenseMelee;
 
             int direction = whereCanAttackDirection.get(whereCanAttackMelee.indexOf(whatAttack));
             if(onTile.isBridge(direction)){
@@ -166,14 +194,34 @@ public class Unit implements Serializable {
 
     public Unit destroy(){
         LightPlay.removeFromPlayerVision(this);
-        onTile.unit = null;
-        //TODO delete from player list of units
+        if(onTile != null){
+            onTile.unit = null;
+            onTile = null;
+        }
+        this.owner.playerUnits.remove(this);
+        Iterator<SpecialAbility> iterator = Abilities.iterator();
+        while(iterator.hasNext()){
+            SpecialAbility TMP_Ability = iterator.next();
+            if(TMP_Ability.getClass() == GetCargoSmall.class){
+                ((GetCargoSmall) TMP_Ability).destroyCargo();
+            }
+        }
         return this;
     }
 
-    //TODO prepare to next turn
-    public void prepareToNextTur(){
-
+    public void doEndTurn(){
+        if(currentActionPoints > 1){
+            currentHitPoints = currentHitPoints + typeOfUnit.maxHitPoints*0.1;
+        }
+        if(currentHitPoints > typeOfUnit.maxHitPoints){
+            currentHitPoints = typeOfUnit.maxHitPoints;
+        }
+        currentActionPoints = typeOfUnit.maxActionPoints;
+        currentNumberOfAttacks = typeOfUnit.maxNumberOfAttacks;
+        for(int i = 0; i < Abilities.size(); i++){
+            Abilities.get(i).decreaseCooldown();
+        }
+        typeOfUnit.doUpkeep(owner);
     }
 
 

@@ -5,7 +5,7 @@ import Processing.TileMap.Tile;
 import java.util.LinkedList;
 
 public class Path {
-
+    static final long serialVersionUID = 23L;
     Path(double currentActionPoints){
         this.currentActionPoints = currentActionPoints;
     }
