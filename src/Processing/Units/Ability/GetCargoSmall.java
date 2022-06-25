@@ -3,14 +3,14 @@ package Processing.Units.Ability;
 import Processing.TileMap.Tile;
 import Processing.Units.Unit;
 import Processing.Utilits.Point;
-import Processing.Utilits.Tags;
+import Processing.Utilits.Tag;
 import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.WhereCanBe;
 
 import java.util.LinkedList;
 
 public class GetCargoSmall extends SpecialAbility{
-
+    static final long serialVersionUID = 16L;
 
     public static String nameOfAbility = "GetCargoSmall";
     public static String description = "GetCargoSmall";
@@ -25,7 +25,6 @@ public class GetCargoSmall extends SpecialAbility{
         isCargoFull = false;
     }
 
-    public double currentCooldown;
     public Unit currentUnit;
     public Unit cargo;
     public boolean isCargoFull;
@@ -36,11 +35,9 @@ public class GetCargoSmall extends SpecialAbility{
             Tile TMP_Tile = currentUnit.onTile.map.getTile(currentUnit.onTile.coordinates.LookAt(Point.ALL_SIDES[i]));
             if(TMP_Tile != null){
                 if(TMP_Tile.unit != null){
-                    for(int j = 0; j < TMP_Tile.unit.typeOfUnit.Tags.length; j++){
-                        if(TMP_Tile.unit.typeOfUnit.Tags[i] == Tags.small){
-                            whereCanTake.add(TMP_Tile);
-                            break;
-                        }
+                    if(TMP_Tile.unit.typeOfUnit.tags.contains(Tag.small)){
+                        whereCanTake.add(TMP_Tile);
+                        break;
                     }
                 }
             }
@@ -126,12 +123,6 @@ public class GetCargoSmall extends SpecialAbility{
 
     public void setOnCooldown(){
         this.currentCooldown = Cooldown;
-    }
-
-    public void decreaseCooldown(){
-        if(this.currentCooldown > 0){
-            this.currentCooldown--;
-        }
     }
 
     public double getCooldown() {

@@ -7,7 +7,7 @@ import Processing.Units.Unit;
 import java.util.LinkedList;
 
 public class Colonize extends SpecialAbility {
-
+    static final long serialVersionUID = 14L;
     public static String nameOfAbility = "Colonize";
     public static String description = "Colonize";
     public static double Cooldown = 1;
@@ -17,7 +17,7 @@ public class Colonize extends SpecialAbility {
         currentCooldown = 0;
     }
 
-    public double currentCooldown;
+
     public Unit currentUnit;
     public static boolean canFoundNewCiti;
 
@@ -38,7 +38,7 @@ public class Colonize extends SpecialAbility {
 
     public void foundNewCiti(){
         if(canFoundNewCiti){
-            currentUnit.onTile.city = new City(); //TODO when will be cities
+            currentUnit.onTile.city = new City(currentUnit);
             currentUnit.destroy();
         }
     }

@@ -1,5 +1,6 @@
 package Processing.Utilits.TileFinder;
 
+import Processing.Player.Player;
 import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
 import Processing.Units.Projectile;
@@ -10,9 +11,11 @@ import Processing.Utilits.Wrapers.TwoTTT;
 import Processing.Utilits.WhereCanBe;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class LightPlay {
-
+    static final long serialVersionUID = 22L;
     private static GameMap CurrentMap;
     private static Unit CurrentUnit;
     private static Projectile CurrentProjectile;
@@ -26,6 +29,8 @@ public class LightPlay {
         CurrentUnit = startTile.unit;
         CurrentProjectile = CurrentUnit.typeOfUnit.projectile;
         double shootingRange = CurrentUnit.typeOfUnit.rangeOfAttack * startTile.resource.battleModifier.additionalShootingRange * startTile.typeOfBuilding.battleModifier.additionalShootingRange * startTile.typeOfFlora.battleModifier.additionalShootingRange * startTile.typeOfLand.battleModifier.additionalShootingRange;
+        shootingRange = shootingRange * startTile.unit.owner.battleModifier.additionalShootingRange;
+
         drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, true);
         return new TwoTTT<Tile[], HashMap<Point, Tile>>(LightMap.values().toArray(new Tile[0]), UnitMap);
     }
@@ -162,23 +167,51 @@ public class LightPlay {
         }
     }
 
+    static public void addToPlayerVision(Tile tile, Player player){
+        Point coordinates = tile.coordinates;
+        player.VisionMap[coordinates.y][coordinates.x]++;
+        if(!player.OpenFOWMap[coordinates.y][coordinates.x]){
+            player.OpenFOWMap[coordinates.y][coordinates.x] = true;
+        }
+    }
+
+    static public void addToPlayerVision(Tile tiles[], Player player){
+        for(int i = 0; i < tiles.length; i++){
+            addToPlayerVision(tiles[i], player);
+        }
+    }
+
+    static public void addToPlayerVision(LinkedList<Tile> tiles, Player player){
+        Iterator<Tile> iterator = tiles.iterator();
+        while(iterator.hasNext()){
+            addToPlayerVision(iterator.next(), player);
+        }
+    }
+
     static public void addToPlayerVision(Unit unit){
-        Tile TMP_Tiles[] = findVisionRange(unit.onTile);
-        for(int i = 0; i < TMP_Tiles.length; i++){
-            Point coordinates = TMP_Tiles[i].coordinates;
-            unit.owner.VisionMap[coordinates.y][coordinates.x]++;
-            if(!unit.owner.OpenFOWMap[coordinates.y][coordinates.x]){
-                unit.owner.OpenFOWMap[coordinates.y][coordinates.x] = true;
-            }
+        addToPlayerVision(findVisionRange(unit.onTile), unit.owner);
+    }
+
+    static public void removeFromPlayerVision(Tile tile, Player player){
+        Point coordinates = tile.coordinates;
+        player.VisionMap[coordinates.y][coordinates.x]--;
+    }
+
+    static public void removeFromPlayerVision(Tile tiles[], Player player){
+        for(int i = 0; i < tiles.length; i++){
+            removeFromPlayerVision(tiles[i], player);
+        }
+    }
+
+    static public void removeFromPlayerVision(LinkedList<Tile> tiles, Player player){
+        Iterator<Tile> iterator = tiles.iterator();
+        while(iterator.hasNext()){
+            removeFromPlayerVision(iterator.next(), player);
         }
     }
 
     static public void removeFromPlayerVision(Unit unit){
-        Tile TMP_Tiles[] = findVisionRange(unit.onTile);
-        for(int i = 0; i < TMP_Tiles.length; i++){
-            Point coordinates = TMP_Tiles[i].coordinates;
-            unit.owner.VisionMap[coordinates.y][coordinates.x]--;
-        }
+        removeFromPlayerVision(findVisionRange(unit.onTile), unit.owner);
     }
 
 }

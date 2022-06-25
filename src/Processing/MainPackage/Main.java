@@ -38,6 +38,9 @@ public class Main {
         System.out.println("Got Tile");
 
          */
-
+        //TODO add Tech
+        //TODO proceed special resources
+        //TODO maybe make true/false list for buying units and buildings
+        //TODO paralel add types of elements
     }
 }

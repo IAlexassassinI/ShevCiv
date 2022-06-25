@@ -9,7 +9,7 @@ import Processing.Utilits.WhereCanBe;
 import java.util.HashMap;
 
 public class PathFinder {
-
+    static final long serialVersionUID = 24L;
     final static public double WITHOUT_ROAD_MODIFIER = 1D;
     final static public double WITH_ROAD_MODIFIER = 0.5D;
     final static public double DIAGONAL_MODIFIER = 1.41D;
