@@ -2,6 +2,8 @@ package graphics.components.tiledmap;
 
 import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
+import graphics.components.camera.Camera;
+import graphics.loads.Images;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.AbstractComponent;
@@ -12,16 +14,18 @@ import org.newdawn.slick.opengl.renderer.SGL;
 
 public class MapComponent extends AbstractComponent implements ComponentListener {
 
-    private GameMap map;
+    protected GameMap map;
 
-    private float x;
-    private float y;
+    protected float x;
+    protected float y;
 
-    private float width;
-    private float height;
+    protected float width;
+    protected float height;
 
     protected TileComponent[][] tileComponents;
     protected TileComponent selectedTile;
+
+    protected Camera camera;
 
     private boolean locked;
 
@@ -33,12 +37,16 @@ public class MapComponent extends AbstractComponent implements ComponentListener
         init(container);
     }
 
-    private void init(GUIContext container) {
+    protected void init(GUIContext container) {
         this.selectedTile = null;
         this.width = this.map.getWidth() * TileComponent.STANDARD_WIDTH;
         this.height = this.map.getHeight() * TileComponent.STANDARD_HEIGHT;
-        this.tileComponents = new TileComponent[this.map.getHeight()][this.map.getWidth()];
+        initTiles(container);
+    }
+
+    protected void initTiles(GUIContext container) {
         Tile[][] tiles = this.map.getTiles();
+        this.tileComponents = new TileComponent[this.map.getHeight()][this.map.getWidth()];
         for(int i = 0; i < this.map.getHeight(); i++) {
             for(int j = 0; j < this.map.getWidth(); j++) {
                 this.tileComponents[i][j] = new TileComponent(container, tiles[i][j], this.x + i * TileComponent.STANDARD_WIDTH, this.y + j * TileComponent.STANDARD_HEIGHT);
@@ -49,13 +57,40 @@ public class MapComponent extends AbstractComponent implements ComponentListener
 
     @Override
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
-        //Renderer.get().glBegin(SGL.GL_QUADS);
         for(int i = 0; i < this.map.getHeight(); i++) {
             for(int j = 0; j < this.map.getWidth(); j++) {
-                this.tileComponents[i][j].render(guiContext, graphics);
+                if(this.camera == null || this.camera.containsTileComponent(this.tileComponents[i][j])) {
+                    this.tileComponents[i][j].render(guiContext, graphics);
+                }
             }
         }
-        //Renderer.get().glEnd();
+        Images.typesOfLandSpriteSheet.startUse();
+        for(int i = 0; i < this.map.getHeight(); i++) {
+            for(int j = 0; j < this.map.getWidth(); j++) {
+                if(this.camera == null || this.camera.containsTileComponent(this.tileComponents[i][j])) {
+                    this.tileComponents[i][j].renderEmbeddedTypeOfLand(guiContext, graphics);
+                }
+            }
+        }
+        Images.typesOfLandSpriteSheet.endUse();
+        Images.typesOfFloraSpriteSheet.startUse();
+        for(int i = 0; i < this.map.getHeight(); i++) {
+            for(int j = 0; j < this.map.getWidth(); j++) {
+                if(this.camera == null || this.camera.containsTileComponent(this.tileComponents[i][j])) {
+                    this.tileComponents[i][j].renderEmbeddedTypeOfFlora(guiContext, graphics);
+                }
+            }
+        }
+        Images.typesOfFloraSpriteSheet.endUse();
+        Images.resourcesSpriteSheet.startUse();
+        for(int i = 0; i < this.map.getHeight(); i++) {
+            for(int j = 0; j < this.map.getWidth(); j++) {
+                if(this.camera == null || this.camera.containsTileComponent(this.tileComponents[i][j])) {
+                    this.tileComponents[i][j].renderEmbeddedResource(guiContext, graphics);
+                }
+            }
+        }
+        Images.resourcesSpriteSheet.endUse();
     }
 
     public void scale(float k) {
@@ -115,6 +150,19 @@ public class MapComponent extends AbstractComponent implements ComponentListener
 
     public boolean isLocked() {
         return locked;
+    }
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+        for(int i = 0; i < this.map.getHeight(); i++) {
+            for(int j = 0; j < this.map.getWidth(); j++) {
+                this.tileComponents[i][j].setCamera(camera);
+            }
+        }
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 
     public void setLocked(boolean locked) {

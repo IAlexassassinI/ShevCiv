@@ -10,7 +10,6 @@ import graphics.components.tiledmap.TileComponent;
 import graphics.loads.Images;
 import graphics.panels.EmptyPanel;
 import graphics.panels.Orientation;
-import graphics.panels.SelectPanel;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -21,7 +20,7 @@ import java.util.LinkedHashMap;
 public class MapComponentTest extends BasicGame implements ComponentListener {
 
     private MapComponent map;
-    private SelectPanel selectPanel;
+    //private SelectPanel selectPanel;
     private Camera camera;
 
     public MapComponentTest(String title) {
@@ -30,7 +29,7 @@ public class MapComponentTest extends BasicGame implements ComponentListener {
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        new Images();
+        //new Images();
         GameMap gameMap = new GameMap(100, 100);
         this.map = new MapComponent(gameContainer, gameMap, 0, 0);
         this.map.addListener(this);
@@ -43,13 +42,13 @@ public class MapComponentTest extends BasicGame implements ComponentListener {
             tiles[num++].setTypeOfLand(TypeOfLand.AllTypeOfLand.get(key));
             //System.out.println(num);
         }
-        this.selectPanel = new SelectPanel(Orientation.HORIZONTAL, 0, 600, tiles.length * 150, 100, tiles.length * 150);
+        //this.selectPanel = new SelectPanel(Orientation.HORIZONTAL, 0, 600, tiles.length * 150, 100, tiles.length * 150);
         //Tile tile = new Tile();
         //tile.setTypeOfLand(TypeOfLand.FlatLand);
-        for(int i = 0; i < tiles.length; i++) {
-            this.selectPanel.add(new TileComponent(gameContainer, tiles[i], 600, 0), 100);
-            this.selectPanel.add(new EmptyPanel(0,0,0,0,50), 50);
-        }
+        //for(int i = 0; i < tiles.length; i++) {
+           //this.selectPanel.add(new TileComponent(gameContainer, tiles[i], 600, 0), 100);
+            //this.selectPanel.add(new EmptyPanel(0,0,0,0,50), 50);
+        //}
         //this.selectPanel.add(new TileComponent(gameContainer, tile, 600, 0), 100);
     }
 
@@ -61,7 +60,7 @@ public class MapComponentTest extends BasicGame implements ComponentListener {
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         this.camera.render(gameContainer, graphics);
-        this.selectPanel.render(gameContainer, graphics);
+        //this.selectPanel.render(gameContainer, graphics);
         //graphics.setColor(Color.magenta);
         // graphics.fillRect(0, 0, 600, 600);
         //this.map.render(gameContainer, graphics);
@@ -80,10 +79,10 @@ public class MapComponentTest extends BasicGame implements ComponentListener {
     public void componentActivated(AbstractComponent abstractComponent) {
         if(abstractComponent instanceof MapComponent) {
             if(abstractComponent == this.map) {
-                if(this.map.getSelectedTile() != null && selectPanel.getSelectedComponent() != null) {
-                    Tile tile = this.map.getSelectedTile().getTile();
-                    tile.setTypeOfLand(((TileComponent)selectPanel.getSelectedComponent()).getTile().getTypeOfLand());
-                }
+                //if(this.map.getSelectedTile() != null && selectPanel.getSelectedComponent() != null) {
+                    //Tile tile = this.map.getSelectedTile().getTile();
+                    //tile.setTypeOfLand(((TileComponent)selectPanel.getSelectedComponent()).getTile().getTypeOfLand());
+               // }
             }
         }
     }

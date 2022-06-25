@@ -28,16 +28,17 @@ public class Camera extends AbstractComponent {
         this.width = width;
         this.height = height;
         this.map = map;
+        this.map.setCamera(this);
     }
 
     @Override
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
-        //graphics.setColor(Color.red);
-        //graphics.fillRect(this.x-10,this.y-10,this.width+20,this.height+20);
-        //graphics.setClip((int) this.x, (int) this.y, (int) this.width, (int) this.height);
+        graphics.setColor(Color.red);
+        graphics.fillRect(this.x-1,this.y-1,this.width+2,this.height+2);
+        graphics.setClip((int) this.x, (int) this.y, (int) this.width, (int) this.height);
         map.render(guiContext, graphics);
-        //graphics.clearClip();
-        //graphics.resetTransform();
+        graphics.clearClip();
+        graphics.resetTransform();
     }
 
     @Override
@@ -128,6 +129,14 @@ public class Camera extends AbstractComponent {
 
     public boolean contains(float x, float y) {
         return x >= this.x && x < this.x + this.width && y >= this.y && y < this.y + this.height;
+    }
+
+    public boolean containsArea(float x, float y, float width, float height) {
+        return contains(x, y) || contains(x, y + height - 1) || contains(x + width - 1, y) || contains(x + width - 1, y + height - 1);
+    }
+
+    public boolean containsTileComponent(TileComponent tileComponent) {
+        return containsArea(tileComponent.getX(), tileComponent.getY(), tileComponent.getWidth(), tileComponent.getHeight());
     }
 
     @Override

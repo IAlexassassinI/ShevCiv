@@ -145,12 +145,4 @@ public class GameMap implements Serializable {
     public Tile[][] getTiles() {
         return Map;
     }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
 }

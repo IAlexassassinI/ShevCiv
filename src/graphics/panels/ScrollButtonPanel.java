@@ -23,7 +23,7 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
 
     private int scrollingTime;
     private int currentScrollingTime;
-    private float currentWidth;
+    private float currentScrollingLength;
 
     private boolean scrollingRight;
     private boolean scrollingLeft;
@@ -33,9 +33,9 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
     public ScrollButtonPanel(GUIContext container, Image imageButton1, Image imageButton2, float x, float y, float width, float height, int parts) throws SlickException {
         super(x, y, width, height, parts);
         this.buttonPart = 30;
-        this.scrollingTime = 1000;
+        this.scrollingTime = 500;
         this.currentScrollingTime = 0;
-        this.currentWidth = 0;
+        this.currentScrollingLength = 0;
         this.scrollingLeft = false;
         this.scrollingRight = false;
         this.scrollingUp = false;
@@ -65,19 +65,52 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
     }
 
     public void update(GameContainer gameContainer, int delta) throws SlickException {
+        if(this.scrollingRight || this.scrollingLeft) {
+            button1.setLocked(true);
+            button2.setLocked(true);
+        }
+        else {
+            button1.setLocked(false);
+            button2.setLocked(false);
+        }
+        if(this.contains(this.panel.x, this.panel.y)){
+            this.button1.setLocked(true);
+            //System.out.println(1);
+        }
+        if(this.contains(this.panel.x + this.panel.width - 1, this.panel.y + this.panel.height - 1)) {
+            this.button2.setLocked(true);
+        }
         if(this.scrollingRight) {
             float areaWidth = getWidth() - 2 * this.button2.getWidth();
+            if(this.currentScrollingLength + areaWidth / this.scrollingTime * delta >= areaWidth) {
+                this.panel.translate(-(areaWidth - this.currentScrollingLength), 0);
+                this.scrollingRight = false;
+                this.currentScrollingLength = 0;
+            }
+            else {
+                this.panel.translate(-(areaWidth / this.scrollingTime * delta), 0);
+                this.currentScrollingLength += areaWidth / this.scrollingTime * delta;
+            }
             //this.button1.setLocked(true);
             //this.button2.setLocked(true);
-            this.panel.translate(-areaWidth, 0);
-            this.scrollingRight = false;
+            //this.panel.translate(-areaWidth, 0);
         }
         else if(this.scrollingLeft) {
             float areaWidth = getWidth() - 2 * this.button2.getWidth();
+            if(this.currentScrollingLength + areaWidth / this.scrollingTime * delta >= areaWidth) {
+                this.panel.translate((areaWidth - this.currentScrollingLength), 0);
+                this.scrollingLeft = false;
+                this.currentScrollingLength = 0;
+            }
+            else {
+                this.panel.translate((areaWidth / this.scrollingTime * delta), 0);
+                this.currentScrollingLength += areaWidth / this.scrollingTime * delta;
+            }
+            //float areaWidth = getWidth() - 2 * this.button2.getWidth();
             //this.button1.setLocked(true);
             //this.button2.setLocked(true);
-            this.panel.translate(areaWidth, 0);
-            this.scrollingLeft = false;
+            //this.panel.translate(areaWidth, 0);
+            //this.scrollingLeft = false;
         }
         else if(this.scrollingUp) {
 
@@ -98,6 +131,15 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
                 }
             }
         }*/
+    }
+
+    @Override
+    public boolean contains(float x, float y) {
+        //float areaWidth = getWidth() - 2 * this.button2.getWidth();
+        if(getOrientation() == Orientation.HORIZONTAL) {
+            return x >= this.x + this.button1.getWidth() && x < this.x + this.width - button1.getWidth() && y >= this.y && y < this.y + this.height;
+        }
+        else return true;
     }
 
     @Override
@@ -145,6 +187,7 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
                 this.panel.setX(getX() + this.button1.getWidth());
                 this.panel.setY(getY());
                 this.panel.setHeight(getHeight());
+                this.panel.setParent(this);
             }
         }
     }
@@ -160,6 +203,7 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
                 this.panel.setX(getX() + this.button1.getWidth());
                 this.panel.setY(getY());
                 this.panel.setHeight(getHeight());
+                this.panel.setParent(this);
             }
         }
     }

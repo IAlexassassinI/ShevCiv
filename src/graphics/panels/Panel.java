@@ -17,11 +17,13 @@ public class Panel {
     protected ArrayList<Panel> panels;
     private Orientation orientation;
 
-    private float x;
-    private float y;
+    private Panel parent;
 
-    private float width;
-    private float height;
+    protected float x;
+    protected float y;
+
+    protected float width;
+    protected float height;
 
     private int parts;
     private int usedParts;
@@ -56,6 +58,10 @@ public class Panel {
         for(Panel panel : this.panels) {
             panel.render(container, g);
         }
+    }
+
+    public boolean contains(float x, float y) {
+        return x >= this.x && x < this.x + this.width && y >= this.y && y < this.y + this.height;
     }
 
     public void add(Image image, int part) {
@@ -181,6 +187,14 @@ public class Panel {
         this.panels.add(panel);
         this.usedParts += part;
 
+    }
+
+    public Panel getParent() {
+        return parent;
+    }
+
+    public void setParent(Panel parent) {
+        this.parent = parent;
     }
 
     public int getParts() {
