@@ -1,7 +1,7 @@
 package Processing.Utilits.Wrapers;
 
 public class CreatableObject<TTT> {
-
+    static final long serialVersionUID = 25L;
     public TTT object;
     public double goal;
     public double progress;
@@ -42,5 +42,11 @@ public class CreatableObject<TTT> {
     public TTT getObject(){
         return object;
     }
+
+    public CreatableObject<TTT> getCopy(){
+        return new CreatableObject<TTT>(this.object, this.goal, this.progress);
+    }
+
+
 
 }

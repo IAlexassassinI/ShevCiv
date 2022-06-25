@@ -7,7 +7,7 @@ import Processing.Utilits.WhereCanBe;
 import java.util.LinkedHashMap;
 
 public class Projectile {
-
+    static final long serialVersionUID = 19L;
     public String name;
     public WhereCanBe whereCanBe;
 
@@ -19,6 +19,7 @@ public class Projectile {
     }
 
     public static LinkedHashMap<String, Projectile> AllTypeOfProjectile = new LinkedHashMap<>();
+    public static final Projectile none = new Projectile("none", WhereCanBe.noPreference);
     public static final Projectile LightFlying = new Projectile("LightFlying", WhereCanBe.noPreference);
     public static final Projectile LightLand = new Projectile("LightLand", WhereCanBe.noPreference);
     //TODO Make whereCanBe for LightLand where excluded hills mountains and forest

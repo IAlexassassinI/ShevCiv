@@ -1,13 +1,12 @@
 package Processing.Utilits;
 
-import Processing.TileMap.TileUtils.TypeOfFlora;
-import Processing.Units.BattleModifier;
+import java.util.LinkedList;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-
-public class Tags {
+public class Tag {
+    static final long serialVersionUID = 31L;
     //public static HashMap<String, TypeOfFlora> Tags = new LinkedHashMap<>();
+    public LinkedList<String> tags = new LinkedList<>();
+
     public static final String small = "small";
     public static final String big = "big";
 

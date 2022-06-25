@@ -5,13 +5,20 @@ import Processing.Units.Unit;
 import java.util.LinkedList;
 
 public abstract class SpecialAbility {
-
+    static final long serialVersionUID = 17L;
     /*
     public static String nameOfAbility;
     public static String description;
     public static double Cooldown;
      */
 
+    public double currentCooldown;
+
+    public void decreaseCooldown(){
+        if(this.currentCooldown > 0){
+            this.currentCooldown--;
+        }
+    }
 
     public static LinkedList<String> AllSpecialAbilities = new LinkedList<>();
 

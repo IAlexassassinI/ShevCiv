@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ConstructSomethingOnTile extends SpecialAbility{
-
+    static final long serialVersionUID = 15L;
     public static String nameOfAbility = "ConstructSomethingOnTile";
     public static String description = "ConstructSomethingOnTile";
     public static double Cooldown = 1;
@@ -70,7 +70,7 @@ public class ConstructSomethingOnTile extends SpecialAbility{
         }
         if(toBuild.getClass() == TypeOfBuilding.class){
             currentUnit.onTile.buildingInProcess = new CreatableObject<TypeOfBuilding>((TypeOfBuilding)toBuild, ((TypeOfBuilding)toBuild).turnsToBuild);
-            currentUnit.onTile.typeOfBuilding = TypeOfBuilding.none; //TODO maybe todo
+            currentUnit.onTile.setTypeOfBuilding(TypeOfBuilding.none); //TODO maybe todo
         }
         else {
             RoadBridge TMP_RB = (RoadBridge) toBuild;
@@ -97,7 +97,7 @@ public class ConstructSomethingOnTile extends SpecialAbility{
 
     private void apply(Tile tile){
         if(tile.buildingInProcess.object.getClass() == TypeOfBuilding.class){
-            tile.typeOfBuilding = (TypeOfBuilding)tile.buildingInProcess.object;
+            tile.setTypeOfBuilding((TypeOfBuilding)tile.buildingInProcess.object);
         }
         else{
             for(int i = 0; i < 9; i++){
@@ -114,11 +114,7 @@ public class ConstructSomethingOnTile extends SpecialAbility{
         this.currentCooldown = Cooldown;
     }
 
-    public void decreaseCooldown(){
-        if(this.currentCooldown > 0){
-            this.currentCooldown--;
-        }
-    }
+
 
     public double getCooldown() {
         return currentCooldown;

@@ -12,7 +12,7 @@ import Processing.Utilits.Wrapers.CreatableObject;
 import java.io.Serializable;
 
 public class Tile implements Serializable {
-    static final long serialVersionUID = 111L;
+    static final long serialVersionUID = 13L;
 
     public Point coordinates;
     public GameMap map;
@@ -41,7 +41,7 @@ public class Tile implements Serializable {
         this.map = map;
     }
 
-    public void CalculateWealth(){
+    public void CalculateWealth(){ //TODO Use to init
         this.wealth.toZero().dWealth(typeOfLand.wealth).dWealth(resource.wealth).dWealth(typeOfBuilding.wealth).dWealth(typeOfFlora.wealth);
     }
 
@@ -78,12 +78,12 @@ public class Tile implements Serializable {
     }
 
     public void setTypeOfLand(TypeOfLand typeOfLand) {
-        if(WhereCanBe.FullCheck(this, this.typeOfFlora.whereCanExist)){
-            this.typeOfLand = typeOfLand;
-            return;
+        if(!WhereCanBe.FullCheck(this, this.typeOfFlora.whereCanExist)){
+            this.setTypeOfFlora(TypeOfFlora.none);
         }
-        this.typeOfFlora = TypeOfFlora.none;
+        this.wealth.dMinusWealth(this.typeOfLand.wealth);
         this.typeOfLand = typeOfLand;
+        this.wealth.dWealth(this.typeOfLand.wealth);
     }
 
     public Resource getResource() {
@@ -92,8 +92,10 @@ public class Tile implements Serializable {
 
     //allow weird set for future ability of terraform
     public void setResource(Resource resource) {
-        if(WhereCanBe.FullCheck(this, this.resource.whereCanSpawn)){
+        if(WhereCanBe.FullCheck(this, resource.whereCanSpawn)){
+            this.wealth.dMinusWealth(this.resource.wealth);
             this.resource = resource;
+            this.wealth.dWealth(this.resource.wealth);
         }
     }
 
@@ -102,11 +104,13 @@ public class Tile implements Serializable {
     }
 
     public void setTypeOfBuilding(TypeOfBuilding typeOfBuilding) {
-        if(WhereCanBe.FullCheck(this, this.typeOfBuilding.whereCanExist)){
+        if(WhereCanBe.FullCheck(this, typeOfBuilding.whereCanExist)){
             if(typeOfBuilding.destroyFlora){
-                this.typeOfFlora = TypeOfFlora.none;
+                this.setTypeOfFlora(TypeOfFlora.none);
             }
+            this.wealth.dMinusWealth(this.typeOfBuilding.wealth);
             this.typeOfBuilding = typeOfBuilding;
+            this.wealth.dWealth(this.typeOfBuilding.wealth);
         }
     }
 
@@ -115,8 +119,10 @@ public class Tile implements Serializable {
     }
 
     public void setTypeOfFlora(TypeOfFlora typeOfFlora) {
-        if(WhereCanBe.FullCheck(this, this.typeOfFlora.whereCanExist)){
+        if(WhereCanBe.FullCheck(this, typeOfFlora.whereCanExist)){
+            this.wealth.dMinusWealth(this.typeOfFlora.wealth);
             this.typeOfFlora = typeOfFlora;
+            this.wealth.dWealth(this.typeOfFlora.wealth);
         }
     }
 

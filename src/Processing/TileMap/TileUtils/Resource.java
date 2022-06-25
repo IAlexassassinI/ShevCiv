@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 
 public class Resource extends TileLayer implements Serializable {
-    static final long serialVersionUID = 7L;
+    static final long serialVersionUID = 6L;
 
     public static LinkedHashMap<String, Resource> AllResource = new LinkedHashMap<>();
     public static final Resource none = new Resource("none", 0,
