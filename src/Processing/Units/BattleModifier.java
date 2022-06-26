@@ -1,12 +1,11 @@
 package Processing.Units;
 
 import Processing.TileMap.TileUtils.TypeOfLand;
-import Processing.Utilits.LoadStatic;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class BattleModifier implements Serializable, LoadStatic {
+public class BattleModifier implements Serializable {
     static final long serialVersionUID = 18L;
 
     static final public double ATTACK_CONST = 10;

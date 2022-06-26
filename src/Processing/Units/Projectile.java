@@ -1,14 +1,13 @@
 package Processing.Units;
 
 import Processing.TileMap.TileUtils.TypeOfLand;
-import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class Projectile implements Serializable, LoadStatic {
+public class Projectile implements Serializable {
     static final long serialVersionUID = 19L;
     public String name;
     public WhereCanBe whereCanBe;

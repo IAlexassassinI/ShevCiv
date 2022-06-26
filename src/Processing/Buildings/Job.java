@@ -1,12 +1,11 @@
 package Processing.Buildings;
 
-import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class Job implements Serializable , LoadStatic {
+public class Job implements Serializable {
     static final long serialVersionUID = 1L;
 
     public Wealth wealth;

@@ -73,12 +73,6 @@ public class GeneralUtility implements Serializable {
         WhereCanBe.AllWhereCanSpawn = this.AllWhereCanSpawn;
     }
 
-    private void changeAllInHashMapOnAnother(HashMap whatToChange, HashMap changes){
-        Iterator<LoadStatic> iteratorIn = whatToChange.values().iterator();
-        Iterator iteratorFrom = changes.values().iterator();
-        while(iteratorIn.hasNext()){
-            iteratorIn.next().LoadSetTo(iteratorFrom.next());
-        }
-    }
+
 
 }
