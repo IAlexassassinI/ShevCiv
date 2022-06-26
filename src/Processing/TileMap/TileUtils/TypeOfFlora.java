@@ -1,6 +1,7 @@
 package Processing.TileMap.TileUtils;
 
 import Processing.Units.BattleModifier;
+import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 
@@ -8,7 +9,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class TypeOfFlora extends TileLayer implements Serializable {
+public class TypeOfFlora extends TileLayer implements Serializable, LoadStatic {
     static final long serialVersionUID = 10L;
 
     public static LinkedHashMap<String, TypeOfFlora> AllTypeOfFlora = new LinkedHashMap<>();
@@ -23,5 +24,13 @@ public class TypeOfFlora extends TileLayer implements Serializable {
         super(modElementName, additionalActionPointCost, battleModifier, wealth);
         this.whereCanExist = whereCanExist;
         AllTypeOfFlora.put(this.elementName,(TypeOfFlora)this.setType(AllTypeOfFlora.size()));
+    }
+
+    public void LoadSetTo(Object object){
+        TypeOfFlora TypeOfFlora = (TypeOfFlora) object;
+        this.elementName = TypeOfFlora.elementName;
+        this.additionalActionPointCost = TypeOfFlora.additionalActionPointCost;
+        this.wealth = TypeOfFlora.wealth;
+
     }
 }

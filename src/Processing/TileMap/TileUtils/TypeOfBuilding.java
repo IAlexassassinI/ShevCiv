@@ -2,6 +2,7 @@ package Processing.TileMap.TileUtils;
 
 import Processing.Buildings.Building;
 import Processing.Units.BattleModifier;
+import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class TypeOfBuilding extends TileLayer implements Serializable {
+public class TypeOfBuilding extends TileLayer implements Serializable, LoadStatic {
     static final long serialVersionUID = 9L;
 
     public static LinkedHashMap<String, TypeOfBuilding> AllTypeOfBuilding = new LinkedHashMap<>();
@@ -49,6 +50,17 @@ public class TypeOfBuilding extends TileLayer implements Serializable {
         this.whereCanExist = whereCanExist;
         this.turnsToBuild = turnsToBuild;
         this.onlyInBorder = onlyInBorder;
+    }
+
+    public void LoadSetTo(Object object){
+        TypeOfBuilding TypeOfBuilding = (TypeOfBuilding) object;
+        this.elementName = TypeOfBuilding.elementName;
+        this.additionalActionPointCost = TypeOfBuilding.additionalActionPointCost;
+        this.wealth = TypeOfBuilding.wealth;
+
+        this.destroyFlora = TypeOfBuilding.destroyFlora;
+        this.turnsToBuild = TypeOfBuilding.turnsToBuild;
+        this.onlyInBorder = TypeOfBuilding.onlyInBorder;
     }
 
     @Override

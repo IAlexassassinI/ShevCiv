@@ -36,9 +36,10 @@ public class Main {
 
          */
 
-        GameMap GM = (GameMap)SaveLoadInterface.deserializeFromFile("assets/saved_maps/map.txt");
+        GameMap GM = SaveLoadInterface.LoadGameMapFromFile("assets/saved_maps/map.txt");
         //WhereCanBe.initTypes();
         System.out.println(11);
+        TypeOfFlora.Forest = GM.GU.AllTypeOfFlora.get(TypeOfFlora.Forest.elementName);
         WhereCanBe wcb = TypeOfFlora.Forest.whereCanExist;
         System.out.println(11);
         System.out.println(11);

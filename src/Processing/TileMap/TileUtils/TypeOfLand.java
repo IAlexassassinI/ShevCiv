@@ -1,12 +1,13 @@
 package Processing.TileMap.TileUtils;
 
 import Processing.Units.BattleModifier;
+import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class TypeOfLand extends TileLayer implements Serializable {
+public class TypeOfLand extends TileLayer implements Serializable, LoadStatic {
     static final long serialVersionUID = 11L;
 
     public static LinkedHashMap<String, TypeOfLand> AllTypeOfLand = new LinkedHashMap<>();
@@ -27,4 +28,13 @@ public class TypeOfLand extends TileLayer implements Serializable {
         super(modElementName, additionalActionPointCost, battleModifier, wealth);
         AllTypeOfLand.put(this.elementName,(TypeOfLand)this.setType(AllTypeOfLand.size()));
     }
+
+    public void LoadSetTo(Object object){
+        TypeOfLand TypeOfLand = (TypeOfLand) object;
+        this.elementName = TypeOfLand.elementName;
+        this.additionalActionPointCost = TypeOfLand.additionalActionPointCost;
+        this.wealth = TypeOfLand.wealth;
+
+    }
+
 }

@@ -15,13 +15,14 @@ import java.util.LinkedList;
 public class GameMap implements Serializable {
     static final long serialVersionUID = 12L;
 
-
+    public GeneralUtility GU;
 
     Tile Map[][];
     int height;
     int width;
 
     public GameMap(int height, int width){
+        this.GU = new GeneralUtility();
         GeneralUtility.initAllProcessingNeeds();
         this.Map = CreateBlankGameMap(height, width);
         this.height = height;

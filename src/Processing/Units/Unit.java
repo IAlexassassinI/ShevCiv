@@ -28,6 +28,7 @@ public class Unit implements Serializable {
         this.currentHitPoints = pattern.maxHitPoints;
         this.currentNumberOfAttacks = pattern.maxNumberOfAttacks;
         Iterator<String> iterator = pattern.Abilities.iterator();
+        this.Abilities = new ArrayList<>();
         while(iterator.hasNext()){
             this.Abilities.add(SpecialAbility.fabricateSpecialAbility(iterator.next(), this));
         }
