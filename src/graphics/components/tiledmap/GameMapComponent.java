@@ -17,10 +17,21 @@ public class GameMapComponent extends MapComponent {
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
         super.render(guiContext, graphics);
         renderTypeOfBuildings(guiContext, graphics);
-        renderFilter(guiContext, graphics);
+        renderUnits(guiContext, graphics);
+        renderFilters(guiContext, graphics);
     }
 
-    public void renderFilter(GUIContext guiContext, Graphics graphics) throws SlickException {
+    public void renderUnits(GUIContext guiContext, Graphics graphics) throws SlickException {
+        for(int i = 0; i < this.map.getHeight(); i++) {
+            for(int j = 0; j < this.map.getWidth(); j++) {
+                if(this.camera == null || this.camera.containsTileComponent(this.tileComponents[i][j])) {
+                    ((GameTileComponent) this.tileComponents[i][j]).renderUnit(guiContext, graphics);
+                }
+            }
+        }
+    }
+
+    public void renderFilters(GUIContext guiContext, Graphics graphics) throws SlickException {
         for(int i = 0; i < this.map.getHeight(); i++) {
             for(int j = 0; j < this.map.getWidth(); j++) {
                 if(this.camera == null || this.camera.containsTileComponent(this.tileComponents[i][j])) {
