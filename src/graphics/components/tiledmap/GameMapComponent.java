@@ -62,7 +62,7 @@ public class GameMapComponent extends MapComponent {
     @Override
     protected void initTiles(GUIContext container) {
         Tile[][] tiles = this.map.getTiles();
-        this.tileComponents = new EditTileComponent[this.map.getHeight()][this.map.getWidth()];
+        this.tileComponents = new GameTileComponent[this.map.getHeight()][this.map.getWidth()];
         for (int i = 0; i < this.map.getHeight(); i++) {
             for (int j = 0; j < this.map.getWidth(); j++) {
                 this.tileComponents[i][j] = new GameTileComponent(container, tiles[i][j], this.x + i * TileComponent.STANDARD_WIDTH, this.y + j * TileComponent.STANDARD_HEIGHT);
