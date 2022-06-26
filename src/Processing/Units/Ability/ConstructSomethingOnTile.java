@@ -9,10 +9,11 @@ import Processing.Utilits.Wrapers.CreatableObject;
 import Processing.Utilits.Wrapers.TwoTTT;
 import Processing.Utilits.WhereCanBe;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class ConstructSomethingOnTile extends SpecialAbility{
+public class ConstructSomethingOnTile extends SpecialAbility implements Serializable {
     static final long serialVersionUID = 15L;
     public static String nameOfAbility = "ConstructSomethingOnTile";
     public static String description = "ConstructSomethingOnTile";

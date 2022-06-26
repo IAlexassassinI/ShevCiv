@@ -1,14 +1,16 @@
 package Processing.Buildings;
 
 import Processing.TileMap.TileUtils.Resource;
+import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Tag;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.Wrapers.TwoTTT;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
-public class Building extends Tag {
+public class Building extends Tag implements Serializable, LoadStatic {
     static final long serialVersionUID = 0L;
 
     Building(String name, Wealth passiveWealth, double productionCost, double moneyCost, Job jobs[], int countOfJobs[], Resource resource[], int countOfResource[], String description){
@@ -31,6 +33,16 @@ public class Building extends Tag {
                 }
             }
         }
+    }
+
+
+    public void LoadSetTo(Object object){
+        Building Building = (Building)object;
+        this.passiveWealth = Building.passiveWealth;
+        this.productionCost = Building.productionCost;
+        this.moneyCost = Building.moneyCost;
+        this.description = Building.description;
+        this.name = Building.name;
     }
 
     public Building initBuilding(){

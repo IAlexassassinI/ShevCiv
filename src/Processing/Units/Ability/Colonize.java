@@ -4,9 +4,10 @@ import Processing.City.City;
 import Processing.TileMap.Tile;
 import Processing.Units.Unit;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Colonize extends SpecialAbility {
+public class Colonize extends SpecialAbility implements Serializable {
     static final long serialVersionUID = 14L;
     public static String nameOfAbility = "Colonize";
     public static String description = "Colonize";

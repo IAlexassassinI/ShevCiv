@@ -2,6 +2,7 @@ package Processing.TileMap.TileUtils;
 
 import Processing.Buildings.Building;
 import Processing.Units.BattleModifier;
+import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 
@@ -9,26 +10,26 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class TypeOfBuilding extends TileLayer implements Serializable {
+public class TypeOfBuilding extends TileLayer implements Serializable, LoadStatic {
     static final long serialVersionUID = 9L;
 
     public static LinkedHashMap<String, TypeOfBuilding> AllTypeOfBuilding = new LinkedHashMap<>();
-    public static final TypeOfBuilding none = new TypeOfBuilding("none",  false, 0,
+    public static TypeOfBuilding none = new TypeOfBuilding("none",  false, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 0, false).initBuildings();
-    public static final TypeOfBuilding City = new TypeOfBuilding("City", true, 0,
+    public static TypeOfBuilding City = new TypeOfBuilding("City", true, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 0, false).initBuildings();
-    public static final TypeOfBuilding Ruins = new TypeOfBuilding("Ruins", false, 0,
+    public static TypeOfBuilding Ruins = new TypeOfBuilding("Ruins", false, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 0, true).initBuildings();
-    public static final TypeOfBuilding Farmland = new TypeOfBuilding("Farmland", true, 0,
+    public static TypeOfBuilding Farmland = new TypeOfBuilding("Farmland", true, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 2, true).initBuildings();
-    public static final TypeOfBuilding Mine = new TypeOfBuilding("Mine", true, 0,
+    public static TypeOfBuilding Mine = new TypeOfBuilding("Mine", true, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain,  2, true).initBuildings();
-    public static final TypeOfBuilding Sawmill = new TypeOfBuilding("Sawmill", false, 0,
+    public static TypeOfBuilding Sawmill = new TypeOfBuilding("Sawmill", false, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onForest, 2, true).initBuildings();
 
@@ -49,6 +50,17 @@ public class TypeOfBuilding extends TileLayer implements Serializable {
         this.whereCanExist = whereCanExist;
         this.turnsToBuild = turnsToBuild;
         this.onlyInBorder = onlyInBorder;
+    }
+
+    public void LoadSetTo(Object object){
+        TypeOfBuilding TypeOfBuilding = (TypeOfBuilding) object;
+        this.elementName = TypeOfBuilding.elementName;
+        this.additionalActionPointCost = TypeOfBuilding.additionalActionPointCost;
+        this.wealth = TypeOfBuilding.wealth;
+
+        this.destroyFlora = TypeOfBuilding.destroyFlora;
+        this.turnsToBuild = TypeOfBuilding.turnsToBuild;
+        this.onlyInBorder = TypeOfBuilding.onlyInBorder;
     }
 
     @Override

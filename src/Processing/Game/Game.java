@@ -3,9 +3,10 @@ package Processing.Game;
 import Processing.Player.Player;
 import Processing.TileMap.GameMap;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Game {
+public class Game implements Serializable {
     static final long serialVersionUID = 4L;
 
     public static final Random RandomGen = new Random(System.currentTimeMillis());
@@ -29,6 +30,9 @@ public class Game {
         this.Map = Map;
         this.numberOfPlayers = numberOfPlayers;
         this.players = new Player[this.numberOfPlayers];
+        for(int i = 0; i < this.numberOfPlayers; i++){
+            this.players[i] = new Player(this);
+        }
         this.currentPlayer = 0;
         this.Map.GenerateSettlers(this);
     }

@@ -10,11 +10,12 @@ import Processing.Utilits.Point;
 import Processing.Utilits.Wrapers.TwoTTT;
 import Processing.Utilits.WhereCanBe;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class LightPlay {
+public class LightPlay implements Serializable {
     static final long serialVersionUID = 22L;
     private static GameMap CurrentMap;
     private static Unit CurrentUnit;

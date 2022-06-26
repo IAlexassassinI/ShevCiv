@@ -7,6 +7,7 @@ import Processing.Units.Ability.Colonize;
 import Processing.Units.Ability.ConstructSomethingOnTile;
 import Processing.Units.Ability.GetCargoSmall;
 import Processing.Units.Ability.SpecialAbility;
+import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Tag;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
@@ -19,7 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 
-public class UnitPattern extends Tag implements Serializable {
+public class UnitPattern extends Tag implements Serializable, LoadStatic {
     static final long serialVersionUID = 21L;
 
     public String NameOfUnit;
@@ -142,18 +143,46 @@ public class UnitPattern extends Tag implements Serializable {
         }
     }
 
-    @Override
-    public boolean equals(Object object){
-        if(object == null){
-            return false;
+
+    public void LoadSetTo(Object object){
+        UnitPattern UnitPattern = (UnitPattern) object;
+        this.NameOfUnit = UnitPattern.NameOfUnit;
+
+        this.productionCost = UnitPattern.productionCost;
+        this.moneyCost = UnitPattern.moneyCost;
+
+        this.moneyUpkeep = UnitPattern.moneyUpkeep;
+
+        this.maxActionPoints = UnitPattern.maxActionPoints;
+
+        this.isFlying = UnitPattern.isFlying;
+        this.whereCanMove = UnitPattern.whereCanMove;
+        this.moveModifier = UnitPattern.moveModifier;
+        this.howMuchAffectedByLandAdditionalAPCost = UnitPattern.howMuchAffectedByLandAdditionalAPCost;
+        this.howMuchAffectedByFloraAdditionalAPCost = UnitPattern.howMuchAffectedByFloraAdditionalAPCost;
+        this.howMuchAffectedByResourceAdditionalAPCost = UnitPattern.howMuchAffectedByResourceAdditionalAPCost;
+
+        this.isRanged = UnitPattern.isRanged;
+        this.rangeOfAttack = UnitPattern.rangeOfAttack;
+        this.rangedAttack = UnitPattern.rangedAttack;
+
+        this.attackMelee = UnitPattern.attackMelee;
+        this.defenceMelee = UnitPattern.defenceMelee;
+        this.defenceRanged = UnitPattern.defenceRanged;
+        this.maxHitPoints = UnitPattern.maxHitPoints;
+        this.visionRange = UnitPattern.visionRange;
+        this.maxNumberOfAttacks = UnitPattern.maxNumberOfAttacks;
+
+        this.workEfficiency = UnitPattern.workEfficiency;
+
+        if(UnitPattern.tags == null){
+            this.tags = null;
+        }else {
+            this.tags.addAll(UnitPattern.tags);
         }
-        if(object.getClass() == this.getClass()){
-            if(this.NameOfUnit.hashCode() == ((UnitPattern) object).NameOfUnit.hashCode()){
-                return true;
-            }
-        }
-        return false;
+        //TODO maybe needs to add tags there
     }
+
 
     public void doUpkeep(Player owner){
         owner.getMoney(-moneyUpkeep);

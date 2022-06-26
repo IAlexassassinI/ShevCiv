@@ -1,6 +1,8 @@
 package Processing.Utilits.Wrapers;
 
-public class TwoTTT<AAA,VVV> {
+import java.io.Serializable;
+
+public class TwoTTT<AAA,VVV> implements Serializable {
     static final long serialVersionUID = 27L;
     public AAA first;
     public VVV second;

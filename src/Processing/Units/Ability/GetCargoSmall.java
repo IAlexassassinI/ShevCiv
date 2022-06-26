@@ -7,9 +7,10 @@ import Processing.Utilits.Tag;
 import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.WhereCanBe;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GetCargoSmall extends SpecialAbility{
+public class GetCargoSmall extends SpecialAbility implements Serializable {
     static final long serialVersionUID = 16L;
 
     public static String nameOfAbility = "GetCargoSmall";

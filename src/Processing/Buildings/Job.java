@@ -1,10 +1,12 @@
 package Processing.Buildings;
 
+import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class Job {
+public class Job implements Serializable , LoadStatic {
     static final long serialVersionUID = 1L;
 
     public Wealth wealth;
@@ -15,6 +17,13 @@ public class Job {
         this.wealth = wealth;
         this.name = name;
         this.description = description;
+    }
+
+    public void LoadSetTo(Object object){
+        Job Job = (Job) object;
+        this.wealth = Job.wealth;
+        this.name = Job.name;
+        this.description = Job.description;
     }
 
     public Job initJob(){

@@ -1,11 +1,12 @@
 package Processing.Units;
 
 import Processing.TileMap.TileUtils.TypeOfLand;
+import Processing.Utilits.LoadStatic;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class BattleModifier implements Serializable {
+public class BattleModifier implements Serializable, LoadStatic {
     static final long serialVersionUID = 18L;
 
     static final public double ATTACK_CONST = 10;
@@ -60,6 +61,20 @@ public class BattleModifier implements Serializable {
         AllTypeOfBattleModifier.put(name, this);
     }
 
+    public void LoadSetTo(Object object){
+        BattleModifier BattleModifier = (BattleModifier) object;
+        this.name = BattleModifier.name;
+        this.additionalDefenseMelee = BattleModifier.additionalDefenseMelee;
+        this.additionalDefenseRanged = BattleModifier.additionalDefenseRanged;
+
+        this.additionalAttackMelee = BattleModifier.additionalAttackMelee;
+        this.additionalAttackRanged = BattleModifier.additionalAttackRanged;
+
+        this.additionalShootingRange = BattleModifier.additionalShootingRange;
+        this.additionalVisionRange = BattleModifier.additionalVisionRange;
+
+        this.additionalHealing = BattleModifier.additionalHealing;
+    }
 
 
 }

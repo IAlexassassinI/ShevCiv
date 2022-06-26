@@ -1,6 +1,8 @@
 package Processing.Utilits.Wrapers;
 
-public class ThreeTTT<AAA, TTT, VVV> {
+import java.io.Serializable;
+
+public class ThreeTTT<AAA, TTT, VVV> implements Serializable {
     static final long serialVersionUID = 26L;
     public AAA first;
     public TTT second;
