@@ -38,8 +38,7 @@ public class SelectButtonComponent extends ButtonComponent {
         }
     }
 
-    @Override
-    public void mousePressed(int button, int x, int y) {
+    public void mousePressedSignalise(int button, int x, int y) {
         if(contains(x, y) && button == Input.MOUSE_LEFT_BUTTON && !this.locked) {
             this.selected = !this.selected;
             this.currentColor = this.normalColor;

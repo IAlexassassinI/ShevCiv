@@ -25,7 +25,7 @@ public class Game {
         return players[currentPlayer];
     }
 
-    Game(GameMap Map, int numberOfPlayers){
+    public Game(GameMap Map, int numberOfPlayers){
         this.Map = Map;
         this.numberOfPlayers = numberOfPlayers;
         this.players = new Player[this.numberOfPlayers];

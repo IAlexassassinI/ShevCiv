@@ -48,7 +48,7 @@ public class Unit implements Serializable {
     static private Tile[] whereCanShoot;
     static private HashMap<Point, Tile> whereCanShootAndThereUnit;
 
-    public HashMap<Tile,Path> prepareMove(){
+    private HashMap<Tile,Path> prepareMove(){
         generatedPath = PathFinder.findMovePath(currentActionPoints, onTile);
         return generatedPath;
     }

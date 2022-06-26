@@ -8,6 +8,11 @@ import org.newdawn.slick.gui.GUIContext;
 
 public class GameTileComponent extends TileComponent {
 
+    private int mapX;
+    private int mapY;
+
+    private UnitComponent unitComponent;
+
     public GameTileComponent(GUIContext container, Tile tile, float x, float y) {
         super(container, tile, x, y);
     }
@@ -16,6 +21,15 @@ public class GameTileComponent extends TileComponent {
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
         super.render(guiContext, graphics);
         renderFilter(guiContext, graphics);
+    }
+
+    public void renderUnit(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.getTile().getUnit() != null && this.unitComponent == null) {
+            this.unitComponent = new UnitComponent(this);
+        }
+        if(this.getTile().getUnit() != null && this.unitComponent != null) {
+            this.unitComponent.render(guiContext, graphics);
+        }
     }
 
     public void renderTypeOfBuildings(GUIContext guiContext, Graphics graphics) throws SlickException {
