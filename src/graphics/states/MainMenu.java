@@ -2,9 +2,7 @@ package graphics.states;
 
 import graphics.components.button.ButtonComponent;
 import graphics.loads.Images;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.state.BasicGameState;
@@ -53,17 +51,30 @@ public class MainMenu extends BasicGameState implements ComponentListener {
 
     }
 
+    /*@Override
+    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+        this.exitButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.editMapButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.newGameButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+    }
+
+    @Override
+    public void mousePressed(int button, int x, int y) {
+        this.newGameButton.mousePressedSignalise(button, x, y);
+        this.exitButton.mousePressedSignalise(button, x, y);
+        this.editMapButton.mousePressedSignalise(button, x, y);
+    }*/
+
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
         if(abstractComponent instanceof ButtonComponent) {
             if(abstractComponent == this.newGameButton) {
-
+                game.enterState(GameState.ID);
             }
             else if(abstractComponent == this.editMapButton) {
                 game.enterState(EditMap.ID);
             }
             else if(abstractComponent == this.exitButton) {
-                System.out.println(1);
                 this.gameContainer.exit();
             }
         }
