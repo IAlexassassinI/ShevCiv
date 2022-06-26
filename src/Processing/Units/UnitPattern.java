@@ -7,7 +7,6 @@ import Processing.Units.Ability.Colonize;
 import Processing.Units.Ability.ConstructSomethingOnTile;
 import Processing.Units.Ability.GetCargoSmall;
 import Processing.Units.Ability.SpecialAbility;
-import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Tag;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
@@ -20,7 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 
-public class UnitPattern extends Tag implements Serializable, LoadStatic {
+public class UnitPattern extends Tag implements Serializable {
     static final long serialVersionUID = 21L;
 
     public String NameOfUnit;

@@ -1,7 +1,6 @@
 package Processing.TileMap.TileUtils;
 
 import Processing.Units.BattleModifier;
-import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 
@@ -9,7 +8,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class TypeOfFlora extends TileLayer implements Serializable, LoadStatic {
+public class TypeOfFlora extends TileLayer implements Serializable {
     static final long serialVersionUID = 10L;
 
     public static LinkedHashMap<String, TypeOfFlora> AllTypeOfFlora = new LinkedHashMap<>();

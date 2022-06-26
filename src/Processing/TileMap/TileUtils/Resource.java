@@ -2,14 +2,13 @@ package Processing.TileMap.TileUtils;
 
 import Processing.Buildings.Job;
 import Processing.Units.BattleModifier;
-import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class Resource extends TileLayer implements Serializable, LoadStatic {
+public class Resource extends TileLayer implements Serializable {
     static final long serialVersionUID = 6L;
 
     public static LinkedHashMap<String, Resource> AllResource = new LinkedHashMap<>();

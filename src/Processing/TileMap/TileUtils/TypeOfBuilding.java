@@ -2,7 +2,6 @@ package Processing.TileMap.TileUtils;
 
 import Processing.Buildings.Building;
 import Processing.Units.BattleModifier;
-import Processing.Utilits.LoadStatic;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 
@@ -10,7 +9,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class TypeOfBuilding extends TileLayer implements Serializable, LoadStatic {
+public class TypeOfBuilding extends TileLayer implements Serializable {
     static final long serialVersionUID = 9L;
 
     public static LinkedHashMap<String, TypeOfBuilding> AllTypeOfBuilding = new LinkedHashMap<>();
