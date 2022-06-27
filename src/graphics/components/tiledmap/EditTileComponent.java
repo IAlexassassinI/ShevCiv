@@ -68,7 +68,7 @@ public class EditTileComponent extends TileComponent {
         }
     }
 
-    @Override
+    /*@Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
         if(button == Input.MOUSE_LEFT_BUTTON && contains(x, y) && this.editMode != EditMode.NONE) {
             switch(this.editMode) {
@@ -96,6 +96,56 @@ public class EditTileComponent extends TileComponent {
 
     @Override
     public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+        this.mouseClicked = false;
+        if(this.contains(newx, newy) && this.editMode != EditMode.NONE) {
+            switch(this.editMode) {
+                case EDIT_TYPE_OF_LAND:
+                    this.mouseOver = true;
+                    break;
+                case EDIT_RESOURCE:
+                    this.mouseOver = true;
+                    break;
+                case EDIT_TYPE_OF_FLORA:
+                    this.mouseOver = true;
+                    break;
+                case EDIT_RIVER:
+                    this.mouseOver = true;
+                    break;
+                default :
+                    break;
+            }
+        }
+        else {
+            this.mouseOver = false;
+        }
+    }*/
+
+    public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
+        if(button == Input.MOUSE_LEFT_BUTTON && contains(x, y) && this.editMode != EditMode.NONE) {
+            switch(this.editMode) {
+                case EDIT_TYPE_OF_LAND:
+                    this.mouseClicked = true;
+                    break;
+                case EDIT_RESOURCE:
+                    this.mouseClicked = true;
+                    break;
+                case EDIT_TYPE_OF_FLORA:
+                    this.mouseClicked = true;
+                    break;
+                case EDIT_RIVER:
+                    this.mouseClicked = true;
+                    break;
+                default :
+                    break;
+            }
+            notifyListeners();
+        }
+        else {
+            this.mouseClicked = false;
+        }
+    }
+
+    public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
         this.mouseClicked = false;
         if(this.contains(newx, newy) && this.editMode != EditMode.NONE) {
             switch(this.editMode) {

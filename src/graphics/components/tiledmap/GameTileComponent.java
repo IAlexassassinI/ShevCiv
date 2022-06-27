@@ -48,6 +48,22 @@ public class GameTileComponent extends TileComponent {
     }
 
     @Override
+    public void translate(float dx, float dy) {
+        super.translate(dx, dy);
+        if(this.unitComponent != null) {
+            this.unitComponent.translate(dx, dy);
+        }
+    }
+
+    public UnitComponent getUnitComponent() {
+        return unitComponent;
+    }
+
+    public void setUnitComponent(UnitComponent unitComponent) {
+        this.unitComponent = unitComponent;
+    }
+
+    /*@Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
         if(button == Input.MOUSE_LEFT_BUTTON && contains(x, y)) {
             this.mouseClicked = true;
@@ -60,6 +76,27 @@ public class GameTileComponent extends TileComponent {
 
     @Override
     public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+        this.mouseClicked = false;
+        if(this.contains(newx, newy)) {
+            this.mouseOver = true;
+        }
+        else {
+            this.mouseOver = false;
+        }
+    }*/
+
+    public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
+        if(button == Input.MOUSE_LEFT_BUTTON && contains(x, y)) {
+            this.mouseClicked = true;
+            notifyListeners();
+            System.out.println(this.listeners);
+        }
+        else {
+            this.mouseClicked = false;
+        }
+    }
+
+    public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
         this.mouseClicked = false;
         if(this.contains(newx, newy)) {
             this.mouseOver = true;

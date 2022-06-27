@@ -121,5 +121,15 @@ public class SelectionPanel extends Panel implements ComponentListener {
             super.setHeight(height);
             this.selectButton.setHeight(height);
         }
+
+        @Override
+        public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
+            this.selectButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+        }
+
+        @Override
+        public void mousePressedSignalise(int button, int x, int y) {
+            this.selectButton.mousePressedSignalise(button, x, y);
+        }
     }
 }
