@@ -25,7 +25,7 @@ public class Point implements Serializable {
     final public static int LEFT_NUM = 6;
     final public static int TOP_LEFT_NUM = 7;
 
-    final public static Point[] ALL_SIDES = new Point[]{CENTER, TOP, TOP_RIGHT, RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, LEFT, TOP_LEFT};
+    final public static Point[] ALL_SIDES = new Point[]{TOP, TOP_RIGHT, RIGHT, BOTTOM_RIGHT, BOTTOM, BOTTOM_LEFT, LEFT, TOP_LEFT, CENTER};
 
     public Point(){
         this.x = 0;

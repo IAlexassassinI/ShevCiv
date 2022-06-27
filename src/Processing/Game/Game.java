@@ -18,7 +18,7 @@ public class Game implements Serializable {
     public GameMap Map;
 
     public void giveTurn(){
-        currentPlayer++;
+        currentPlayer = (currentPlayer+1)%numberOfPlayers;
         players[currentPlayer%numberOfPlayers].myTurn = true;
     }
 

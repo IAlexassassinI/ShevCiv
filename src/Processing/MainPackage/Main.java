@@ -40,6 +40,7 @@ public class Main {
         //WhereCanBe.initTypes();
         System.out.println(11);
         TypeOfFlora.Forest = GM.GU.AllTypeOfFlora.get(TypeOfFlora.Forest.elementName);
+
         WhereCanBe wcb = TypeOfFlora.Forest.whereCanExist;
         System.out.println(11);
         System.out.println(11);
