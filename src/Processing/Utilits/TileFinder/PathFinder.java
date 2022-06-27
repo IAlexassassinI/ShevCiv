@@ -22,7 +22,6 @@ public class PathFinder implements Serializable {
     public static HashMap<Tile,Path> findMovePath(double currentActionPoints, Tile startTile){
         Path FirstPath = new Path(currentActionPoints);
         AllPath = new HashMap<>();
-        AllPath.put(startTile, FirstPath);
         CurrentMap = startTile.map;
         CurrentUnit = startTile.unit;
         Pathfinder(FirstPath);
@@ -31,7 +30,13 @@ public class PathFinder implements Serializable {
 
     private static void Pathfinder(Path path){
         for(int i = 0; i < Point.ALL_SIDES.length-1; i++){
-            Tile TMP_Tile = CurrentMap.getTile(Point.ALL_SIDES[i]);
+            Tile TileToOrient;
+            if(path.tilePath.size() == 0){
+                TileToOrient = CurrentUnit.onTile;
+            } else{
+                TileToOrient = path.tilePath.peekLast();
+            }
+            Tile TMP_Tile = CurrentMap.getTile(TileToOrient.coordinates.LookAt(Point.ALL_SIDES[i]));
             if(TMP_Tile != null){
                 if(TMP_Tile.unit != null){
                     continue;
