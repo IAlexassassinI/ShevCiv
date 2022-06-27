@@ -53,8 +53,9 @@ public class GameMapComponent extends MapComponent {
 
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
-        if(abstractComponent instanceof EditTileComponent) {
+        if(abstractComponent instanceof GameTileComponent) {
             this.selectedTile = (TileComponent) abstractComponent;
+            System.out.println(4);
             notifyListeners();
         }
     }

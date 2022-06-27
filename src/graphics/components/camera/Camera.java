@@ -41,7 +41,7 @@ public class Camera extends AbstractComponent {
         graphics.resetTransform();
     }
 
-    @Override
+    /*@Override
     public void mouseDragged(int oldx, int oldy, int newx, int newy) {
         if(!contains(oldx, oldy)) return;
         translateMap(newx - oldx, newy - oldy);
@@ -55,6 +55,21 @@ public class Camera extends AbstractComponent {
 
     @Override
     public void mouseWheelMoved(int change) {
+        if(!contains(this.mouseX, this.mouseY)) return;
+        scaleMap((1000f + change) / 1000f, this.mouseX, this.mouseY);
+    }*/
+
+    public void mouseDraggedSignalise(int oldx, int oldy, int newx, int newy) {
+        if(!contains(oldx, oldy)) return;
+        translateMap(newx - oldx, newy - oldy);
+    }
+
+    public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
+        this.mouseX = newx;
+        this.mouseY = newy;
+    }
+
+    public void mouseWheelMovedSignalise(int change) {
         if(!contains(this.mouseX, this.mouseY)) return;
         scaleMap((1000f + change) / 1000f, this.mouseX, this.mouseY);
     }
@@ -170,6 +185,14 @@ public class Camera extends AbstractComponent {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
     }
 
     /*public void scaleTiles(float scale) {

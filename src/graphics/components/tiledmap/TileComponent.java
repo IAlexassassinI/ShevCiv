@@ -137,7 +137,7 @@ public class TileComponent extends AbstractComponent {
         this.imageY += dy;
     }
 
-    @Override
+    /*@Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
         if(button != Input.MOUSE_LEFT_BUTTON) return;
         if(clickCount != 1) return;
@@ -152,6 +152,21 @@ public class TileComponent extends AbstractComponent {
 
     @Override
     public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+    }*/
+
+    public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
+        if(button != Input.MOUSE_LEFT_BUTTON) return;
+        if(clickCount != 1) return;
+        if(x < this.x || x > this.x + this.width) return;
+        if(y < this.y || y > this.y + this.height) return;
+        setSelected(!this.selected);
+        if(!this.selected) {
+            this.currentColor = this.mouseOverColor;
+        }
+        this.notifyListeners();
+    }
+
+    public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
         /*if(this.selected)return;
         if(this.contains(newx, newy)) {
             this.currentColor = this.mouseOverColor;

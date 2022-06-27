@@ -51,7 +51,7 @@ public class MainMenu extends BasicGameState implements ComponentListener {
 
     }
 
-    /*@Override
+    @Override
     public void mouseMoved(int oldx, int oldy, int newx, int newy) {
         this.exitButton.mouseMovedSignalise(oldx, oldy, newx, newy);
         this.editMapButton.mouseMovedSignalise(oldx, oldy, newx, newy);
@@ -63,7 +63,7 @@ public class MainMenu extends BasicGameState implements ComponentListener {
         this.newGameButton.mousePressedSignalise(button, x, y);
         this.exitButton.mousePressedSignalise(button, x, y);
         this.editMapButton.mousePressedSignalise(button, x, y);
-    }*/
+    }
 
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {

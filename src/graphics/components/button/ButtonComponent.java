@@ -89,7 +89,7 @@ public class ButtonComponent extends AbstractComponent {
         }
     }
 
-    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+    /*public void mouseMoved(int oldx, int oldy, int newx, int newy) {
         if(contains(newx, newy) && !this.locked) {
             this.mouseOver = true;
             this.currentColor = this.mouseOverColor;
@@ -112,7 +112,7 @@ public class ButtonComponent extends AbstractComponent {
             this.currentColor = normalColor;
             this.mouseDown = false;
         }
-    }
+    }*/
 
     @Override
     public int getX() {

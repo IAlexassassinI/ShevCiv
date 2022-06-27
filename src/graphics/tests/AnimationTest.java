@@ -13,7 +13,7 @@ public class AnimationTest extends BasicGame {
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        SpriteSheet idleSpriteSheet = new SpriteSheet("assets/graphics/units/Settler.png", TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
+        SpriteSheet idleSpriteSheet = new SpriteSheet("assets/graphics/units/SettlerAnimation.png", TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
         this.idleAnimation = new Animation(idleSpriteSheet, 0, 0, idleSpriteSheet.getHorizontalCount()-1, 0, true, 250, true);
     }
 

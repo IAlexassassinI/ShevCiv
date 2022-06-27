@@ -1,5 +1,6 @@
 package graphics.states;
 
+import Processing.FileHandler.SaveLoadInterface;
 import Processing.TileMap.GameMap;
 import Processing.TileMap.TileUtils.Resource;
 import Processing.TileMap.TileUtils.TypeOfFlora;
@@ -30,6 +31,7 @@ public class EditMap extends BasicGameState implements ComponentListener {
     private GameMap gameMap;
 
     private StateBasedGame game;
+    private GameContainer gameContainer;
 
     private Camera camera;
     private EditMapComponent editMapComponent;
@@ -53,7 +55,9 @@ public class EditMap extends BasicGameState implements ComponentListener {
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
         this.game = stateBasedGame;
-        this.gameMap = new GameMap(20, 20);
+        this.gameContainer = gameContainer;
+        //this.gameMap = new GameMap(20, 20);
+        this.gameMap = SaveLoadInterface.LoadGameMapFromFile(saveFile);
         this.editMapComponent = new EditMapComponent(gameContainer, this.gameMap, 20, 20);
         this.editMapComponent.addListener(this);
         editMapComponent.setEditMode(EditMode.EDIT_TYPE_OF_LAND);
@@ -164,6 +168,51 @@ public class EditMap extends BasicGameState implements ComponentListener {
     }
 
     @Override
+    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
+        this.camera.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.editMapComponent.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.saveButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.exitButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.loadButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.category.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.scrollResources.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.scrollTypesOfLand.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.scrollTypesOfFlora.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.typesOfFlora.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.typesOfLand.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.resources.mouseMovedSignalise(oldx, oldy, newx, newy);
+    }
+
+    @Override
+    public void mouseDragged(int oldx, int oldy, int newx, int newy) {
+        this.camera.mouseDraggedSignalise(oldx, oldy, newx, newy);
+    }
+
+    @Override
+    public void mouseClicked(int button, int x, int y, int clickCount) {
+        this.editMapComponent.mouseClickedSignalise(button, x, y, clickCount);
+    }
+
+    @Override
+    public void mousePressed(int button, int x, int y) {
+        this.saveButton.mousePressedSignalise(button, x, y);
+        this.exitButton.mousePressedSignalise(button, x, y);
+        this.loadButton.mousePressedSignalise(button, x, y);
+        this.category.mousePressedSignalise(button, x, y);
+        this.scrollResources.mousePressedSignalise(button, x, y);
+        this.scrollTypesOfLand.mousePressedSignalise(button, x, y);
+        this.scrollTypesOfFlora.mousePressedSignalise(button, x, y);
+        this.typesOfFlora.mousePressedSignalise(button, x, y);
+        this.typesOfLand.mousePressedSignalise(button, x, y);
+        this.resources.mousePressedSignalise(button, x, y);
+    }
+
+    @Override
+    public void mouseWheelMoved(int newValue) {
+        this.camera.mouseWheelMovedSignalise(newValue);
+    }
+
+    @Override
     public void componentActivated(AbstractComponent abstractComponent) {
         if(abstractComponent instanceof EditMapComponent) {
             switch (category.getSelectedComponent().getId()) {
@@ -200,16 +249,11 @@ public class EditMap extends BasicGameState implements ComponentListener {
         }
         else if(abstractComponent instanceof ButtonComponent) {
             if(abstractComponent == this.saveButton) {
-                try {
-                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(saveFile));
-                    oos.writeObject(this.gameMap);
-                    oos.close();
-                }  catch (IOException e) {
-                    e.printStackTrace();
-                }
+                SaveLoadInterface.SaveGameMapToFile(this.gameMap, saveFile);
             }
             else if(abstractComponent == this.loadButton) {
-
+                //this.editMapComponent = new EditMapComponent(gameContainer, SaveLoadInterface.LoadGameMapFromFile(saveFile), 20, 20);
+                //this.camera = new Camera(gameContainer, 20, 20, this.camera.getWidth(), this.camera.getHeight(), this.editMapComponent);
             }
             else if(abstractComponent == this.exitButton) {
                 this.game.enterState(MainMenu.ID);

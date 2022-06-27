@@ -209,6 +209,50 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
     }
 
     @Override
+    public void keyPressedSignalise(int key, char c) {
+        this.panel.keyPressedSignalise(key, c);
+    }
+
+    @Override
+    public void keyReleasedSignalise(int key, char c) {
+        this.panel.keyReleasedSignalise(key, c);
+    }
+
+    @Override
+    public void mouseDraggedSignalise(int oldx, int oldy, int newx, int newy) {
+        this.panel.mouseDraggedSignalise(oldx, oldy, newx, newy);
+    }
+
+    @Override
+    public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
+        this.panel.mouseClickedSignalise(button, x, y, clickCount);
+    }
+
+    @Override
+    public void mouseReleasedSignalise(int button, int x, int y) {
+        this.panel.mouseReleasedSignalise(button, x, y);
+    }
+
+    @Override
+    public void mouseWheelMovedSignalise(int newValue) {
+        this.panel.mouseWheelMovedSignalise(newValue);
+    }
+
+    @Override
+    public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
+        this.panel.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.button1.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.button2.mouseMovedSignalise(oldx, oldy, newx, newy);
+    }
+
+    @Override
+    public void mousePressedSignalise(int button, int x, int y) {
+        this.panel.mousePressedSignalise(button, x, y);
+        this.button1.mousePressedSignalise(button, x, y);
+        this.button2.mousePressedSignalise(button, x, y);
+    }
+
+    @Override
     public void componentActivated(AbstractComponent abstractComponent) {
         if(getOrientation() == Orientation.HORIZONTAL) {
             if(abstractComponent == this.button1) {

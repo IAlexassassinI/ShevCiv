@@ -5,6 +5,7 @@ import Processing.TileMap.Tile;
 import graphics.components.camera.Camera;
 import graphics.loads.Images;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -169,6 +170,22 @@ public class MapComponent extends AbstractComponent implements ComponentListener
         this.locked = locked;
     }
 
+    public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
+        for(int i = 0; i < this.map.getHeight(); i++) {
+            for(int j = 0; j < this.map.getWidth(); j++) {
+                this.tileComponents[i][j].mouseClickedSignalise(button, x, y, clickCount);
+            }
+        }
+    }
+
+    public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
+        for(int i = 0; i < this.map.getHeight(); i++) {
+            for(int j = 0; j < this.map.getWidth(); j++) {
+                this.tileComponents[i][j].mouseMovedSignalise(oldx, oldy, newx, newy);
+            }
+        }
+    }
+
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
         if(abstractComponent instanceof TileComponent) {
@@ -178,6 +195,7 @@ public class MapComponent extends AbstractComponent implements ComponentListener
                 this.selectedTile.setSelected(false);
                 this.selectedTile = (TileComponent) abstractComponent;
             }
+            System.out.println(3);
             this.notifyListeners();
         }
     }

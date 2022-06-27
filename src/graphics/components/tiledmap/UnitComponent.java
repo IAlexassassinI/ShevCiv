@@ -1,5 +1,6 @@
 package graphics.components.tiledmap;
 
+import Processing.TileMap.Tile;
 import Processing.Units.Unit;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.GUIContext;
@@ -33,11 +34,26 @@ public class UnitComponent {
 
     }
 
-    public void prepareToMove() {
+    private Tile[] movingArea;
 
+    public void prepareToMove() {
+        this.state = UnitState.PREPARE_TO_MOVE;
+        movingArea = this.tileComponent.getTile().getUnit().getAllTilesInMoveRange();
+        System.out.println(this.movingArea == null);
+        for(Tile tile : this.movingArea) {
+            System.out.println(tile);
+        }
+        System.out.println(7);
+        //System.out.println(movingArea);
     }
 
+    public void move(GameTileComponent tile) {
+    }
 
+    public void translate(float dx, float dy) {
+        this.x += dx;
+        this.y += dy;
+    }
 
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
         switch(this.state) {
@@ -47,6 +63,17 @@ public class UnitComponent {
             case MOVING:
                 break;
             case PREPARE_TO_MOVE:
+                this.idleAnimation.draw(this.tileComponent.getX(), this.tileComponent.getY(), this.tileComponent.getWidth(), this.tileComponent.getHeight());
+                graphics.setColor(new Color(0, 0, 1, 0.8f));
+                for(Tile tile : movingArea) {
+                    //System.out.println(tile);
+                    if(tile!=null){
+                        graphics.fillRect(this.tileComponent.getX() + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth(),
+                                this.tileComponent.getY() + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight(),
+                                this.tileComponent.getWidth(),
+                                this.tileComponent.getHeight());
+                    }
+                }
                 break;
             default:
                 break;

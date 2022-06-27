@@ -189,6 +189,54 @@ public class Panel {
 
     }
 
+    public void keyPressedSignalise(int key, char c) {
+        for(Panel panel : this.panels) {
+            panel.keyPressedSignalise(key, c);
+        }
+    }
+
+    public void keyReleasedSignalise(int key, char c) {
+        for(Panel panel : this.panels) {
+            panel.keyReleasedSignalise(key, c);
+        }
+    }
+
+    public void mouseDraggedSignalise(int oldx, int oldy, int newx, int newy) {
+        for(Panel panel : this.panels) {
+            panel.mouseDraggedSignalise(oldx, oldy, newx, newy);
+        }
+    }
+
+    public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
+        for(Panel panel : this.panels) {
+            panel.mouseClickedSignalise(button, x, y, clickCount);
+        }
+    }
+
+    public void mouseReleasedSignalise(int button, int x, int y) {
+        for(Panel panel : this.panels) {
+            panel.mouseReleasedSignalise(button, x, y);
+        }
+    }
+
+    public void mouseWheelMovedSignalise(int newValue) {
+        for(Panel panel : this.panels) {
+            panel.mouseWheelMovedSignalise(newValue);
+        }
+    }
+
+    public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
+        for(Panel panel : this.panels) {
+            panel.mouseMovedSignalise(oldx, oldy, newx, newy);
+        }
+    }
+
+    public void mousePressedSignalise(int button, int x, int y) {
+        for(Panel panel : this.panels) {
+            panel.mousePressedSignalise(button, x, y);
+        }
+    }
+
     public Panel getParent() {
         return parent;
     }
