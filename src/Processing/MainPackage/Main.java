@@ -48,5 +48,6 @@ public class Main {
         //TODO proceed special resources
         //TODO maybe make true/false list for buying units and buildings
         //TODO paralel add types of elements
+        //TODO add auto use of build in builder
     }
 }

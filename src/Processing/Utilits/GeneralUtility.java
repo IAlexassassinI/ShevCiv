@@ -60,8 +60,6 @@ public class GeneralUtility implements Serializable {
 
     public void loadStaticParams(){
 
-
-
         Tag.AllTags = this.AllTags;
         Building.AllBuildings = this.AllBuildings;
         Job.AllJobs = this.AllJobs;
@@ -73,6 +71,9 @@ public class GeneralUtility implements Serializable {
         Projectile.AllTypeOfProjectile = this.AllTypeOfProjectile;
         UnitPattern.AllUnitPattern = this.AllUnitPattern;
         WhereCanBe.AllWhereCanSpawn = this.AllWhereCanSpawn;
+
+        //TODO add all things like resource none
+
     }
 
     private void ChangeAllInHashMap(HashMap mapIn, HashMap mapFrom){
