@@ -82,12 +82,15 @@ public class Tile implements Serializable {
     }
 
     public void setTypeOfLand(TypeOfLand typeOfLand) {
+        this.typeOfLand = typeOfLand;
+        this.wealth.dMinusWealth(this.typeOfLand.wealth);
+        this.wealth.dWealth(this.typeOfLand.wealth);
         if(!WhereCanBe.FullCheck(this, this.typeOfFlora.whereCanExist)){
             this.setTypeOfFlora(TypeOfFlora.none);
         }
-        this.wealth.dMinusWealth(this.typeOfLand.wealth);
-        this.typeOfLand = typeOfLand;
-        this.wealth.dWealth(this.typeOfLand.wealth);
+        if(!WhereCanBe.FullCheck(this, this.resource.whereCanSpawn)){
+            this.setResource(resource.none);
+        }
     }
 
     public Resource getResource() {
@@ -109,12 +112,12 @@ public class Tile implements Serializable {
 
     public void setTypeOfBuilding(TypeOfBuilding typeOfBuilding) {
         if(WhereCanBe.FullCheck(this, typeOfBuilding.whereCanExist)){
-            if(typeOfBuilding.destroyFlora){
-                this.setTypeOfFlora(TypeOfFlora.none);
-            }
             this.wealth.dMinusWealth(this.typeOfBuilding.wealth);
             this.typeOfBuilding = typeOfBuilding;
             this.wealth.dWealth(this.typeOfBuilding.wealth);
+            if(typeOfBuilding.destroyFlora){
+                this.setTypeOfFlora(TypeOfFlora.none);
+            }
         }
     }
 
@@ -156,6 +159,9 @@ public class Tile implements Serializable {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+        if(unit != null){
+            unit.onTile = this;
+        }
     }
 
     public City getCity() {

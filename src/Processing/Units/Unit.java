@@ -70,8 +70,7 @@ public class Unit implements Serializable {
             LightPlay.removeFromPlayerVision(this);
 
             this.onTile.unit = null;
-            toTile.unit = this;
-            this.onTile = toTile;
+            toTile.setUnit(this);
             this.currentActionPoints = pathToTile.getCurrentActionPoints();
 
             LightPlay.addToPlayerVision(this);
