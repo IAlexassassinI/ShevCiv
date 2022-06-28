@@ -8,6 +8,7 @@ import graphics.components.button.ButtonComponent;
 import graphics.components.camera.Camera;
 import graphics.components.tiledmap.GameMapComponent;
 import graphics.components.tiledmap.GameTileComponent;
+import graphics.components.tiledmap.UnitState;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -108,8 +109,21 @@ public class GameState extends BasicGameState implements ComponentListener {
                 this.camera.setWidth(1360);
                 currentUnitTile = (GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile();
             }
+            else if(this.currentUnitTile != null && this.currentUnitTile.getUnitComponent().isInMovingArea(((GameMapComponent) abstractComponent).getSelectedTile().getTile())) {
+                //((GameMapComponent) abstractComponent).getSelectedTile().getTile()
+                this.currentUnitTile.getUnitComponent().setState(UnitState.IDLE);
+                this.currentUnitTile.getUnitComponent().move((GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile());
+                this.currentUnitTile = (GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile();
+            }
+            /*if(isUnitConrol && this.currentUnitTile != null) {
+                this.currentUnitTile.getUnitComponent().move(this.currentUnitTile);
+            }*/
             else {
                 this.camera.setWidth(1880);
+                if(this.currentUnitTile != null) {
+                    this.currentUnitTile.getUnitComponent().setState(UnitState.IDLE);
+                    this.currentUnitTile = null;
+                }
                 isUnitConrol = false;
             }
         }
