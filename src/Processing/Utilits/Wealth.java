@@ -40,6 +40,38 @@ public class Wealth implements Serializable {
         return this;
     }
 
+    public Wealth mWealth(double multiplier){
+        this.production *= multiplier;
+        this.money *= multiplier;
+        this.food *= multiplier;
+        this.engineeringScience *= multiplier;
+        this.societyScience *= multiplier;
+        this.arcanumScience *= multiplier;
+        return this;
+    }
+
+    public Wealth depressionMWealth(double multiplier){
+        if(this.production > 0){
+            this.production *= multiplier;
+        }
+        if(this.money > 0){
+            this.money *= multiplier;
+        }
+        if(this.food > 0){
+            this.food *= multiplier;
+        }
+        if(this.engineeringScience > 0){
+            this.engineeringScience *= multiplier;
+        }
+        if(this.societyScience > 0){
+            this.societyScience *= multiplier;
+        }
+        if(this.arcanumScience > 0){
+            this.arcanumScience *= multiplier;
+        }
+        return this;
+    }
+
     public Wealth dMinusWealth(Wealth dWealth){
         this.production -= dWealth.production;
         this.money -= dWealth.money;

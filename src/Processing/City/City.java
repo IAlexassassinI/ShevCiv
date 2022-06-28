@@ -15,6 +15,7 @@ import Processing.Utilits.Wrapers.TwoTTT;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 public class City implements Serializable {
@@ -29,11 +30,11 @@ public class City implements Serializable {
     public Wealth wealth = new Wealth();
     public LinkedList<TwoTTT<Resource, Integer>> NeededResources = new LinkedList<>();
 
-    public LinkedList<Building> buildingsThatCanBeBuild = new LinkedList<>();
+    public LinkedHashMap<String,Building> buildingsThatCanBeBuild = new LinkedHashMap<>();
     public LinkedList<Boolean> buildingCanBeBuilt = new LinkedList<>();
     public LinkedList<Building> alreadyBuiltBuildings = new LinkedList<>();
 
-    public LinkedList<UnitPattern> unitsThatCanBeBuild = new LinkedList<>();
+    public LinkedHashMap<String, UnitPattern> unitsThatCanBeBuild = new LinkedHashMap<>();
     public LinkedList<UnitPattern> createdUnits = new LinkedList<>();
 
     public LinkedList<CreatableObject> creationList = new LinkedList<>();
@@ -52,9 +53,12 @@ public class City implements Serializable {
     public int numberOfCitizen;
     public int numberOfFreeCitizen;
 
+    boolean ownerWasInDepression;
+
     public City(Unit unit){
         this.owner = unit.owner;
         this.ownedTiles.add(unit.onTile);
+        this.ownerWasInDepression = owner.inDepression;
         LightPlay.addToPlayerVision(unit.onTile, this.owner);
 
         if(owner.namesOfCities.isEmpty()){
@@ -63,7 +67,7 @@ public class City implements Serializable {
             this.name = owner.namesOfCities.pop();
         }
         buildingsThatCanBeBuild = owner.buildings;
-        Iterator iterator = buildingsThatCanBeBuild.iterator();
+        Iterator iterator = buildingsThatCanBeBuild.values().iterator();
         while(iterator.hasNext()){
             buildingCanBeBuilt.add(true);
             iterator.next();
@@ -82,15 +86,23 @@ public class City implements Serializable {
     public void addToCreationList(Object object){
         if(object.getClass() == UnitPattern.class){
             UnitPattern pattern = ((UnitPattern)object);
-            if(unitsThatCanBeBuild.contains(pattern)){
+            if(unitsThatCanBeBuild.containsKey(pattern.NameOfUnit)){
                 creationList.add(new CreatableObject<UnitPattern>(pattern, pattern.productionCost));
             }
         }
         else{
             Building pattern = ((Building)object);
-            if(buildingsThatCanBeBuild.contains(pattern) && buildingCanBeBuilt.get(buildingCanBeBuilt.indexOf(pattern))){
+            if(buildingsThatCanBeBuild.containsKey(pattern.name) && buildingCanBeBuilt.get(buildingCanBeBuilt.indexOf(pattern))){
                 creationList.add(new CreatableObject<Building>(pattern, pattern.productionCost));
-                this.buildingCanBeBuilt.set(this.buildingsThatCanBeBuild.indexOf((Building)object), false);
+                Iterator<Building> iterator = this.buildingsThatCanBeBuild.values().iterator();
+                int _index = 0;
+                while(iterator.hasNext()){
+                    if(iterator.next().equals((Building)object)){
+                        this.buildingCanBeBuilt.set(_index, false);
+                        break;
+                    }
+                    _index++;
+                }
             }
         }
     }
@@ -98,7 +110,16 @@ public class City implements Serializable {
     public void removeFromCreationList(int index){
         CreatableObject object = creationList.remove(index);
         if(object.object.getClass() == Building.class){
-            this.buildingCanBeBuilt.set(this.buildingsThatCanBeBuild.indexOf((Building)object.object), true);
+            //this.buildingCanBeBuilt.set(this.buildingsThatCanBeBuild.indexOf((Building)object.object), true);
+            Iterator<Building> iterator = this.buildingsThatCanBeBuild.values().iterator();
+            int _index = 0;
+            while(iterator.hasNext()){
+                if(iterator.next().equals((Building)object.object)){
+                    this.buildingCanBeBuilt.set(_index, true);
+                    break;
+                }
+                _index++;
+            }
         }
     }
 
@@ -129,14 +150,31 @@ public class City implements Serializable {
 
     public void addBuilding(Building building){
         this.alreadyBuiltBuildings.add(building);
-        this.wealth = this.wealth.dWealth(this.alreadyBuiltBuildings.peekLast().passiveWealth);
+        Wealth dW = new Wealth().dWealth(this.alreadyBuiltBuildings.peekLast().passiveWealth);
+        if(owner.inDepression){
+            dW.depressionMWealth(Player.DEPRESSION_DEBUFF);
+        }
+        this.wealth.dWealth(dW);
     }
 
     public void destroyBuilding(Building building){
-        this.wealth = this.wealth.dMinusWealth(this.alreadyBuiltBuildings.get(this.alreadyBuiltBuildings.indexOf(building)).passiveWealth);
+        Wealth dW = new Wealth().dWealth(this.alreadyBuiltBuildings.get(this.alreadyBuiltBuildings.indexOf(building)).passiveWealth);
+        if(owner.inDepression){
+            dW.depressionMWealth(Player.DEPRESSION_DEBUFF);
+        }
+        this.wealth.dWealth(dW);
+        this.wealth = this.wealth.dMinusWealth(dW);
         this.alreadyBuiltBuildings.remove(building);
-        if(this.owner.buildings.contains(building)){
-            this.buildingCanBeBuilt.set(this.buildingsThatCanBeBuild.indexOf(building), true);
+        if(this.owner.buildings.values().contains(building)){
+            Iterator<Building> iterator = this.buildingsThatCanBeBuild.values().iterator();
+            int _index = 0;
+            while(iterator.hasNext()){
+                if(iterator.next().equals(building)){
+                    this.buildingCanBeBuilt.set(_index, true);
+                    break;
+                }
+                _index++;
+            }
         }
     }
 
@@ -154,7 +192,11 @@ public class City implements Serializable {
             if(jobsCount.get(index) > jobsOccupiedCount.get(index)){
                 numberOfFreeCitizen--;
                 jobsOccupiedCount.set(index, jobsOccupiedCount.get(index)+1);
-                this.wealth.dWealth(job.wealth);
+                Wealth dW = new Wealth().dWealth(job.wealth);
+                if(owner.inDepression){
+                    dW.depressionMWealth(Player.DEPRESSION_DEBUFF);
+                }
+                this.wealth.dWealth(dW);
             }
         }
     }
@@ -164,7 +206,11 @@ public class City implements Serializable {
         if(jobsOccupiedCount.get(index) > 0){
             numberOfFreeCitizen++;
             jobsOccupiedCount.set(index, jobsOccupiedCount.get(index)-1);
-            this.wealth.dMinusWealth(job.wealth);
+            Wealth dW = new Wealth().dWealth(job.wealth);
+            if(owner.inDepression){
+                dW.depressionMWealth(Player.DEPRESSION_DEBUFF);
+            }
+            this.wealth.dMinusWealth(dW);
         }
     }
 
@@ -174,7 +220,11 @@ public class City implements Serializable {
                 if(numberOfFreeCitizen > 0){
                     numberOfFreeCitizen--;
                     tile.isProcessedByPeople = true;
-                    this.wealth.dWealth(tile.wealth);
+                    Wealth dW = new Wealth().dWealth(tile.wealth);
+                    if(owner.inDepression){
+                        dW.depressionMWealth(Player.DEPRESSION_DEBUFF);
+                    }
+                    this.wealth.dWealth(dW);
                 }
             }
         }
@@ -185,7 +235,11 @@ public class City implements Serializable {
             if(tile.isProcessedByPeople){
                 numberOfFreeCitizen++;
                 tile.isProcessedByPeople = false;
-                this.wealth.dMinusWealth(tile.wealth);
+                Wealth dW = new Wealth().dWealth(tile.wealth);
+                if(owner.inDepression){
+                    dW.depressionMWealth(Player.DEPRESSION_DEBUFF);
+                }
+                this.wealth.dMinusWealth(dW);
            }
         }
     }
@@ -206,8 +260,10 @@ public class City implements Serializable {
         owner.playerCities.remove(this);
         newOwner.playerCities.add(this);
         this.owner = newOwner;
+        this.ownerWasInDepression = owner.inDepression;
         buildingsThatCanBeBuild = owner.buildings;
-        Iterator iterator = buildingsThatCanBeBuild.iterator();
+        buildingCanBeBuilt = new LinkedList<>();
+        Iterator iterator = buildingsThatCanBeBuild.values().iterator();
         while(iterator.hasNext()){
             if(alreadyBuiltBuildings.contains(iterator.next())){
                 buildingCanBeBuilt.add(false);
@@ -219,6 +275,7 @@ public class City implements Serializable {
         unitsThatCanBeBuild = owner.unitPatterns;
         LightPlay.addToPlayerVision(ownedTiles, owner);
         creationList = new LinkedList<>();
+        this.recalculateWealth();
     }
 
     public void killCitizen(){
@@ -256,6 +313,8 @@ public class City implements Serializable {
     public void doEndTurn(){
         if(ownedTiles.peekFirst().unit.owner != owner){
             this.conquerCiti(ownedTiles.peekFirst().unit.owner);
+        }else if(owner.inDepression != ownerWasInDepression){
+            recalculateWealth();
         }
         Object construct = addProduction();
         if(construct != null){
@@ -271,12 +330,7 @@ public class City implements Serializable {
             ownedTiles.peekFirst().unit = TMP_Unit;
             TMP_Unit.owner.playerUnits.add(TMP_Unit);
         }
-        if(owner.inDepression){
-            foodStock = foodStock + (wealth.food * Player.DEPRESSION_DEBUFF) - numberOfCitizen;
-        }
-        else{
-            foodStock = foodStock + wealth.food - numberOfCitizen;
-        }
+        foodStock = foodStock + wealth.food - numberOfCitizen;
         if(foodStock < 0){
             this.killCitizen();
         }
@@ -285,6 +339,38 @@ public class City implements Serializable {
             numberOfFreeCitizen++;
         }
         owner.getTribute(wealth);
+    }
+
+    public void recalculateWealth(){
+        this.wealth.toZero();
+        Iterator<Tile> tileIterator = this.ownedTiles.iterator();
+        while(tileIterator.hasNext()){
+            Wealth dW = new Wealth().dWealth(tileIterator.next().wealth);
+            if(owner.inDepression){
+                dW.depressionMWealth(Player.DEPRESSION_DEBUFF);
+            }
+            this.wealth.dWealth(dW);
+        }
+
+        Iterator<Building> buildingIterator = this.alreadyBuiltBuildings.iterator();
+        while(buildingIterator.hasNext()){
+            Wealth dW = new Wealth().dWealth(buildingIterator.next().passiveWealth);
+            if(owner.inDepression){
+                dW.depressionMWealth(Player.DEPRESSION_DEBUFF);
+            }
+            this.wealth.dWealth(dW);
+        }
+
+        Iterator<Job> jobIterator = this.jobs.iterator();
+        Iterator<Integer> jobCountIterator = this.jobsOccupiedCount.iterator();
+        while(jobIterator.hasNext()){
+            Wealth dW = new Wealth().dWealth(jobIterator.next().wealth).mWealth(jobCountIterator.next());
+            if(owner.inDepression){
+                dW.depressionMWealth(Player.DEPRESSION_DEBUFF);
+            }
+            this.wealth.dWealth(dW);
+        }
+
     }
 
     public double calculatePriceOfTile(Tile tileToBuy){
@@ -312,7 +398,15 @@ public class City implements Serializable {
         if(owner.money >= building.moneyCost){
             owner.getMoney(-PriceForTile);
             this.addBuilding(building);
-            this.buildingCanBeBuilt.set(this.buildingsThatCanBeBuild.indexOf(building), false);
+            Iterator<Building> iterator = this.buildingsThatCanBeBuild.values().iterator();
+            int _index = 0;
+            while(iterator.hasNext()){
+                if(iterator.next().equals(building)){
+                    this.buildingCanBeBuilt.set(_index, false);
+                    break;
+                }
+                _index++;
+            }
         }
     }
 
@@ -329,6 +423,23 @@ public class City implements Serializable {
                 if(!ownedTiles.contains(tileToTransfer)){
                     tileToTransfer.owner.removeCitizenFromTile(tileToTransfer);
                     this.ownedTiles.add(tileToTransfer.owner.ownedTiles.remove(tileToTransfer.owner.ownedTiles.indexOf(tileToTransfer)));
+                }
+            }
+        }
+    }
+
+    public void addBooleanToBuildings(){
+        if(buildingsThatCanBeBuild.size() > buildingCanBeBuilt.size()){
+            Iterator<Building> iterator = buildingsThatCanBeBuild.values().iterator();
+            for(int i = 0; i < buildingCanBeBuilt.size(); i++){
+                iterator.next();
+            }
+            while(iterator.hasNext()){
+                if(alreadyBuiltBuildings.contains(iterator.next())){
+                    buildingCanBeBuilt.add(false);
+                }
+                else{
+                    buildingCanBeBuilt.add(true);
                 }
             }
         }

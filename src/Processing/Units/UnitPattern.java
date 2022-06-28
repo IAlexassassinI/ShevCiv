@@ -1,5 +1,7 @@
 package Processing.Units;
 
+import Processing.Buildings.Building;
+import Processing.Buildings.Job;
 import Processing.Player.Player;
 import Processing.TileMap.TileUtils.Resource;
 import Processing.TileMap.TileUtils.TypeOfBuilding;
@@ -13,10 +15,7 @@ import Processing.Utilits.WhereCanBe;
 import Processing.Utilits.Wrapers.TwoTTT;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 
 public class UnitPattern extends Tag implements Serializable {
@@ -142,50 +141,52 @@ public class UnitPattern extends Tag implements Serializable {
         }
     }
 
+    UnitPattern(){
 
-    public void LoadSetTo(Object object){
-        UnitPattern UnitPattern = (UnitPattern) object;
-        this.NameOfUnit = UnitPattern.NameOfUnit;
-
-        this.productionCost = UnitPattern.productionCost;
-        this.moneyCost = UnitPattern.moneyCost;
-
-        this.moneyUpkeep = UnitPattern.moneyUpkeep;
-
-        this.maxActionPoints = UnitPattern.maxActionPoints;
-
-        this.isFlying = UnitPattern.isFlying;
-        this.whereCanMove = UnitPattern.whereCanMove;
-        this.moveModifier = UnitPattern.moveModifier;
-        this.howMuchAffectedByLandAdditionalAPCost = UnitPattern.howMuchAffectedByLandAdditionalAPCost;
-        this.howMuchAffectedByFloraAdditionalAPCost = UnitPattern.howMuchAffectedByFloraAdditionalAPCost;
-        this.howMuchAffectedByResourceAdditionalAPCost = UnitPattern.howMuchAffectedByResourceAdditionalAPCost;
-
-        this.isRanged = UnitPattern.isRanged;
-        this.rangeOfAttack = UnitPattern.rangeOfAttack;
-        this.rangedAttack = UnitPattern.rangedAttack;
-
-        this.attackMelee = UnitPattern.attackMelee;
-        this.defenceMelee = UnitPattern.defenceMelee;
-        this.defenceRanged = UnitPattern.defenceRanged;
-        this.maxHitPoints = UnitPattern.maxHitPoints;
-        this.visionRange = UnitPattern.visionRange;
-        this.maxNumberOfAttacks = UnitPattern.maxNumberOfAttacks;
-
-        this.workEfficiency = UnitPattern.workEfficiency;
-
-        if(UnitPattern.tags == null){
-            this.tags = null;
-        }else {
-            this.tags.addAll(UnitPattern.tags);
-        }
-        //TODO maybe needs to add tags there
     }
-
 
     public void doUpkeep(Player owner){
         owner.getMoney(-moneyUpkeep);
         //TODO add special resource
+    }
+
+
+    public UnitPattern MakeCopyToPlayer(){
+        UnitPattern unitPattern = new UnitPattern();
+        unitPattern.NameOfUnit = this.NameOfUnit;
+
+        unitPattern.productionCost = this.productionCost;
+        unitPattern.moneyCost = this.moneyCost;
+        unitPattern.NeededResources = this.NeededResources;
+
+        unitPattern.moneyUpkeep = this.moneyUpkeep;
+
+        unitPattern.maxActionPoints = this.maxActionPoints;
+
+        unitPattern.isFlying = this.isFlying;
+        unitPattern.whereCanMove = this.whereCanMove;
+        unitPattern.moveModifier = this.moveModifier;
+        unitPattern.howMuchAffectedByLandAdditionalAPCost = this.howMuchAffectedByLandAdditionalAPCost;
+        unitPattern.howMuchAffectedByFloraAdditionalAPCost = this.howMuchAffectedByFloraAdditionalAPCost;
+        unitPattern.howMuchAffectedByResourceAdditionalAPCost = this.howMuchAffectedByResourceAdditionalAPCost;
+
+        unitPattern.isRanged = this.isRanged;
+        unitPattern.projectile = this.projectile;
+        unitPattern.rangeOfAttack = this.rangeOfAttack;
+        unitPattern.rangedAttack = this.rangedAttack;
+
+        unitPattern.attackMelee = this.attackMelee;
+        unitPattern.defenceMelee = this.defenceMelee;
+        unitPattern.defenceRanged = this.defenceRanged;
+        unitPattern.maxHitPoints = this.maxHitPoints;
+        unitPattern.visionRange = this.visionRange;
+        unitPattern.maxNumberOfAttacks = this.maxNumberOfAttacks;
+
+        unitPattern.Abilities = this.Abilities;
+        unitPattern.workEfficiency = this.workEfficiency;
+
+        unitPattern.tags = this.tags;
+        return unitPattern;
     }
 
     public static UnitPattern Settler = new UnitPattern(
@@ -215,7 +216,7 @@ public class UnitPattern extends Tag implements Serializable {
             1,
             1,
             10,
-            2,
+            3,
             1,
 
             new String[]{Colonize.nameOfAbility},

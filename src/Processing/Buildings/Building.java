@@ -1,11 +1,13 @@
 package Processing.Buildings;
 
+import Processing.Player.Player;
 import Processing.TileMap.TileUtils.Resource;
 import Processing.Utilits.Tag;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.Wrapers.TwoTTT;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
@@ -34,6 +36,10 @@ public class Building extends Tag implements Serializable {
         }
     }
 
+    Building(){
+
+    }
+
 
     public void LoadSetTo(Object object){
         Building Building = (Building)object;
@@ -60,6 +66,22 @@ public class Building extends Tag implements Serializable {
     public static LinkedHashMap<String, Building> AllBuildings = new LinkedHashMap<>();
 
     public static final Building MoneyMaker = new Building("MoneyMaker", new Wealth(), 0, 0, new Job[]{Job.MoneyMaker}, new int[]{1}, null, new int[]{0}, "descr").initBuilding();
+
+    public Building MakeCopyToPlayer(Player player){
+        Building building = new Building();
+        building.passiveWealth = this.passiveWealth;
+        building.productionCost = this.productionCost;
+        building.moneyCost = this.moneyCost;
+        building.description = this.description;
+        building.name = this.name;
+        Iterator<TwoTTT<Job,Integer>> iterator = this.Jobs.iterator();
+        while(iterator.hasNext()){
+            TwoTTT<Job, Integer> TMP_Two = iterator.next();
+            building.Jobs.add(new TwoTTT<>(player.jobs.get(TMP_Two.first.name), TMP_Two.second));
+        }
+        building.NeededResources = this.NeededResources;
+        return building;
+    }
 
     @Override
     public boolean equals(Object object){

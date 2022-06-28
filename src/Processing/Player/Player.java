@@ -1,6 +1,7 @@
 package Processing.Player;
 
 import Processing.Buildings.Building;
+import Processing.Buildings.Job;
 import Processing.City.City;
 import Processing.Game.Game;
 import Processing.TileMap.GameMap;
@@ -14,6 +15,7 @@ import Processing.Utilits.Wrapers.TwoTTT;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 public class Player implements Serializable {
@@ -51,36 +53,26 @@ public class Player implements Serializable {
     //List of cities
     public LinkedList<City> playerCities;
 
+    public LinkedHashMap<String, ResearchCell> researchedTechs = new LinkedHashMap<>();
     //Buffs   add if will be time
     //TypeOfBuilding   all researched upgrades of tile
-    public LinkedList<TwoTTT<TypeOfBuilding, Boolean>> availableUpgradesOfTile = new LinkedList<>();
+    public LinkedHashMap<String, TwoTTT<TypeOfBuilding, Boolean>> availableUpgradesOfTile = new LinkedHashMap<>();
     //UnitPattern   all researched unit patterns
-    public LinkedList<UnitPattern> unitPatterns = new LinkedList<>();
+    public LinkedHashMap<String,UnitPattern> unitPatterns = new LinkedHashMap<>();
     //Buildings   all researched buildings
-    public LinkedList<Building> buildings = new LinkedList<>();
+    public LinkedHashMap<String, Building> buildings = new LinkedHashMap<>();
     //Jobs   add if will be time
+    public LinkedHashMap<String, Job> jobs = new LinkedHashMap<>(); //There must be ALL jobs to generate buildings
 
     public LinkedList<String> namesOfCities = new LinkedList<>();
 
     public BattleModifier battleModifier = BattleModifier.none;
 
     public void getTribute(Wealth tribute){
-        if(inDepression){
-            if(tribute.money > 0){
-                money +=  tribute.money * DEPRESSION_DEBUFF;
-            }
-            else{
-                money +=  tribute.money;
-            }
-            engineeringScience += tribute.engineeringScience/2;
-            societyScience += tribute.societyScience/2;
-            arcanumScience += tribute.arcanumScience/2;
-        }else{
-            money +=  tribute.money;
-            engineeringScience += tribute.engineeringScience;
-            societyScience += tribute.societyScience;
-            arcanumScience += tribute.arcanumScience;
-        }
+        money +=  tribute.money;
+        engineeringScience += tribute.engineeringScience;
+        societyScience += tribute.societyScience;
+        arcanumScience += tribute.arcanumScience;
 
     }
 

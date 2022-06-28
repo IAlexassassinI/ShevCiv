@@ -47,7 +47,17 @@ public class LightPlay implements Serializable {
             CurrentProjectile = Projectile.LightLand;
         }
         double visionRange = CurrentUnit.typeOfUnit.visionRange * startTile.resource.battleModifier.additionalVisionRange * startTile.typeOfBuilding.battleModifier.additionalVisionRange * startTile.typeOfFlora.battleModifier.additionalVisionRange * startTile.typeOfLand.battleModifier.additionalVisionRange;
-        drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false);
+        //drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false);
+        while((GeneralUtility.Round(visionRange) > 0)){
+            if(GeneralUtility.Round(visionRange) == 1){
+                //really costil
+                drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false);
+            }
+            else{
+                Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false);
+            }
+            visionRange--;
+        }
         return LightMap.values().toArray(new Tile[0]);
     }
 
@@ -195,6 +205,36 @@ public class LightPlay implements Serializable {
                 }
             }
         }
+    }
+
+    static void plot_circle(int x, int y, int x_center, int  y_center, boolean withUnitsArray, boolean findingInVisionRange)
+    {
+        drawLine(x_center,y_center,x_center+x,y_center+y, withUnitsArray, findingInVisionRange);
+        drawLine(x_center,y_center,x_center-x,y_center+y, withUnitsArray, findingInVisionRange);
+        drawLine(x_center,y_center,x_center+x,y_center-y, withUnitsArray, findingInVisionRange);
+        drawLine(x_center,y_center,x_center-x,y_center-y, withUnitsArray, findingInVisionRange);
+    }
+
+    /* Вычерчивание окружности с использованием алгоритма Мичнера */
+    static void Circle(int x_center, int y_center, int radius, boolean withUnitsArray, boolean findingInVisionRange)
+    {
+        int x,y,delta;
+        x = 0;
+        y = radius;
+        delta=3-2*radius;
+        while(x<y) {
+            plot_circle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange);
+            plot_circle(y,x,x_center,y_center,withUnitsArray, findingInVisionRange);
+            if (delta<0)
+                delta+=4*x+6;
+            else {
+                delta+=4*(x-y)+10;
+                y--;
+            }
+            x++;
+        }
+
+        if(x==y) plot_circle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange);
     }
 
     static void drawCircle(int x0, int y0, int radius, boolean withUnitsArray, boolean findingInVisionRange) {

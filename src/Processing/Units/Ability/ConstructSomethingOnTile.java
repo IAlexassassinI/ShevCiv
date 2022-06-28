@@ -11,6 +11,7 @@ import Processing.Utilits.WhereCanBe;
 
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 public class ConstructSomethingOnTile extends SpecialAbility implements Serializable {
@@ -26,10 +27,10 @@ public class ConstructSomethingOnTile extends SpecialAbility implements Serializ
     }
 
     static RoadBridge RB = new RoadBridge();
-    static TwoTTT<LinkedList<TwoTTT<TypeOfBuilding, Boolean>>, RoadBridge> answer = new TwoTTT<>(null, RB);
+    static TwoTTT<LinkedHashMap<String, TwoTTT<TypeOfBuilding, Boolean>>, RoadBridge> answer = new TwoTTT<>(null, RB);
 
-    public TwoTTT<LinkedList<TwoTTT<TypeOfBuilding, Boolean>>, RoadBridge> prepareList(){
-        Iterator<TwoTTT<TypeOfBuilding, Boolean>> iter = currentUnit.owner.availableUpgradesOfTile.iterator();
+    public TwoTTT<LinkedHashMap<String, TwoTTT<TypeOfBuilding, Boolean>>, RoadBridge> prepareList(){
+        Iterator<TwoTTT<TypeOfBuilding, Boolean>> iter = currentUnit.owner.availableUpgradesOfTile.values().iterator();
         while(iter.hasNext()){
             TwoTTT<TypeOfBuilding, Boolean> element = iter.next();
             if(currentUnit.onTile.owner != null && currentUnit.onTile.owner.owner == currentUnit.owner){
