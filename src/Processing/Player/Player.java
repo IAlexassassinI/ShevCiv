@@ -14,9 +14,7 @@ import Processing.Utilits.Wealth;
 import Processing.Utilits.Wrapers.TwoTTT;
 
 import java.io.Serializable;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Player implements Serializable {
     static final long serialVersionUID = 5L;
@@ -67,6 +65,24 @@ public class Player implements Serializable {
     public LinkedList<String> namesOfCities = new LinkedList<>();
 
     public BattleModifier battleModifier = BattleModifier.none;
+
+    HashMap<String, ResearchCell> AvailableToResearchEngineering = new HashMap<>();
+    HashMap<String, ResearchCell> AvailableToResearchSociety = new HashMap<>();
+    HashMap<String, ResearchCell> AvailableToResearchArcanum = new HashMap<>();
+
+    HashMap<String, ResearchCell> ResearchedEngineering = new HashMap<>();
+    HashMap<String, ResearchCell> ResearchedSociety = new HashMap<>();
+    HashMap<String, ResearchCell> ResearchedArcanum = new HashMap<>();
+
+    ArrayList<ResearchCell> toChooseEngineering = new ArrayList<>();
+    ArrayList<ResearchCell> toChooseSociety = new ArrayList<>();
+    ArrayList<ResearchCell> toChooseArcanum = new ArrayList<>();
+
+    ResearchCell chosenEngineering = null;
+    ResearchCell chosenSociety = null;
+    ResearchCell chosenArcanums = null;
+
+    
 
     public void getTribute(Wealth tribute){
         money +=  tribute.money;

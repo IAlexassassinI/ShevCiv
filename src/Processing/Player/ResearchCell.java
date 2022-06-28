@@ -11,10 +11,11 @@ import java.util.LinkedList;
 
 public class ResearchCell {
 
-    static public int ENGINEERING_NUM = 0;
-    static public int SOCIETY_NUM = 1;
-    static public int ARCANUM_NUM = 2;
+    static final public int ENGINEERING_NUM = 0;
+    static final public int SOCIETY_NUM = 1;
+    static final public int ARCANUM_NUM = 2;
 
+    int typeOfResearch;
     String nameOfResearch;
     String description;
     double researchPointCost;
@@ -25,7 +26,7 @@ public class ResearchCell {
 
     LinkedList<Object> techGiven = new LinkedList<>();
 
-    public void openToPlayer(Player player){
+    public void openToTechPlayer(Player player){
         Iterator<Object> iterator = techGiven.iterator();
         while(iterator.hasNext()){
             Object researchedObject = iterator.next();
@@ -43,6 +44,26 @@ public class ResearchCell {
         while(cityIterator.hasNext()){
             cityIterator.next().addBooleanToBuildings();
         }
+    }
+
+    public void researchToPlayer(Player player){
+        switch(this.typeOfResearch){
+            case ENGINEERING_NUM:
+
+                break;
+            case SOCIETY_NUM:
+
+                break;
+            case ARCANUM_NUM:
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    public static void generateNextResearchChooseToPlayer(Player player, int typeOfResearchNum){
+
     }
 
 }
