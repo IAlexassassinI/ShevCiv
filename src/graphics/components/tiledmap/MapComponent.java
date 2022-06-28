@@ -50,7 +50,7 @@ public class MapComponent extends AbstractComponent implements ComponentListener
         this.tileComponents = new TileComponent[this.map.getHeight()][this.map.getWidth()];
         for(int i = 0; i < this.map.getHeight(); i++) {
             for(int j = 0; j < this.map.getWidth(); j++) {
-                this.tileComponents[i][j] = new TileComponent(container, tiles[i][j], this.x + i * TileComponent.STANDARD_WIDTH, this.y + j * TileComponent.STANDARD_HEIGHT);
+                this.tileComponents[i][j] = new TileComponent(container, tiles[i][j], this.x + j * TileComponent.STANDARD_WIDTH, this.y + i * TileComponent.STANDARD_HEIGHT);
                 this.tileComponents[i][j].addListener(this);
             }
         }
