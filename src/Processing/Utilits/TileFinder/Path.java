@@ -3,6 +3,7 @@ package Processing.Utilits.TileFinder;
 import Processing.TileMap.Tile;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Path implements Serializable {
@@ -13,7 +14,11 @@ public class Path implements Serializable {
 
     Path(Path previousPath, Tile NewTile, double NewActionPoints){
         this.currentActionPoints = NewActionPoints;
-        this.tilePath = (LinkedList<Tile>)previousPath.tilePath.clone();
+        this.tilePath = new LinkedList<>();
+        Iterator<Tile> iterator = previousPath.tilePath.iterator();
+        while(iterator.hasNext()){
+            this.tilePath.add(iterator.next());
+        }
         this.tilePath.add(NewTile);
     }
 
