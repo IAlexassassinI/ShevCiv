@@ -56,8 +56,8 @@ public class EditMap extends BasicGameState implements ComponentListener {
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
         this.game = stateBasedGame;
         this.gameContainer = gameContainer;
-        //this.gameMap = new GameMap(20, 20);
-        this.gameMap = SaveLoadInterface.LoadGameMapFromFile(saveFile);
+        this.gameMap = new GameMap(20, 50);
+        //this.gameMap = SaveLoadInterface.LoadGameMapFromFile(saveFile);
         this.editMapComponent = new EditMapComponent(gameContainer, this.gameMap, 20, 20);
         this.editMapComponent.addListener(this);
         editMapComponent.setEditMode(EditMode.EDIT_TYPE_OF_LAND);

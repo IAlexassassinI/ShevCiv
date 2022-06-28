@@ -25,8 +25,8 @@ public class Images {
 
     static {
         try {
-            Image typesOfLandImage = new Image("assets/graphics/typeOfLand/typeOfLands.png");//, Color.white
-            typesOfLandSpriteSheet = new SpriteSheet(typesOfLandImage, TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
+            Image typesOfLandImage = new Image("assets/graphics/typeOfLand/typeOfLands3.jpg");//, Color.white
+            typesOfLandSpriteSheet = new SpriteSheet(typesOfLandImage, TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT, TileComponent.STANDARD_WIDTH);
             Image typesOfFloraImage = new Image("assets/graphics/typeOfFlora/typeOfFloras.png");//, Color.white
             typesOfFloraSpriteSheet = new SpriteSheet(typesOfFloraImage, TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
             Image resourcesImage = new Image("assets/graphics/resource/resources.png");//, Color.white

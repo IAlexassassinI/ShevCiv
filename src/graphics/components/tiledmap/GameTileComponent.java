@@ -36,6 +36,10 @@ public class GameTileComponent extends TileComponent {
 
     }
 
+    public void renderAdditionals(GUIContext guiContext, Graphics graphics) throws SlickException {
+        //if(this.getTile().getTypeOfLand().Type > this.getTile().getMap().getTile(this.))
+    }
+
     public void renderFilter(GUIContext guiContext, Graphics graphics) throws SlickException {
         if(this.mouseClicked) {
             graphics.setColor(this.mouseDownColor);
