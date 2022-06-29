@@ -72,6 +72,10 @@ public class GeneralUtility implements Serializable {
         UnitPattern.AllUnitPattern = this.AllUnitPattern;
         WhereCanBe.AllWhereCanSpawn = this.AllWhereCanSpawn;
 
+        Resource.none = Resource.AllResource.get(Resource.none.elementName);
+        TypeOfBuilding.none = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.none.elementName);
+        TypeOfFlora.none = TypeOfFlora.AllTypeOfFlora.get(TypeOfFlora.none.elementName);
+        TypeOfLand.Void = TypeOfLand.AllTypeOfLand.get(TypeOfLand.Void.elementName);
         //TODO add all things like resource none
 
     }
