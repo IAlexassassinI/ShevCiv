@@ -31,20 +31,28 @@ public class ConstructSomethingOnTile extends SpecialAbility implements Serializ
 
     public TwoTTT<LinkedHashMap<String, TwoTTT<TypeOfBuilding, Boolean>>, RoadBridge> prepareList(){
         Iterator<TwoTTT<TypeOfBuilding, Boolean>> iter = currentUnit.owner.availableUpgradesOfTile.values().iterator();
-        while(iter.hasNext()){
-            TwoTTT<TypeOfBuilding, Boolean> element = iter.next();
-            if(currentUnit.onTile.owner != null && currentUnit.onTile.owner.owner == currentUnit.owner){
-                if(WhereCanBe.FullCheck(currentUnit.onTile , element.first.whereCanExist)){
-                    element.second = true;
+        if(currentUnit.onTile.typeOfBuilding == TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.City.elementName)){
+            while(iter.hasNext()){
+                iter.next().second = false;
+            }
+        }
+        else{
+            while(iter.hasNext()){
+                TwoTTT<TypeOfBuilding, Boolean> element = iter.next();
+                if(currentUnit.onTile.owner != null && currentUnit.onTile.owner.owner == currentUnit.owner){
+                    if(WhereCanBe.FullCheck(currentUnit.onTile , element.first.whereCanExist)){
+                        element.second = true;
+                    }
+                    else{
+                        element.second = false;
+                    }
                 }
                 else{
                     element.second = false;
                 }
             }
-            else{
-                element.second = false;
-            }
         }
+
         answer.first = currentUnit.owner.availableUpgradesOfTile;
         //Bridge Check
         for(int i = 0; i < 8; i++){
@@ -71,7 +79,12 @@ public class ConstructSomethingOnTile extends SpecialAbility implements Serializ
             return;
         }
         if(toBuild.getClass() == TypeOfBuilding.class){
-            currentUnit.onTile.buildingInProcess = new CreatableObject<TypeOfBuilding>((TypeOfBuilding)toBuild, ((TypeOfBuilding)toBuild).turnsToBuild);
+            if(((TypeOfBuilding) toBuild) != TypeOfBuilding.none){
+                currentUnit.onTile.buildingInProcess = new CreatableObject<TypeOfBuilding>((TypeOfBuilding)toBuild, ((TypeOfBuilding)toBuild).turnsToBuild);
+            }
+            else{
+                currentUnit.onTile.buildingInProcess = null;
+            }
             currentUnit.onTile.setTypeOfBuilding(TypeOfBuilding.none); //TODO maybe todo
         }
         else {

@@ -44,10 +44,11 @@ public class Main {
         WhereCanBe wcb = TypeOfFlora.Forest.whereCanExist;
         System.out.println(11);
         System.out.println(11);
-        //TODO add Tech
+        //TODO init race tech and spawn settler of this race
         //TODO proceed special resources
+        //TODO Simple barbarian AI
+
         //TODO maybe make true/false list for buying units and buildings
         //TODO paralel add types of elements
-        //TODO add auto use of build in builder
     }
 }

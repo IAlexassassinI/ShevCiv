@@ -1,6 +1,7 @@
 package Processing.Game;
 
 import Processing.Player.Player;
+import Processing.Player.ResearchCell;
 import Processing.TileMap.GameMap;
 
 import java.io.Serializable;
@@ -29,9 +30,10 @@ public class Game implements Serializable {
     public Game(GameMap Map, int numberOfPlayers){
         this.Map = Map;
         this.numberOfPlayers = numberOfPlayers;
+        ResearchCell.initResearchTree();
         this.players = new Player[this.numberOfPlayers];
         for(int i = 0; i < this.numberOfPlayers; i++){
-            this.players[i] = new Player(this);
+            this.players[i] = new Player(this, "none");
         }
         this.currentPlayer = 0;
         this.Map.GenerateSettlers(this);
