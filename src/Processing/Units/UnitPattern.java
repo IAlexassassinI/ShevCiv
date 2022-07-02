@@ -216,7 +216,7 @@ public class UnitPattern extends Tag implements Serializable {
             1,
             1,
             10,
-            3,
+            10,
             1,
 
             new String[]{Colonize.nameOfAbility},
