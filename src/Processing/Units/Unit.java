@@ -71,7 +71,7 @@ public class Unit implements Serializable {
 
             this.onTile.unit = null;
             toTile.setUnit(this);
-            this.currentActionPoints -= pathToTile.getCurrentActionPoints();
+            this.currentActionPoints = pathToTile.getCurrentActionPoints();
 
             LightPlay.addToPlayerVision(this);
 
