@@ -22,6 +22,7 @@ public class Unit implements Serializable {
     public Unit(UnitPattern pattern, Player owner, Tile onTile){
         this.typeOfUnit = pattern;
         this.owner = owner;
+        owner.playerUnits.add(this);
         this.onTile = onTile;
 
         this.currentActionPoints = pattern.maxActionPoints;

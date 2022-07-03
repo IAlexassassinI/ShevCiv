@@ -2,6 +2,7 @@ package Processing.City;
 
 import Processing.Buildings.Building;
 import Processing.Buildings.Job;
+import Processing.Game.Game;
 import Processing.Player.Player;
 import Processing.TileMap.Tile;
 import Processing.TileMap.TileUtils.Resource;
@@ -25,7 +26,7 @@ public class City implements Serializable {
 
     public Player owner;
 
-    public LinkedList<Tile> ownedTiles;
+    public LinkedList<Tile> ownedTiles = new LinkedList<>();
 
     public Wealth wealth = new Wealth();
     public LinkedList<TwoTTT<Resource, Integer>> NeededResources = new LinkedList<>();
@@ -77,6 +78,7 @@ public class City implements Serializable {
         foodStock = BASE_FOOD_STOCK;
         numberOfCitizen = STANDARD_NUMBER_OF_START_CITIZENS;
         numberOfFreeCitizen = numberOfCitizen;
+        owner.playerCities.add(this);
     }
 
     public void setName(String name) {
@@ -312,9 +314,11 @@ public class City implements Serializable {
 
     public void doEndTurn(){
         if(ownedTiles.peekFirst().unit.owner != owner){
-            if(ownedTiles.peekFirst().unit.owner.isBarbarianAI == true){
-                this.destroyCiti();
-                return;
+            if(ownedTiles.peekFirst().unit.owner.isBarbarianAI){
+                if(Game.RandomGen.nextBoolean()){
+                    this.destroyCiti();
+                    return;
+                }
             }
             this.conquerCiti(ownedTiles.peekFirst().unit.owner);
         }else if(owner.inDepression != ownerWasInDepression){
