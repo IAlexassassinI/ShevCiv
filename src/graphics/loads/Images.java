@@ -20,6 +20,7 @@ public class Images {
     public static Image buttonNewGame;
     public static Image buttonEditMap;
     public static Image buttonExit;
+    public static Image city;
     //public static HashMap<String, Image> typesOfFlora;
     //public static HashMap<String, Image> resources;
 
@@ -35,6 +36,7 @@ public class Images {
             buttonNewGame = new Image("assets/graphics/buttons/new_game.png");
             buttonEditMap = new Image("assets/graphics/buttons/edit_map.png");
             buttonExit = new Image("assets/graphics/buttons/exit.png");
+            city = new Image("assets/graphics/TypeOfBuilding/city.png");
         } catch (SlickException e) {
             e.printStackTrace();
         }

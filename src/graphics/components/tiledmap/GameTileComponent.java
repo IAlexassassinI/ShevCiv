@@ -1,9 +1,8 @@
 package graphics.components.tiledmap;
 
 import Processing.TileMap.Tile;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import graphics.loads.Images;
+import org.newdawn.slick.*;
 import org.newdawn.slick.gui.GUIContext;
 
 public class GameTileComponent extends TileComponent {
@@ -12,6 +11,7 @@ public class GameTileComponent extends TileComponent {
     private int mapY;
 
     private UnitComponent unitComponent;
+    private GameMapComponent mapComponent;
 
     public GameTileComponent(GUIContext container, Tile tile, float x, float y) {
         super(container, tile, x, y);
@@ -34,6 +34,12 @@ public class GameTileComponent extends TileComponent {
 
     public void renderTypeOfBuildings(GUIContext guiContext, Graphics graphics) throws SlickException {
 
+    }
+
+    public void renderCity(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.getTile().getCity() != null) {
+            Images.city.draw(this.x, this.y, this.width, this.height);
+        }
     }
 
     public void renderAdditionals(GUIContext guiContext, Graphics graphics) throws SlickException {
@@ -110,4 +116,26 @@ public class GameTileComponent extends TileComponent {
         }
     }
 
+    @Override
+    public void scale(float sx, float sy, float px, float py) {
+        super.scale(sx, sy, px, py);
+        if(this.unitComponent != null) {
+            this.unitComponent.setX(px + (this.unitComponent.getX() - px) * sx);
+            this.unitComponent.setY(py + (this.unitComponent.getY() - py) * sy);
+        }
+    }
+
+
+
+    public void setMapComponent(GameMapComponent mapComponent) {
+        this.mapComponent = mapComponent;
+    }
+
+    public GameMapComponent getMapComponent() {
+        return mapComponent;
+    }
+
+    public void update(GameContainer gameContainer, int delta) throws SlickException{
+        if(this.unitComponent != null) this.unitComponent.update(gameContainer, delta);
+    }
 }
