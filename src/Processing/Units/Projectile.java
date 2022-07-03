@@ -22,8 +22,11 @@ public class Projectile implements Serializable {
     public static LinkedHashMap<String, Projectile> AllTypeOfProjectile = new LinkedHashMap<>();
     public static final Projectile none = new Projectile("none", WhereCanBe.noPreference);
     public static final Projectile LightFlying = new Projectile("LightFlying", WhereCanBe.noPreference);
-    public static final Projectile LightLand = new Projectile("LightLand", WhereCanBe.noPreference);
-    //TODO Make whereCanBe for LightLand where excluded hills mountains and forest
+    public static final Projectile LightLand = new Projectile("LightLand", WhereCanBe.landLight);
+    public static final Projectile Arrow = new Projectile("Arrow", WhereCanBe.landLight);
+    public static final Projectile Bullet = new Projectile("Bullet", WhereCanBe.landLight);
+    public static final Projectile Rock = new Projectile("Rock", WhereCanBe.noMountain);
+    public static final Projectile CannonBall = new Projectile("Cannonball", WhereCanBe.noPreference);
 
     public void LoadSetTo(Object object){
         Projectile Projectile = (Projectile) object;

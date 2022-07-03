@@ -40,6 +40,10 @@ public class ConstructSomethingOnTile extends SpecialAbility implements Serializ
             while(iter.hasNext()){
                 TwoTTT<TypeOfBuilding, Boolean> element = iter.next();
                 if(currentUnit.onTile.owner != null && currentUnit.onTile.owner.owner == currentUnit.owner){
+                    if(currentUnit.onTile.typeOfBuilding.equals(element.first)){
+                        element.second = false;
+                        continue;
+                    }
                     if(WhereCanBe.FullCheck(currentUnit.onTile , element.first.whereCanExist)){
                         element.second = true;
                     }

@@ -2,6 +2,7 @@ package Processing.Utilits;
 
 import Processing.TileMap.Tile;
 import Processing.TileMap.TileUtils.Resource;
+import Processing.TileMap.TileUtils.TypeOfBuilding;
 import Processing.TileMap.TileUtils.TypeOfFlora;
 import Processing.TileMap.TileUtils.TypeOfLand;
 
@@ -15,14 +16,18 @@ public class WhereCanBe implements Serializable {
     final static public int TYPE_OF_FLORA_NUM = 0;
     final static public int TYPE_OF_LAND_NUM = 1;
     final static public int TYPE_OF_RESOURCE_NUM = 2;
+    final static public int TYPE_OF_BUILDING_NUM = 3;
 
     public WhereCanBe(){
 
     }
 
-    public void rewriteWhereCanBe(String nameOfWhereCanBe, TypeOfLand land[], TypeOfFlora flora[], Resource resource[], TypeOfLand noLand[], TypeOfFlora noFlora[], Resource noResource[]){
+    public void rewriteWhereCanBe(String nameOfWhereCanBe, TypeOfBuilding building[] ,TypeOfLand land[], TypeOfFlora flora[], Resource resource[], TypeOfLand noLand[], TypeOfFlora noFlora[], Resource noResource[]){
         this.nameOfWhereCanBe = nameOfWhereCanBe;
 
+        for(int i = 0; i < building.length; i++){
+            this.typesOfBuildingWhereCanBe.put(building[i].elementName, building[i]);
+        }
 
         for(int i = 0; i < land.length; i++){
             this.typesOfLandWhereCanBe.put(land[i].elementName, land[i]);
@@ -57,10 +62,15 @@ public class WhereCanBe implements Serializable {
     public static WhereCanBe noMountain = new WhereCanBe();
     public static WhereCanBe onForest = new WhereCanBe();
     public static WhereCanBe onLandNoMountain = new WhereCanBe();
+    public static WhereCanBe onHills = new WhereCanBe();
+    public static WhereCanBe inDeepOceanAndShores = new WhereCanBe();
+    public static WhereCanBe landLight = new WhereCanBe();
+    public static WhereCanBe inShores = new WhereCanBe();
 
     public static void initTypes(){
         noPreference.rewriteWhereCanBe(
                 "noPreference",
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{},
@@ -69,6 +79,7 @@ public class WhereCanBe implements Serializable {
                 new Resource[]{});
         noMountain.rewriteWhereCanBe(
                 "noMountain",
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{},
@@ -77,6 +88,7 @@ public class WhereCanBe implements Serializable {
                 new Resource[]{});
         onForest.rewriteWhereCanBe(
                 "onForest",
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{TypeOfFlora.Forest},
                 new Resource[]{},
@@ -85,15 +97,54 @@ public class WhereCanBe implements Serializable {
                 new Resource[]{});
         onLandNoMountain.rewriteWhereCanBe(
                 "onLandNoMountain",
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{},
                 new TypeOfLand[]{TypeOfLand.Mountains, TypeOfLand.Shores, TypeOfLand.DeepOcean},
                 new TypeOfFlora[]{},
                 new Resource[]{});
+        onHills.rewriteWhereCanBe(
+                "onHills",
+                new TypeOfBuilding[]{},
+                new TypeOfLand[]{TypeOfLand.Hills},
+                new TypeOfFlora[]{},
+                new Resource[]{},
+                new TypeOfLand[]{},
+                new TypeOfFlora[]{},
+                new Resource[]{});
+        inDeepOceanAndShores.rewriteWhereCanBe(
+                "inDeepOceanAndShores",
+                new TypeOfBuilding[]{TypeOfBuilding.City},
+                new TypeOfLand[]{TypeOfLand.DeepOcean, TypeOfLand.Shores},
+                new TypeOfFlora[]{},
+                new Resource[]{},
+                new TypeOfLand[]{},
+                new TypeOfFlora[]{},
+                new Resource[]{});
+        inShores.rewriteWhereCanBe(
+                "inShores",
+                new TypeOfBuilding[]{TypeOfBuilding.City},
+                new TypeOfLand[]{TypeOfLand.Shores},
+                new TypeOfFlora[]{},
+                new Resource[]{},
+                new TypeOfLand[]{},
+                new TypeOfFlora[]{},
+                new Resource[]{});
+        landLight.rewriteWhereCanBe(
+                "landLight",
+                new TypeOfBuilding[]{},
+                new TypeOfLand[]{},
+                new TypeOfFlora[]{},
+                new Resource[]{},
+                new TypeOfLand[]{TypeOfLand.Hills, TypeOfLand.Mountains},
+                new TypeOfFlora[]{TypeOfFlora.Forest},
+                new Resource[]{});
     }
 
     public String nameOfWhereCanBe;
+
+    public HashMap<String, TypeOfBuilding> typesOfBuildingWhereCanBe = new HashMap<>();
 
     public HashMap<String,TypeOfLand> typesOfLandWhereCanBe = new HashMap<>();
     public HashMap<String,TypeOfFlora> typesOfFloraWhereCanBe = new HashMap<>();
@@ -127,6 +178,12 @@ public class WhereCanBe implements Serializable {
                     return true;
                 }
                 break;
+            case TYPE_OF_BUILDING_NUM:
+                //TypeOfBuilding
+                if(whereCanBe.typesOfBuildingWhereCanBe.containsKey(ProcessedTile.typeOfBuilding.elementName) || whereCanBe.typesOfBuildingWhereCanBe.containsKey(TypeOfBuilding.none.elementName)){
+                    return true;
+                }
+                break;
             default:
                 break;
         }
@@ -134,13 +191,16 @@ public class WhereCanBe implements Serializable {
     }
 
     static public boolean PositiveCheck_Full(Tile ProcessedTile, WhereCanBe whereCanBe){
-        if(whereCanBe.typesOfLandWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, whereCanBe)){
-            if(whereCanBe.typesOfResourceWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_RESOURCE_NUM, whereCanBe)){
-                if(whereCanBe.typesOfFloraWhereCanBe.size() == 0  || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, whereCanBe)){
-                    return true;
+        if(whereCanBe.typesOfBuildingWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_BUILDING_NUM, whereCanBe)){
+            if(whereCanBe.typesOfLandWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, whereCanBe)){
+                if(whereCanBe.typesOfResourceWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_RESOURCE_NUM, whereCanBe)){
+                    if(whereCanBe.typesOfFloraWhereCanBe.size() == 0  || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, whereCanBe)){
+                        return true;
+                    }
                 }
             }
         }
+
         return false;
     }
 

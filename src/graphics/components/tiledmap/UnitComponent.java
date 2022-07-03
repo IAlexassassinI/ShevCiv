@@ -70,7 +70,7 @@ public class UnitComponent {
     public void prepareToAttack() {
         this.state = UnitState.PREPARE_TO_ATTACK;
         if(this.unit.typeOfUnit.isRanged) {
-            this.attackingArea = this.unit.PrepareToShoot();
+            this.attackingArea = this.unit.prepareToShoot();
         }
         else {
             this.attackingArea = this.unit.prepareToMeleeAttack().toArray(new Tile[0]);

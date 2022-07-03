@@ -30,6 +30,7 @@ public class Player implements Serializable {
 
     public static final double DEPRESSION_DEBUFF = 0.5;
 
+    public boolean isBarbarianAI = false;
     public String race;
 
     public Game Game;
@@ -58,7 +59,7 @@ public class Player implements Serializable {
     public LinkedList<Resource> playerResources;
     public LinkedList<Integer> playerCountOfResources;
 
-    public int colonizationSquare = 4;
+    public int colonizationSquare = 3;
 
     //List of units
     public LinkedList<Unit> playerUnits = new LinkedList<>();

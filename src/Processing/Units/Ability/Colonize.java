@@ -23,10 +23,10 @@ public class Colonize extends SpecialAbility implements Serializable {
     public static boolean canFoundNewCiti;
 
     public boolean prepareFoundCiti(){
-        for(int y = 0; y < currentUnit.owner.colonizationSquare; y++){
-            for(int x = 0; x < currentUnit.owner.colonizationSquare; x++){
-                if(currentUnit.onTile.map.getTile(x,y) != null){
-                    if(currentUnit.onTile.map.getTile(x,y).city != null){
+        for(int y = -currentUnit.owner.colonizationSquare; y < currentUnit.owner.colonizationSquare; y++){
+            for(int x = -currentUnit.owner.colonizationSquare; x < currentUnit.owner.colonizationSquare; x++){
+                if(currentUnit.onTile.map.getTile(currentUnit.onTile.coordinates.LookAt(x,y)) != null){
+                    if(currentUnit.onTile.map.getTile((currentUnit.onTile.coordinates.LookAt(x,y))).city != null){
                         canFoundNewCiti = false;
                         return false;
                     }

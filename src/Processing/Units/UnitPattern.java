@@ -196,7 +196,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            5,
+            10,
 
             3,
 
@@ -216,7 +216,7 @@ public class UnitPattern extends Tag implements Serializable {
             1,
             1,
             10,
-            3,
+            10,
             1,
 
             new String[]{Colonize.nameOfAbility},
@@ -259,10 +259,45 @@ public class UnitPattern extends Tag implements Serializable {
             new  String[]{Tag.small}
     ).initUnitPattern();
 
-    public static UnitPattern Archer = new UnitPattern(
-            "Archer",
+    public static UnitPattern HumanSettler = new UnitPattern(
+            "HumanSettler",
             250,
             1000,
+            null,
+            null,
+
+            10,
+
+            3,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.none,
+            0,
+            0,
+
+            1,
+            1,
+            1,
+            6,
+            2,
+            1,
+
+            new String[]{Colonize.nameOfAbility},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanWorker = new UnitPattern(
+            "HumanWorker",
+            100,
+            200,
             null,
             null,
 
@@ -277,19 +312,439 @@ public class UnitPattern extends Tag implements Serializable {
             1,
             1,
 
-            true,
-            Projectile.LightLand,
-            3,
-            3,
+            false,
+            Projectile.none,
+            0,
+            0,
 
             1,
             1,
             1,
+            5,
+            1,
+            1,
+
+            new String[]{ConstructSomethingOnTile.nameOfAbility},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanMilitia = new UnitPattern(
+            "HumanMilitia",
+            35,
+            100,
+            null,
+            null,
+
+            1,
+
+            2,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.none,
+            0,
+            0,
+
+            3,
+            2,
+            1,
+            7,
+            1,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanSpearman = new UnitPattern(
+            "HumanSpearman",
+            50,
+            150,
+            null,
+            null,
+
+            3,
+
+            3,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.none,
+            0,
+            0,
+
+            4,
+            6,
+            4,
+            8,
+            2,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanSwordsman = new UnitPattern(
+            "HumanSwordsman",
+            70,
+            220,
+            null,
+            null,
+
+            5,
+
+            2,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.none,
+            0,
+            0,
+
+            6,
+            7,
+            5,
+            8,
+            2,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanArcher = new UnitPattern(
+            "HumanArcher",
+            50,
+            150,
+            null,
+            null,
+
+            3,
+
+            2,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            true,
+            Projectile.Arrow,
+            1,
+            3,
+
+            1,
+            2,
+            2,
+            6,
+            2,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanMusketeer = new UnitPattern(
+            "HumanMusketeer",
+            200,
+            600,
+            null,
+            null,
+
+            7,
+
+            3,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            true,
+            Projectile.Arrow,
+            1,
+            8,
+
+            1,
+            2,
+            2,
+            6,
+            2,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanCatapult = new UnitPattern(
+            "HumanCatapult",
+            120,
+            360,
+            null,
+            null,
+
+            4,
+
+            1,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            true,
+            Projectile.Rock,
+            2,
+            6,
+
+            1,
+            2,
+            2,
+            5,
+            1,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanCannon = new UnitPattern(
+            "HumanCannon",
+            300,
+            900,
+            null,
+            null,
+
+            9,
+
+            2,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            true,
+            Projectile.CannonBall,
+            3,
+            11,
+
+            1,
+            2,
+            2,
+            6,
+            1,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanCavalry = new UnitPattern(
+            "HumanCavalry",
+            100,
+            300,
+            null,
+            null,
+
+            5,
+
+            4,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.none,
+            0,
+            0,
+
+            6,
+            4,
+            3,
             10,
             2,
             1,
 
-            new String[]{GetCargoSmall.nameOfAbility, GetCargoSmall.nameOfAbility},
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanTank = new UnitPattern(
+            "HumanCavalry",
+            1000,
+            3000,
+            null,
+            null,
+
+            12,
+
+            3,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.none,
+            0,
+            0,
+
+            4,
+            10,
+            10,
+            14,
+            1,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern GriffinRider = new UnitPattern(
+            "GriffinRider",
+            1000,
+            3000,
+            null,
+            null,
+
+            12,
+
+            3,
+
+            true,
+            WhereCanBe.noPreference,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.none,
+            0,
+            0,
+
+            6,
+            7,
+            5,
+            10,
+            3,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanTrireme = new UnitPattern(
+            "HumanTrireme",
+            300,
+            900,
+            null,
+            null,
+
+            3,
+
+            3,
+
+            false,
+            WhereCanBe.inShores,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.none,
+            0,
+            0,
+
+            3,
+            3,
+            3,
+            3,
+            3,
+            1,
+
+            new String[]{GetCargoSmall.nameOfAbility},
+            1,
+            new  String[]{Tag.big}
+    ).initUnitPattern();
+
+    public static UnitPattern HumanCaravel = new UnitPattern(
+            "HumanCaravel",
+            600,
+            1800,
+            null,
+            null,
+
+            8,
+
+            4,
+
+            false,
+            WhereCanBe.inDeepOceanAndShores,
+            1,
+            1,
+            1,
+            1,
+
+            true,
+            Projectile.CannonBall,
+            3,
+            10,
+
+            5,
+            5,
+            5,
+            5,
+            3,
+            2,
+
+            new String[]{GetCargoSmall.nameOfAbility},
             1,
             new  String[]{Tag.big}
     ).initUnitPattern();

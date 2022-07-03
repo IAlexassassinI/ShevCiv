@@ -48,10 +48,10 @@ public class PathFinder implements Serializable {
                     if(path.currentActionPoints > 0){
                         double modifiers;
                         if((i & 1) == 0){
-                            modifiers = CurrentUnit.typeOfUnit.moveModifier*DIAGONAL_MODIFIER;
+                            modifiers = CurrentUnit.typeOfUnit.moveModifier;
                         }
                         else{
-                            modifiers = CurrentUnit.typeOfUnit.moveModifier;
+                            modifiers = CurrentUnit.typeOfUnit.moveModifier*DIAGONAL_MODIFIER;
                         }
                         double actionCost = BASIC_AP_COST;
                         //final modifier
@@ -69,19 +69,15 @@ public class PathFinder implements Serializable {
 
                             modifiers = modifiers * WITHOUT_ROAD_MODIFIER;
                         }
-                        CaseTree(path, TMP_Tile, i, actionCost*modifiers);
+
+                        if(path.currentActionPoints >= actionCost*modifiers){ //hard variant
+                            CaseTree(path, TMP_Tile, i, actionCost*modifiers);
+                        }
+
+                        //CaseTree(path, TMP_Tile, i, actionCost*modifiers); //civ like variant
                     }
 
-                    /*
-                    //Like in civ
-                    if(path.currentActionPoints > 0){
-                        CaseTree(path, TMP_Tile, i, actionCost*modifiers);
-                    }
-                    //More hard variant
-                    if(path.currentActionPoints >= actionCost*modifiers){
-                        CaseTree(path, TMP_Tile, i, actionCost*modifiers);
-                    }
-                     */
+
                 }
             }
         }

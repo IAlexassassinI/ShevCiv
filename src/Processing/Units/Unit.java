@@ -22,6 +22,7 @@ public class Unit implements Serializable {
     public Unit(UnitPattern pattern, Player owner, Tile onTile){
         this.typeOfUnit = pattern;
         this.owner = owner;
+        owner.playerUnits.add(this);
         this.onTile = onTile;
 
         this.currentActionPoints = pattern.maxActionPoints;
@@ -43,13 +44,13 @@ public class Unit implements Serializable {
     public double currentNumberOfAttacks;
     public ArrayList<SpecialAbility> Abilities;
 
-    static private HashMap<Tile,Path> generatedPath;
-    static private LinkedList<Tile> whereCanAttackMelee;
-    static private LinkedList<Integer> whereCanAttackDirection;
-    static private Tile[] whereCanShoot;
-    static private HashMap<Point, Tile> whereCanShootAndThereUnit;
+    static public HashMap<Tile,Path> generatedPath;
+    static public LinkedList<Tile> whereCanAttackMelee;
+    static public LinkedList<Integer> whereCanAttackDirection;
+    static public Tile[] whereCanShoot;
+    static public HashMap<Point, Tile> whereCanShootAndThereUnit;
 
-    private HashMap<Tile,Path> prepareMove(){
+    public HashMap<Tile,Path> prepareMove(){
         generatedPath = PathFinder.findMovePath(currentActionPoints, onTile);
         return generatedPath;
     }
@@ -97,14 +98,14 @@ public class Unit implements Serializable {
     }
 
 
-    public Tile[] PrepareToShoot(){
+    public Tile[] prepareToShoot(){
         TwoTTT<Tile[], HashMap<Point, Tile>> TMP_Two = LightPlay.findShootingRange(this.onTile);
         whereCanShoot = TMP_Two.first;
         whereCanShootAndThereUnit = TMP_Two.second;
         return whereCanShoot;
     }
 
-    public void Attack(Tile whatAttack, boolean ranged){
+    public void attack(Tile whatAttack, boolean ranged){
         if(whatAttack == null){
             return;
         }
@@ -171,11 +172,11 @@ public class Unit implements Serializable {
     }
 
     public void attackMelee(Tile whatAttack){
-        Attack(whatAttack, false);
+        attack(whatAttack, false);
     }
 
     public void attackRanged(Tile whatAttack){
-        Attack(whatAttack, true);
+        attack(whatAttack, true);
     }
 
     private static double calculateDamage(double attack, double defence){

@@ -15,10 +15,14 @@ public class Game implements Serializable {
     public int numberOfPlayers;
     public Player players[];
     public int currentPlayer;
+    public int year = 0;
 
     public GameMap Map;
 
     public void giveTurn(){
+        if(currentPlayer == numberOfPlayers){
+            year++;
+        }
         currentPlayer = (currentPlayer+1)%numberOfPlayers;
         players[currentPlayer%numberOfPlayers].myTurn = true;
     }
