@@ -22,6 +22,11 @@ public class SelectButtonComponent extends ButtonComponent {
                 graphics.fillRoundRect((float) (this.x - this.width * 0.05), (float) (this.y - this.height * 0.05), (float) (this.width * 1.1), (float) (this.height * 1.1), (int) (this.width * 0.05));
                 this.image.draw(this.x, this.y, this.width, this.height, this.currentColor);
             }
+            else if(this.selectStyle == SelectStyle.BRIGHTER) {
+                this.image.draw(this.x, this.y, this.width, this.height, this.currentColor);
+                graphics.setColor(new Color(1,1,1,0.2f));
+                graphics.fillRect(this.x, this.y, this.width, this.height);
+            }
         }
         if(this.mouseOver) {
             graphics.setColor(this.backgroundColor);

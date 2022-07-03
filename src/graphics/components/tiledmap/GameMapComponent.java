@@ -2,6 +2,7 @@ package graphics.components.tiledmap;
 
 import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.AbstractComponent;
@@ -17,6 +18,7 @@ public class GameMapComponent extends MapComponent {
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
         super.render(guiContext, graphics);
         renderTypeOfBuildings(guiContext, graphics);
+        renderCity(guiContext, graphics);
         renderUnits(guiContext, graphics);
         renderFilters(guiContext, graphics);
     }
@@ -51,12 +53,34 @@ public class GameMapComponent extends MapComponent {
         }
     }
 
+    public void renderCity(GUIContext guiContext, Graphics graphics) throws SlickException {
+        for(int i = 0; i < this.map.getHeight(); i++) {
+            for(int j = 0; j < this.map.getWidth(); j++) {
+                if(this.camera == null || this.camera.containsTileComponent(this.tileComponents[i][j])) {
+                    ((GameTileComponent) this.tileComponents[i][j]).renderCity(guiContext, graphics);
+                }
+            }
+        }
+    }
+
+    public GameTileComponent getTileComponent(int tileX, int tileY) {
+        return (GameTileComponent) this.tileComponents[tileY][tileX];
+    }
+
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
         if(abstractComponent instanceof GameTileComponent) {
             this.selectedTile = (TileComponent) abstractComponent;
             System.out.println(4);
             notifyListeners();
+        }
+    }
+
+    public void update(GameContainer gameContainer, int delta) throws SlickException{
+        for (int i = 0; i < this.map.getHeight(); i++) {
+            for (int j = 0; j < this.map.getWidth(); j++) {
+                ((GameTileComponent)this.tileComponents[i][j]).update(gameContainer, delta);
+            }
         }
     }
 
@@ -68,6 +92,7 @@ public class GameMapComponent extends MapComponent {
             for (int j = 0; j < this.map.getWidth(); j++) {
                 this.tileComponents[i][j] = new GameTileComponent(container, tiles[i][j], this.x + j * TileComponent.STANDARD_WIDTH, this.y + i * TileComponent.STANDARD_HEIGHT);
                 this.tileComponents[i][j].addListener(this);
+                ((GameTileComponent)this.tileComponents[i][j]).setMapComponent(this);
             }
         }
     }
