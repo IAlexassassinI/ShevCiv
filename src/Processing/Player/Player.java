@@ -30,6 +30,7 @@ public class Player implements Serializable {
 
     public static final double DEPRESSION_DEBUFF = 0.5;
 
+    public boolean isBarbarianAI = false;
     public String race;
 
     public Game Game;

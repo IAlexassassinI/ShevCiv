@@ -312,6 +312,10 @@ public class City implements Serializable {
 
     public void doEndTurn(){
         if(ownedTiles.peekFirst().unit.owner != owner){
+            if(ownedTiles.peekFirst().unit.owner.isBarbarianAI == true){
+                this.destroyCiti();
+                return;
+            }
             this.conquerCiti(ownedTiles.peekFirst().unit.owner);
         }else if(owner.inDepression != ownerWasInDepression){
             recalculateWealth();

@@ -7,6 +7,7 @@ import Processing.Units.Projectile;
 import Processing.Units.Unit;
 import Processing.Utilits.GeneralUtility;
 import Processing.Utilits.Point;
+import Processing.Utilits.Wrapers.ThreeTTT;
 import Processing.Utilits.Wrapers.TwoTTT;
 import Processing.Utilits.WhereCanBe;
 
@@ -22,6 +23,7 @@ public class LightPlay implements Serializable {
     private static Projectile CurrentProjectile;
     private static HashMap<Point,Tile> LightMap;
     private static HashMap<Point, Tile> UnitMap;
+    private static HashMap<Point, Tile> CitiMap;
 
     public static TwoTTT<Tile[], HashMap<Point, Tile>> findShootingRange(Tile startTile){
         LightMap = new HashMap<>();
@@ -32,8 +34,34 @@ public class LightPlay implements Serializable {
         double shootingRange = CurrentUnit.typeOfUnit.rangeOfAttack * startTile.resource.battleModifier.additionalShootingRange * startTile.typeOfBuilding.battleModifier.additionalShootingRange * startTile.typeOfFlora.battleModifier.additionalShootingRange * startTile.typeOfLand.battleModifier.additionalShootingRange;
         shootingRange = shootingRange * startTile.unit.owner.battleModifier.additionalShootingRange;
 
-        drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, true);
+        drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, true, false);
         return new TwoTTT<Tile[], HashMap<Point, Tile>>(LightMap.values().toArray(new Tile[0]), UnitMap);
+    }
+
+    public static ThreeTTT<Tile[], HashMap<Point, Tile>, HashMap<Point, Tile>> AI_Vision(Tile startTile){
+        LightMap = new HashMap<>();
+        UnitMap = new HashMap<>();
+        CitiMap = new HashMap<>();
+        CurrentMap = startTile.map;
+        CurrentUnit = startTile.unit;
+        if(CurrentUnit.typeOfUnit.isFlying){
+            CurrentProjectile = Projectile.LightFlying; //TODO Перейти по всій програмі в модінг формат типу Projectile.AllTypeOfProjectile.get("NAME")
+        }
+        else{
+            CurrentProjectile = Projectile.LightLand;
+        }
+        double visionRange = CurrentUnit.typeOfUnit.visionRange * startTile.resource.battleModifier.additionalVisionRange * startTile.typeOfBuilding.battleModifier.additionalVisionRange * startTile.typeOfFlora.battleModifier.additionalVisionRange * startTile.typeOfLand.battleModifier.additionalVisionRange;
+        while((GeneralUtility.Round(visionRange) > 0)){
+            if(GeneralUtility.Round(visionRange) == 1){
+                //really costil
+                drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), true, false, true);
+            }
+            else{
+                Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), true, false, true);
+            }
+            visionRange--;
+        }
+        return new ThreeTTT<>(LightMap.values().toArray(new Tile[0]), UnitMap, CitiMap);
     }
 
     public static Tile[] findVisionRange(Tile startTile){
@@ -51,10 +79,10 @@ public class LightPlay implements Serializable {
         while((GeneralUtility.Round(visionRange) > 0)){
             if(GeneralUtility.Round(visionRange) == 1){
                 //really costil
-                drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false);
+                drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false, false);
             }
             else{
-                Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false);
+                Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false, false);
             }
             visionRange--;
         }
@@ -63,7 +91,7 @@ public class LightPlay implements Serializable {
 
 
 
-    static boolean makePutPoint(int x, int y, boolean withUnitsArray, boolean findingInVisionRange){
+    static boolean makePutPoint(int x, int y, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray){
         Tile TMP_Tile = CurrentMap.getTile(x,y);
         if(TMP_Tile != null){
             boolean terrainCheck = WhereCanBe.FullCheck(TMP_Tile, CurrentProjectile.whereCanBe);
@@ -85,6 +113,11 @@ public class LightPlay implements Serializable {
             }
             else{
                 LightMap.put(TMP_Tile.coordinates, TMP_Tile);
+            }
+            if(withCitiesArray){
+                if(TMP_Tile.city != null){
+                    CitiMap.put(TMP_Tile.coordinates, TMP_Tile);
+                }
             }
             if(terrainCheck){
                 return true;
@@ -154,7 +187,7 @@ public class LightPlay implements Serializable {
      */
 
 
-    static void drawLine(int x0, int y0, int x1, int y1, boolean withUnitsArray, boolean findingInVisionRange)
+    static void drawLine(int x0, int y0, int x1, int y1, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray)
     {
         int dx = Math.abs(x1 - x0);
         int dy = Math.abs(y1 - y0);
@@ -166,7 +199,7 @@ public class LightPlay implements Serializable {
             int d = (dy << 1) - dx;
             int d1 = dy << 1;
             int d2 = (dy - dx) << 1;
-            if(!makePutPoint(x0, y0, withUnitsArray, findingInVisionRange)){
+            if(!makePutPoint(x0, y0, withUnitsArray, findingInVisionRange, withCitiesArray)){
                 return;
             }
             for(int x = x0 + sx, y = y0, i = 1; i <= dx; i++, x += sx)
@@ -178,7 +211,7 @@ public class LightPlay implements Serializable {
                 }
                 else
                     d += d1;
-                if(!makePutPoint(x, y, withUnitsArray, findingInVisionRange)){
+                if(!makePutPoint(x, y, withUnitsArray, findingInVisionRange, withCitiesArray)){
                     return;
                 }
             }
@@ -188,7 +221,7 @@ public class LightPlay implements Serializable {
             int d = (dx << 1) - dy;
             int d1 = dx << 1;
             int d2 = (dx - dy) << 1;
-            if(!makePutPoint(x0, y0, withUnitsArray, findingInVisionRange)){
+            if(!makePutPoint(x0, y0, withUnitsArray, findingInVisionRange, withCitiesArray)){
                 return;
             }
             for(int y = y0 + sy, x = x0, i = 1; i <= dy; i++, y += sy)
@@ -200,31 +233,31 @@ public class LightPlay implements Serializable {
                 }
                 else
                     d += d1;
-                if(!makePutPoint(x, y, withUnitsArray, findingInVisionRange)){
+                if(!makePutPoint(x, y, withUnitsArray, findingInVisionRange, withCitiesArray)){
                     return;
                 }
             }
         }
     }
 
-    static void plot_circle(int x, int y, int x_center, int  y_center, boolean withUnitsArray, boolean findingInVisionRange)
+    static void plot_circle(int x, int y, int x_center, int  y_center, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray)
     {
-        drawLine(x_center,y_center,x_center+x,y_center+y, withUnitsArray, findingInVisionRange);
-        drawLine(x_center,y_center,x_center-x,y_center+y, withUnitsArray, findingInVisionRange);
-        drawLine(x_center,y_center,x_center+x,y_center-y, withUnitsArray, findingInVisionRange);
-        drawLine(x_center,y_center,x_center-x,y_center-y, withUnitsArray, findingInVisionRange);
+        drawLine(x_center,y_center,x_center+x,y_center+y, withUnitsArray, findingInVisionRange, withCitiesArray);
+        drawLine(x_center,y_center,x_center-x,y_center+y, withUnitsArray, findingInVisionRange, withCitiesArray);
+        drawLine(x_center,y_center,x_center+x,y_center-y, withUnitsArray, findingInVisionRange, withCitiesArray);
+        drawLine(x_center,y_center,x_center-x,y_center-y, withUnitsArray, findingInVisionRange, withCitiesArray);
     }
 
     /* Вычерчивание окружности с использованием алгоритма Мичнера */
-    static void Circle(int x_center, int y_center, int radius, boolean withUnitsArray, boolean findingInVisionRange)
+    static void Circle(int x_center, int y_center, int radius, boolean withUnitsArray, boolean findingInVisionRange , boolean withCitiesArray)
     {
         int x,y,delta;
         x = 0;
         y = radius;
         delta=3-2*radius;
         while(x<y) {
-            plot_circle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange);
-            plot_circle(y,x,x_center,y_center,withUnitsArray, findingInVisionRange);
+            plot_circle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange, withCitiesArray);
+            plot_circle(y,x,x_center,y_center,withUnitsArray, findingInVisionRange, withCitiesArray);
             if (delta<0)
                 delta+=4*x+6;
             else {
@@ -234,19 +267,19 @@ public class LightPlay implements Serializable {
             x++;
         }
 
-        if(x==y) plot_circle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange);
+        if(x==y) plot_circle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange, withCitiesArray);
     }
 
-    static void drawCircle(int x0, int y0, int radius, boolean withUnitsArray, boolean findingInVisionRange) {
+    static void drawCircle(int x0, int y0, int radius, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray) {
         int x = 0;
         int y = radius;
         int delta = 1 - 2 * radius;
         int error = 0;
         while(y >= 0) {
-            drawLine(x0, y0, x0 + x, y0 + y, withUnitsArray, findingInVisionRange);
-            drawLine(x0, y0,x0 + x, y0 - y, withUnitsArray, findingInVisionRange);
-            drawLine(x0, y0,x0 - x, y0 + y, withUnitsArray, findingInVisionRange);
-            drawLine(x0, y0,x0 - x, y0 - y, withUnitsArray, findingInVisionRange);
+            drawLine(x0, y0, x0 + x, y0 + y, withUnitsArray, findingInVisionRange, withCitiesArray);
+            drawLine(x0, y0,x0 + x, y0 - y, withUnitsArray, findingInVisionRange, withCitiesArray);
+            drawLine(x0, y0,x0 - x, y0 + y, withUnitsArray, findingInVisionRange, withCitiesArray);
+            drawLine(x0, y0,x0 - x, y0 - y, withUnitsArray, findingInVisionRange, withCitiesArray);
             error = 2 * (delta + y) - 1;
             if(delta < 0 && error <= 0) {
                 ++x;
