@@ -23,7 +23,7 @@ public class Main extends StateBasedGame {
             //ScalableGame game = new ScalableGame(new Main(),1920,1080);
 
             AppGameContainer container = new AppGameContainer(new Main());
-            container.setDisplayMode(1920,1080,true);
+            container.setDisplayMode(1920,1080,false);
             container.setVSync(false);
             container.setShowFPS(false);
             container.start();

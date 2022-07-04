@@ -77,6 +77,14 @@ public class GeneralUtility implements Serializable {
         TypeOfFlora.none = TypeOfFlora.AllTypeOfFlora.get(TypeOfFlora.none.elementName);
         TypeOfLand.Void = TypeOfLand.AllTypeOfLand.get(TypeOfLand.Void.elementName);
         //TODO add all things like resource none
+        WhereCanBe.noPreference = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.noPreference.nameOfWhereCanBe);
+        WhereCanBe.noMountain = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.noMountain.nameOfWhereCanBe);
+        WhereCanBe.onForest = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.onForest.nameOfWhereCanBe);
+        WhereCanBe.onLandNoMountain = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.onLandNoMountain.nameOfWhereCanBe);
+        WhereCanBe.onHills = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.onHills.nameOfWhereCanBe);
+        WhereCanBe.inDeepOceanAndShores = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.inDeepOceanAndShores.nameOfWhereCanBe);
+        WhereCanBe.landLight = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.landLight.nameOfWhereCanBe);
+        WhereCanBe.inShores = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.inShores.nameOfWhereCanBe);
 
     }
 
