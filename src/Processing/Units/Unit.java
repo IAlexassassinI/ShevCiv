@@ -87,10 +87,19 @@ public class Unit implements Serializable {
         for(int i = 0; i < Point.ALL_SIDES.length-1; i++){
             Tile TMP_Tile = onTile.map.getTile(onTile.coordinates.LookAt(Point.ALL_SIDES[i]));
             if(TMP_Tile != null){
-                if(TMP_Tile.unit != null && !TMP_Tile.unit.typeOfUnit.isFlying){
-                    //left ability to attack alies and own units
-                    whereCanAttackMelee.add(TMP_Tile);
-                    whereCanAttackDirection.add(i);
+                if(this.typeOfUnit.isFlying){
+                    if(TMP_Tile.unit != null){
+                        //left ability to attack alies and own units
+                        whereCanAttackMelee.add(TMP_Tile);
+                        whereCanAttackDirection.add(i);
+                    }
+                }
+                else{
+                    if(TMP_Tile.unit != null && !TMP_Tile.unit.typeOfUnit.isFlying){
+                        //left ability to attack alies and own units
+                        whereCanAttackMelee.add(TMP_Tile);
+                        whereCanAttackDirection.add(i);
+                    }
                 }
             }
         }
@@ -180,7 +189,7 @@ public class Unit implements Serializable {
     }
 
     private static double calculateDamage(double attack, double defence){
-        return (attack * BattleModifier.ATTACK_CONST)/(defence + BattleModifier.ATTACK_CONST);
+        return 10*(attack * BattleModifier.ATTACK_CONST)/(defence + BattleModifier.ATTACK_CONST);
     }
 
     public boolean hit(double damage){

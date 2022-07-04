@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 public class BattleModifier implements Serializable {
     static final long serialVersionUID = 18L;
 
-    static final public double ATTACK_CONST = 10;
+    static final public double ATTACK_CONST = 15;
     static final public double RESPONSE_WHEN_KILLED = 0.5D;
 
     static final public double ATTACK_ACROSS_THE_RIVER_MODIFIER = 0.50D;
