@@ -1,5 +1,6 @@
 package Processing.TileMap;
 
+import Processing.FileHandler.SaveLoadInterface;
 import Processing.Game.Game;
 import Processing.TileMap.TileUtils.*;
 import Processing.Units.Unit;
@@ -30,6 +31,7 @@ public class GameMap implements Serializable {
     }
 
     private Tile[][] CreateBlankGameMap(int height, int width){
+        this.GU.saveStaticParams();
         Tile Map[][] = new Tile[height][width];
         for(int i = 0; i < height; i++){
             for(int j = 0; j < width; j++){

@@ -11,6 +11,7 @@ import Processing.Units.BattleModifier;
 import Processing.Units.Unit;
 import Processing.Units.UnitPattern;
 import Processing.Utilits.Wealth;
+import Processing.Utilits.WhereCanBe;
 import Processing.Utilits.Wrapers.TwoTTT;
 
 import java.io.Serializable;
@@ -26,6 +27,9 @@ public class Player implements Serializable {
         this.VisionMap = new int[Map.getHeight()][Map.getWidth()];
         this.OpenFOWMap = new boolean[Map.getHeight()][Map.getWidth()];
         this.TechToResearch = (HashMap<String, ResearchCell>) ResearchCell.AllResearchCells.clone();
+        this.availableUpgradesOfTile.put(TypeOfBuilding.none.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.none.elementName), false));
+        this.availableUpgradesOfTile.put(TypeOfBuilding.Farmland.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Farmland.elementName), false));
+        //TODO AAA then remove
     }
 
     public static final double DEPRESSION_DEBUFF = 0.5;
