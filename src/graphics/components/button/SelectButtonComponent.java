@@ -28,7 +28,7 @@ public class SelectButtonComponent extends ButtonComponent {
                 graphics.fillRect(this.x, this.y, this.width, this.height);
             }
         }
-        if(this.mouseOver) {
+        else if(this.mouseOver) {
             graphics.setColor(this.backgroundColor);
             graphics.fillRect(this.x, this.y, this.width, this.height);
             this.image.draw(this.x, this.y, this.width, this.height, this.currentColor);

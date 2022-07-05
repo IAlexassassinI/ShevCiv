@@ -2,6 +2,7 @@ package graphics.components.tiledmap;
 
 import Processing.TileMap.Tile;
 import Processing.Units.Ability.Colonize;
+import Processing.Units.Ability.GetCargoSmall;
 import Processing.Units.Ability.SpecialAbility;
 import Processing.Units.Unit;
 import org.newdawn.slick.*;
@@ -25,8 +26,9 @@ public class UnitComponent {
     private Animation movingRightAnimation;
     private Animation movingLeftAnimation;
 
-    private int attackingTime = 1000;
     private int movingTime = 1000;
+    private int attackingTime = movingTime * 2 + 1000;
+    private int currentAttackingTime = 0;
 
     private boolean left = false;
     private boolean right = true;
@@ -55,9 +57,10 @@ public class UnitComponent {
 
     private Tile[] movingArea;
     private Tile[] attackingArea;
+    private Tile[] cargoArea;
 
     public void prepareToMove() {
-        this.state = UnitState.PREPARE_TO_MOVE;
+        this.setState(UnitState.PREPARE_TO_MOVE);
         this.movingArea = this.unit.getAllTilesInMoveRange();
         /*System.out.println(this.movingArea == null);
         for(Tile tile : this.movingArea) {
@@ -68,7 +71,7 @@ public class UnitComponent {
     }
 
     public void prepareToAttack() {
-        this.state = UnitState.PREPARE_TO_ATTACK;
+        this.setState(UnitState.PREPARE_TO_ATTACK);
         if(this.unit.typeOfUnit.isRanged) {
             this.attackingArea = this.unit.prepareToShoot();
         }
@@ -81,14 +84,35 @@ public class UnitComponent {
         }
     }
 
-    public void colonise() {
+    public void relocateCargo(GameTileComponent tileComponent) {
+        if(isInCargoArea(tileComponent.getTile())) {
+            ((GetCargoSmall) this.unit.Abilities.get(0)).relocateCargo(tileComponent.getTile());
+        }
+        setState(UnitState.IDLE);
+    }
+
+    public void prapareCargo() {
+        this.setState(UnitState.PREPARE_CARGO);
+        this.cargoArea = ((GetCargoSmall) this.unit.Abilities.get(0)).prepareCargo().toArray(new Tile[0]);
+    }
+
+    public boolean colonise() {
         if(((Colonize) this.unit.Abilities.get(0)).prepareFoundCiti()) {
             ((Colonize) this.unit.Abilities.get(0)).foundNewCiti();
+            return true;
         }
+        return false;
     }
 
     public boolean isInMovingArea(Tile tile) {
         for(Tile t : this.movingArea) {
+            if(t == tile) return true;
+        }
+        return false;
+    }
+
+    public boolean isInCargoArea(Tile tile) {
+        for(Tile t : this.cargoArea) {
             if(t == tile) return true;
         }
         return false;
@@ -101,10 +125,16 @@ public class UnitComponent {
         return false;
     }
 
-    LinkedList<Tile> movingPath;
+    private LinkedList<Tile> movingPath;
+    private GameTileComponent tileToAttack;
 
     public void attack(GameTileComponent tile) {
-        this.state = UnitState.IDLE;
+        if(!isInAttackingArea(tile.getTile())) {
+            this.state = UnitState.IDLE;
+            return;
+        }
+        this.tileToAttack = tile;
+        setState(UnitState.ATTACKING);
     }
 
     public void move(GameTileComponent tile) {
@@ -134,7 +164,7 @@ public class UnitComponent {
                 if(left) {
                     this.idleLeftAnimation.draw(this.x, this.y, this.tileComponent.getWidth(), this.tileComponent.getHeight());
                 }
-                else if (right){
+                else if (right) {
                     this.idleRightAnimation.draw(this.x, this.y, this.tileComponent.getWidth(), this.tileComponent.getHeight());
                 }
                 break;
@@ -142,7 +172,7 @@ public class UnitComponent {
                 if(left) {
                     this.movingLeftAnimation.draw(this.x, this.y, this.tileComponent.getWidth(), this.tileComponent.getHeight());
                 }
-                else if (right){
+                else if (right) {
                     this.movingRightAnimation.draw(this.x, this.y, this.tileComponent.getWidth(), this.tileComponent.getHeight());
                 }
                 break;
@@ -181,6 +211,26 @@ public class UnitComponent {
                                 this.tileComponent.getHeight());
                     }
                 }
+            case ATTACKING:
+                getCurrentAnimation().draw(this.x, this.y, this.tileComponent.getWidth(), this.tileComponent.getHeight());
+                break;
+            case PREPARE_CARGO:
+                if(left) {
+                    this.idleLeftAnimation.draw(this.x, this.y, this.tileComponent.getWidth(), this.tileComponent.getHeight());
+                }
+                else if (right){
+                    this.idleRightAnimation.draw(this.x, this.y, this.tileComponent.getWidth(), this.tileComponent.getHeight());
+                }
+                graphics.setColor(new Color(0, 1, 0, 0.2f));
+                for(Tile tile : cargoArea) {
+                    //System.out.println(tile);
+                    if(tile!=null){
+                        graphics.fillRect(this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth(),
+                                y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight(),
+                                this.tileComponent.getWidth(),
+                                this.tileComponent.getHeight());
+                    }
+                }
             default:
                 break;
         }
@@ -195,8 +245,34 @@ public class UnitComponent {
                 break;
             case PREPARE_TO_MOVE:
                 break;
+            case ATTACKING:
+                updateAttacking(gameContainer, delta);
+                break;
             default:
                 break;
+        }
+    }
+
+    public void updateAttacking(GameContainer gameContainer, int delta) throws SlickException {
+        if(this.unit.typeOfUnit.isRanged) {
+
+        }
+        else {
+            if (this.currentAttackingTime <= this.movingTime) {
+                moveToTile(this.tileToAttack.getTile(), gameContainer, delta);
+            }
+            //else if(this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime) {
+
+            //}
+            else if(this.currentAttackingTime > this.attackingTime - this.movingTime) {
+                moveToTile(this.tileComponent.getTile(), gameContainer, delta);
+            }
+        }
+        this.currentAttackingTime += delta;
+        if(this.currentAttackingTime > this.attackingTime) {
+            this.currentAttackingTime = 0;
+            this.unit.attack(this.tileToAttack.getTile(), this.unit.typeOfUnit.isRanged);
+            this.state = UnitState.IDLE;
         }
     }
 
@@ -253,10 +329,28 @@ public class UnitComponent {
     public Animation getCurrentAnimation() {
         if(left) {
             if(this.state == UnitState.MOVING) return movingLeftAnimation;
+            else if(this.state == UnitState.ATTACKING) {
+                if(this.currentAttackingTime <= this.movingTime) return movingLeftAnimation;
+                else if(this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime) {
+                    return idleLeftAnimation;
+                }
+                else {
+                    return movingLeftAnimation;
+                }
+            }
             else return idleLeftAnimation;
         }
         else if(right) {
             if(this.state == UnitState.MOVING) return movingRightAnimation;
+            else if(this.state == UnitState.ATTACKING) {
+                if(this.currentAttackingTime <= this.movingTime) return movingRightAnimation;
+                else if(this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime) {
+                    return idleRightAnimation;
+                }
+                else {
+                    return movingRightAnimation;
+                }
+            }
             else return idleRightAnimation;
         }
         return idleLeftAnimation;
@@ -287,6 +381,12 @@ public class UnitComponent {
     }
 
     public void setState(UnitState state) {
+        if(this.state == UnitState.MOVING) return;
+        if(this.state == UnitState.ATTACKING) return;
         this.state = state;
+    }
+
+    public GameTileComponent getTileComponent() {
+        return tileComponent;
     }
 }

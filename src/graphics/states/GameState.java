@@ -68,7 +68,7 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
-        if(isUnitConrol && this.unitControlPanel.isExit()) {
+        if(isUnitConrol && (this.unitControlPanel.isExit() || this.unitControlPanel.getUnitComponent().getUnit().currentHitPoints <= 0)) {
             this.isUnitConrol = false;
         }
         this.mapComponent.update(gameContainer, delta);
