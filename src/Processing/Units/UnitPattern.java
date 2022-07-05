@@ -60,6 +60,11 @@ public class UnitPattern extends Tag implements Serializable {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return this.NameOfUnit;
+    }
+
     public UnitPattern(
             String NameOfUnit,
             double productionCost,
@@ -266,7 +271,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            7,
+            5,
 
             3,
 
@@ -301,7 +306,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            1,
+            2,
 
             2,
 
@@ -336,7 +341,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            1,
+            2,
 
             2,
 
@@ -371,7 +376,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            2,
+            2.5,
 
             2,
 
@@ -389,7 +394,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             4,
             6,
-            4,
+            5,
             100,
             2,
             1,
@@ -401,12 +406,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern HumanSwordsman = new UnitPattern(
             "HumanSwordsman",
-            70,
+            110,
             220,
             null,
             null,
 
-            3,
+            5.5,
 
             2,
 
@@ -422,9 +427,9 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            6,
+            7,
             9,
-            5,
+            4,
             110,
             2,
             1,
@@ -436,12 +441,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern HumanArcher = new UnitPattern(
             "HumanArcher",
-            50,
+            70,
             150,
             null,
             null,
 
-            3,
+            3.5,
 
             2,
 
@@ -476,9 +481,9 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            7,
+            5.5,
 
-            3,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -511,7 +516,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            4,
+            6,
 
             1,
 
@@ -546,7 +551,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            9,
+            11.5,
 
             2,
 
@@ -581,9 +586,9 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            6,
-
             4,
+
+            3,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -597,11 +602,11 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            3,
+            4,
             4,
             3,
             100,
-            2,
+            3,
             1,
 
             new String[]{},
@@ -611,12 +616,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern HumanTank = new UnitPattern(
             "HumanTank",
-            450,
+            350,
             3000,
             null,
             null,
 
-            13,
+            17.5,
 
             2,
 
@@ -652,7 +657,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            9,
+            14,
 
             3,
 
@@ -682,17 +687,17 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern HumanTrireme = new UnitPattern(
             "HumanTrireme",
-            280,
+            200,
             900,
             null,
             null,
 
-            9,
+            10,
 
             3,
 
             false,
-            WhereCanBe.inDeepOceanAndShores,
+            WhereCanBe.inShores,
             1,
             1,
             1,
@@ -707,7 +712,7 @@ public class UnitPattern extends Tag implements Serializable {
             4,
             10,
             200,
-            4,
+            3,
             1,
 
             new String[]{GetCargoSmall.nameOfAbility},
@@ -717,14 +722,14 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern HumanCaravel = new UnitPattern(
             "HumanCaravel",
-            350,
+            280,
             1800,
             null,
             null,
 
-            8,
+            14,
 
-            4,
+            3,
 
             false,
             WhereCanBe.inDeepOceanAndShores,
@@ -743,7 +748,7 @@ public class UnitPattern extends Tag implements Serializable {
             6,
             280,
             3,
-            2,
+            1,
 
             new String[]{GetCargoSmall.nameOfAbility},
             1,
@@ -794,7 +799,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            1,
+            3,
 
             2,
 
@@ -813,23 +818,23 @@ public class UnitPattern extends Tag implements Serializable {
             1,
             1,
             1,
-            5,
+            50,
             2,
             1,
 
             new String[]{ConstructSomethingOnTile.nameOfAbility},
-            1,
+            1.25,
             new  String[]{Tag.small}
     ).initUnitPattern();
 
     public static UnitPattern ElvenMilitia = new UnitPattern(
             "ElvenMilitia",
-            60,
+            70,
             100,
             null,
             null,
 
-            1,
+            3.5,
 
             2,
 
@@ -847,7 +852,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             3,
             2,
-            1,
+            2,
             70,
             1,
             1,
@@ -859,14 +864,14 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern ElvenBladeDancer = new UnitPattern(
             "ElvenBladeDancer",
-            140,
+            150,
             100,
             null,
             null,
 
-            5,
+            7.5,
 
-            3,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -894,12 +899,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern ElvenArcher = new UnitPattern(
             "ElvenArcher",
-            50,
+            120,
             150,
             null,
             null,
 
-            3,
+            6,
 
             2,
 
@@ -913,12 +918,12 @@ public class UnitPattern extends Tag implements Serializable {
             true,
             Projectile.Arrow,
             2,
-            4,
+            6,
 
             1,
-            1,
-            1,
-            7,
+            0,
+            4,
+            70,
             2,
             1,
 
@@ -929,14 +934,14 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern ElvenSharpshooter = new UnitPattern(
             "ElvenSharpshooter",
-            110,
+            140,
             600,
             null,
             null,
 
             7,
 
-            3,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -946,16 +951,16 @@ public class UnitPattern extends Tag implements Serializable {
             1,
 
             true,
-            Projectile.Bullet,
+            Projectile.Arrow,
             2,
-            9,
+            7,
 
             1,
-            2,
-            2,
-            9,
-            2,
             1,
+            5,
+            70,
+            2,
+            2,
 
             new String[]{},
             1,
@@ -964,12 +969,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern ElvenScorpion = new UnitPattern(
             "ElvenScorpion",
-            125,
+            160,
             360,
             null,
             null,
 
-            4,
+            8,
 
             1,
 
@@ -977,20 +982,20 @@ public class UnitPattern extends Tag implements Serializable {
             WhereCanBe.onLandNoMountain,
             1,
             1,
-            1,
+            -0.5,
             1,
 
             true,
-            Projectile.Rock,
+            Projectile.Arrow,
             3,
-            11,
+            8,
 
             1,
             2,
             2,
-            11,
-            1,
-            1,
+            140,
+            3,
+            2,
 
             new String[]{},
             1,
@@ -1004,7 +1009,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            9,
+            11.5,
 
             2,
 
@@ -1012,19 +1017,19 @@ public class UnitPattern extends Tag implements Serializable {
             WhereCanBe.onLandNoMountain,
             1,
             1,
-            1,
+            -0.5,
             1,
 
             true,
-            Projectile.CannonBall,
-            3,
-            20,
+            Projectile.Fireball,
+            2,
+            22,
 
             1,
             2,
             2,
-            15,
-            1,
+            150,
+            2,
             1,
 
             new String[]{},
@@ -1034,31 +1039,31 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern ElvenCavalry = new UnitPattern(
             "ElvenCavalry",
-            80,
+            110,
             300,
             null,
             null,
 
-            6,
+            5.5,
 
-            4,
+            3,
 
             false,
             WhereCanBe.onLandNoMountain,
             1,
             1,
-            1,
+            -0.5,
             1,
 
-            false,
-            Projectile.none,
-            0,
-            0,
-
-            3,
+            true,
+            Projectile.Arrow,
+            2,
             4,
+
+            2,
             3,
-            10,
+            2,
+            110,
             2,
             1,
 
@@ -1069,31 +1074,31 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern HawkRider = new UnitPattern(
             "HawkRider",
-            300,
+            280,
             3000,
             null,
             null,
 
-            9,
+            14,
 
             3,
 
             true,
             WhereCanBe.noPreference,
             1,
-            1,
-            1,
-            1,
-
-            false,
-            Projectile.none,
+            0,
             0,
             0,
 
+            true,
+            Projectile.Arrow,
+            2,
             6,
-            7,
-            5,
-            10,
+
+            2,
+            6,
+            0,
+            100,
             3,
             1,
 
@@ -1104,14 +1109,14 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern ElvenCarrier = new UnitPattern(
             "ElvenCaravel",
-            600,
+            200,
             1800,
             null,
             null,
 
-            8,
+            10,
 
-            4,
+            3,
 
             false,
             WhereCanBe.inDeepOceanAndShores,
@@ -1120,17 +1125,17 @@ public class UnitPattern extends Tag implements Serializable {
             1,
             1,
 
-            true,
+            false,
             Projectile.CannonBall,
             3,
             10,
 
-            5,
-            5,
-            5,
-            5,
-            3,
             2,
+            5,
+            5,
+            150,
+            3,
+            1,
 
             new String[]{GetCargoSmall.nameOfAbility},
             1,
@@ -1141,7 +1146,7 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern DwarfSettler = new UnitPattern(
             "DwarfSettler",
-            100,
+            145,
             1000,
             null,
             null,
@@ -1163,9 +1168,9 @@ public class UnitPattern extends Tag implements Serializable {
             0,
 
             0,
-            0,
-            0,
-            5,
+            3,
+            3,
+            90,
             3,
             1,
 
@@ -1176,12 +1181,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern DwarfWorker = new UnitPattern(
             "DwarfWorker",
-            45,
+            70,
             200,
             null,
             null,
 
-            1,
+            3.5,
 
             2,
 
@@ -1198,25 +1203,25 @@ public class UnitPattern extends Tag implements Serializable {
             0,
 
             1,
-            1,
-            1,
-            5,
+            3,
+            3,
+            90,
             2,
             1,
 
             new String[]{ConstructSomethingOnTile.nameOfAbility},
-            1,
+            2,
             new  String[]{Tag.small}
     ).initUnitPattern();
 
     public static UnitPattern DwarfMilitia = new UnitPattern(
             "DwarfMilitia",
-            35,
+            70,
             100,
             null,
             null,
 
-            1,
+            3.5,
 
             2,
 
@@ -1233,9 +1238,9 @@ public class UnitPattern extends Tag implements Serializable {
             0,
 
             3,
-            2,
-            1,
-            7,
+            5,
+            3,
+            110,
             1,
             1,
 
@@ -1245,13 +1250,13 @@ public class UnitPattern extends Tag implements Serializable {
     ).initUnitPattern();
 
     public static UnitPattern DwarfHammerman = new UnitPattern(
-            "DwarfSwordsman",
-            70,
+            "DwarfHammerman",
+            120,
             220,
             null,
             null,
 
-            3,
+            6,
 
             2,
 
@@ -1267,27 +1272,27 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            6,
-            9,
             5,
-            11,
+            12,
+            6,
+            150,
             2,
             1,
 
             new String[]{ConstructSomethingOnTile.nameOfAbility},
-            1,
+            1.5,
             new  String[]{Tag.small}
     ).initUnitPattern();
 
 
     public static UnitPattern DwarfSwordsman = new UnitPattern(
             "DwarfSwordsman",
-            70,
+            120,
             220,
             null,
             null,
 
-            3,
+            6,
 
             2,
 
@@ -1303,10 +1308,10 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            6,
-            9,
             5,
-            11,
+            15,
+            8,
+            200,
             2,
             1,
 
@@ -1317,14 +1322,14 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern DwarfMusketeer = new UnitPattern(
             "DwarfMusketeer",
-            110,
+            130,
             600,
             null,
             null,
 
-            7,
+            6.5,
 
-            3,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1336,12 +1341,12 @@ public class UnitPattern extends Tag implements Serializable {
             true,
             Projectile.Bullet,
             2,
-            9,
+            8,
 
-            1,
             2,
-            2,
-            9,
+            5,
+            5,
+            130,
             2,
             1,
 
@@ -1352,49 +1357,14 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern DwarfMortar = new UnitPattern(
             "DwarfMortar",
-            125,
+            320,
             360,
             null,
             null,
 
-            4,
+            16,
 
-            1,
-
-            false,
-            WhereCanBe.onLandNoMountain,
-            1,
-            1,
-            1,
-            1,
-
-            true,
-            Projectile.Rock,
-            3,
-            11,
-
-            1,
-            2,
-            2,
-            11,
-            1,
-            1,
-
-            new String[]{},
-            1,
-            new  String[]{Tag.small}
-    ).initUnitPattern();
-
-    public static UnitPattern DwarfJavelin = new UnitPattern(
-            "DwarfRocketLauncher",
-            230,
-            900,
-            null,
-            null,
-
-            9,
-
-            2,
+            1.5,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1406,12 +1376,47 @@ public class UnitPattern extends Tag implements Serializable {
             true,
             Projectile.CannonBall,
             3,
-            20,
+            18,
 
+            2,
+            3,
+            4,
+            200,
             1,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern DwarfJavelin = new UnitPattern(
+            "DwarfJavelin",
+            260,
+            900,
+            null,
+            null,
+
+            13,
+
+            1.8,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            true,
+            Projectile.Rocket,
             2,
+            35,
+
             2,
-            15,
+            3,
+            3,
+            170,
             1,
             1,
 
@@ -1422,12 +1427,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern DwarfTank = new UnitPattern(
             "DwarfTank",
-            450,
+            550,
             3000,
             null,
             null,
 
-            13,
+            27.5,
 
             2,
 
@@ -1443,10 +1448,10 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            30,
-            20,
-            15,
-            35,
+            32,
+            25,
+            17,
+            450,
             1,
             1,
 
@@ -1462,41 +1467,37 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            9,
+            15,
 
             3,
 
             true,
             WhereCanBe.noPreference,
             1,
-            1,
-            1,
-            1,
+            0,
+            0,
+            0,
 
             false,
             Projectile.none,
             0,
             0,
 
+            4,
             6,
-            7,
-            5,
-            10,
+            6,
+            200,
             3,
             1,
 
-            new String[]{},
+            new String[]{GetCargoSmall.nameOfAbility},
             1,
-            new  String[]{Tag.small}
+            new  String[]{Tag.big}
     ).initUnitPattern();
-
-    //TODO
-    //TODO
-    //TODO
 
     public static UnitPattern DemonSettler = new UnitPattern(
             "DemonSettler",
-            100,
+            145,
             1000,
             null,
             null,
@@ -1520,7 +1521,7 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
             0,
-            5,
+            100,
             3,
             1,
 
@@ -1530,13 +1531,13 @@ public class UnitPattern extends Tag implements Serializable {
     ).initUnitPattern();
 
     public static UnitPattern DemonSlave = new UnitPattern(
-            "DemonWorker",
-            45,
+            "DemonSlave",
+            70,
             200,
             null,
             null,
 
-            1,
+            3.5,
 
             2,
 
@@ -1552,10 +1553,10 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            1,
-            1,
-            1,
-            5,
+            2,
+            0,
+            0,
+            100,
             2,
             1,
 
@@ -1566,12 +1567,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern DemonMilitia = new UnitPattern(
             "DemonMilitia",
-            35,
+            120,
             100,
             null,
             null,
 
-            1,
+            6,
 
             2,
 
@@ -1587,10 +1588,10 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            3,
-            2,
-            1,
-            7,
+            4,
+            0,
+            0,
+            160,
             1,
             1,
 
@@ -1606,7 +1607,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            3,
+            3.5,
 
             2,
 
@@ -1623,9 +1624,9 @@ public class UnitPattern extends Tag implements Serializable {
             0,
 
             6,
-            9,
-            5,
-            11,
+            0,
+            0,
+            210,
             2,
             1,
 
@@ -1637,12 +1638,12 @@ public class UnitPattern extends Tag implements Serializable {
     //https://guides.gamepressure.com/heroes3hd/gfx/word/355997651.jpg
     public static UnitPattern DemonMagog = new UnitPattern(
             "DemonMagog",
-            50,
+            80,
             150,
             null,
             null,
 
-            3,
+            4,
 
             2,
 
@@ -1654,14 +1655,14 @@ public class UnitPattern extends Tag implements Serializable {
             1,
 
             true,
-            Projectile.Arrow,
-            2,
-            4,
+            Projectile.Fireball,
+            1,
+            6,
 
-            1,
-            1,
-            1,
-            7,
+            3,
+            0,
+            0,
+            120,
             2,
             1,
 
@@ -1672,14 +1673,14 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern HellCannon = new UnitPattern(
             "HellCannon",
-            125,
+            230,
             360,
             null,
             null,
 
-            4,
+            11.5,
 
-            1,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1689,14 +1690,14 @@ public class UnitPattern extends Tag implements Serializable {
             1,
 
             true,
-            Projectile.Rock,
+            Projectile.CannonBall,
             3,
-            11,
+            19,
 
-            1,
-            2,
-            2,
-            11,
+            4,
+            0,
+            0,
+            300,
             1,
             1,
 
@@ -1707,14 +1708,14 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern Cerberus = new UnitPattern(
             "Cerberus",
-            80,
+            200,
             300,
             null,
             null,
 
-            6,
+            10,
 
-            4,
+            3,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1729,11 +1730,11 @@ public class UnitPattern extends Tag implements Serializable {
             0,
 
             3,
-            4,
-            3,
-            10,
+            0,
+            0,
+            400,
             2,
-            1,
+            3,
 
             new String[]{},
             1,
@@ -1742,12 +1743,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern ArchDevil = new UnitPattern(
             "ArchDevil",
-            450,
+            666,
             3000,
             null,
             null,
 
-            13,
+            33,
 
             2,
 
@@ -1760,15 +1761,15 @@ public class UnitPattern extends Tag implements Serializable {
 
             false,
             Projectile.none,
-            0,
-            0,
+            1,
+            6,
 
-            30,
-            20,
-            15,
-            35,
+            6,
+            6,
+            6,
+            666,
             1,
-            1,
+            6,
 
             new String[]{},
             1,
@@ -1777,31 +1778,31 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern Succubus = new UnitPattern(
             "Succubus",
-            300,
+            690,
             3000,
             null,
             null,
 
-            9,
+            34,
 
             3,
 
             true,
             WhereCanBe.noPreference,
             1,
-            1,
-            1,
-            1,
+            0,
+            0,
+            0,
 
-            false,
+            true,
             Projectile.none,
-            0,
-            0,
+            1,
+            6,
 
             6,
-            7,
-            5,
-            10,
+            6,
+            6,
+            180,
             3,
             1,
 
@@ -1812,17 +1813,17 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern Kraken = new UnitPattern(
             "Kraken",
-            300,
+            500,
             900,
             null,
             null,
 
-            3,
+            25,
 
-            3,
+            2,
 
             false,
-            WhereCanBe.inShores,
+            WhereCanBe.inDeepOceanAndShores,
             1,
             1,
             1,
@@ -1833,12 +1834,12 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
+            4,
+            0,
+            0,
+            1500,
             3,
-            3,
-            3,
-            3,
-            3,
-            1,
+            8,
 
             new String[]{GetCargoSmall.nameOfAbility},
             1,
@@ -1849,12 +1850,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern OrkSettler = new UnitPattern(
             "OrkSettler",
-            100,
-            1000,
+            0,
+            0,
             null,
             null,
 
-            7,
+            0,
 
             3,
 
@@ -1870,11 +1871,11 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            0,
-            0,
-            0,
-            5,
             3,
+            2,
+            1,
+            100,
+            4,
             1,
 
             new String[]{Colonize.nameOfAbility},
@@ -1884,12 +1885,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern OrkPeon = new UnitPattern(
             "OrkPeon",
-            35,
-            100,
+            0,
+            0,
             null,
             null,
 
-            1,
+            0,
 
             2,
 
@@ -1908,8 +1909,8 @@ public class UnitPattern extends Tag implements Serializable {
             3,
             2,
             1,
-            7,
-            1,
+            100,
+            3,
             1,
 
             new String[]{},
@@ -1919,14 +1920,14 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern OrkSwordsman = new UnitPattern(
             "OrkSwordsman",
-            50,
-            150,
+            0,
+            0,
             null,
             null,
+
+            0,
 
             2,
-
-            3,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1940,11 +1941,11 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            4,
-            6,
-            4,
-            10,
-            2,
+            8,
+            7,
+            0,
+            120,
+            3,
             1,
 
             new String[]{},
@@ -1954,47 +1955,12 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern OrkHunter = new UnitPattern(
             "OrkHunter",
-            70,
-            220,
-            null,
-            null,
-
-            3,
-
-            2,
-
-            false,
-            WhereCanBe.onLandNoMountain,
-            1,
-            1,
-            1,
-            1,
-
-            false,
-            Projectile.none,
             0,
             0,
-
-            6,
-            9,
-            5,
-            11,
-            2,
-            1,
-
-            new String[]{},
-            1,
-            new  String[]{Tag.small}
-    ).initUnitPattern();
-
-    public static UnitPattern OrkCatapult = new UnitPattern(
-            "OrkCatapult",
-            50,
-            150,
             null,
             null,
 
-            3,
+            0,
 
             2,
 
@@ -2008,66 +1974,30 @@ public class UnitPattern extends Tag implements Serializable {
             true,
             Projectile.Arrow,
             2,
-            4,
-
-            1,
-            1,
-            1,
-            7,
             2,
-            1,
 
-            new String[]{},
-            1,
-            new  String[]{Tag.small}
-    ).initUnitPattern();
-
-    //Looted musket
-    public static UnitPattern OrkWolfRider = new UnitPattern(
-            "OrkWolfRider",
-            110,
-            600,
-            null,
-            null,
-
-            7,
-
+            2,
+            0,
+            0,
+            80,
             3,
-
-            false,
-            WhereCanBe.onLandNoMountain,
-            1,
-            1,
-            1,
-            1,
-
-            true,
-            Projectile.Bullet,
             2,
-            9,
-
-            1,
-            2,
-            2,
-            9,
-            2,
-            1,
 
             new String[]{},
             1,
             new  String[]{Tag.small}
     ).initUnitPattern();
 
-    public static UnitPattern VeryBigOrk = new UnitPattern(
-            "VeryBigOrk",
-            125,
-            360,
+    public static UnitPattern OrkCatapult = new UnitPattern(
+            "OrkCatapult",
+            0,
+            0,
             null,
             null,
 
-            4,
+            0,
 
-            1,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -2079,13 +2009,84 @@ public class UnitPattern extends Tag implements Serializable {
             true,
             Projectile.Rock,
             3,
+            12,
+
+            4,
+            3,
+            0,
+            140,
+            3,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    //Looted musket
+    public static UnitPattern OrkWolfRider = new UnitPattern(
+            "OrkWolfRider",
+            0,
+            0,
+            null,
+            null,
+
+            0,
+
+            3,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.Bullet,
+            2,
+            9,
+
+            8,
+            3,
+            2,
+            120,
+            3,
+            1,
+
+            new String[]{},
+            1,
+            new  String[]{Tag.small}
+    ).initUnitPattern();
+
+    public static UnitPattern VeryBigOrk = new UnitPattern(
+            "VeryBigOrk",
+            0,
+            0,
+            null,
+            null,
+
+            0,
+
+            2,
+
+            false,
+            WhereCanBe.onLandNoMountain,
+            1,
+            1,
+            1,
+            1,
+
+            false,
+            Projectile.Rock,
+            3,
             11,
 
-            1,
-            2,
-            2,
-            11,
-            1,
+            30,
+            15,
+            10,
+            550,
+            3,
             1,
 
             new String[]{},
@@ -2095,33 +2096,33 @@ public class UnitPattern extends Tag implements Serializable {
 
     //https://static.wikia.nocookie.net/wow/images/4/4d/Wyvern_orco_fel.jpg/revision/latest?cb=20140114170024&path-prefix=es
     public static UnitPattern OrkWyvern = new UnitPattern(
-            "OrkBarge",
-            80,
-            300,
+            "OrkWyvern",
+            280,
+            0,
             null,
             null,
 
-            6,
+            0,
 
-            4,
+            3,
 
-            false,
-            WhereCanBe.onLandNoMountain,
+            true,
+            WhereCanBe.noPreference,
             1,
-            1,
-            1,
-            1,
+            0,
+            0,
+            0,
 
             false,
             Projectile.none,
             0,
             0,
 
-            3,
+            18,
             4,
-            3,
-            10,
-            2,
+            0,
+            140,
+            4,
             1,
 
             new String[]{},
@@ -2131,17 +2132,17 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern OrkBarge = new UnitPattern(
             "OrkBarge",
-            450,
-            3000,
+            0,
+            0,
             null,
             null,
 
-            13,
+            0,
 
-            2,
+            3,
 
             false,
-            WhereCanBe.onLandNoMountain,
+            WhereCanBe.inDeepOceanAndShores,
             1,
             1,
             1,
@@ -2152,14 +2153,14 @@ public class UnitPattern extends Tag implements Serializable {
             0,
             0,
 
-            30,
-            20,
-            15,
-            35,
-            1,
+            2,
+            4,
+            4,
+            200,
+            3,
             1,
 
-            new String[]{},
+            new String[]{GetCargoSmall.nameOfAbility},
             1,
             new  String[]{Tag.small}
     ).initUnitPattern();

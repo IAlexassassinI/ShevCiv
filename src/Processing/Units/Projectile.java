@@ -27,6 +27,8 @@ public class Projectile implements Serializable {
     public static final Projectile Bullet = new Projectile("Bullet", WhereCanBe.landLight);
     public static final Projectile Rock = new Projectile("Rock", WhereCanBe.noMountain);
     public static final Projectile CannonBall = new Projectile("Cannonball", WhereCanBe.noPreference);
+    public static final Projectile Fireball = new Projectile("Fireball", WhereCanBe.noMountain);
+    public static final Projectile Rocket = new Projectile("Rocket", WhereCanBe.noPreference);
 
     public void LoadSetTo(Object object){
         Projectile Projectile = (Projectile) object;

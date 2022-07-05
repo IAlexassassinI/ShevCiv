@@ -19,7 +19,7 @@ public class TypeOfBuilding extends TileLayer implements Serializable {
     public static TypeOfBuilding City = new TypeOfBuilding("City", true, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 0, false).initBuildings();
-    public static TypeOfBuilding Ruins = new TypeOfBuilding("Ruins", false, 0,
+    public static TypeOfBuilding BuildingInProcess = new TypeOfBuilding("BuildingInProcess", false, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain, 0, true).initBuildings();
     public static TypeOfBuilding Farmland = new TypeOfBuilding("Farmland", true, 0,
@@ -37,6 +37,11 @@ public class TypeOfBuilding extends TileLayer implements Serializable {
     public WhereCanBe whereCanExist;
     public double turnsToBuild;
     public boolean onlyInBorder;
+
+    @Override
+    public String toString() {
+        return this.elementName;
+    }
 
     public TypeOfBuilding initBuildings(){
         AllTypeOfBuilding.put(this.elementName,(TypeOfBuilding)this.setType(AllTypeOfBuilding.size()));
