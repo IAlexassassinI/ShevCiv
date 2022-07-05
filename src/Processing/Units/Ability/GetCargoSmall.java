@@ -75,7 +75,8 @@ public class GetCargoSmall extends SpecialAbility implements Serializable {
         isCargoFull = true;
         cargo = onTile.unit;
         LightPlay.removeFromPlayerVision(cargo);
-        cargo.onTile.unit = null;
+        cargo.onTile.setUnit(null);
+        cargo.onTile = null;
         setOnCooldown();
     }
 
@@ -91,7 +92,7 @@ public class GetCargoSmall extends SpecialAbility implements Serializable {
         }
 
         isCargoFull = false;
-        onTile.unit = cargo;
+        onTile.setUnit(cargo);
         LightPlay.addToPlayerVision(cargo);
         cargo = null;
         setOnCooldown();

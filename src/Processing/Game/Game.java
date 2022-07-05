@@ -5,6 +5,7 @@ import Processing.Player.ResearchCell;
 import Processing.TileMap.GameMap;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Game implements Serializable {
@@ -19,25 +20,38 @@ public class Game implements Serializable {
 
     public GameMap Map;
 
+    HashMap<Player, Barbarian_AI> AI_ID = new HashMap<>();
+
     public void giveTurn(){
+        currentPlayer++;
         if(currentPlayer == numberOfPlayers){
             year++;
+            currentPlayer = (currentPlayer)%numberOfPlayers;
         }
-        currentPlayer = (currentPlayer+1)%numberOfPlayers;
         players[currentPlayer%numberOfPlayers].myTurn = true;
+        if(players[currentPlayer].isBarbarianAI){
+            AI_ID.get(players[currentPlayer]).doTurn();
+            giveTurn();
+        }
     }
 
     public Player getCurrentPlayer(){
         return players[currentPlayer];
     }
 
-    public Game(GameMap Map, int numberOfPlayers){
+    public Game(GameMap Map, int totalNumberOfPlayers, int numberOfAI, int spawnRateOfAI, int levelOfAI){
         this.Map = Map;
-        this.numberOfPlayers = numberOfPlayers;
+        this.numberOfPlayers = totalNumberOfPlayers;
         ResearchCell.initResearchTree();
         this.players = new Player[this.numberOfPlayers];
         for(int i = 0; i < this.numberOfPlayers; i++){
             this.players[i] = new Player(this, "none");
+        }
+        for(int i = 0; i < numberOfAI; i++){
+            Player toProc = this.players[numberOfPlayers-numberOfAI+i];
+            toProc.isBarbarianAI = true;
+            toProc.race = "Orc";
+            AI_ID.put(toProc, new Barbarian_AI(toProc, spawnRateOfAI, levelOfAI));
         }
         this.currentPlayer = 0;
         this.Map.GenerateSettlers(this);
