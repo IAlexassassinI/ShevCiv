@@ -7,5 +7,6 @@ public enum UnitState {
     MOVING,
     PREPARE_TO_ATTACK,
     ATTACKING,
+    PREPARE_CARGO,
 
 }

@@ -13,6 +13,7 @@ import graphics.components.tiledmap.UnitState;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
+import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,11 @@ public class UnitControlPanel extends Panel implements ComponentListener {
     private SelectButtonComponent moveButton;
     private SelectButtonComponent attackButton;
     private SelectButtonComponent coloniseButton;
+    private SelectButtonComponent getCargoButton;
+    private SelectButtonComponent buildFarmlandButton;
+    private SelectButtonComponent buildMineButton;
+    private SelectButtonComponent buildSawmillButton;
+    private SelectButtonComponent buildNoneButton;
     private ButtonComponent exitButton;
 
     private boolean exit = false;
@@ -46,7 +52,9 @@ public class UnitControlPanel extends Panel implements ComponentListener {
             this.attackButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/attack.png"), 1500, 920, 50, 50);
             this.coloniseButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 920, 50, 50);
             this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/exit.png"), 1890, 860, 30, 30);
+            this.getCargoButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 920, 50, 50);
 
+            this.getCargoButton.addListener(this);
             this.moveButton.addListener(this);
             this.attackButton.addListener(this);
             this.coloniseButton.addListener(this);
@@ -103,7 +111,7 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         g.setColor(Color.gray);
         g.fillRoundRect(1440, 1000,470, 40, 5);
         g.setColor(Color.green);
-        g.fillRoundRect(1440, 1000, (float) (470.0 / this.unitComponent.getUnit().typeOfUnit.maxHitPoints * this.unitComponent.getUnit().currentHitPoints), 40, 5);
+        g.fillRoundRect(1440, 1000, Math.max((float) (470.0 / this.unitComponent.getUnit().typeOfUnit.maxHitPoints * this.unitComponent.getUnit().currentHitPoints), 0), 40, 5);
         g.setColor(Color.white);
         g.drawString( this.unitComponent.getUnit().currentHitPoints + "/" + this.unitComponent.getUnit().typeOfUnit.maxHitPoints, 1640, 1011);
 
@@ -113,7 +121,18 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         if(colonise) {
             this.coloniseButton.render(container, g);
         }
+        else if(getCargo) {
+            this.getCargoButton.render(container, g);
+        }
         this.exitButton.render(container, g);
+    }
+
+    public void update() {
+
+    }
+
+    public void update(GameContainer gameContainer, int delta) throws SlickException {
+
     }
 
     @Override
@@ -149,20 +168,33 @@ public class UnitControlPanel extends Panel implements ComponentListener {
             }
             if(abstractComponent == coloniseButton) {
                 //this.unitComponent.getUnit().Abilities
-                this.unitComponent.colonise();
+                if(this.unitComponent.colonise()) {
+                    this.exit = true;
+                }
+                this.coloniseButton.setSelected(false);
                 this.moveButton.setSelected(false);
                 this.attackButton.setSelected(false);
 
+            }
+            if(abstractComponent == getCargoButton) {
+                this.unitComponent.prapareCargo();
             }
         }
         else if(abstractComponent instanceof  ButtonComponent) {
             if(abstractComponent == this.exitButton) {
                 this.exit = true;
+                this.unitComponent.setState(UnitState.IDLE);
             }
         }
         else if(abstractComponent instanceof GameMapComponent) {
             if(this.unitComponent.getState() == UnitState.PREPARE_TO_MOVE) {
                 this.unitComponent.move((GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile());
+            }
+            else if(this.unitComponent.getState() == UnitState.PREPARE_TO_ATTACK) {
+                this.unitComponent.attack((GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile());
+            }
+            else if(this.unitComponent.getState() == UnitState.PREPARE_CARGO) {
+                this.unitComponent.relocateCargo((GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile());
             }
             this.moveButton.setSelected(false);
             this.attackButton.setSelected(false);
@@ -187,5 +219,9 @@ public class UnitControlPanel extends Panel implements ComponentListener {
             this.attackButton.setSelected(false);
             this.coloniseButton.setSelected(false);
         }
+    }
+
+    public UnitComponent getUnitComponent() {
+        return unitComponent;
     }
 }
