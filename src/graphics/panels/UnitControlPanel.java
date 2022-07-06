@@ -19,6 +19,7 @@ import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 
 public class UnitControlPanel extends Panel implements ComponentListener {
@@ -187,14 +188,25 @@ public class UnitControlPanel extends Panel implements ComponentListener {
     public void update() {
         if(construct) {
             TwoTTT<LinkedHashMap<String, TwoTTT<TypeOfBuilding, Boolean>>, RoadBridge> list = ((ConstructSomethingOnTile) this.unitComponent.getUnit().Abilities.get(0)).prepareList();
-            if(!list.first.get(TypeOfBuilding.Farmland.elementName).second) {
-                this.buildFarmlandButton.setLocked(true);
-            }
-            if(list.first.get(TypeOfBuilding.Mine.elementName) != null && !list.first.get(TypeOfBuilding.Mine.elementName).second) {
-                this.buildFarmlandButton.setLocked(true);
-            }
-            if(list.first.get(TypeOfBuilding.Sawmill.elementName) != null && !list.first.get(TypeOfBuilding.Sawmill.elementName).second) {
-                this.buildFarmlandButton.setLocked(true);
+            Iterator<TwoTTT<TypeOfBuilding, Boolean>> iterator = ((LinkedHashMap<String, TwoTTT<TypeOfBuilding, Boolean>>) list.first).values().iterator();
+            this.buildFarmlandButton.setLocked(true);
+            this.buildMineButton.setLocked(true);
+            this.buildSawmillButton.setLocked(true);
+            this.buildNoneButton.setLocked(true);
+            while(iterator.hasNext()) {
+                TwoTTT<TypeOfBuilding, Boolean> tmpTTT = iterator.next();
+                if(tmpTTT.first == TypeOfBuilding.Farmland && tmpTTT.second) {
+                    this.buildFarmlandButton.setLocked(false);
+                }
+                else if(tmpTTT.first == TypeOfBuilding.Mine && tmpTTT.second) {
+                    this.buildMineButton.setLocked(false);
+                }
+                else if(tmpTTT.first == TypeOfBuilding.Sawmill && tmpTTT.second) {
+                    this.buildSawmillButton.setLocked(false);
+                }
+                else if(tmpTTT.first == TypeOfBuilding.none && tmpTTT.second) {
+                    this.buildNoneButton.setLocked(false);
+                }
             }
         }
         if(this.unitComponent.getState() == UnitState.PREPARE_TO_MOVE) {
