@@ -332,7 +332,7 @@ public class UnitComponent {
             System.out.println("attack");
             this.state = UnitState.IDLE;
             this.projectileComponent = null;
-        }
+        }//
     }
 
     public void updateMoving(GameContainer gameContainer, int delta) throws SlickException{
