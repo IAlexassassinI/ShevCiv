@@ -21,9 +21,9 @@ public class ConstructSomethingOnTile extends SpecialAbility implements Serializ
     public static double Cooldown = 1;
 
     Unit currentUnit;
-    double currentCooldown = 0;
     public ConstructSomethingOnTile(Unit unit) {
         this.currentUnit = unit;
+        currentCooldown = 0;
     }
 
     static RoadBridge RB = new RoadBridge();
