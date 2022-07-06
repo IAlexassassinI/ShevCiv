@@ -127,7 +127,7 @@ public class WhereCanBe implements Serializable {
                 new TypeOfLand[]{TypeOfLand.DeepOcean, TypeOfLand.Shores},
                 new TypeOfFlora[]{},
                 new Resource[]{},
-                new TypeOfBuilding[]{TypeOfBuilding.Farmland, TypeOfBuilding.Mine, TypeOfBuilding.BuildingInProcess, TypeOfBuilding.none, TypeOfBuilding.Sawmill},
+                new TypeOfBuilding[]{TypeOfBuilding.Farmland, TypeOfBuilding.Mine, TypeOfBuilding.BuildingInProcess, TypeOfBuilding.Sawmill},
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{});
@@ -257,6 +257,9 @@ public class WhereCanBe implements Serializable {
             return true;
         }
         if(WhereCanBe.NegativeCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, whereCanBe)){
+            return true;
+        }
+        if(WhereCanBe.NegativeCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_BUILDING_NUM, whereCanBe)){
             return true;
         }
         return false;

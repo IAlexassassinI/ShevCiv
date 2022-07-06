@@ -314,7 +314,7 @@ public class City implements Serializable {
     }
 
     public void doEndTurn(){
-        if(ownedTiles.peekFirst().unit.owner != owner){
+        if(ownedTiles.peekFirst().unit != null && ownedTiles.peekFirst().unit.owner != owner){
             if(ownedTiles.peekFirst().unit.owner.isBarbarianAI){
                 if(Game.RandomGen.nextBoolean()){
                     this.destroyCiti();
