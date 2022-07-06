@@ -222,7 +222,7 @@ public class Unit implements Serializable {
 
     public void doEndTurn(){
         if(currentActionPoints > 1){
-            currentHitPoints = currentHitPoints + typeOfUnit.maxHitPoints*0.1;
+            currentHitPoints = currentHitPoints + typeOfUnit.maxHitPoints*0.05;
         }
         if(currentHitPoints > typeOfUnit.maxHitPoints){
             currentHitPoints = typeOfUnit.maxHitPoints;

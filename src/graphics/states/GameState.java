@@ -49,9 +49,11 @@ public class GameState extends BasicGameState implements ComponentListener {
         GameMap map = SaveLoadInterface.LoadGameMapFromFile("assets/saved_maps/map.txt");
         //map.getTile(0, 0).setTypeOfLand(TypeOfLand.FlatLand);
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
-        Game game = new Game(map, 2);
+
+        Game game = new Game(map, 2, 0, 50, 2);
         Unit worker = new Unit(UnitPattern.HumanArcher, game.getCurrentPlayer(), map.getTile(6,4));
         map.getTile(6,4).setUnit(worker);
+
         this.mapComponent = new GameMapComponent(gameContainer, map, 20, 20);
         this.mapComponent.addListener(this);
         this.camera = new Camera(gameContainer, 20, 20, 1880, 960, this.mapComponent);
