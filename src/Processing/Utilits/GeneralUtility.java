@@ -86,6 +86,13 @@ public class GeneralUtility implements Serializable {
         WhereCanBe.landLight = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.landLight.nameOfWhereCanBe);
         WhereCanBe.inShores = WhereCanBe.AllWhereCanSpawn.get(WhereCanBe.inShores.nameOfWhereCanBe);
 
+        TypeOfBuilding.Mine = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Mine.elementName);
+        TypeOfBuilding.Farmland = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Farmland.elementName);
+        TypeOfBuilding.Sawmill = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Sawmill.elementName);
+        TypeOfBuilding.none = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.none.elementName);
+        TypeOfBuilding.City = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.City.elementName);
+        TypeOfBuilding.BuildingInProcess = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.BuildingInProcess.elementName);
+
     }
 
     private void ChangeAllInHashMap(HashMap mapIn, HashMap mapFrom){
