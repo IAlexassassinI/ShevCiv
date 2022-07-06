@@ -6,6 +6,7 @@ import Processing.TileMap.GameMap;
 import Processing.TileMap.TileUtils.TypeOfLand;
 import Processing.Units.Unit;
 import Processing.Units.UnitPattern;
+import Processing.Utilits.TileFinder.LightPlay;
 import graphics.components.button.ButtonComponent;
 import graphics.components.camera.Camera;
 import graphics.components.tiledmap.GameMapComponent;
@@ -36,6 +37,8 @@ public class GameState extends BasicGameState implements ComponentListener {
     private GameContainer gameContainer;
     private StateBasedGame stateBasedGame;
 
+    private Game game;
+
     @Override
     public int getID() {
         return ID;
@@ -51,8 +54,11 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
         Game game = new Game(map, 2, 0, 50, 2);
-        Unit worker = new Unit(UnitPattern.Worker, game.getCurrentPlayer(), map.getTile(6,4));
+        Unit worker = new Unit(UnitPattern.HumanCaravel, game.getCurrentPlayer(), map.getTile(6,4));
+        LightPlay.addToPlayerVision(worker);
         map.getTile(6,4).setUnit(worker);
+
+        this.game = game;
 
         this.mapComponent = new GameMapComponent(gameContainer, map, 20, 20);
         this.mapComponent.addListener(this);
@@ -127,7 +133,12 @@ public class GameState extends BasicGameState implements ComponentListener {
     public void keyPressed(int key, char c) {
         if(key == Input.KEY_ESCAPE) {
             this.stateBasedGame.enterState(MainMenu.ID);
+            return;
         }
+        if(key == Input.KEY_SPACE) {
+            this.game.players[this.game.currentPlayer].doEndTurn();
+        }
+
     }
 
     @Override

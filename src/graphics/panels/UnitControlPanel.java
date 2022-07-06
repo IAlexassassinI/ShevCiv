@@ -278,7 +278,6 @@ public class UnitControlPanel extends Panel implements ComponentListener {
             if(abstractComponent == getCargoButton) {
                 this.unitComponent.prapareCargo();
             }
-            update();
         }
         else if(abstractComponent instanceof  ButtonComponent) {
             if(abstractComponent == this.exitButton) {
@@ -296,7 +295,6 @@ public class UnitControlPanel extends Panel implements ComponentListener {
                 this.unitComponent.buildFarmland();
             }
             if(abstractComponent == buildMineButton) {
-                System.out.println("mine");
                 this.unitComponent.buildMine();
             }
             if(abstractComponent == buildSawmillButton) {
@@ -316,8 +314,8 @@ public class UnitControlPanel extends Panel implements ComponentListener {
             else if(this.unitComponent.getState() == UnitState.PREPARE_CARGO) {
                 this.unitComponent.relocateCargo((GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile());
             }
-            update();
         }
+        update();
     }
 
     public void setUnitComponent(UnitComponent unitComponent) {

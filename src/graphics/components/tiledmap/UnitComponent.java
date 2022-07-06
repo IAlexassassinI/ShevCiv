@@ -113,11 +113,12 @@ public class UnitComponent {
         if(this.tileComponent.getTile().getTypeOfBuilding() == TypeOfBuilding.Farmland) {
             return;
         }
-        if(this.tileComponent.getTile().buildingInProcess.object == TypeOfBuilding.Farmland) {
+        if(this.tileComponent.getTile().buildingInProcess != null && this.tileComponent.getTile().buildingInProcess.object == TypeOfBuilding.Farmland) {
             ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
             return;
         }
         ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.Farmland);
+        ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
     }
 
     public void buildMine() {
@@ -144,6 +145,7 @@ public class UnitComponent {
 
     public void buildNone() {
         ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.none);
+
         //this.tileComponent.getTile().setTypeOfBuilding(TypeOfBuilding.none);
     }
 
