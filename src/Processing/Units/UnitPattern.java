@@ -1775,8 +1775,8 @@ public class UnitPattern extends Tag implements Serializable {
             new  String[]{Tag.small}
     ).initUnitPattern();
 
-    public static UnitPattern Succubus = new UnitPattern(
-            "Succubus",
+    public static UnitPattern DemonSuccubi = new UnitPattern(
+            "DemonSuccubi",
             690,
             3000,
             null,

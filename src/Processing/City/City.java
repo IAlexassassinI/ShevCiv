@@ -58,6 +58,7 @@ public class City implements Serializable {
     boolean ownerWasInDepression;
 
     public City(Unit unit){
+        unit.onTile.typeOfBuilding = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.City.elementName);
         this.owner = unit.owner;
         this.ownedTiles.add(unit.onTile);
         this.ownerWasInDepression = owner.inDepression;

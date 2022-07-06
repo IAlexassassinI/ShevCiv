@@ -351,6 +351,20 @@ public class ResearchCell {
                 }
         ).initCell();
 
+        ResearchCell HorseRiding = new ResearchCell(
+                SOCIETY_NUM,
+                "HorseRiding",
+                "descr",
+                10,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{DwarfCulture.nameOfResearch, DemonCulture.nameOfResearch}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
         ResearchCell WoodWorking = new ResearchCell(
                 ENGINEERING_NUM,
                 "WoodWorking",
@@ -383,7 +397,7 @@ public class ResearchCell {
                 ENGINEERING_NUM,
                 "BowMaking",
                 "descr",
-                15,
+                35,
                 true,
                 new String[]{WoodWorking.nameOfResearch}, //AND
                 new String[]{}, //OR
@@ -393,13 +407,27 @@ public class ResearchCell {
                 }
         ).initCell();
 
+        ResearchCell HumanArchery = new ResearchCell(
+                SOCIETY_NUM,
+                "HumanArchery",
+                "descr",
+                45,
+                true,
+                new String[]{BowMaking.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanArcher.NameOfUnit)
+                }
+        ).initCell();
+
         ResearchCell Writing = new ResearchCell(
                 ARCANUM_NUM,
                 "Writing",
                 "descr",
                 15,
                 true,
-                new String[]{}, //AND
+                new String[]{Pottery.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -413,7 +441,7 @@ public class ResearchCell {
                 "descr",
                 15,
                 true,
-                new String[]{}, //AND
+                new String[]{Mining.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -427,7 +455,7 @@ public class ResearchCell {
                 "descr",
                 30,
                 true,
-                new String[]{}, //AND
+                new String[]{Writing.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -441,11 +469,39 @@ public class ResearchCell {
                 "descr",
                 15,
                 true,
-                new String[]{}, //AND
+                new String[]{Masonry.nameOfResearch, Writing.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Armory.name)
+                }
+        ).initCell();
+
+        ResearchCell PointySticks = new ResearchCell(
+                SOCIETY_NUM,
+                "PointySticks",
+                "descr",
+                15,
+                true,
+                new String[]{BronzeWorking.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanSpearman.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell HumanCavalry = new ResearchCell(
+                SOCIETY_NUM,
+                "HumanCavalry",
+                "descr",
+                15,
+                true,
+                new String[]{PointySticks.nameOfResearch, HorseRiding.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanCavalry.NameOfUnit)
                 }
         ).initCell();
 
@@ -455,7 +511,7 @@ public class ResearchCell {
                 "descr",
                 30,
                 true,
-                new String[]{}, //AND
+                new String[]{BronzeWorking.nameOfResearch, Mathematics.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -469,12 +525,40 @@ public class ResearchCell {
                 "descr",
                 45,
                 true,
-                new String[]{}, //AND
+                new String[]{WoodWorking.nameOfResearch, IronWorking.nameOfResearch, Mathematics.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Aqueduct.name),
                         Building.AllBuildings.get(Building.WindMill.name)
+                }
+        ).initCell();
+
+        ResearchCell ShoreShips = new ResearchCell(
+                ENGINEERING_NUM,
+                "ShoreShips",
+                "descr",
+                45,
+                true,
+                new String[]{Engineering.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanTrireme.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell Catapult = new ResearchCell(
+                ENGINEERING_NUM,
+                "Catapult",
+                "descr",
+                45,
+                true,
+                new String[]{Engineering.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanCatapult.NameOfUnit)
                 }
         ).initCell();
 
@@ -484,7 +568,7 @@ public class ResearchCell {
                 "descr",
                 45,
                 true,
-                new String[]{}, //AND
+                new String[]{Mathematics.nameOfResearch, Pottery.nameOfResearch, AnimalHusbandry.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -499,7 +583,7 @@ public class ResearchCell {
                 "descr",
                 45,
                 true,
-                new String[]{}, //AND
+                new String[]{Writing.nameOfResearch, Masonry.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -514,7 +598,7 @@ public class ResearchCell {
                 "descr",
                 45,
                 true,
-                new String[]{}, //AND
+                new String[]{Philosophy.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -529,11 +613,25 @@ public class ResearchCell {
                 "descr",
                 60,
                 true,
-                new String[]{}, //AND
+                new String[]{Currency.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Bazaar.name)
+                }
+        ).initCell();
+
+        ResearchCell Manufacture = new ResearchCell(
+                ENGINEERING_NUM,
+                "Manufacture",
+                "descr",
+                60,
+                true,
+                new String[]{Guilds.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.HumanManufacture.name)
                 }
         ).initCell();
 
@@ -543,11 +641,25 @@ public class ResearchCell {
                 "descr",
                 60,
                 true,
-                new String[]{}, //AND
+                new String[]{IronWorking.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Workshop.name)
+                }
+        ).initCell();
+
+        ResearchCell Knights = new ResearchCell(
+                SOCIETY_NUM,
+                "Knights",
+                "descr",
+                75,
+                true,
+                new String[]{MetalCasting.nameOfResearch, Theology.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanSwordsman.NameOfUnit)
                 }
         ).initCell();
 
@@ -557,7 +669,7 @@ public class ResearchCell {
                 "descr",
                 90,
                 true,
-                new String[]{}, //AND
+                new String[]{Philosophy.nameOfResearch, Mathematics.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -571,7 +683,7 @@ public class ResearchCell {
                 "descr",
                 75,
                 true,
-                new String[]{}, //AND
+                new String[]{Theology.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -585,7 +697,7 @@ public class ResearchCell {
                 "descr",
                 90,
                 true,
-                new String[]{}, //AND
+                new String[]{Engineering.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -599,11 +711,25 @@ public class ResearchCell {
                 "descr",
                 90,
                 true,
-                new String[]{}, //AND
+                new String[]{Mathematics.nameOfResearch, Philosophy.nameOfResearch, Engineering.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
 
+                }
+        ).initCell();
+
+        ResearchCell GriffinCavalry = new ResearchCell(
+                SOCIETY_NUM,
+                "GriffinCavalry",
+                "descr",
+                90,
+                true,
+                new String[]{Physic.nameOfResearch, Knights.nameOfResearch, HorseRiding.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                    UnitPattern.AllUnitPattern.get(UnitPattern.GriffinRider.NameOfUnit)
                 }
         ).initCell();
 
@@ -613,11 +739,25 @@ public class ResearchCell {
                 "descr",
                 105,
                 true,
-                new String[]{}, //AND
+                new String[]{Physic.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Observatory.name)
+                }
+        ).initCell();
+
+        ResearchCell DeepOceanShips = new ResearchCell(
+                ENGINEERING_NUM,
+                "DeepOceanShips",
+                "descr",
+                105,
+                true,
+                new String[]{Astronomy.nameOfResearch, HumanCulture.nameOfResearch, Engineering.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanCaravel.NameOfUnit)
                 }
         ).initCell();
 
@@ -627,7 +767,7 @@ public class ResearchCell {
                 "descr",
                 105,
                 true,
-                new String[]{}, //AND
+                new String[]{Philosophy.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -641,7 +781,7 @@ public class ResearchCell {
                 "descr",
                 105,
                 true,
-                new String[]{}, //AND
+                new String[]{Guilds.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -655,7 +795,7 @@ public class ResearchCell {
                 "descr",
                 105,
                 true,
-                new String[]{}, //AND
+                new String[]{Physic.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -669,11 +809,25 @@ public class ResearchCell {
                 "descr",
                 120,
                 true,
-                new String[]{}, //AND
+                new String[]{Chemistry.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{ElvenCulture.nameOfResearch}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
+        ResearchCell Musket = new ResearchCell(
+                SOCIETY_NUM,
+                "HumanArchery",
+                "descr",
+                120,
+                true,
+                new String[]{Gunpowder.nameOfResearch, HumanCulture.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
-
+                    UnitPattern.AllUnitPattern.get(UnitPattern.HumanMusketeer.NameOfUnit)
                 }
         ).initCell();
 
@@ -683,7 +837,7 @@ public class ResearchCell {
                 "descr",
                 120,
                 true,
-                new String[]{}, //AND
+                new String[]{Banking.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -697,11 +851,25 @@ public class ResearchCell {
                 "descr",
                 120,
                 true,
-                new String[]{}, //AND
+                new String[]{MetalCasting.nameOfResearch, Physic.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
 
+                }
+        ).initCell();
+
+        ResearchCell HumanMortarsSquad = new ResearchCell(
+                SOCIETY_NUM,
+                "HumanMortarsSquad",
+                "descr",
+                120,
+                true,
+                new String[]{Metallurgy.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanMortar.NameOfUnit)
                 }
         ).initCell();
 
@@ -711,7 +879,7 @@ public class ResearchCell {
                 "descr",
                 150,
                 true,
-                new String[]{}, //AND
+                new String[]{Education.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -725,11 +893,25 @@ public class ResearchCell {
                 "descr",
                 135,
                 true,
-                new String[]{}, //AND
+                new String[]{Metallurgy.nameOfResearch, Engineering.nameOfResearch, Education.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.CoalPlant.name)
+                }
+        ).initCell();
+
+        ResearchCell SteamTanks = new ResearchCell(
+                ENGINEERING_NUM,
+                "SteamTanks",
+                "descr",
+                135,
+                true,
+                new String[]{Industrialization.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanTank.NameOfUnit)
                 }
         ).initCell();
 
@@ -739,7 +921,7 @@ public class ResearchCell {
                 "descr",
                 135,
                 true,
-                new String[]{}, //AND
+                new String[]{Acoustic.nameOfResearch, Guilds.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -754,7 +936,7 @@ public class ResearchCell {
                 "descr",
                 210,
                 true,
-                new String[]{}, //AND
+                new String[]{Medicine.nameOfResearch, ScientificTheory.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
