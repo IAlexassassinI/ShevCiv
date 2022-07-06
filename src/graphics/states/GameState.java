@@ -51,7 +51,7 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
         Game game = new Game(map, 2, 0, 50, 2);
-        Unit worker = new Unit(UnitPattern.HumanArcher, game.getCurrentPlayer(), map.getTile(6,4));
+        Unit worker = new Unit(UnitPattern.Worker, game.getCurrentPlayer(), map.getTile(6,4));
         map.getTile(6,4).setUnit(worker);
 
         this.mapComponent = new GameMapComponent(gameContainer, map, 20, 20);

@@ -649,7 +649,6 @@ public class UnitPattern extends Tag implements Serializable {
             new  String[]{Tag.small}
     ).initUnitPattern();
 
-    //TODO here
     public static UnitPattern GriffinRider = new UnitPattern(
             "GriffinRider",
             280,

@@ -46,9 +46,7 @@ public class Main {
         System.out.println(11);
         //TODO init race tech and spawn settler of this race
         //TODO proceed special resources
-        //TODO Simple barbarian AI
 
         //TODO maybe make true/false list for buying units and buildings
-        //TODO paralel add types of elements
     }
 }

@@ -257,11 +257,517 @@ public class ResearchCell {
     }
 
     public static void initResearchTree(){
+        ResearchCell HumanCulture = new ResearchCell(
+                SOCIETY_NUM,
+                "HumanCulture",
+                "descr",
+                0,
+                false,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanSettler.NameOfUnit),
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanWorker.NameOfUnit),
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanMilitia.NameOfUnit),
+                }
+        ).initCell();
+
+        ResearchCell ElvenCulture = new ResearchCell(
+                SOCIETY_NUM,
+                "ElvenCulture",
+                "descr",
+                0,
+                false,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenSettler.NameOfUnit),
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenWorker.NameOfUnit),
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenMilitia.NameOfUnit),
+                }
+        ).initCell();
+
+        ResearchCell DwarfCulture = new ResearchCell(
+                SOCIETY_NUM,
+                "DwarfCulture",
+                "descr",
+                0,
+                false,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfSettler.NameOfUnit),
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfWorker.NameOfUnit),
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfMilitia.NameOfUnit),
+                }
+        ).initCell();
+
+        ResearchCell DemonCulture = new ResearchCell(
+                SOCIETY_NUM,
+                "DwarfCulture",
+                "descr",
+                0,
+                false,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DemonSettler.NameOfUnit),
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DemonSlave.NameOfUnit),
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DemonMilitia.NameOfUnit),
+                }
+        ).initCell();
+
+
+        ResearchCell Pottery = new ResearchCell(
+                SOCIETY_NUM,
+                "Pottery",
+                "descr",
+                10,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Granary.name)
+                }
+        ).initCell();
+
+        ResearchCell AnimalHusbandry = new ResearchCell(
+                SOCIETY_NUM,
+                "AnimalHusbandry",
+                "descr",
+                10,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Stable.name),
+                        Building.AllBuildings.get(Building.Caravansary.name)
+                }
+        ).initCell();
+
+        ResearchCell WoodWorking = new ResearchCell(
+                ENGINEERING_NUM,
+                "WoodWorking",
+                "descr",
+                10,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Sawmill.elementName)
+                }
+        ).initCell();
+
+        ResearchCell Mining = new ResearchCell(
+                ENGINEERING_NUM,
+                "Mining",
+                "descr",
+                10,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Mine.elementName)
+                }
+        ).initCell();
+
+        ResearchCell BowMaking = new ResearchCell(
+                ENGINEERING_NUM,
+                "BowMaking",
+                "descr",
+                15,
+                true,
+                new String[]{WoodWorking.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{DwarfCulture.nameOfResearch, DemonCulture.nameOfResearch}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
+        ResearchCell Writing = new ResearchCell(
+                ARCANUM_NUM,
+                "Writing",
+                "descr",
+                15,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Library.name)
+                }
+        ).initCell();
+
+        ResearchCell Masonry = new ResearchCell(
+                ENGINEERING_NUM,
+                "Masonry",
+                "descr",
+                15,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.StoneWorks.name)
+                }
+        ).initCell();
+
+        ResearchCell Mathematics = new ResearchCell(
+                ARCANUM_NUM,
+                "Mathematics",
+                "descr",
+                30,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Courthouse.name)
+                }
+        ).initCell();
+
+        ResearchCell BronzeWorking = new ResearchCell(
+                ENGINEERING_NUM,
+                "BronzeWorking",
+                "descr",
+                15,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Armory.name)
+                }
+        ).initCell();
+
+        ResearchCell IronWorking = new ResearchCell(
+                ENGINEERING_NUM,
+                "IronWorking",
+                "descr",
+                30,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Forge.name)
+                }
+        ).initCell();
+
+        ResearchCell Engineering = new ResearchCell(
+                ENGINEERING_NUM,
+                "Engineering",
+                "descr",
+                45,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Aqueduct.name),
+                        Building.AllBuildings.get(Building.WindMill.name)
+                }
+        ).initCell();
+
+        ResearchCell Currency = new ResearchCell(
+                SOCIETY_NUM,
+                "Currency",
+                "descr",
+                45,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Market.name),
+                        Building.AllBuildings.get(Building.Mint.name)
+                }
+        ).initCell();
+
+        ResearchCell Philosophy = new ResearchCell(
+                SOCIETY_NUM,
+                "Philosophy",
+                "descr",
+                45,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Amphitheater.name),
+                        Building.AllBuildings.get(Building.Shrine.name)
+                }
+        ).initCell();
+
+        ResearchCell Theology = new ResearchCell(
+                ARCANUM_NUM,
+                "Theology",
+                "descr",
+                45,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Temple.name),
+                        Building.AllBuildings.get(Building.Garden.name)
+                }
+        ).initCell();
+
+        ResearchCell Guilds = new ResearchCell(
+                ARCANUM_NUM,
+                "Guilds",
+                "descr",
+                60,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Bazaar.name)
+                }
+        ).initCell();
+
+        ResearchCell MetalCasting = new ResearchCell(
+                ENGINEERING_NUM,
+                "MetalCasting",
+                "descr",
+                60,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Workshop.name)
+                }
+        ).initCell();
+
+        ResearchCell Education = new ResearchCell(
+                ENGINEERING_NUM,
+                "Education",
+                "descr",
+                90,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.University.name)
+                }
+        ).initCell();
+
+        ResearchCell Medicine = new ResearchCell(
+                ENGINEERING_NUM,
+                "Medicine",
+                "descr",
+                75,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Hospital.name)
+                }
+        ).initCell();
+
+        ResearchCell Machinery = new ResearchCell(
+                ENGINEERING_NUM,
+                "Machinery",
+                "descr",
+                90,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Factory.name)
+                }
+        ).initCell();
+
+        ResearchCell Physic = new ResearchCell(
+                ENGINEERING_NUM,
+                "Physic",
+                "descr",
+                90,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
+        ResearchCell Astronomy = new ResearchCell(
+                ENGINEERING_NUM,
+                "Astronomy",
+                "descr",
+                105,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Observatory.name)
+                }
+        ).initCell();
+
+        ResearchCell Acoustic = new ResearchCell(
+                ENGINEERING_NUM,
+                "Acoustic",
+                "descr",
+                105,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.OperaHouse.name)
+                }
+        ).initCell();
+
+        ResearchCell Banking = new ResearchCell(
+                ENGINEERING_NUM,
+                "Banking",
+                "descr",
+                105,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Bank.name)
+                }
+        ).initCell();
+
+        ResearchCell Chemistry = new ResearchCell(
+                ENGINEERING_NUM,
+                "Chemistry",
+                "descr",
+                105,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
+        ResearchCell Gunpowder = new ResearchCell(
+                ENGINEERING_NUM,
+                "Gunpowder",
+                "descr",
+                120,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
+        ResearchCell Economic = new ResearchCell(
+                ENGINEERING_NUM,
+                "Economic",
+                "descr",
+                120,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.StockExchange.name)
+                }
+        ).initCell();
+
+        ResearchCell Metallurgy = new ResearchCell(
+                ENGINEERING_NUM,
+                "Metallurgy",
+                "descr",
+                120,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
+        ResearchCell ScientificTheory = new ResearchCell(
+                ENGINEERING_NUM,
+                "ScientificTheory",
+                "descr",
+                150,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.PublicSchool.name)
+                }
+        ).initCell();
+
+        ResearchCell Industrialization = new ResearchCell(
+                ENGINEERING_NUM,
+                "Industrialization",
+                "descr",
+                135,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.CoalPlant.name)
+                }
+        ).initCell();
+
+        ResearchCell Tourism = new ResearchCell(
+                ENGINEERING_NUM,
+                "Tourism",
+                "descr",
+                135,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.Hotel.name),
+                        Building.AllBuildings.get(Building.Museum.name)
+                }
+        ).initCell();
+
+        ResearchCell Biology = new ResearchCell(
+                ENGINEERING_NUM,
+                "Biology",
+                "descr",
+                210,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.MedicalLab.name),
+                        Building.AllBuildings.get(Building.ResearchLab.name)
+                }
+        ).initCell();
 
     }
 
-    private void initCell(){
+    private ResearchCell initCell(){
         ResearchCell.AllResearchCells.put(this.nameOfResearch, this);
+        return this;
     }
 
 }

@@ -28,12 +28,12 @@ public class Tile implements Serializable {
     public RoadBridge roadAndBridges = new RoadBridge();
     public boolean river[] = new boolean[8];
 
-    public Unit unit = null; //TODO INIT by NONE
-    public City city = null; //TODO INIT by NONE
-    public City owner = null; //TODO INIT by NONE
+    public Unit unit = null;
+    public City city = null;
+    public City owner = null;
     public boolean isProcessedByPeople = false;
 
-    public Wealth wealth = new Wealth(); //TODO must be empty
+    public Wealth wealth = new Wealth();
     public double ActionCost = 0;
 
     public Tile(Point coordinates, GameMap map){
@@ -45,7 +45,7 @@ public class Tile implements Serializable {
 
     }
 
-    public void CalculateWealth(){ //TODO Use to init
+    public void CalculateWealth(){
         this.wealth.toZero().dWealth(typeOfLand.wealth).dWealth(resource.wealth).dWealth(typeOfBuilding.wealth).dWealth(typeOfFlora.wealth);
     }
 
