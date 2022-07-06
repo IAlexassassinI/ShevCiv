@@ -40,15 +40,15 @@ public class ButtonComponent extends AbstractComponent {
 
     @Override
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
-        if(this.mouseDown || this.mouseOver) {
-            graphics.setColor(this.backgroundColor);
-            graphics.fillRect(this.x, this.y, this.width, this.height);
-            this.image.draw(this.x, this.y, this.width, this.height, this.currentColor);
-        }
-        else if(this.locked) {
+        if(this.locked) {
             graphics.setColor(Color.black);
             graphics.fillRect(this.x, this.y, this.width, this.height);
             this.image.draw(this.x, this.y, this.width, this.height, this.mouseOverColor);
+        }
+        else if(this.mouseDown || this.mouseOver) {
+            graphics.setColor(this.backgroundColor);
+            graphics.fillRect(this.x, this.y, this.width, this.height);
+            this.image.draw(this.x, this.y, this.width, this.height, this.currentColor);
         }
         else {
             this.image.draw(this.x, this.y, this.width, this.height, this.currentColor);
@@ -65,7 +65,8 @@ public class ButtonComponent extends AbstractComponent {
     }
 
     public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
-        if(contains(newx, newy) && !this.locked) {
+        if(this.locked)return;
+        if(contains(newx, newy)) {
             this.mouseOver = true;
             this.currentColor = this.mouseOverColor;
             this.backgroundColor = Color.black;
@@ -77,7 +78,8 @@ public class ButtonComponent extends AbstractComponent {
     }
 
     public void mousePressedSignalise(int button, int x, int y) {
-        if(contains(x, y) && button == Input.MOUSE_LEFT_BUTTON && !this.locked) {
+        if(this.locked)return;
+        if(contains(x, y) && button == Input.MOUSE_LEFT_BUTTON) {
             this.mouseDown = true;
             this.currentColor = this.mouseOverColor;
             this.backgroundColor = Color.white;

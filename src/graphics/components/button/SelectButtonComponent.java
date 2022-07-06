@@ -16,7 +16,12 @@ public class SelectButtonComponent extends ButtonComponent {
 
     @Override
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
-        if(this.selected) {
+        if(this.locked) {
+            graphics.setColor(Color.black);
+            graphics.fillRect(this.x, this.y, this.width, this.height);
+            this.image.draw(this.x, this.y, this.width, this.height, this.mouseOverColor);
+        }
+        else if(this.selected) {
             if(this.selectStyle == SelectStyle.WHITE_BORDER) {
                 graphics.setColor(Color.white);
                 graphics.fillRoundRect((float) (this.x - this.width * 0.05), (float) (this.y - this.height * 0.05), (float) (this.width * 1.1), (float) (this.height * 1.1), (int) (this.width * 0.05));
@@ -32,11 +37,6 @@ public class SelectButtonComponent extends ButtonComponent {
             graphics.setColor(this.backgroundColor);
             graphics.fillRect(this.x, this.y, this.width, this.height);
             this.image.draw(this.x, this.y, this.width, this.height, this.currentColor);
-        }
-        else if(this.locked) {
-            graphics.setColor(Color.black);
-            graphics.fillRect(this.x, this.y, this.width, this.height);
-            this.image.draw(this.x, this.y, this.width, this.height, this.mouseOverColor);
         }
         else {
             this.image.draw(this.x, this.y, this.width, this.height, this.currentColor);

@@ -1,9 +1,12 @@
 package graphics.components.tiledmap;
 
 import Processing.TileMap.Tile;
+import Processing.TileMap.TileUtils.TypeOfBuilding;
 import Processing.Units.Ability.Colonize;
+import Processing.Units.Ability.ConstructSomethingOnTile;
 import Processing.Units.Ability.GetCargoSmall;
 import Processing.Units.Ability.SpecialAbility;
+import Processing.Units.Projectile;
 import Processing.Units.Unit;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.GUIContext;
@@ -29,6 +32,8 @@ public class UnitComponent {
     private int movingTime = 1000;
     private int attackingTime = movingTime * 2 + 1000;
     private int currentAttackingTime = 0;
+
+    private ProjectileComponent projectileComponent;
 
     private boolean left = false;
     private boolean right = true;
@@ -102,6 +107,44 @@ public class UnitComponent {
             return true;
         }
         return false;
+    }
+
+    public void buildFarmland() {
+        if(this.tileComponent.getTile().getTypeOfBuilding() == TypeOfBuilding.Farmland) {
+            return;
+        }
+        if(this.tileComponent.getTile().buildingInProcess.object == TypeOfBuilding.Farmland) {
+            ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
+            return;
+        }
+        ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.Farmland);
+    }
+
+    public void buildMine() {
+        if(this.tileComponent.getTile().getTypeOfBuilding() == TypeOfBuilding.Mine) {
+            return;
+        }
+        if(this.tileComponent.getTile().buildingInProcess.object == TypeOfBuilding.Mine) {
+            ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
+            return;
+        }
+        ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.Mine);
+    }
+
+    public void buildSawmill() {
+        if(this.tileComponent.getTile().getTypeOfBuilding() == TypeOfBuilding.Sawmill) {
+            return;
+        }
+        if(this.tileComponent.getTile().buildingInProcess.object == TypeOfBuilding.Sawmill) {
+            ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
+            return;
+        }
+        ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.Sawmill);
+    }
+
+    public void buildNone() {
+        ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.none);
+        //this.tileComponent.getTile().setTypeOfBuilding(TypeOfBuilding.none);
     }
 
     public boolean isInMovingArea(Tile tile) {
@@ -234,6 +277,9 @@ public class UnitComponent {
             default:
                 break;
         }
+        if(projectileComponent != null) {
+            projectileComponent.render(guiContext, graphics);
+        }
     }
 
     public void update(GameContainer gameContainer, int delta) throws SlickException{
@@ -255,7 +301,18 @@ public class UnitComponent {
 
     public void updateAttacking(GameContainer gameContainer, int delta) throws SlickException {
         if(this.unit.typeOfUnit.isRanged) {
+            //if (this.currentAttackingTime <= this.movingTime) {
 
+            //}
+            if(this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime && projectileComponent == null) {
+                this.projectileComponent = new ProjectileComponent(this, tileToAttack);
+            }
+            else if(projectileComponent != null) {
+                this.projectileComponent.update(gameContainer ,delta);
+            }
+            //else if(this.currentAttackingTime > this.attackingTime - this.movingTime) {
+
+            //}
         }
         else {
             if (this.currentAttackingTime <= this.movingTime) {
@@ -272,7 +329,9 @@ public class UnitComponent {
         if(this.currentAttackingTime > this.attackingTime) {
             this.currentAttackingTime = 0;
             this.unit.attack(this.tileToAttack.getTile(), this.unit.typeOfUnit.isRanged);
+            System.out.println("attack");
             this.state = UnitState.IDLE;
+            this.projectileComponent = null;
         }
     }
 
@@ -330,12 +389,23 @@ public class UnitComponent {
         if(left) {
             if(this.state == UnitState.MOVING) return movingLeftAnimation;
             else if(this.state == UnitState.ATTACKING) {
-                if(this.currentAttackingTime <= this.movingTime) return movingLeftAnimation;
-                else if(this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime) {
-                    return idleLeftAnimation;
+                if(this.unit.typeOfUnit.isRanged) {
+                    if (this.currentAttackingTime <= this.movingTime){
+                        return idleLeftAnimation;
+                    }
+                    else if (this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime) {
+                        return idleLeftAnimation;
+                    } else {
+                        return idleLeftAnimation;
+                    }
                 }
                 else {
-                    return movingLeftAnimation;
+                    if (this.currentAttackingTime <= this.movingTime) return movingLeftAnimation;
+                    else if (this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime) {
+                        return idleLeftAnimation;
+                    } else {
+                        return movingLeftAnimation;
+                    }
                 }
             }
             else return idleLeftAnimation;
@@ -343,12 +413,23 @@ public class UnitComponent {
         else if(right) {
             if(this.state == UnitState.MOVING) return movingRightAnimation;
             else if(this.state == UnitState.ATTACKING) {
-                if(this.currentAttackingTime <= this.movingTime) return movingRightAnimation;
-                else if(this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime) {
-                    return idleRightAnimation;
+                if(this.unit.typeOfUnit.isRanged) {
+                    if (this.currentAttackingTime <= this.movingTime){
+                        return idleRightAnimation;
+                    }
+                    else if (this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime) {
+                        return idleRightAnimation;
+                    } else {
+                        return idleRightAnimation;
+                    }
                 }
                 else {
-                    return movingRightAnimation;
+                    if (this.currentAttackingTime <= this.movingTime) return movingRightAnimation;
+                    else if (this.currentAttackingTime > this.movingTime && this.currentAttackingTime <= this.attackingTime - this.movingTime) {
+                        return idleRightAnimation;
+                    } else {
+                        return movingRightAnimation;
+                    }
                 }
             }
             else return idleRightAnimation;

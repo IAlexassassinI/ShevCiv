@@ -1,9 +1,12 @@
 package graphics.panels;
 
+import Processing.TileMap.TileUtils.RoadBridge;
+import Processing.TileMap.TileUtils.TypeOfBuilding;
 import Processing.Units.Ability.Colonize;
 import Processing.Units.Ability.ConstructSomethingOnTile;
 import Processing.Units.Ability.GetCargoSmall;
 import Processing.Units.Ability.SpecialAbility;
+import Processing.Utilits.Wrapers.TwoTTT;
 import graphics.components.button.ButtonComponent;
 import graphics.components.button.SelectButtonComponent;
 import graphics.components.tiledmap.GameMapComponent;
@@ -16,6 +19,7 @@ import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public class UnitControlPanel extends Panel implements ComponentListener {
 
@@ -29,12 +33,12 @@ public class UnitControlPanel extends Panel implements ComponentListener {
 
     private SelectButtonComponent moveButton;
     private SelectButtonComponent attackButton;
-    private SelectButtonComponent coloniseButton;
+    private ButtonComponent coloniseButton;
     private SelectButtonComponent getCargoButton;
-    private SelectButtonComponent buildFarmlandButton;
-    private SelectButtonComponent buildMineButton;
-    private SelectButtonComponent buildSawmillButton;
-    private SelectButtonComponent buildNoneButton;
+    private ButtonComponent buildFarmlandButton;
+    private ButtonComponent buildMineButton;
+    private ButtonComponent buildSawmillButton;
+    private ButtonComponent buildNoneButton;
     private ButtonComponent exitButton;
 
     private boolean exit = false;
@@ -50,11 +54,19 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         try {
             this.moveButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/move.png"), 1440, 920, 50, 50);
             this.attackButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/attack.png"), 1500, 920, 50, 50);
-            this.coloniseButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 920, 50, 50);
+            this.coloniseButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 920, 50, 50);
             this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/exit.png"), 1890, 860, 30, 30);
             this.getCargoButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 920, 50, 50);
+            this.buildFarmlandButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 920, 50, 50);
+            this.buildMineButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1620, 920, 50, 50);
+            this.buildSawmillButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1680, 920, 50, 50);
+            this.buildNoneButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1740, 920, 50, 50);
 
             this.getCargoButton.addListener(this);
+            this.buildFarmlandButton.addListener(this);
+            this.buildMineButton.addListener(this);
+            this.buildSawmillButton.addListener(this);
+            this.buildNoneButton.addListener(this);
             this.moveButton.addListener(this);
             this.attackButton.addListener(this);
             this.coloniseButton.addListener(this);
@@ -86,6 +98,7 @@ public class UnitControlPanel extends Panel implements ComponentListener {
                 getCargo = true;
             }
         }
+        update();
     }
 
     @Override
@@ -124,16 +137,86 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         else if(getCargo) {
             this.getCargoButton.render(container, g);
         }
+        else if(construct) {
+            this.buildFarmlandButton.render(container, g);
+            if(this.unitComponent.getTileComponent().getTile().getTypeOfBuilding() == TypeOfBuilding.Farmland) {
+                g.setColor(Color.green);
+                g.drawString(String.valueOf(0), this.buildFarmlandButton.getX(), this.buildFarmlandButton.getY());
+            }
+            else if(this.unitComponent.getTileComponent().getTile().buildingInProcess != null && this.unitComponent.getTileComponent().getTile().buildingInProcess.object == TypeOfBuilding.Farmland) {
+                g.setColor(Color.blue);
+                g.drawString(String.valueOf(this.unitComponent.getTileComponent().getTile().buildingInProcess.goal-this.unitComponent.getTileComponent().getTile().buildingInProcess.progress), this.buildFarmlandButton.getX(), this.buildFarmlandButton.getY());
+            }
+            else {
+                g.setColor(Color.black);
+                g.drawString(String.valueOf(TypeOfBuilding.Farmland.turnsToBuild), this.buildFarmlandButton.getX(), this.buildFarmlandButton.getY());
+            }
+
+            this.buildMineButton.render(container, g);
+            if(this.unitComponent.getTileComponent().getTile().getTypeOfBuilding() == TypeOfBuilding.Mine) {
+                g.setColor(Color.green);
+                g.drawString(String.valueOf(0), this.buildMineButton.getX(), this.buildMineButton.getY());
+            }
+            else if(this.unitComponent.getTileComponent().getTile().buildingInProcess != null && this.unitComponent.getTileComponent().getTile().buildingInProcess.object == TypeOfBuilding.Mine) {
+                g.setColor(Color.blue);
+                g.drawString(String.valueOf(this.unitComponent.getTileComponent().getTile().buildingInProcess.goal-this.unitComponent.getTileComponent().getTile().buildingInProcess.progress), this.buildMineButton.getX(), this.buildMineButton.getY());
+            }
+            else {
+                g.setColor(Color.black);
+                g.drawString(String.valueOf(TypeOfBuilding.Mine.turnsToBuild), this.buildMineButton.getX(), this.buildMineButton.getY());
+            }
+
+            this.buildSawmillButton.render(container, g);
+            if(this.unitComponent.getTileComponent().getTile().getTypeOfBuilding() == TypeOfBuilding.Sawmill) {
+                g.setColor(Color.green);
+                g.drawString(String.valueOf(0), this.buildSawmillButton.getX(), this.buildSawmillButton.getY());
+            }
+            else if(this.unitComponent.getTileComponent().getTile().buildingInProcess != null && this.unitComponent.getTileComponent().getTile().buildingInProcess.object == TypeOfBuilding.Sawmill) {
+                g.setColor(Color.blue);
+                g.drawString(String.valueOf(this.unitComponent.getTileComponent().getTile().buildingInProcess.goal-this.unitComponent.getTileComponent().getTile().buildingInProcess.progress), this.buildSawmillButton.getX(), this.buildSawmillButton.getY());
+            }
+            else {
+                g.setColor(Color.black);
+                g.drawString(String.valueOf(TypeOfBuilding.Sawmill.turnsToBuild), this.buildSawmillButton.getX(), this.buildSawmillButton.getY());
+            }
+            this.buildNoneButton.render(container, g);
+        }
         this.exitButton.render(container, g);
     }
 
     public void update() {
-
+        if(construct) {
+            TwoTTT<LinkedHashMap<String, TwoTTT<TypeOfBuilding, Boolean>>, RoadBridge> list = ((ConstructSomethingOnTile) this.unitComponent.getUnit().Abilities.get(0)).prepareList();
+            if(!list.first.get(TypeOfBuilding.Farmland.elementName).second) {
+                this.buildFarmlandButton.setLocked(true);
+            }
+            if(list.first.get(TypeOfBuilding.Mine.elementName) != null && !list.first.get(TypeOfBuilding.Mine.elementName).second) {
+                this.buildFarmlandButton.setLocked(true);
+            }
+            if(list.first.get(TypeOfBuilding.Sawmill.elementName) != null && !list.first.get(TypeOfBuilding.Sawmill.elementName).second) {
+                this.buildFarmlandButton.setLocked(true);
+            }
+        }
+        if(this.unitComponent.getState() == UnitState.PREPARE_TO_MOVE) {
+            this.moveButton.setSelected(true);
+            this.attackButton.setSelected(false);
+            this.getCargoButton.setSelected(false);
+        }
+        if(this.unitComponent.getState() == UnitState.PREPARE_TO_ATTACK) {
+            this.moveButton.setSelected(false);
+            this.attackButton.setSelected(true);
+            this.getCargoButton.setSelected(false);
+        }
+        if(this.unitComponent.getState() == UnitState.PREPARE_CARGO) {
+            this.moveButton.setSelected(false);
+            this.attackButton.setSelected(false);
+            this.getCargoButton.setSelected(true);
+        }
     }
 
-    public void update(GameContainer gameContainer, int delta) throws SlickException {
+    //public void update(GameContainer gameContainer, int delta) throws SlickException {
 
-    }
+    //}
 
     @Override
     public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
@@ -142,6 +225,15 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         this.attackButton.mouseMovedSignalise(oldx, oldy, newx, newy);
         if(colonise)this.coloniseButton.mouseMovedSignalise(oldx, oldy, newx, newy);
         this.exitButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+        if(getCargo) {
+            this.getCargoButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+        }
+        if(construct) {
+            this.buildFarmlandButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+            this.buildMineButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+            this.buildSawmillButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+            this.buildNoneButton.mouseMovedSignalise(oldx, oldy, newx, newy);
+        }
     }
 
     @Override
@@ -151,6 +243,15 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         this.attackButton.mousePressedSignalise(button, x, y);
         if(colonise)this.coloniseButton.mousePressedSignalise(button, x, y);
         this.exitButton.mousePressedSignalise(button, x, y);
+        if(getCargo) {
+            this.getCargoButton.mousePressedSignalise(button, x, y);
+        }
+        if(construct) {
+            this.buildFarmlandButton.mousePressedSignalise(button, x, y);
+            this.buildMineButton.mousePressedSignalise(button, x, y);
+            this.buildSawmillButton.mousePressedSignalise(button, x, y);
+            this.buildNoneButton.mousePressedSignalise(button, x, y);
+        }
     }
 
     @Override
@@ -158,32 +259,39 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         if(abstractComponent instanceof SelectButtonComponent) {
             if(abstractComponent == moveButton) {
                 this.unitComponent.prepareToMove();
-                this.attackButton.setSelected(false);
-                this.coloniseButton.setSelected(false);
             }
             if(abstractComponent == attackButton) {
                 this.unitComponent.prepareToAttack();
-                this.moveButton.setSelected(false);
-                this.coloniseButton.setSelected(false);
+            }
+            if(abstractComponent == getCargoButton) {
+                this.unitComponent.prapareCargo();
+            }
+            update();
+        }
+        else if(abstractComponent instanceof  ButtonComponent) {
+            if(abstractComponent == this.exitButton) {
+                this.exit = true;
+                this.unitComponent.setState(UnitState.IDLE);
             }
             if(abstractComponent == coloniseButton) {
                 //this.unitComponent.getUnit().Abilities
                 if(this.unitComponent.colonise()) {
                     this.exit = true;
                 }
-                this.coloniseButton.setSelected(false);
-                this.moveButton.setSelected(false);
-                this.attackButton.setSelected(false);
 
             }
-            if(abstractComponent == getCargoButton) {
-                this.unitComponent.prapareCargo();
+            if(abstractComponent == buildFarmlandButton) {
+                this.unitComponent.buildFarmland();
             }
-        }
-        else if(abstractComponent instanceof  ButtonComponent) {
-            if(abstractComponent == this.exitButton) {
-                this.exit = true;
-                this.unitComponent.setState(UnitState.IDLE);
+            if(abstractComponent == buildMineButton) {
+                System.out.println("mine");
+                this.unitComponent.buildMine();
+            }
+            if(abstractComponent == buildSawmillButton) {
+                this.unitComponent.buildSawmill();
+            }
+            if(abstractComponent == buildNoneButton) {
+                this.unitComponent.buildNone();
             }
         }
         else if(abstractComponent instanceof GameMapComponent) {
@@ -196,9 +304,7 @@ public class UnitControlPanel extends Panel implements ComponentListener {
             else if(this.unitComponent.getState() == UnitState.PREPARE_CARGO) {
                 this.unitComponent.relocateCargo((GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile());
             }
-            this.moveButton.setSelected(false);
-            this.attackButton.setSelected(false);
-            this.coloniseButton.setSelected(false);
+            update();
         }
     }
 
@@ -215,9 +321,6 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         this.exit = exit;
         if(exit){
             this.unitComponent.setState(UnitState.IDLE);
-            this.moveButton.setSelected(false);
-            this.attackButton.setSelected(false);
-            this.coloniseButton.setSelected(false);
         }
     }
 

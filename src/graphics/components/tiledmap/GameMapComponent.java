@@ -2,6 +2,7 @@ package graphics.components.tiledmap;
 
 import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
+import graphics.loads.Images;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -44,13 +45,15 @@ public class GameMapComponent extends MapComponent {
     }
 
     public void renderTypeOfBuildings(GUIContext guiContext, Graphics graphics) throws SlickException {
+        Images.typesOfBuildingSpriteSheet.startUse();
         for(int i = 0; i < this.map.getHeight(); i++) {
             for(int j = 0; j < this.map.getWidth(); j++) {
                 if(this.camera == null || this.camera.containsTileComponent(this.tileComponents[i][j])) {
-                    ((GameTileComponent) this.tileComponents[i][j]).renderTypeOfBuildings(guiContext, graphics);
+                    ((GameTileComponent) this.tileComponents[i][j]).renderEmbeddedTypeOfBuilding(guiContext, graphics);
                 }
             }
         }
+        Images.typesOfBuildingSpriteSheet.endUse();
     }
 
     public void renderCity(GUIContext guiContext, Graphics graphics) throws SlickException {

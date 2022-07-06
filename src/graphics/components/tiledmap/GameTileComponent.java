@@ -32,8 +32,8 @@ public class GameTileComponent extends TileComponent {
         }
     }
 
-    public void renderTypeOfBuildings(GUIContext guiContext, Graphics graphics) throws SlickException {
-
+    public void renderEmbeddedTypeOfBuilding(GUIContext guiContext, Graphics graphics) throws SlickException {
+        Images.typesOfBuildingSpriteSheet.getSprite(this.getTile().typeOfBuilding.Type,0).drawEmbedded(this.x, this.y, this.width, this.height);
     }
 
     public void renderCity(GUIContext guiContext, Graphics graphics) throws SlickException {
@@ -136,6 +136,7 @@ public class GameTileComponent extends TileComponent {
     }
 
     public void update(GameContainer gameContainer, int delta) throws SlickException{
-        if(this.unitComponent != null) this.unitComponent.update(gameContainer, delta);
+        if(this.getTile().getUnit() == null && this.unitComponent != null) this.unitComponent = null;
+        if(this.unitComponent != null && this.getTile().getUnit() != null) this.unitComponent.update(gameContainer, delta);
     }
 }
