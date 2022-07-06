@@ -22,7 +22,7 @@ public class WhereCanBe implements Serializable {
 
     }
 
-    public void rewriteWhereCanBe(String nameOfWhereCanBe, TypeOfBuilding building[] ,TypeOfLand land[], TypeOfFlora flora[], Resource resource[], TypeOfLand noLand[], TypeOfFlora noFlora[], Resource noResource[]){
+    public void rewriteWhereCanBe(String nameOfWhereCanBe, TypeOfBuilding building[] ,TypeOfLand land[], TypeOfFlora flora[], Resource resource[], TypeOfBuilding noBuilding[], TypeOfLand noLand[], TypeOfFlora noFlora[], Resource noResource[]){
         this.nameOfWhereCanBe = nameOfWhereCanBe;
 
         for(int i = 0; i < building.length; i++){
@@ -39,6 +39,9 @@ public class WhereCanBe implements Serializable {
             this.typesOfResourceWhereCanBe.put(resource[i].elementName, resource[i]);
         }
 
+        for(int i = 0; i < noBuilding.length; i++){
+            this.typesOfBuildingWhereDontBe.put(noBuilding[i].elementName, noBuilding[i]);
+        }
 
         for(int i = 0; i < noLand.length; i++){
             this.typesOfLandWhereDontBe.put(noLand[i].elementName, noLand[i]);
@@ -74,6 +77,7 @@ public class WhereCanBe implements Serializable {
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{},
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{});
@@ -83,6 +87,7 @@ public class WhereCanBe implements Serializable {
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{},
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{TypeOfLand.Mountains},
                 new TypeOfFlora[]{},
                 new Resource[]{});
@@ -92,6 +97,7 @@ public class WhereCanBe implements Serializable {
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{TypeOfFlora.Forest},
                 new Resource[]{},
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{TypeOfLand.Mountains, TypeOfLand.Shores, TypeOfLand.DeepOcean},
                 new TypeOfFlora[]{},
                 new Resource[]{});
@@ -101,6 +107,7 @@ public class WhereCanBe implements Serializable {
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{},
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{TypeOfLand.Mountains, TypeOfLand.Shores, TypeOfLand.DeepOcean},
                 new TypeOfFlora[]{},
                 new Resource[]{});
@@ -110,24 +117,27 @@ public class WhereCanBe implements Serializable {
                 new TypeOfLand[]{TypeOfLand.Hills},
                 new TypeOfFlora[]{},
                 new Resource[]{},
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{});
         inDeepOceanAndShores.rewriteWhereCanBe(
                 "inDeepOceanAndShores",
-                new TypeOfBuilding[]{TypeOfBuilding.City},
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{TypeOfLand.DeepOcean, TypeOfLand.Shores},
                 new TypeOfFlora[]{},
                 new Resource[]{},
+                new TypeOfBuilding[]{TypeOfBuilding.Farmland, TypeOfBuilding.Mine, TypeOfBuilding.BuildingInProcess, TypeOfBuilding.Sawmill},
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{});
         inShores.rewriteWhereCanBe(
                 "inShores",
-                new TypeOfBuilding[]{TypeOfBuilding.City},
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{TypeOfLand.Shores},
                 new TypeOfFlora[]{},
                 new Resource[]{},
+                new TypeOfBuilding[]{TypeOfBuilding.Farmland, TypeOfBuilding.Mine, TypeOfBuilding.BuildingInProcess, TypeOfBuilding.none, TypeOfBuilding.Sawmill},
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{});
@@ -137,6 +147,7 @@ public class WhereCanBe implements Serializable {
                 new TypeOfLand[]{},
                 new TypeOfFlora[]{},
                 new Resource[]{},
+                new TypeOfBuilding[]{},
                 new TypeOfLand[]{TypeOfLand.Hills, TypeOfLand.Mountains},
                 new TypeOfFlora[]{TypeOfFlora.Forest},
                 new Resource[]{});
@@ -149,6 +160,8 @@ public class WhereCanBe implements Serializable {
     public HashMap<String,TypeOfLand> typesOfLandWhereCanBe = new HashMap<>();
     public HashMap<String,TypeOfFlora> typesOfFloraWhereCanBe = new HashMap<>();
     public HashMap<String,Resource> typesOfResourceWhereCanBe = new HashMap<>();
+
+    public HashMap<String, TypeOfBuilding> typesOfBuildingWhereDontBe = new HashMap<>();
 
     public HashMap<String,TypeOfLand> typesOfLandWhereDontBe = new HashMap<>();
     public HashMap<String,TypeOfFlora> typesOfFloraWhereDontBe = new HashMap<>();
@@ -224,6 +237,12 @@ public class WhereCanBe implements Serializable {
                     return true;
                 }
                 break;
+            case TYPE_OF_BUILDING_NUM:
+                //TypeOfBuilding
+                if(whereCanBe.typesOfBuildingWhereDontBe.containsKey(ProcessedTile.typeOfBuilding.elementName) || whereCanBe.typesOfBuildingWhereDontBe.containsKey(TypeOfBuilding.none.elementName)){
+                    return true;
+                }
+                break;
             default:
                 break;
         }
@@ -238,6 +257,9 @@ public class WhereCanBe implements Serializable {
             return true;
         }
         if(WhereCanBe.NegativeCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, whereCanBe)){
+            return true;
+        }
+        if(WhereCanBe.NegativeCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_BUILDING_NUM, whereCanBe)){
             return true;
         }
         return false;
