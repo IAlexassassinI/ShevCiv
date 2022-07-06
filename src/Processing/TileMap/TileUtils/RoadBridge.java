@@ -7,7 +7,7 @@ public class RoadBridge implements Serializable {
 
     public boolean roadAndBridges[];
 
-    public static double turnsToBuildRoad = 2;
+    public static double turnsToBuildRoad = 1;
     public static double turnsToBuildBridge = 3;
 
     public RoadBridge(){

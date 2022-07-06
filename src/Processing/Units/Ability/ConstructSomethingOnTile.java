@@ -85,11 +85,12 @@ public class ConstructSomethingOnTile extends SpecialAbility implements Serializ
         if(toBuild.getClass() == TypeOfBuilding.class){
             if(((TypeOfBuilding) toBuild) != TypeOfBuilding.none){
                 currentUnit.onTile.buildingInProcess = new CreatableObject<TypeOfBuilding>((TypeOfBuilding)toBuild, ((TypeOfBuilding)toBuild).turnsToBuild);
+                currentUnit.onTile.setTypeOfBuilding(TypeOfBuilding.BuildingInProcess);
             }
             else{
                 currentUnit.onTile.buildingInProcess = null;
+                currentUnit.onTile.setTypeOfBuilding(TypeOfBuilding.none);
             }
-            currentUnit.onTile.setTypeOfBuilding(TypeOfBuilding.none); //TODO maybe todo
         }
         else {
             RoadBridge TMP_RB = (RoadBridge) toBuild;

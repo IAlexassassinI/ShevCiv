@@ -4,8 +4,10 @@ import Processing.City.City;
 import Processing.Player.Player;
 import Processing.TileMap.Tile;
 import Processing.Units.Ability.Colonize;
+import Processing.Units.Ability.GetCargoSmall;
 import Processing.Units.Ability.SpecialAbility;
 import Processing.Units.Unit;
+import Processing.Units.UnitPattern;
 import Processing.Utilits.Point;
 import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.TileFinder.Path;
@@ -15,7 +17,6 @@ import Processing.Utilits.Wrapers.ThreeTTT;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.logging.Level;
 
 public class Barbarian_AI {
 
@@ -29,7 +30,9 @@ public class Barbarian_AI {
     private static final double STAY_DAMAGE = 5;
     private boolean unitIsSettler = false;
 
-    public Barbarian_AI(Player Identity){
+    public Barbarian_AI(Player Identity, int IntToSpawn, int level){
+        this.level = level;
+        this.randomIntToSpawn = IntToSpawn;
         this.ME = Identity;
         AllUnits = ME.playerUnits;
     }
@@ -39,6 +42,9 @@ public class Barbarian_AI {
         while(iterator.hasNext()){
             unitIsSettler = false;
             Unit currentUnit = iterator.next();
+            if(currentUnit.onTile == null){
+                continue;
+            }
             calculateShooting(currentUnit);
             Tile tileToMove = calculateUnitMove(currentUnit);
             if(tileToMove != null){
@@ -61,11 +67,136 @@ public class Barbarian_AI {
     }
 
     public void spawnOrk(Tile tile){
-        if(Game.RandomGen.nextInt(100) >= randomIntToSpawn){
-            if(level == 1){
-
+        if(!scanSquareForEnemy(tile, 3)){
+            if(Game.RandomGen.nextBoolean()){
+                tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSettler.NameOfUnit), ME, tile));
+                return;
             }
         }
+
+        int intToRand = level * ME.Game.year;
+
+        if(intToRand <= 10){
+            tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkPeon.NameOfUnit), ME, tile));
+            return;
+        }
+        else if(intToRand <= 20){
+            switch(Game.RandomGen.nextInt(3)){
+                case 0:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    break;
+                case 1:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkPeon.NameOfUnit), ME, tile));
+                    break;
+            }
+            return;
+        }
+        else if(intToRand <= 30){
+            tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+            return;
+        }
+        else if(intToRand <= 40){
+            switch(Game.RandomGen.nextInt(3)){
+                case 0:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    break;
+                case 1:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkHunter.NameOfUnit), ME, tile));
+                    break;
+            }
+            return;
+        }
+        else if(intToRand <= 50){
+            switch(Game.RandomGen.nextInt(3)){
+                case 0:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    break;
+                case 1:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkHunter.NameOfUnit), ME, tile));
+                    break;
+                case 2:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    break;
+            }
+            return;
+        }
+        else if(intToRand <= 60){
+            switch(Game.RandomGen.nextInt(4)){
+                case 0:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    break;
+                case 1:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkHunter.NameOfUnit), ME, tile));
+                    break;
+                case 2:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    break;
+                case 3:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWolfRider.NameOfUnit), ME, tile));
+                    break;
+            }
+            return;
+        }
+        else if(intToRand <= 70){
+            switch(Game.RandomGen.nextInt(4)){
+                case 0:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    break;
+                case 1:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWyvern.NameOfUnit), ME, tile));
+                    break;
+                case 2:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    break;
+                case 3:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWolfRider.NameOfUnit), ME, tile));
+                    break;
+            }
+            return;
+        }
+        else if(intToRand <= 80){
+            switch(Game.RandomGen.nextInt(4)){
+                case 0:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.VeryBigOrk.NameOfUnit), ME, tile));
+                    break;
+                case 1:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWyvern.NameOfUnit), ME, tile));
+                    break;
+                case 2:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    break;
+                case 3:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWolfRider.NameOfUnit), ME, tile));
+                    break;
+            }
+            return;
+        }
+        else if(intToRand <= 90){
+            switch(Game.RandomGen.nextInt(4)){
+                case 0:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.VeryBigOrk.NameOfUnit), ME, tile));
+                    break;
+                case 1:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWyvern.NameOfUnit), ME, tile));
+                    break;
+                case 2:
+                    tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    break;
+            }
+            return;
+        }
+    }
+
+
+    public boolean scanSquareForEnemy(Tile tile, int squareRadius){
+        for(int y = -squareRadius; y < squareRadius; y++){
+            for(int x = -squareRadius; x < squareRadius; x++){
+                if(this.ME.Game.Map.getTile(tile.coordinates.LookAt(x,y)).unit != null && this.ME.Game.Map.getTile(tile.coordinates.LookAt(x,y)).unit.owner != this.ME){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void calculateSpawnOfBarbarian(Tile tile){
@@ -75,7 +206,21 @@ public class Barbarian_AI {
             }
         }
         else{
-            spawnOrk(tile);
+            if(scanSquareForEnemy(tile, 2)){
+                if(Game.RandomGen.nextInt(100) <= randomIntToSpawn*1.35){
+                    spawnOrk(tile);
+                }
+            }
+            else if(scanSquareForEnemy(tile, 3)){
+                if(Game.RandomGen.nextInt(100) <= randomIntToSpawn*1.25){
+                    spawnOrk(tile);
+                }
+            }
+            else{
+                if(Game.RandomGen.nextInt(100) <= randomIntToSpawn){
+                    spawnOrk(tile);
+                }
+            }
         }
     }
 
@@ -180,13 +325,20 @@ public class Barbarian_AI {
 
         LinkedList<Tile> whereCanBoardOrUnboard = new LinkedList<>();
 
-        for(int i = 0; i < 8; i++){
-            Tile toProceed = unit.onTile.map.getTile(unit.onTile.coordinates.LookAt(Point.ALL_SIDES[i]));
-            if(!WhereCanBe.FullCheck(toProceed, unit.typeOfUnit.whereCanMove) && WhereCanBe.FullCheck(toProceed, unit.typeOfUnit.whereCanMove)){ //TODO put there ship and land variant of ork
-                whereCanBoardOrUnboard.add(toProceed);
+        if(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWyvern.NameOfUnit) != unit.typeOfUnit){
+            for(int i = 0; i < 8; i++){
+                Tile toProceed = unit.onTile.map.getTile(unit.onTile.coordinates.LookAt(Point.ALL_SIDES[i]));
+                if(toProceed.unit != null){
+                    continue;
+                }
+                if(!WhereCanBe.FullCheck(toProceed, unit.typeOfUnit.whereCanMove) && WhereCanBe.FullCheck(toProceed, UnitPattern.OrkBarge.whereCanMove)){
+                    whereCanBoardOrUnboard.add(toProceed);
+                }
+                else if(!WhereCanBe.FullCheck(toProceed, unit.typeOfUnit.whereCanMove) && WhereCanBe.FullCheck(toProceed, UnitPattern.OrkPeon.whereCanMove)){
+                    whereCanBoardOrUnboard.add(toProceed);
+                }
             }
         }
-
 
         int randomIndex = Game.RandomGen.nextInt(moveRange.size() + whereCanBoardOrUnboard.size());
         if(randomIndex < moveRange.size()){
@@ -198,10 +350,45 @@ public class Barbarian_AI {
         }
         else{
             Tile tileToBoard = whereCanBoardOrUnboard.get(randomIndex - moveRange.size());
-            //TODO change state
+            boardUnBoard(unit, tileToBoard);
             return null;
         }
 
+    }
+
+    private void boardUnBoard(Unit unit, Tile tile){
+        if(UnitPattern.AllUnitPattern.get(UnitPattern.OrkBarge.NameOfUnit) == unit.typeOfUnit){
+            Iterator<SpecialAbility> abilityIterator = unit.Abilities.iterator();
+            GetCargoSmall foundAbility = null;
+            while(abilityIterator.hasNext()){
+                SpecialAbility SA = abilityIterator.next();
+                if(SA.getClass() == GetCargoSmall.class){
+                    foundAbility = ((GetCargoSmall) SA);
+                    break;
+                }
+            }
+            if(foundAbility != null){
+                foundAbility.preparePutCargo();
+                foundAbility.putCargo(tile);
+                unit.destroy();
+            }
+        }
+        else{
+            tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkBarge.NameOfUnit), ME, tile));
+            Iterator<SpecialAbility> abilityIterator = tile.unit.Abilities.iterator();
+            GetCargoSmall foundAbility = null;
+            while(abilityIterator.hasNext()){
+                SpecialAbility SA = abilityIterator.next();
+                if(SA.getClass() == GetCargoSmall.class){
+                    foundAbility = ((GetCargoSmall) SA);
+                    break;
+                }
+            }
+            if(foundAbility != null){
+                foundAbility.prepareTakeCargo();
+                foundAbility.takeCargo(unit.onTile);
+            }
+        }
     }
 
     public boolean checkForCiti(Tile tile){
