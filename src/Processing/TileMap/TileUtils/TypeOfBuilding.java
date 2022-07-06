@@ -21,10 +21,10 @@ public class TypeOfBuilding extends TileLayer implements Serializable {
             WhereCanBe.onLandNoMountain, 0, false).initBuildings();
     public static TypeOfBuilding BuildingInProcess = new TypeOfBuilding("BuildingInProcess", false, 0,
             BattleModifier.none, new Wealth(),
-            WhereCanBe.onLandNoMountain, 0, true).initBuildings();
+            WhereCanBe.onLandNoMountain, 0, false).initBuildings();
     public static TypeOfBuilding Farmland = new TypeOfBuilding("Farmland", true, 0,
             BattleModifier.none, new Wealth(),
-            WhereCanBe.onLandNoMountain, 2, true).initBuildings();
+            WhereCanBe.onLandNoMountain, 2, false).initBuildings();
     public static TypeOfBuilding Mine = new TypeOfBuilding("Mine", true, 0,
             BattleModifier.none, new Wealth(),
             WhereCanBe.onLandNoMountain,  2, true).initBuildings();

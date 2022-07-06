@@ -51,14 +51,14 @@ public class SaveLoadInterface {
     public static GameMap LoadGameMapFromFile(String filePath){
        GameMap GM = ((GameMap) deserializeFromFile(filePath));
         GeneralUtility.initAllProcessingNeeds();
-        GM.GU.loadStaticParams();
+        //GM.GU.loadStaticParams();
        return GM;
     }
 
     public static Game LoadGameFromFile(String filePath){
         Game GG = ((Game) deserializeFromFile(filePath));
         GeneralUtility.initAllProcessingNeeds();
-        GG.Map.GU.loadStaticParams();
+        //GG.Map.GU.loadStaticParams();
         return GG;
     }
 
