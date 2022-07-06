@@ -129,7 +129,7 @@ public class Unit implements Serializable {
 
 
         if(ranged){
-            if(!whereCanShootAndThereUnit.containsKey(whatAttack)){
+            if(!whereCanShootAndThereUnit.containsKey(whatAttack.coordinates)){
                 return;
             }
             attackOwn = this.typeOfUnit.rangedAttack * onTile.resource.battleModifier.additionalAttackRanged * onTile.typeOfBuilding.battleModifier.additionalAttackRanged * onTile.typeOfFlora.battleModifier.additionalAttackRanged * onTile.typeOfLand.battleModifier.additionalAttackRanged;

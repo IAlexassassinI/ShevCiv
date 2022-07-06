@@ -9,6 +9,7 @@ import Processing.TileMap.TileUtils.Resource;
 import Processing.TileMap.TileUtils.TypeOfBuilding;
 import Processing.Units.Unit;
 import Processing.Units.UnitPattern;
+import Processing.Utilits.Point;
 import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.Wrapers.CreatableObject;
@@ -337,6 +338,7 @@ public class City implements Serializable {
             Unit TMP_Unit = new Unit(createdUnits.pop(), owner, ownedTiles.peekFirst());
             ownedTiles.peekFirst().unit = TMP_Unit;
             TMP_Unit.owner.playerUnits.add(TMP_Unit);
+            LightPlay.addToPlayerVision(TMP_Unit);
         }
         foodStock = foodStock + wealth.food - numberOfCitizen;
         if(foodStock < 0){
@@ -383,11 +385,20 @@ public class City implements Serializable {
 
     public double calculatePriceOfTile(Tile tileToBuy){
         if(tileToBuy.owner == null){
-            int Y = Math.abs((tileToBuy.coordinates.y - ownedTiles.peekFirst().coordinates.y));
-            int xDelta = Math.abs((tileToBuy.coordinates.x - ownedTiles.peekFirst().coordinates.x));
-            int X = Math.min(xDelta, (tileToBuy.map.getWidth() - xDelta));
-            PriceForTile = (X*X+Y*Y)*BASIC_TILE_PRICE;
-            return PriceForTile;
+            boolean haveNeighbour = false;
+            for(int i = 0; i < 8; i++){
+                if(this.ownedTiles.contains(tileToBuy.map.getTile(tileToBuy.coordinates.LookAt(Point.ALL_SIDES[i])))){
+                    haveNeighbour = true;
+                    break;
+                }
+            }
+            if(haveNeighbour){
+                int Y = Math.abs((tileToBuy.coordinates.y - ownedTiles.peekFirst().coordinates.y));
+                int xDelta = Math.abs((tileToBuy.coordinates.x - ownedTiles.peekFirst().coordinates.x));
+                int X = Math.min(xDelta, (tileToBuy.map.getWidth() - xDelta));
+                PriceForTile = (X*X+Y*Y)*BASIC_TILE_PRICE;
+                return PriceForTile;
+            }
         }
         return -1;
     }
@@ -429,8 +440,17 @@ public class City implements Serializable {
         if(tileToTransfer.owner != null){
             if(tileToTransfer.owner.owner == owner){
                 if(!ownedTiles.contains(tileToTransfer)){
-                    tileToTransfer.owner.removeCitizenFromTile(tileToTransfer);
-                    this.ownedTiles.add(tileToTransfer.owner.ownedTiles.remove(tileToTransfer.owner.ownedTiles.indexOf(tileToTransfer)));
+                    boolean haveNeighbour = false;
+                    for(int i = 0; i < 8; i++){
+                        if(this.ownedTiles.contains(tileToTransfer.map.getTile(tileToTransfer.coordinates.LookAt(Point.ALL_SIDES[i])))){
+                            haveNeighbour = true;
+                            break;
+                        }
+                    }
+                    if(haveNeighbour){
+                        tileToTransfer.owner.removeCitizenFromTile(tileToTransfer);
+                        this.ownedTiles.add(tileToTransfer.owner.ownedTiles.remove(tileToTransfer.owner.ownedTiles.indexOf(tileToTransfer)));
+                    }
                 }
             }
         }

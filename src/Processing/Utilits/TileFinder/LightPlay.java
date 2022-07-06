@@ -34,7 +34,19 @@ public class LightPlay implements Serializable {
         double shootingRange = CurrentUnit.typeOfUnit.rangeOfAttack * startTile.resource.battleModifier.additionalShootingRange * startTile.typeOfBuilding.battleModifier.additionalShootingRange * startTile.typeOfFlora.battleModifier.additionalShootingRange * startTile.typeOfLand.battleModifier.additionalShootingRange;
         shootingRange = shootingRange * startTile.unit.owner.battleModifier.additionalShootingRange;
 
-        drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, true, false);
+        //drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, true, false);
+
+        while((GeneralUtility.Round(shootingRange) > 0)){
+            if(GeneralUtility.Round(shootingRange) == 1){
+                //really costil
+                drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, true);
+            }
+            else{
+                Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, true);
+            }
+            shootingRange--;
+        }
+
         return new TwoTTT<Tile[], HashMap<Point, Tile>>(LightMap.values().toArray(new Tile[0]), UnitMap);
     }
 

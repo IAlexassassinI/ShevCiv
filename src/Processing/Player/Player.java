@@ -30,11 +30,35 @@ public class Player implements Serializable {
         this.availableUpgradesOfTile.put(TypeOfBuilding.none.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.none.elementName), false));
         this.availableUpgradesOfTile.put(TypeOfBuilding.Farmland.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Farmland.elementName), false));
         //TODO AAA then remove
+        if(this.race.equals("none")){
+            this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.Settler.NameOfUnit);
+        }
+        else if(this.race.equals("Human")){
+            this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.HumanSettler.NameOfUnit);
+            //TODO RACE TECH
+        }
+        else if(this.race.equals("Elven")){
+            this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.ElvenSettler.NameOfUnit);
+            //TODO RACE TECH
+        }
+        else if(this.race.equals("Dwarf")){
+            this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.DwarfSettler.NameOfUnit);
+            //TODO RACE TECH
+        }
+        else if(this.race.equals("Demon")){
+            this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.DemonSettler.NameOfUnit);
+            //TODO RACE TECH
+        }
     }
 
     public static final double DEPRESSION_DEBUFF = 0.5;
 
     public boolean isBarbarianAI = false;
+    public boolean isDefeated = false;
+    public static int DEFEAT_TIMER = 3;
+    public int defeatTimer = DEFEAT_TIMER;
+    public UnitPattern mySettlerType;
+
     public String race;
 
     public Game Game;
@@ -151,6 +175,9 @@ public class Player implements Serializable {
         else{
             inDepression = false;
         }
+
+        checkDefeat();
+
         myTurn = false;
 
         Game.giveTurn();
@@ -229,7 +256,6 @@ public class Player implements Serializable {
         }
     }
 
-
     public void chooseResearch(int index, int Type){
         switch(Type){
             case ResearchCell.ENGINEERING_NUM:
@@ -243,6 +269,32 @@ public class Player implements Serializable {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void checkDefeat(){
+        if(this.playerCities.isEmpty()){
+            Iterator<Unit> iterator = this.playerUnits.iterator();
+            boolean settlerFound = false;
+            while(iterator.hasNext()){
+                if(mySettlerType == iterator.next().typeOfUnit){
+                    settlerFound = true;
+                    break;
+                }
+            }
+            if(settlerFound){
+                defeatTimer = DEFEAT_TIMER;
+            }
+            else{
+                defeatTimer--;
+            }
+            if(defeatTimer == 0){
+                isDefeated = true;
+                this.Game.numberOfDefeatedPlayers++;
+            }
+        }
+        else{
+            defeatTimer = DEFEAT_TIMER;
         }
     }
 
