@@ -27,6 +27,13 @@ public class ProjectileComponent {
         this.x = unitComponent.getX();
         this.y = unitComponent.getY();
         this.destination = destination;
+        this.unitComponent = unitComponent;
+        try {
+            this.projectileRight = new Image("assets/graphics/units/projectiles/rock.png");
+            this.projectileLeft = new Image("assets/graphics/units/projectiles/rock.png");
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
     }
 
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
@@ -38,7 +45,7 @@ public class ProjectileComponent {
                 this.projectileRight.draw(this.x, this.y, this.unitComponent.getTileComponent().getWidth(), this.unitComponent.getTileComponent().getHeight());
             }
         }
-        else if(this.currentTime > this.movingTime && this.currentTime <= this.explosionTime) {
+        else if(this.currentTime > this.movingTime && this.currentTime <= this.explosionTime && this.explosionAnimation != null) {
             this.explosionAnimation.draw(this.x, this.y, this.unitComponent.getTileComponent().getWidth(), this.unitComponent.getTileComponent().getHeight());
         }
     }

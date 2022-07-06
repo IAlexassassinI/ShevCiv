@@ -15,6 +15,7 @@ public class Images {
     public static HashMap<String, Image> typesOfLand;
     public static SpriteSheet typesOfLandSpriteSheet;
     public static SpriteSheet typesOfFloraSpriteSheet;
+    public static SpriteSheet typesOfBuildingSpriteSheet;
     public static SpriteSheet resourcesSpriteSheet;
     public static SpriteSheet categorySpriteSheet;
     public static Image buttonNewGame;
@@ -32,6 +33,7 @@ public class Images {
             typesOfFloraSpriteSheet = new SpriteSheet(typesOfFloraImage, TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
             Image resourcesImage = new Image("assets/graphics/resource/resources.png");//, Color.white
             resourcesSpriteSheet = new SpriteSheet(resourcesImage, TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
+            typesOfBuildingSpriteSheet = new SpriteSheet(new Image("assets/graphics/TypeOfBuilding/typesOfBuildingSpriteSheet.png"), TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
             categorySpriteSheet = new SpriteSheet("assets/graphics/categorySpriteSheet.png", 50, 50);
             buttonNewGame = new Image("assets/graphics/buttons/new_game.png");
             buttonEditMap = new Image("assets/graphics/buttons/edit_map.png");
