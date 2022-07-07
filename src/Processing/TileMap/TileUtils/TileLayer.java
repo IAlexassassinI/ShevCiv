@@ -16,7 +16,7 @@ public class TileLayer extends Tag implements Serializable {
         return this;
     }
 
-    public int additionalActionPointCost;
+    public double additionalActionPointCost;
 
     public BattleModifier battleModifier;
 
@@ -26,7 +26,7 @@ public class TileLayer extends Tag implements Serializable {
     public TileLayer(String elementName,
                      //int type,
 
-                     int additionalActionPointCost,
+                     double additionalActionPointCost,
 
                      BattleModifier battleModifier,
 

@@ -33,6 +33,7 @@ public class Player implements Serializable {
         if(this.race.equals("none")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.Settler.NameOfUnit);
             ResearchCell.AllResearchCells.get("HumanCulture").openToTechPlayer(this);
+            ResearchCell.AllResearchCells.get("Pottery");
         }
         else if(this.race.equals("Human")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.HumanSettler.NameOfUnit);
