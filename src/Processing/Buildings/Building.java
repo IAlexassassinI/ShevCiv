@@ -511,4 +511,16 @@ public class Building extends Tag implements Serializable {
             "descr"
     ).initBuilding();
 
+    public static final Building DemonPalace = new Building(
+            "DemonPalace",
+            new Wealth(5,20,1,0,1,2),
+            320,
+            0,
+            null,
+            null,
+            null,
+            null,
+            "descr"
+    ).initBuilding();
+
 }
