@@ -1,5 +1,6 @@
 package graphics.panels;
 
+import graphics.components.button.ButtonComponent;
 import graphics.components.tiledmap.TileComponent;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -89,6 +90,19 @@ public class Panel {
         ImagePanel imagePanel = new ImagePanel(image, x, y, width, height, part);
         imagePanel.setOffset(offset);
         this.panels.add(imagePanel);
+        this.usedParts += part;
+    }
+
+    public void add(ButtonComponent buttonComponent, int part) {
+        float x = this.x;
+        float y = this.y;
+        float width = this.width - (2 * offset);
+        float height = this.height - (2 * offset);
+        if(orientation == Orientation.HORIZONTAL) x = this.x + ((this.width / parts) * usedParts) + offset;
+        else y = this.y + ((this.height / parts) * usedParts) + offset;
+        if(orientation == Orientation.HORIZONTAL) width = (this.width / parts * part) - (2 * offset);
+        else height = (this.height / parts * part) - (2 * offset);
+        this.panels.add(new ButtonComponentPanel(buttonComponent, x, y, width, height, part));
         this.usedParts += part;
     }
 
@@ -300,6 +314,16 @@ public class Panel {
             panel.setHeight(panel.getHeight() * kh);
         }
         this.height = height;
+    }
+
+    public void setHeightParts(float height, int parts) {
+        this.height = height;
+        this.parts = parts;
+    }
+
+    public void setWidthParts(float width, int parts) {
+        this.width = width;
+        this.parts = parts;
     }
 
     public float getOffset() {

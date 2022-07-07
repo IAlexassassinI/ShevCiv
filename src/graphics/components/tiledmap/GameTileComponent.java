@@ -11,6 +11,7 @@ public class GameTileComponent extends TileComponent {
     private int mapY;
 
     private UnitComponent unitComponent;
+    private CityComponent cityComponent;
     private GameMapComponent mapComponent;
 
     public GameTileComponent(GUIContext container, Tile tile, float x, float y) {
@@ -37,9 +38,15 @@ public class GameTileComponent extends TileComponent {
     }
 
     public void renderCity(GUIContext guiContext, Graphics graphics) throws SlickException {
-        if(this.getTile().getCity() != null) {
-            Images.city.draw(this.x, this.y, this.width, this.height);
+        if(this.getTile().getCity() != null && this.cityComponent == null) {
+            this.cityComponent = new CityComponent(this);
         }
+        if(this.getTile().getCity() != null && this.cityComponent != null) {
+            this.cityComponent.render(guiContext, graphics);
+        }
+        /*if(this.getTile().getCity() != null) {
+            Images.city.draw(this.x, this.y, this.width, this.height);
+        }*/
     }
 
     public void renderAdditionals(GUIContext guiContext, Graphics graphics) throws SlickException {
@@ -63,6 +70,17 @@ public class GameTileComponent extends TileComponent {
         if(this.unitComponent != null) {
             this.unitComponent.translate(dx, dy);
         }
+        if(this.cityComponent != null) {
+            this.cityComponent.translate(dx, dy);
+        }
+    }
+
+    public CityComponent getCityComponent() {
+        return cityComponent;
+    }
+
+    public void setCityComponent(CityComponent cityComponent) {
+        this.cityComponent = cityComponent;
     }
 
     public UnitComponent getUnitComponent() {
@@ -96,7 +114,7 @@ public class GameTileComponent extends TileComponent {
     }*/
 
     public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
-        if(button == Input.MOUSE_LEFT_BUTTON && contains(x, y)) {
+        if(contains(x, y)) {
             this.mouseClicked = true;
             notifyListeners();
             System.out.println(this.listeners);
@@ -123,6 +141,10 @@ public class GameTileComponent extends TileComponent {
             this.unitComponent.setX(px + (this.unitComponent.getX() - px) * sx);
             this.unitComponent.setY(py + (this.unitComponent.getY() - py) * sy);
         }
+        if(this.cityComponent != null) {
+            this.cityComponent.setX(px + (this.cityComponent.getX() - px) * sx);
+            this.cityComponent.setY(py + (this.cityComponent.getY() - py) * sy);
+        }
     }
 
 
@@ -137,6 +159,7 @@ public class GameTileComponent extends TileComponent {
 
     public void update(GameContainer gameContainer, int delta) throws SlickException{
         if(this.getTile().getUnit() == null && this.unitComponent != null) this.unitComponent = null;
+        if(this.getTile().getCity() == null && this.cityComponent != null) this.cityComponent = null;
         if(this.unitComponent != null && this.getTile().getUnit() != null) this.unitComponent.update(gameContainer, delta);
     }
 }
