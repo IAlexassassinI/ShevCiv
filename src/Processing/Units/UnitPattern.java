@@ -1566,7 +1566,7 @@ public class UnitPattern extends Tag implements Serializable {
 
     public static UnitPattern DemonMilitia = new UnitPattern(
             "DemonMilitia",
-            120,
+            60,
             100,
             null,
             null,

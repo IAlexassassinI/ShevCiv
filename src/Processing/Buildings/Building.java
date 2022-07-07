@@ -475,8 +475,8 @@ public class Building extends Tag implements Serializable {
 
     /////////////////////////////////////
 
-    public static final Building DwarfBank = new Building(
-            "DwarfBank",
+    public static final Building DwarfTreasury = new Building(
+            "DwarfTreasury",
             new Wealth(3,25,0,2,2,0),
             340,
             0,
