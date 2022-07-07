@@ -93,6 +93,27 @@ public class GeneralUtility implements Serializable {
         TypeOfBuilding.City = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.City.elementName);
         TypeOfBuilding.BuildingInProcess = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.BuildingInProcess.elementName);
 
+        TypeOfLand.Void = TypeOfLand.AllTypeOfLand.get(TypeOfLand.Void.elementName);
+        TypeOfLand.DeepOcean = TypeOfLand.AllTypeOfLand.get(TypeOfLand.DeepOcean.elementName);
+        TypeOfLand.Shores = TypeOfLand.AllTypeOfLand.get(TypeOfLand.Shores.elementName);
+        TypeOfLand.FlatLand = TypeOfLand.AllTypeOfLand.get(TypeOfLand.FlatLand.elementName);
+        TypeOfLand.Hills = TypeOfLand.AllTypeOfLand.get(TypeOfLand.Hills.elementName);
+        TypeOfLand.Mountains = TypeOfLand.AllTypeOfLand.get(TypeOfLand.Mountains.elementName);
+
+        TypeOfFlora.none = TypeOfFlora.AllTypeOfFlora.get(TypeOfFlora.none.elementName);
+        TypeOfFlora.Forest = TypeOfFlora.AllTypeOfFlora.get(TypeOfFlora.Forest.elementName);
+
+        Resource.none = Resource.AllResource.get(Resource.none.elementName);
+        Resource.Iron = Resource.AllResource.get(Resource.Iron.elementName);
+        Resource.Horses = Resource.AllResource.get(Resource.Horses.elementName);
+        Resource.TimeAnomalyFast = Resource.AllResource.get(Resource.TimeAnomalyFast.elementName);
+        Resource.TimeAnomalySlow = Resource.AllResource.get(Resource.TimeAnomalySlow.elementName);
+        Resource.BerserkGases = Resource.AllResource.get(Resource.BerserkGases.elementName);
+        Resource.AncientArtifacts = Resource.AllResource.get(Resource.BerserkGases.elementName);
+
+        Tag.small = Tag.AllTags.get(0);
+        Tag.small = Tag.AllTags.get(1);
+
     }
 
     private void ChangeAllInHashMap(HashMap mapIn, HashMap mapFrom){
