@@ -475,8 +475,8 @@ public class Building extends Tag implements Serializable {
 
     /////////////////////////////////////
 
-    public static final Building DwarfBank = new Building(
-            "DwarfBank",
+    public static final Building DwarfTreasury = new Building(
+            "DwarfTreasury",
             new Wealth(3,25,0,2,2,0),
             340,
             0,
@@ -502,6 +502,18 @@ public class Building extends Tag implements Serializable {
     public static final Building HumanManufacture = new Building(
             "HumanManufacture",
             new Wealth(7,-3,0,2,1,0),
+            320,
+            0,
+            null,
+            null,
+            null,
+            null,
+            "descr"
+    ).initBuilding();
+
+    public static final Building DemonPalace = new Building(
+            "DemonPalace",
+            new Wealth(5,20,1,0,1,2),
             320,
             0,
             null,
