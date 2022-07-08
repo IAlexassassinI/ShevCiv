@@ -16,7 +16,7 @@ public class Game implements Serializable {
     public int numberOfPlayers;
     public int numberOfDefeatedPlayers;
     public Player players[];
-    public int currentPlayer;
+    public int currentPlayer = 0;
     public int year = 0;
 
     public GameMap Map;
@@ -31,7 +31,12 @@ public class Game implements Serializable {
         }
         players[currentPlayer%numberOfPlayers].myTurn = true;
         if(players[currentPlayer].isDefeated){
-            giveTurn();
+            if(numberOfPlayers != numberOfDefeatedPlayers){
+                giveTurn();
+            }
+            else{
+                doWin();
+            }
         }
         else if(players[currentPlayer].isBarbarianAI){
             AI_ID.get(players[currentPlayer]).doTurn();
