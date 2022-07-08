@@ -205,10 +205,10 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
+        if(isUnitControl || isCityControl || isTechTreeControl) {
+            return;
+        }
         if(abstractComponent instanceof GameMapComponent) {
-            if(isUnitControl || isCityControl) {
-                return;
-            }
             if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getCity() != null && button == Input.MOUSE_RIGHT_BUTTON) {
                 isCityControl = true;
                 if(this.cityControlPanel == null) {
