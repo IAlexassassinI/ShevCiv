@@ -18,15 +18,15 @@ public class ResearchCell {
     int typeOfResearch = 0;
     String nameOfResearch = "";
     String description = "";
-    double researchPointCost = 0;
-    double accumulatedResearch = 0;
+    public double researchPointCost = 0;
+    public double accumulatedResearch = 0;
 
     boolean canBeResearched = true;
     LinkedList<String> preRequisitesAND = new LinkedList<>();
     LinkedList<String> preRequisitesOR = new LinkedList<>();
     LinkedList<String> preRequisitesNOT = new LinkedList<>();
 
-    LinkedList<Object> techGiven = new LinkedList<>();
+    public LinkedList<Object> techGiven = new LinkedList<>();
 
     static public HashMap<String, ResearchCell> AllResearchCells = new HashMap<>();
 
@@ -1330,4 +1330,8 @@ public class ResearchCell {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return nameOfResearch;
+    }
 }

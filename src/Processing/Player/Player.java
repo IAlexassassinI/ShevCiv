@@ -123,17 +123,17 @@ public class Player implements Serializable {
     HashMap<String, ResearchCell> ResearchedArcanum = new HashMap<>();
 
     int numberOfResearchFromWhatCanChooseEngineering = 2;
-    ArrayList<ResearchCell> toChooseEngineering = new ArrayList<>();
+    public ArrayList<ResearchCell> toChooseEngineering = new ArrayList<>();
     int numberOfResearchFromWhatCanChooseSociety = 2;
-    ArrayList<ResearchCell> toChooseSociety = new ArrayList<>();
+    public ArrayList<ResearchCell> toChooseSociety = new ArrayList<>();
     int numberOfResearchFromWhatCanChooseArcanum = 2;
-    ArrayList<ResearchCell> toChooseArcanum = new ArrayList<>();
+    public ArrayList<ResearchCell> toChooseArcanum = new ArrayList<>();
 
-    ResearchCell chosenEngineering = null;
+    public ResearchCell chosenEngineering = null;
     double engineeringProgress;
-    ResearchCell chosenSociety = null;
+    public ResearchCell chosenSociety = null;
     double societyProgress;
-    ResearchCell chosenArcanum = null;
+    public ResearchCell chosenArcanum = null;
     double arcanumProgress;
 
 
