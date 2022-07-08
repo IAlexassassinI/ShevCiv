@@ -91,6 +91,14 @@ public class ButtonComponent extends AbstractComponent {
         }
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     /*public void mouseMoved(int oldx, int oldy, int newx, int newy) {
         if(contains(newx, newy) && !this.locked) {
             this.mouseOver = true;
