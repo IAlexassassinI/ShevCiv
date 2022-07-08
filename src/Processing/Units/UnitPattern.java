@@ -1,16 +1,11 @@
 package Processing.Units;
 
-import Processing.Buildings.Building;
-import Processing.Buildings.Job;
 import Processing.Player.Player;
 import Processing.TileMap.TileUtils.Resource;
-import Processing.TileMap.TileUtils.TypeOfBuilding;
 import Processing.Units.Ability.Colonize;
 import Processing.Units.Ability.ConstructSomethingOnTile;
 import Processing.Units.Ability.GetCargoSmall;
-import Processing.Units.Ability.SpecialAbility;
 import Processing.Utilits.Tag;
-import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 import Processing.Utilits.Wrapers.TwoTTT;
 
@@ -1635,8 +1630,8 @@ public class UnitPattern extends Tag implements Serializable {
     ).initUnitPattern();
 
     //https://guides.gamepressure.com/heroes3hd/gfx/word/355997651.jpg
-    public static UnitPattern DemonMagog = new UnitPattern(
-            "DemonMagog",
+    public static UnitPattern Magog = new UnitPattern(
+            "Magog",
             80,
             150,
             null,

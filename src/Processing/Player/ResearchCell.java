@@ -473,7 +473,7 @@ public class ResearchCell {
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
-                        UnitPattern.AllUnitPattern.get(UnitPattern.DemonMagog.NameOfUnit)
+                        UnitPattern.AllUnitPattern.get(UnitPattern.Magog.NameOfUnit)
                 }
         ).initCell();
 
