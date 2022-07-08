@@ -135,6 +135,7 @@ public class GameState extends BasicGameState implements ComponentListener {
             return;
         }
         this.mapComponent.mouseClickedSignalise(button, x, y, clickCount);
+        this.gameContainer.getInput().consumeEvent();
     }
 
     @Override
