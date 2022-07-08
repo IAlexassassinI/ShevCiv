@@ -155,7 +155,7 @@ public class TileComponent extends AbstractComponent {
     }*/
 
     public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
-        if(button != Input.MOUSE_LEFT_BUTTON) return;
+        //if(button != Input.MOUSE_LEFT_BUTTON) return;
         if(clickCount != 1) return;
         if(x < this.x || x > this.x + this.width) return;
         if(y < this.y || y > this.y + this.height) return;

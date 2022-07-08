@@ -68,6 +68,15 @@ public class CityComponent {
                         graphics.drawString(String.valueOf(this.city.wealth.societyScience),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 50,
                                 y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 40);
+                        if(tile.isProcessedByPeople) {
+                            graphics.setColor(Color.gray);
+                            graphics.fillRect(
+                                    this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 40,
+                                    y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 70,
+                                    20,
+                                    20
+                            );
+                        }
                     }
                 }
                 break;
@@ -81,6 +90,11 @@ public class CityComponent {
     public void showArea() {
         ownedTiles = city.ownedTiles;
         this.setState(CityState.SHOW_AREA);
+    }
+
+    public void buyTile(GameTileComponent gameTileComponent) {
+        this.city.buyTile(gameTileComponent.getTile());
+        showArea();
     }
 
     public boolean isInOwnedArea(GameTileComponent tileComponent) {
