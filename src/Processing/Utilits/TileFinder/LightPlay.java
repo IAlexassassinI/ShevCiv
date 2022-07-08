@@ -21,6 +21,7 @@ public class LightPlay implements Serializable {
     private static GameMap CurrentMap;
     private static Unit CurrentUnit;
     private static Projectile CurrentProjectile;
+    private static Tile currentTile;
     private static HashMap<Point,Tile> LightMap;
     private static HashMap<Point, Tile> UnitMap;
     private static HashMap<Point, Tile> CitiMap;
@@ -28,6 +29,7 @@ public class LightPlay implements Serializable {
     public static TwoTTT<Tile[], HashMap<Point, Tile>> findShootingRange(Tile startTile){
         LightMap = new HashMap<>();
         UnitMap = new HashMap<>();
+        currentTile = startTile;
         CurrentMap = startTile.map;
         CurrentUnit = startTile.unit;
         CurrentProjectile = CurrentUnit.typeOfUnit.projectile;
@@ -54,6 +56,7 @@ public class LightPlay implements Serializable {
         LightMap = new HashMap<>();
         UnitMap = new HashMap<>();
         CitiMap = new HashMap<>();
+        currentTile = startTile;
         CurrentMap = startTile.map;
         CurrentUnit = startTile.unit;
         if(CurrentUnit.typeOfUnit.isFlying){
@@ -80,6 +83,7 @@ public class LightPlay implements Serializable {
         LightMap = new HashMap<>();
         CurrentMap = startTile.map;
         CurrentUnit = startTile.unit;
+        currentTile = startTile;
         if(CurrentUnit.typeOfUnit.isFlying){
             CurrentProjectile = Projectile.LightFlying; //TODO Перейти по всій програмі в модінг формат типу Projectile.AllTypeOfProjectile.get("NAME")
         }
@@ -105,6 +109,9 @@ public class LightPlay implements Serializable {
 
     static boolean makePutPoint(int x, int y, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray){
         Tile TMP_Tile = CurrentMap.getTile(x,y);
+        if(TMP_Tile == currentTile){
+            return true;
+        }
         if(TMP_Tile != null){
             boolean terrainCheck = WhereCanBe.FullCheck(TMP_Tile, CurrentProjectile.whereCanBe);
             if(findingInVisionRange){

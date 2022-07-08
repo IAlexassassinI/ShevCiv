@@ -14,23 +14,23 @@ public class TypeOfBuilding extends TileLayer implements Serializable {
 
     public static LinkedHashMap<String, TypeOfBuilding> AllTypeOfBuilding = new LinkedHashMap<>();
     public static TypeOfBuilding none = new TypeOfBuilding("none",  false, 0,
-            BattleModifier.none, new Wealth(),
-            WhereCanBe.onLandNoMountain, 0, false).initBuildings();
+            BattleModifier.none, new Wealth(0,0,0,0,0,0),
+            WhereCanBe.onLandNoMountain, 0, true).initBuildings();
     public static TypeOfBuilding City = new TypeOfBuilding("City", true, 0,
-            BattleModifier.none, new Wealth(),
+            BattleModifier.none, new Wealth(5,5,5,2,2,2),
             WhereCanBe.onLandNoMountain, 0, false).initBuildings();
     public static TypeOfBuilding BuildingInProcess = new TypeOfBuilding("BuildingInProcess", false, 0,
-            BattleModifier.none, new Wealth(),
+            BattleModifier.none, new Wealth(0,0,0,0,0,0),
             WhereCanBe.onLandNoMountain, 0, false).initBuildings();
     public static TypeOfBuilding Farmland = new TypeOfBuilding("Farmland", true, 0,
-            BattleModifier.none, new Wealth(),
+            BattleModifier.none, new Wealth(0,0,2,0,0,0),
             WhereCanBe.onLandNoMountain, 2, false).initBuildings();
     public static TypeOfBuilding Mine = new TypeOfBuilding("Mine", true, 0,
-            BattleModifier.none, new Wealth(),
-            WhereCanBe.onLandNoMountain,  2, true).initBuildings();
+            BattleModifier.none, new Wealth(2,1,0,0,0,0),
+            WhereCanBe.onHills,  2, false).initBuildings();
     public static TypeOfBuilding Sawmill = new TypeOfBuilding("Sawmill", false, 0,
-            BattleModifier.none, new Wealth(),
-            WhereCanBe.onForest, 2, true).initBuildings();
+            BattleModifier.none, new Wealth(1,0,0,0,0,0),
+            WhereCanBe.onForest, 2, false).initBuildings();
 
     //Maybe HashMap
     public boolean destroyFlora;
@@ -48,7 +48,7 @@ public class TypeOfBuilding extends TileLayer implements Serializable {
         return this;
     }
 
-    TypeOfBuilding(String modElementName,  boolean destroyFlora, int additionalActionPointCost, BattleModifier battleModifier, Wealth wealth, WhereCanBe whereCanExist, double turnsToBuild, boolean onlyInBorder){
+    TypeOfBuilding(String modElementName,  boolean destroyFlora, double additionalActionPointCost, BattleModifier battleModifier, Wealth wealth, WhereCanBe whereCanExist, double turnsToBuild, boolean onlyInBorder){
         super(modElementName, additionalActionPointCost, battleModifier, wealth);
         this.destroyFlora = destroyFlora;
         this.whereCanExist = whereCanExist;

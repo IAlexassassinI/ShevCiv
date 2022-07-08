@@ -351,6 +351,20 @@ public class ResearchCell {
                 }
         ).initCell();
 
+        ResearchCell HorseRiding = new ResearchCell(
+                SOCIETY_NUM,
+                "HorseRiding",
+                "descr",
+                10,
+                true,
+                new String[]{}, //AND
+                new String[]{}, //OR
+                new String[]{DwarfCulture.nameOfResearch, DemonCulture.nameOfResearch}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
         ResearchCell WoodWorking = new ResearchCell(
                 ENGINEERING_NUM,
                 "WoodWorking",
@@ -383,7 +397,7 @@ public class ResearchCell {
                 ENGINEERING_NUM,
                 "BowMaking",
                 "descr",
-                15,
+                35,
                 true,
                 new String[]{WoodWorking.nameOfResearch}, //AND
                 new String[]{}, //OR
@@ -393,17 +407,73 @@ public class ResearchCell {
                 }
         ).initCell();
 
+        ResearchCell ElvenArchery = new ResearchCell(
+                SOCIETY_NUM,
+                "ElvenArchery",
+                "descr",
+                45,
+                true,
+                new String[]{BowMaking.nameOfResearch, ElvenCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenArcher.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell HumanArchery = new ResearchCell(
+                SOCIETY_NUM,
+                "HumanArchery",
+                "descr",
+                45,
+                true,
+                new String[]{BowMaking.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanArcher.NameOfUnit)
+                }
+        ).initCell();
+
         ResearchCell Writing = new ResearchCell(
                 ARCANUM_NUM,
                 "Writing",
                 "descr",
                 15,
                 true,
-                new String[]{}, //AND
+                new String[]{Pottery.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Library.name)
+                }
+        ).initCell();
+
+        ResearchCell EarlyMagic = new ResearchCell(
+                ARCANUM_NUM,
+                "EarlyMagic",
+                "descr",
+                25,
+                true,
+                new String[]{Writing.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{DwarfCulture.nameOfResearch, HumanCulture.nameOfResearch}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
+        ResearchCell FireBallSpell = new ResearchCell(
+                ARCANUM_NUM,
+                "FireBallSpell",
+                "descr",
+                25,
+                true,
+                new String[]{EarlyMagic.nameOfResearch, DemonCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DemonMagog.NameOfUnit)
                 }
         ).initCell();
 
@@ -413,11 +483,25 @@ public class ResearchCell {
                 "descr",
                 15,
                 true,
-                new String[]{}, //AND
+                new String[]{Mining.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.StoneWorks.name)
+                }
+        ).initCell();
+
+        ResearchCell HammerOfTheFaith = new ResearchCell(
+                SOCIETY_NUM,
+                "HammerOfTheFaith",
+                "descr",
+                15,
+                true,
+                new String[]{Masonry.nameOfResearch, DwarfCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfHammerman.NameOfUnit)
                 }
         ).initCell();
 
@@ -427,7 +511,7 @@ public class ResearchCell {
                 "descr",
                 30,
                 true,
-                new String[]{}, //AND
+                new String[]{Writing.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -441,11 +525,39 @@ public class ResearchCell {
                 "descr",
                 15,
                 true,
-                new String[]{}, //AND
+                new String[]{Masonry.nameOfResearch, Writing.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Armory.name)
+                }
+        ).initCell();
+
+        ResearchCell PointySticks = new ResearchCell(
+                SOCIETY_NUM,
+                "PointySticks",
+                "descr",
+                15,
+                true,
+                new String[]{BronzeWorking.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanSpearman.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell HumanCavalry = new ResearchCell(
+                SOCIETY_NUM,
+                "HumanCavalry",
+                "descr",
+                15,
+                true,
+                new String[]{PointySticks.nameOfResearch, HorseRiding.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanCavalry.NameOfUnit)
                 }
         ).initCell();
 
@@ -455,11 +567,53 @@ public class ResearchCell {
                 "descr",
                 30,
                 true,
-                new String[]{}, //AND
+                new String[]{BronzeWorking.nameOfResearch, Mathematics.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Forge.name)
+                }
+        ).initCell();
+
+        ResearchCell DemonSwords = new ResearchCell(
+                ENGINEERING_NUM,
+                "DemonSwords",
+                "descr",
+                30,
+                true,
+                new String[]{IronWorking.nameOfResearch, DemonCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DemonSwordsman.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell ElvenCavalry = new ResearchCell(
+                ENGINEERING_NUM,
+                "ElvenCavalry",
+                "descr",
+                30,
+                true,
+                new String[]{HorseRiding.nameOfResearch, ElvenArchery.nameOfResearch, ElvenCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenCavalry.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell HellHoundBreeding = new ResearchCell(
+                SOCIETY_NUM,
+                "HellHoundBreeding",
+                "descr",
+                30,
+                true,
+                new String[]{HorseRiding.nameOfResearch, EarlyMagic.nameOfResearch, DemonCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.Cerberus.NameOfUnit)
                 }
         ).initCell();
 
@@ -469,12 +623,40 @@ public class ResearchCell {
                 "descr",
                 45,
                 true,
-                new String[]{}, //AND
+                new String[]{WoodWorking.nameOfResearch, IronWorking.nameOfResearch, Mathematics.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Aqueduct.name),
                         Building.AllBuildings.get(Building.WindMill.name)
+                }
+        ).initCell();
+
+        ResearchCell ShoreShips = new ResearchCell(
+                ENGINEERING_NUM,
+                "ShoreShips",
+                "descr",
+                45,
+                true,
+                new String[]{Engineering.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanTrireme.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell Catapult = new ResearchCell(
+                ENGINEERING_NUM,
+                "Catapult",
+                "descr",
+                45,
+                true,
+                new String[]{Engineering.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanCatapult.NameOfUnit)
                 }
         ).initCell();
 
@@ -484,7 +666,7 @@ public class ResearchCell {
                 "descr",
                 45,
                 true,
-                new String[]{}, //AND
+                new String[]{Mathematics.nameOfResearch, Pottery.nameOfResearch, AnimalHusbandry.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -499,7 +681,7 @@ public class ResearchCell {
                 "descr",
                 45,
                 true,
-                new String[]{}, //AND
+                new String[]{Writing.nameOfResearch, Masonry.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -514,7 +696,7 @@ public class ResearchCell {
                 "descr",
                 45,
                 true,
-                new String[]{}, //AND
+                new String[]{Philosophy.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -529,11 +711,39 @@ public class ResearchCell {
                 "descr",
                 60,
                 true,
-                new String[]{}, //AND
+                new String[]{Currency.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Bazaar.name)
+                }
+        ).initCell();
+
+        ResearchCell Manufacture = new ResearchCell(
+                ENGINEERING_NUM,
+                "Manufacture",
+                "descr",
+                60,
+                true,
+                new String[]{Guilds.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.HumanManufacture.name)
+                }
+        ).initCell();
+
+        ResearchCell ElvenTrade = new ResearchCell(
+                SOCIETY_NUM,
+                "ElvenTrade",
+                "descr",
+                60,
+                true,
+                new String[]{Guilds.nameOfResearch, ElvenCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.ElvenBazaar.name)
                 }
         ).initCell();
 
@@ -543,11 +753,53 @@ public class ResearchCell {
                 "descr",
                 60,
                 true,
-                new String[]{}, //AND
+                new String[]{IronWorking.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Workshop.name)
+                }
+        ).initCell();
+
+        ResearchCell BladeDance = new ResearchCell(
+                SOCIETY_NUM,
+                "BladeDance",
+                "descr",
+                75,
+                true,
+                new String[]{Philosophy.nameOfResearch, MetalCasting.nameOfResearch, ElvenCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenBladeDancer.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell Knights = new ResearchCell(
+                SOCIETY_NUM,
+                "Knights",
+                "descr",
+                75,
+                true,
+                new String[]{MetalCasting.nameOfResearch, Theology.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanSwordsman.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell DwarfSwords = new ResearchCell(
+                SOCIETY_NUM,
+                "DwarfSwords",
+                "descr",
+                75,
+                true,
+                new String[]{MetalCasting.nameOfResearch, DwarfCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfSwordsman.NameOfUnit)
                 }
         ).initCell();
 
@@ -557,7 +809,7 @@ public class ResearchCell {
                 "descr",
                 90,
                 true,
-                new String[]{}, //AND
+                new String[]{Philosophy.nameOfResearch, Mathematics.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -571,7 +823,7 @@ public class ResearchCell {
                 "descr",
                 75,
                 true,
-                new String[]{}, //AND
+                new String[]{Theology.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -585,11 +837,25 @@ public class ResearchCell {
                 "descr",
                 90,
                 true,
-                new String[]{}, //AND
+                new String[]{Engineering.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Factory.name)
+                }
+        ).initCell();
+
+        ResearchCell CompositeBow = new ResearchCell(
+                ENGINEERING_NUM,
+                "CompositeBow",
+                "descr",
+                90,
+                true,
+                new String[]{Machinery.nameOfResearch, ElvenCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenSharpshooter.NameOfUnit)
                 }
         ).initCell();
 
@@ -599,11 +865,39 @@ public class ResearchCell {
                 "descr",
                 90,
                 true,
-                new String[]{}, //AND
+                new String[]{Mathematics.nameOfResearch, Philosophy.nameOfResearch, Engineering.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
 
+                }
+        ).initCell();
+
+        ResearchCell GriffinCavalry = new ResearchCell(
+                SOCIETY_NUM,
+                "GriffinCavalry",
+                "descr",
+                90,
+                true,
+                new String[]{Physic.nameOfResearch, Knights.nameOfResearch, HorseRiding.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                    UnitPattern.AllUnitPattern.get(UnitPattern.GriffinRider.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell HawkRiders = new ResearchCell(
+                SOCIETY_NUM,
+                "HawkRiders",
+                "descr",
+                90,
+                true,
+                new String[]{Physic.nameOfResearch, CompositeBow.nameOfResearch, ElvenCulture.nameOfResearch, HorseRiding.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.GriffinRider.NameOfUnit)
                 }
         ).initCell();
 
@@ -613,11 +907,109 @@ public class ResearchCell {
                 "descr",
                 105,
                 true,
-                new String[]{}, //AND
+                new String[]{Physic.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Observatory.name)
+                }
+        ).initCell();
+
+        ResearchCell HighMagic = new ResearchCell(
+                ARCANUM_NUM,
+                "HighMagic",
+                "descr",
+                105,
+                true,
+                new String[]{Astronomy.nameOfResearch, EarlyMagic.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
+        ResearchCell Palace = new ResearchCell(
+                ARCANUM_NUM,
+                "Palace",
+                "descr",
+                115,
+                true,
+                new String[]{HighMagic.nameOfResearch, DemonCulture.nameOfResearch, Engineering.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.DemonPalace.name)
+                }
+        ).initCell();
+
+        ResearchCell Succubus = new ResearchCell(
+                ARCANUM_NUM,
+                "Succubus",
+                "descr",
+                105,
+                true,
+                new String[]{HighMagic.nameOfResearch, DemonCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DemonSuccubi.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell KrakenAwakening = new ResearchCell(
+                ARCANUM_NUM,
+                "KrakenAwakening",
+                "descr",
+                105,
+                true,
+                new String[]{HighMagic.nameOfResearch, DemonCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.Kraken.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell Druids = new ResearchCell(
+                ARCANUM_NUM,
+                "Druids",
+                "descr",
+                105,
+                true,
+                new String[]{HighMagic.nameOfResearch, ElvenCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenMage.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell Carrier = new ResearchCell(
+                ENGINEERING_NUM,
+                "Carrier",
+                "descr",
+                105,
+                true,
+                new String[]{Astronomy.nameOfResearch, ElvenCulture.nameOfResearch, Engineering.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenCarrier.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell DeepOceanShips = new ResearchCell(
+                ENGINEERING_NUM,
+                "DeepOceanShips",
+                "descr",
+                105,
+                true,
+                new String[]{Astronomy.nameOfResearch, HumanCulture.nameOfResearch, Engineering.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanCaravel.NameOfUnit)
                 }
         ).initCell();
 
@@ -627,7 +1019,7 @@ public class ResearchCell {
                 "descr",
                 105,
                 true,
-                new String[]{}, //AND
+                new String[]{Philosophy.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -641,11 +1033,25 @@ public class ResearchCell {
                 "descr",
                 105,
                 true,
-                new String[]{}, //AND
+                new String[]{Guilds.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.Bank.name)
+                }
+        ).initCell();
+
+        ResearchCell GoldStandard = new ResearchCell(
+                SOCIETY_NUM,
+                "GoldStandard",
+                "descr",
+                105,
+                true,
+                new String[]{Banking.nameOfResearch, DwarfCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        Building.AllBuildings.get(Building.DwarfTreasury.name)
                 }
         ).initCell();
 
@@ -655,7 +1061,7 @@ public class ResearchCell {
                 "descr",
                 105,
                 true,
-                new String[]{}, //AND
+                new String[]{Physic.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -669,11 +1075,39 @@ public class ResearchCell {
                 "descr",
                 120,
                 true,
-                new String[]{}, //AND
+                new String[]{Chemistry.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{ElvenCulture.nameOfResearch}, //NOT
+                new Object[]{
+
+                }
+        ).initCell();
+
+        ResearchCell Musket = new ResearchCell(
+                ENGINEERING_NUM,
+                "HumanArchery",
+                "descr",
+                120,
+                true,
+                new String[]{Gunpowder.nameOfResearch, HumanCulture.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
+                    UnitPattern.AllUnitPattern.get(UnitPattern.HumanMusketeer.NameOfUnit)
+                }
+        ).initCell();
 
+        ResearchCell Arkebuse = new ResearchCell(
+                ENGINEERING_NUM,
+                "Arkebuse",
+                "descr",
+                120,
+                true,
+                new String[]{Gunpowder.nameOfResearch, DwarfCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfMusketeer.NameOfUnit)
                 }
         ).initCell();
 
@@ -683,7 +1117,7 @@ public class ResearchCell {
                 "descr",
                 120,
                 true,
-                new String[]{}, //AND
+                new String[]{Banking.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -697,11 +1131,67 @@ public class ResearchCell {
                 "descr",
                 120,
                 true,
-                new String[]{}, //AND
+                new String[]{MetalCasting.nameOfResearch, Physic.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
 
+                }
+        ).initCell();
+
+        ResearchCell Scorpions = new ResearchCell(
+                ENGINEERING_NUM,
+                "Scorpions",
+                "descr",
+                120,
+                true,
+                new String[]{Metallurgy.nameOfResearch, ElvenCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenScorpion.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell HumanMortarsSquad = new ResearchCell(
+                SOCIETY_NUM,
+                "HumanMortarsSquad",
+                "descr",
+                120,
+                true,
+                new String[]{Metallurgy.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanMortar.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell DwarfMortarsSquad = new ResearchCell(
+                SOCIETY_NUM,
+                "DwarfMortarsSquad",
+                "descr",
+                120,
+                true,
+                new String[]{Metallurgy.nameOfResearch, DwarfCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfMortar.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell HellCannon = new ResearchCell(
+                SOCIETY_NUM,
+                "DwarfMortarsSquad",
+                "descr",
+                120,
+                true,
+                new String[]{Metallurgy.nameOfResearch, DemonCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfMortar.NameOfUnit)
                 }
         ).initCell();
 
@@ -711,11 +1201,25 @@ public class ResearchCell {
                 "descr",
                 150,
                 true,
-                new String[]{}, //AND
+                new String[]{Education.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.PublicSchool.name)
+                }
+        ).initCell();
+
+        ResearchCell Zeppelins = new ResearchCell(
+                ENGINEERING_NUM,
+                "Zeppelins",
+                "descr",
+                150,
+                true,
+                new String[]{ScientificTheory.nameOfResearch, DwarfCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.Zeppelin.NameOfUnit)
                 }
         ).initCell();
 
@@ -725,11 +1229,53 @@ public class ResearchCell {
                 "descr",
                 135,
                 true,
-                new String[]{}, //AND
+                new String[]{Metallurgy.nameOfResearch, Engineering.nameOfResearch, Education.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.CoalPlant.name)
+                }
+        ).initCell();
+
+        ResearchCell HellPortal = new ResearchCell(
+                ARCANUM_NUM,
+                "HellPortal",
+                "descr",
+                135,
+                true,
+                new String[]{Industrialization.nameOfResearch, HighMagic.nameOfResearch, DemonCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ArchDevil.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell SteamTanks = new ResearchCell(
+                ENGINEERING_NUM,
+                "SteamTanks",
+                "descr",
+                135,
+                true,
+                new String[]{Industrialization.nameOfResearch, HumanCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HumanTank.NameOfUnit)
+                }
+        ).initCell();
+
+        ResearchCell HeavyTanks = new ResearchCell(
+                ENGINEERING_NUM,
+                "HeavyTanks",
+                "descr",
+                135,
+                true,
+                new String[]{Industrialization.nameOfResearch, DwarfCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfTank.NameOfUnit)
                 }
         ).initCell();
 
@@ -739,7 +1285,7 @@ public class ResearchCell {
                 "descr",
                 135,
                 true,
-                new String[]{}, //AND
+                new String[]{Acoustic.nameOfResearch, Guilds.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
@@ -754,12 +1300,26 @@ public class ResearchCell {
                 "descr",
                 210,
                 true,
-                new String[]{}, //AND
+                new String[]{Medicine.nameOfResearch, ScientificTheory.nameOfResearch}, //AND
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
                         Building.AllBuildings.get(Building.MedicalLab.name),
                         Building.AllBuildings.get(Building.ResearchLab.name)
+                }
+        ).initCell();
+
+        ResearchCell Rockets = new ResearchCell(
+                ENGINEERING_NUM,
+                "Rockets",
+                "descr",
+                210,
+                true,
+                new String[]{Biology.nameOfResearch, DwarfCulture.nameOfResearch}, //AND
+                new String[]{}, //OR
+                new String[]{}, //NOT
+                new Object[]{
+                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfJavelin.NameOfUnit)
                 }
         ).initCell();
 

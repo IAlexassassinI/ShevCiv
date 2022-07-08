@@ -9,7 +9,6 @@ import Processing.Units.UnitPattern;
 import Processing.Utilits.TileFinder.LightPlay;
 import graphics.components.button.ButtonComponent;
 import graphics.components.camera.Camera;
-import graphics.components.tiledmap.CityState;
 import graphics.components.tiledmap.GameMapComponent;
 import graphics.components.tiledmap.GameTileComponent;
 import graphics.components.tiledmap.UnitState;
@@ -38,8 +37,6 @@ public class GameState extends BasicGameState implements ComponentListener {
     private GameContainer gameContainer;
     private StateBasedGame stateBasedGame;
 
-    private int button;
-
     private Game game;
 
     @Override
@@ -57,9 +54,9 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
         Game game = new Game(map, 2, 0, 50, 2);
-        Unit worker = new Unit(UnitPattern.Worker, game.getCurrentPlayer(), map.getTile(6,4));
-        //LightPlay.addToPlayerVision(worker);
+        Unit worker = new Unit(UnitPattern.HumanMusketeer , game.getCurrentPlayer(), map.getTile(6,4));
         map.getTile(6,4).setUnit(worker);
+        LightPlay.addToPlayerVision(worker);
 
         this.game = game;
 
@@ -113,7 +110,6 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void mouseClicked(int button, int x, int y, int clickCount) {
-        this.button = button;
         if(isUnitConrol && this.unitControlPanel.contains(x, y)) {
             return;
         }
@@ -152,7 +148,7 @@ public class GameState extends BasicGameState implements ComponentListener {
             if(isUnitConrol) {
                 return;
             }
-            if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getUnit() != null && button == Input.MOUSE_LEFT_BUTTON) {
+            if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getUnit() != null) {
                 isUnitConrol = true;
                 if(this.unitControlPanel == null)this.unitControlPanel = new UnitControlPanel(this.gameContainer, this.mapComponent, ((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getUnitComponent());
                 else {
@@ -160,15 +156,6 @@ public class GameState extends BasicGameState implements ComponentListener {
                 }
                 //this.camera.setWidth(1360);
                 currentUnitTile = (GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile();
-            }
-            if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getCity() != null && button == Input.MOUSE_RIGHT_BUTTON) {
-                if(((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getCityComponent().getState() == CityState.IDLE) {
-                    ((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getCityComponent().showArea();
-                }
-                else if(((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getCityComponent().getState() == CityState.SHOW_AREA) {
-                    ((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getCityComponent().setState(CityState.IDLE);
-                }
-                //this.camera.setWidth(1360);
             }
             /*else if(this.currentUnitTile != null && this.currentUnitTile.getUnitComponent().isInMovingArea(((GameMapComponent) abstractComponent).getSelectedTile().getTile())) {
                 //((GameMapComponent) abstractComponent).getSelectedTile().getTile()

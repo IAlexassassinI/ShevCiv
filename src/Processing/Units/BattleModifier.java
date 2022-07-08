@@ -33,6 +33,12 @@ public class BattleModifier implements Serializable {
     public static LinkedHashMap<String, BattleModifier> AllTypeOfBattleModifier = new LinkedHashMap<>();
     public static final BattleModifier none = new BattleModifier("None", 1, 1, 1,1, 1, 1,1);
     public static final BattleModifier half = new BattleModifier("Half", 0.5, 0.5, 0.5,0.5, 0.5, 0.5,0.5);
+    public static final BattleModifier hill = new BattleModifier("hill", 1.25, 1.25, 1.25,1.25, 1.5, 1.5,1);
+    public static final BattleModifier forest = new BattleModifier("forest", 1, 1.25, 1,1, 1, 1,1);
+    public static final BattleModifier berserkGases = new BattleModifier("berserkGases", 0.75, 0.75, 2,1.25, 1.25, 1,1.5);
+    public static final BattleModifier timeAnomalyFast = new BattleModifier("timeAnomalyFast", 0.75, 0.75, 1.25,1, 1, 1,2);
+    public static final BattleModifier timeAnomalySlow = new BattleModifier("timeAnomalySlow", 1.25, 1.25, 0.75,1, 1, 1,0.5);
+
 
     BattleModifier(String name,
                    double additionalDefenseMelee,

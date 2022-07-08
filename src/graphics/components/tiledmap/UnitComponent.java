@@ -130,6 +130,7 @@ public class UnitComponent {
             return;
         }
         ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.Mine);
+        ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
     }
 
     public void buildSawmill() {
@@ -141,6 +142,7 @@ public class UnitComponent {
             return;
         }
         ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.Sawmill);
+        ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
     }
 
     public void buildNone() {

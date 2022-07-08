@@ -58,6 +58,7 @@ public class City implements Serializable {
     boolean ownerWasInDepression;
 
     public City(Unit unit){
+        unit.onTile.typeOfBuilding = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.City.elementName);
         this.owner = unit.owner;
         this.ownedTiles.add(unit.onTile);
         this.ownerWasInDepression = owner.inDepression;
@@ -314,7 +315,7 @@ public class City implements Serializable {
     }
 
     public void doEndTurn(){
-        if(ownedTiles.peekFirst().unit.owner != owner){
+        if(ownedTiles.peekFirst().unit != null && ownedTiles.peekFirst().unit.owner != owner){
             if(ownedTiles.peekFirst().unit.owner.isBarbarianAI){
                 if(Game.RandomGen.nextBoolean()){
                     this.destroyCiti();

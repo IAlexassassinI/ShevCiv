@@ -15,7 +15,7 @@ public class Tag implements Serializable {
         return tag;
     }
 
-    public static final String small = initTag("small");
-    public static final String big = initTag("big");
+    public static String small = initTag("small");
+    public static String big = initTag("big");
 
 }

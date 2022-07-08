@@ -179,7 +179,7 @@ public class WhereCanBe implements Serializable {
                 }
                 break;
             case TYPE_OF_BUILDING_NUM:
-                //TypeOfBuilding
+                //TypeOfLand
                 if(whereCanBe.typesOfBuildingWhereCanBe.containsKey(ProcessedTile.typeOfBuilding.elementName) || whereCanBe.typesOfBuildingWhereCanBe.containsKey(TypeOfBuilding.none.elementName)){
                     return true;
                 }
@@ -191,12 +191,13 @@ public class WhereCanBe implements Serializable {
     }
 
     static public boolean PositiveCheck_Full(Tile ProcessedTile, WhereCanBe whereCanBe){
-        if(whereCanBe.typesOfBuildingWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_BUILDING_NUM, whereCanBe)){
-            if(whereCanBe.typesOfLandWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, whereCanBe)){
-                if(whereCanBe.typesOfResourceWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_RESOURCE_NUM, whereCanBe)){
-                    if(whereCanBe.typesOfFloraWhereCanBe.size() == 0  || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, whereCanBe)){
-                        return true;
-                    }
+        if(WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_BUILDING_NUM, whereCanBe)){
+            return true;
+        }
+        if(whereCanBe.typesOfLandWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, whereCanBe)){
+            if(whereCanBe.typesOfResourceWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_RESOURCE_NUM, whereCanBe)){
+                if(whereCanBe.typesOfFloraWhereCanBe.size() == 0  || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_FLORA_NUM, whereCanBe)){
+                    return true;
                 }
             }
         }
