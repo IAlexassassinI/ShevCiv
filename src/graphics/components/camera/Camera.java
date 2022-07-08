@@ -21,6 +21,8 @@ public class Camera extends AbstractComponent {
 
     private boolean locked;
 
+    private boolean scrollLocked = false;
+
     public Camera(GUIContext container, float x, float y, float width, float height, MapComponent map) {
         super(container);
         this.x = x;
@@ -70,6 +72,7 @@ public class Camera extends AbstractComponent {
     }
 
     public void mouseWheelMovedSignalise(int change) {
+        if(scrollLocked)return;
         if(!contains(this.mouseX, this.mouseY)) return;
         scaleMap((1000f + change) / 1000f, this.mouseX, this.mouseY);
     }
@@ -193,6 +196,14 @@ public class Camera extends AbstractComponent {
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    public boolean isScrollLocked() {
+        return scrollLocked;
+    }
+
+    public void setScrollLocked(boolean scrollLocked) {
+        this.scrollLocked = scrollLocked;
     }
 
     /*public void scaleTiles(float scale) {
