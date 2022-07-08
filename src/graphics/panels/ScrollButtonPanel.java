@@ -299,10 +299,10 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
         }
         else if(getOrientation() == Orientation.VERTICAL) {
             if(abstractComponent == this.button1) {
-                this.scrollingUp = true;
+                this.scrollingDown = true;
             }
             else if(abstractComponent == this.button2) {
-                this.scrollingDown = true;
+                this.scrollingUp = true;
             }
         }
     }

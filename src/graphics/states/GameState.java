@@ -13,6 +13,7 @@ import graphics.components.tiledmap.GameMapComponent;
 import graphics.components.tiledmap.GameTileComponent;
 import graphics.components.tiledmap.UnitState;
 import graphics.panels.CityControlPanel;
+import graphics.panels.TechTreePanel;
 import graphics.panels.UnitControlPanel;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
@@ -29,6 +30,7 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     private boolean isUnitControl = false;
     private boolean isCityControl = false;
+    private boolean isTechTreeControl = false;
     private GameTileComponent currentUnitTile;
 
     private ButtonComponent goButton;
@@ -36,6 +38,7 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     private CityControlPanel cityControlPanel;
     private UnitControlPanel unitControlPanel;
+    private TechTreePanel techTreePanel;
 
     private GameContainer gameContainer;
     private StateBasedGame stateBasedGame;
@@ -69,7 +72,7 @@ public class GameState extends BasicGameState implements ComponentListener {
         this.mapComponent.addListener(this);
         this.camera = new Camera(gameContainer, 20, 20, 1880, 960, this.mapComponent);
 
-        goButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/go.png"), 1400, 20, 500, 75);
+        goButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/go.png"), 20, 20, 500, 75);
         goButton.addListener(this);
         exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/exit.png"), 1400, 120, 500, 75);
         exitButton.addListener(this);
@@ -84,6 +87,10 @@ public class GameState extends BasicGameState implements ComponentListener {
         else if(this.isCityControl) {
             this.cityControlPanel.render(gameContainer, graphics);
         }
+        else if(this.isTechTreeControl) {
+            this.techTreePanel.render(gameContainer, graphics);
+        }
+        this.goButton.render(gameContainer, graphics);
     }
 
     @Override
@@ -96,6 +103,9 @@ public class GameState extends BasicGameState implements ComponentListener {
         }
         else if(isCityControl) {
             this.cityControlPanel.update(gameContainer, delta);
+        }
+        else if(isTechTreeControl && this.techTreePanel.isExit()) {
+            this.isTechTreeControl = false;
         }
         this.mapComponent.update(gameContainer, delta);
     }
@@ -110,8 +120,13 @@ public class GameState extends BasicGameState implements ComponentListener {
             this.cityControlPanel.mouseMovedSignalise(oldx, oldy, newx, newy);
             return;
         }
+        else if(this.isTechTreeControl) {
+            this.techTreePanel.mouseMovedSignalise(oldx, oldy, newx, newy);
+            return;
+        }
         this.camera.mouseMovedSignalise(oldx, oldy, newx, newy);
         this.mapComponent.mouseMovedSignalise(oldx, oldy, newx, newy);
+        this.goButton.mouseMovedSignalise(oldx, oldy, newx, newy);
     }
 
     @Override
@@ -120,6 +135,9 @@ public class GameState extends BasicGameState implements ComponentListener {
             return;
         }
         else if(this.isCityControl && this.cityControlPanel.contains(newx, newy)) {
+            return;
+        }
+        else if(this.isTechTreeControl) {
             return;
         }
         this.camera.mouseDraggedSignalise(oldx, oldy, newx, newy);
@@ -134,6 +152,9 @@ public class GameState extends BasicGameState implements ComponentListener {
         else if(this.isCityControl && this.cityControlPanel.contains(x, y)) {
             return;
         }
+        else if(this.isTechTreeControl) {
+            return;
+        }
         this.mapComponent.mouseClickedSignalise(button, x, y, clickCount);
         this.gameContainer.getInput().consumeEvent();
     }
@@ -142,16 +163,30 @@ public class GameState extends BasicGameState implements ComponentListener {
     public void mousePressed(int button, int x, int y) {
         if(isUnitControl && this.unitControlPanel.contains(x, y)) {
             this.unitControlPanel.mousePressedSignalise(button, x, y);
+            this.gameContainer.getInput().consumeEvent();
             return;
         }
         else if(this.isCityControl && this.cityControlPanel.contains(x, y)) {
             this.cityControlPanel.mousePressedSignalise(button, x, y);
+            this.gameContainer.getInput().consumeEvent();
             return;
+        }
+        else if(this.isTechTreeControl) {
+            this.techTreePanel.mousePressedSignalise(button, x, y);
+            this.gameContainer.getInput().consumeEvent();
+            return;
+        }
+        else if(this.goButton.contains(x, y)) {
+            this.goButton.mousePressedSignalise(button, x, y);
+            this.gameContainer.getInput().consumeEvent();
         }
     }
 
     @Override
     public void mouseWheelMoved(int newValue) {
+        if(this.isTechTreeControl) {
+            return;
+        }
         this.camera.mouseWheelMovedSignalise(newValue);
     }
 
@@ -163,8 +198,6 @@ public class GameState extends BasicGameState implements ComponentListener {
         }
         if(key == Input.KEY_SPACE) {
             this.game.players[this.game.currentPlayer].doEndTurn();
-            System.out.println(cityControlPanel.getCityComponent().getCity().createdUnits.size());
-            System.out.println(cityControlPanel.getCityComponent().getCity().creationList.size());
             //cityControlPanel.updateCreationList();
         }
 
@@ -173,7 +206,7 @@ public class GameState extends BasicGameState implements ComponentListener {
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
         if(abstractComponent instanceof GameMapComponent) {
-            if(isUnitControl) {
+            if(isUnitControl || isCityControl) {
                 return;
             }
             if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getCity() != null && button == Input.MOUSE_RIGHT_BUTTON) {
@@ -184,7 +217,6 @@ public class GameState extends BasicGameState implements ComponentListener {
                 else {
                     this.cityControlPanel.setCityComponent(((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getCityComponent());
                 }
-                currentUnitTile = (GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile();
             }
             else if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getUnit() != null && button == Input.MOUSE_LEFT_BUTTON) {
                 isUnitControl = true;
@@ -213,7 +245,13 @@ public class GameState extends BasicGameState implements ComponentListener {
         }
         else if(abstractComponent instanceof ButtonComponent) {
             if(abstractComponent == this.goButton) {
-                this.currentUnitTile.getUnitComponent().prepareToMove();
+                isTechTreeControl = true;
+                if(this.techTreePanel == null) {
+                    this.techTreePanel = new TechTreePanel(this.gameContainer, this.game.getCurrentPlayer());
+                }
+                else {
+                    this.techTreePanel.setPlayer(this.game.getCurrentPlayer());
+                }
             }
         }
     }

@@ -259,7 +259,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
                     int index = 0;
                     while(iterator.hasNext()) {
                         if(i == index) {
-                            this.cityComponent.getCity().addBuilding(iterator.next());
+                            this.cityComponent.getCity().addToCreationList(iterator.next());
                             updateCreationList();
                             return;
                         }
@@ -270,7 +270,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
                     while(unitPatternIterator.hasNext()) {
                         if(i == index) {
                             System.out.println(3);
-                            this.cityComponent.getCity().addUnit(unitPatternIterator.next());
+                            this.cityComponent.getCity().addToCreationList(unitPatternIterator.next());
                             System.out.println(5);
                             updateCreationList();
                             return;
@@ -312,7 +312,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
             }
 
         }
-        update();
+        //update();
     }
 
     public CityComponent getCityComponent() {
@@ -321,7 +321,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
 
     public void setCityComponent(CityComponent cityComponent) {
         this.cityComponent = cityComponent;
-        //init();
+        init();
     }
 
     public boolean isExit() {
