@@ -29,8 +29,8 @@ public class Player implements Serializable {
         this.TechToResearch = (HashMap<String, ResearchCell>) ResearchCell.AllResearchCells.clone();
         this.availableUpgradesOfTile.put(TypeOfBuilding.none.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.none.elementName), false));
         this.availableUpgradesOfTile.put(TypeOfBuilding.Farmland.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Farmland.elementName), false));
-        this.availableUpgradesOfTile.put(TypeOfBuilding.Mine.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Mine.elementName), false));
-        this.availableUpgradesOfTile.put(TypeOfBuilding.Sawmill.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Sawmill.elementName), false));
+        //this.availableUpgradesOfTile.put(TypeOfBuilding.Mine.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Mine.elementName), false));
+        //this.availableUpgradesOfTile.put(TypeOfBuilding.Sawmill.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Sawmill.elementName), false));
 
         if(this.race.equals("none")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.Settler.NameOfUnit);
@@ -294,12 +294,17 @@ public class Player implements Serializable {
             }
             if(defeatTimer == 0){
                 isDefeated = true;
+                doDefeat();
                 this.Game.numberOfDefeatedPlayers++;
             }
         }
         else{
             defeatTimer = DEFEAT_TIMER;
         }
+    }
+
+    public void doDefeat(){
+
     }
 
 }
