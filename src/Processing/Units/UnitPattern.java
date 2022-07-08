@@ -1571,7 +1571,7 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            6,
+            3,
 
             2,
 

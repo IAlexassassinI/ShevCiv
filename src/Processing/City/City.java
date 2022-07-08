@@ -282,7 +282,7 @@ public class City implements Serializable {
         this.recalculateWealth();
     }
 
-    public void killCitizen(){
+    public boolean killCitizen(){
         if(numberOfFreeCitizen <= 0) {
             boolean found = false;
             Iterator<Integer> iterator = this.jobsOccupiedCount.iterator();
@@ -311,7 +311,9 @@ public class City implements Serializable {
         numberOfCitizen--;
         if(numberOfCitizen <= 0){
             this.destroyCiti();
+            return true;
         }
+        return false;
     }
 
     public void doEndTurn(){
@@ -343,7 +345,9 @@ public class City implements Serializable {
         }
         foodStock = foodStock + wealth.food - numberOfCitizen;
         if(foodStock < 0){
-            this.killCitizen();
+            if(this.killCitizen()) {
+                return;
+            }
         }
         if(foodStock >= foodToNewCitizen){
             numberOfCitizen++;
