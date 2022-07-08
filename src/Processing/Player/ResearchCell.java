@@ -142,17 +142,19 @@ public class ResearchCell {
             //AND check
 
             //OR check
-            boolean FindOrPrerequisite = false;
-            while(OR.hasNext()){
-                String SSS = OR.next();
-                if(player.ResearchedEngineering.containsKey(SSS) || player.ResearchedSociety.containsKey(SSS) || player.ResearchedArcanum.containsKey(SSS)){
-                    FindOrPrerequisite = true;
-                    break;
+            if(OR.hasNext()){
+                boolean FindOrPrerequisite = false;
+                while(OR.hasNext()){
+                    String SSS = OR.next();
+                    if(player.ResearchedEngineering.containsKey(SSS) || player.ResearchedSociety.containsKey(SSS) || player.ResearchedArcanum.containsKey(SSS)){
+                        FindOrPrerequisite = true;
+                        break;
+                    }
                 }
-            }
-            if(!FindOrPrerequisite){
-                CanBeResearched = false;
-                continue;
+                if(!FindOrPrerequisite){
+                    CanBeResearched = false;
+                    continue;
+                }
             }
             //OR check
 

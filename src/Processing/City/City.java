@@ -58,7 +58,7 @@ public class City implements Serializable {
     boolean ownerWasInDepression;
 
     public City(Unit unit){
-        unit.onTile.typeOfBuilding = TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.City.elementName);
+        unit.onTile.setTypeOfBuilding(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.City.elementName));
         this.owner = unit.owner;
         this.ownedTiles.add(unit.onTile);
         this.ownerWasInDepression = owner.inDepression;
@@ -96,16 +96,20 @@ public class City implements Serializable {
         }
         else{
             Building pattern = ((Building)object);
-            if(buildingsThatCanBeBuild.containsKey(pattern.name) && buildingCanBeBuilt.get(buildingCanBeBuilt.indexOf(pattern))){
-                creationList.add(new CreatableObject<Building>(pattern, pattern.productionCost));
+            if(buildingsThatCanBeBuild.containsKey(pattern.name)){
                 Iterator<Building> iterator = this.buildingsThatCanBeBuild.values().iterator();
                 int _index = 0;
+                boolean canBeBuild = false;
                 while(iterator.hasNext()){
-                    if(iterator.next().equals((Building)object)){
-                        this.buildingCanBeBuilt.set(_index, false);
+                    if(iterator.next().equals(pattern)){
+                        canBeBuild = this.buildingCanBeBuilt.get(_index);
                         break;
                     }
                     _index++;
+                }
+                if(canBeBuild){
+                    creationList.add(new CreatableObject<Building>(pattern, pattern.productionCost));
+                    this.buildingCanBeBuilt.set(_index, false);
                 }
             }
         }
