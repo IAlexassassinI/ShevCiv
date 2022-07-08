@@ -125,22 +125,24 @@ public class UnitComponent {
         if(this.tileComponent.getTile().getTypeOfBuilding() == TypeOfBuilding.Mine) {
             return;
         }
-        if(this.tileComponent.getTile().buildingInProcess.object == TypeOfBuilding.Mine) {
+        if(this.tileComponent.getTile().buildingInProcess != null && this.tileComponent.getTile().buildingInProcess.object == TypeOfBuilding.Mine) {
             ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
             return;
         }
         ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.Mine);
+        ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
     }
 
     public void buildSawmill() {
         if(this.tileComponent.getTile().getTypeOfBuilding() == TypeOfBuilding.Sawmill) {
             return;
         }
-        if(this.tileComponent.getTile().buildingInProcess.object == TypeOfBuilding.Sawmill) {
+        if(this.tileComponent.getTile().buildingInProcess != null && this.tileComponent.getTile().buildingInProcess.object == TypeOfBuilding.Sawmill) {
             ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
             return;
         }
         ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).designateStructureOnTile(TypeOfBuilding.Sawmill);
+        ((ConstructSomethingOnTile) this.unit.Abilities.get(0)).workOnTile();
     }
 
     public void buildNone() {

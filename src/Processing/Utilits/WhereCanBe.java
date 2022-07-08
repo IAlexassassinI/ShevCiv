@@ -191,7 +191,7 @@ public class WhereCanBe implements Serializable {
     }
 
     static public boolean PositiveCheck_Full(Tile ProcessedTile, WhereCanBe whereCanBe){
-        if(whereCanBe.typesOfBuildingWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_BUILDING_NUM, whereCanBe)){
+        if(WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_BUILDING_NUM, whereCanBe)){
             return true;
         }
         if(whereCanBe.typesOfLandWhereCanBe.size() == 0 || WhereCanBe.PositiveCheck_Specific(ProcessedTile, WhereCanBe.TYPE_OF_LAND_NUM, whereCanBe)){
