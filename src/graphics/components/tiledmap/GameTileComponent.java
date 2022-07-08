@@ -117,7 +117,6 @@ public class GameTileComponent extends TileComponent {
         if(contains(x, y)) {
             this.mouseClicked = true;
             notifyListeners();
-            System.out.println(this.listeners);
         }
         else {
             this.mouseClicked = false;

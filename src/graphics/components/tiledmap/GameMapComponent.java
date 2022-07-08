@@ -74,7 +74,6 @@ public class GameMapComponent extends MapComponent {
     public void componentActivated(AbstractComponent abstractComponent) {
         if(abstractComponent instanceof GameTileComponent) {
             this.selectedTile = (TileComponent) abstractComponent;
-            System.out.println(4);
             notifyListeners();
         }
     }
