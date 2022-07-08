@@ -35,7 +35,7 @@ public class Player implements Serializable {
         if(this.race.equals("none")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.Settler.NameOfUnit);
             ResearchCell.AllResearchCells.get("HumanCulture").openToTechPlayer(this);
-            ResearchCell.AllResearchCells.get("Pottery");
+            ResearchCell.AllResearchCells.get("Pottery").openToTechPlayer(this);
         }
         else if(this.race.equals("Human")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.HumanSettler.NameOfUnit);
@@ -53,6 +53,10 @@ public class Player implements Serializable {
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.DemonSettler.NameOfUnit);
             ResearchCell.AllResearchCells.get("DemonCulture").openToTechPlayer(this);
         }
+        ResearchCell.modifyAvailableResearchToPlayer(this);
+        ResearchCell.generateNextResearchChooseToPlayer(this, ResearchCell.ENGINEERING_NUM);
+        ResearchCell.generateNextResearchChooseToPlayer(this, ResearchCell.SOCIETY_NUM);
+        ResearchCell.generateNextResearchChooseToPlayer(this, ResearchCell.ARCANUM_NUM);
     }
 
     public static final double DEPRESSION_DEBUFF = 0.5;

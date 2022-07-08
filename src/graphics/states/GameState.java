@@ -3,7 +3,6 @@ package graphics.states;
 import Processing.FileHandler.SaveLoadInterface;
 import Processing.Game.Game;
 import Processing.TileMap.GameMap;
-import Processing.TileMap.TileUtils.TypeOfLand;
 import Processing.Units.Unit;
 import Processing.Units.UnitPattern;
 import Processing.Utilits.TileFinder.LightPlay;
@@ -11,7 +10,6 @@ import graphics.components.button.ButtonComponent;
 import graphics.components.camera.Camera;
 import graphics.components.tiledmap.GameMapComponent;
 import graphics.components.tiledmap.GameTileComponent;
-import graphics.components.tiledmap.UnitState;
 import graphics.panels.CityControlPanel;
 import graphics.panels.TechTreePanel;
 import graphics.panels.UnitControlPanel;
@@ -62,7 +60,7 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
         Game game = new Game(map, 2, 0, 50, 2);
-        Unit worker = new Unit(UnitPattern.HumanWorker , game.getCurrentPlayer(), map.getTile(6,4));
+        Unit worker = new Unit(UnitPattern.ElvenWorker, game.getCurrentPlayer(), map.getTile(6,4));
         map.getTile(6,4).setUnit(worker);
         LightPlay.addToPlayerVision(worker);
 
