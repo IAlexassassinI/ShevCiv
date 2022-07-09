@@ -112,7 +112,7 @@ public class GeneralUtility implements Serializable {
         Resource.AncientArtifacts = Resource.AllResource.get(Resource.BerserkGases.elementName);
 
         Tag.small = Tag.AllTags.get(0);
-        Tag.small = Tag.AllTags.get(1);
+        Tag.big = Tag.AllTags.get(1);
 
     }
 

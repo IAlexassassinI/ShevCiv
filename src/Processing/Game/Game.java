@@ -3,9 +3,11 @@ package Processing.Game;
 import Processing.Player.Player;
 import Processing.Player.ResearchCell;
 import Processing.TileMap.GameMap;
+import Processing.Units.UnitPattern;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class Game implements Serializable {
@@ -27,9 +29,9 @@ public class Game implements Serializable {
         currentPlayer++;
         if(currentPlayer == numberOfPlayers){
             year++;
-            currentPlayer = (currentPlayer)%numberOfPlayers;
+            currentPlayer = 0;
         }
-        players[currentPlayer%numberOfPlayers].myTurn = true;
+        players[currentPlayer].myTurn = true;
         if(players[currentPlayer].isDefeated){
             if(numberOfPlayers != numberOfDefeatedPlayers){
                 giveTurn();
@@ -40,7 +42,6 @@ public class Game implements Serializable {
         }
         else if(players[currentPlayer].isBarbarianAI){
             AI_ID.get(players[currentPlayer]).doTurn();
-            giveTurn();
         }
         if(numberOfPlayers - numberOfDefeatedPlayers == 1){
             for(int i = 0; i < players.length; i++){
@@ -66,29 +67,26 @@ public class Game implements Serializable {
         this.numberOfPlayers = numberOfHumans + numberOfAI;
         ResearchCell.initResearchTree();
         this.players = new Player[this.numberOfPlayers];
+        LinkedList<String> AvailableRace = new LinkedList<>();
+        AvailableRace.add("Human");
+        AvailableRace.add("Elven");
+        AvailableRace.add("Demon");
         for(int i = 0; i < this.numberOfPlayers; i++){
-            this.players[i] = new Player(this, "none");
-            /*
-            switch(Game.RandomGen.nextInt(4)){
-                case 0:
-                    this.players[i] = new Player(this, "Human");
-                    break;
-                case 1:
-                    this.players[i] = new Player(this, "Elven");
-                    break;
-                case 2:
-                    this.players[i] = new Player(this, "Dwarf");
-                    break;
-                case 3:
-                    this.players[i] = new Player(this, "Demon");
-                    break;
+            //this.players[i] = new Player(this, "none");
+            if(AvailableRace.size() != 0){
+                int randomIndex = RandomGen.nextInt(AvailableRace.size());
+                this.players[i] = new Player(this, AvailableRace.get(randomIndex));
+                AvailableRace.remove(randomIndex);
             }
-             */
+            else {
+                this.players[i] = new Player(this, "none");
+            }
         }
         for(int i = 0; i < numberOfAI; i++){
             Player toProc = this.players[numberOfHumans+i];
             toProc.isBarbarianAI = true;
             toProc.race = "Orc";
+            toProc.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.OrkSettler.NameOfUnit);
             AI_ID.put(toProc, new Barbarian_AI(toProc, spawnRateOfAI, levelOfAI));
         }
         this.currentPlayer = 0;

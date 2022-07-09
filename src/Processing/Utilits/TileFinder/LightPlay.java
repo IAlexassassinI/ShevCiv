@@ -29,24 +29,27 @@ public class LightPlay implements Serializable {
     public static TwoTTT<Tile[], HashMap<Point, Tile>> findShootingRange(Tile startTile){
         LightMap = new HashMap<>();
         UnitMap = new HashMap<>();
-        currentTile = startTile;
-        CurrentMap = startTile.map;
-        CurrentUnit = startTile.unit;
-        CurrentProjectile = CurrentUnit.typeOfUnit.projectile;
-        double shootingRange = CurrentUnit.typeOfUnit.rangeOfAttack * startTile.resource.battleModifier.additionalShootingRange * startTile.typeOfBuilding.battleModifier.additionalShootingRange * startTile.typeOfFlora.battleModifier.additionalShootingRange * startTile.typeOfLand.battleModifier.additionalShootingRange;
-        shootingRange = shootingRange * startTile.unit.owner.battleModifier.additionalShootingRange;
+        if(startTile != null) {
+            currentTile = startTile;
+            CurrentMap = startTile.map;
+            CurrentUnit = startTile.unit;
+            CurrentProjectile = CurrentUnit.typeOfUnit.projectile;
+            double shootingRange = CurrentUnit.typeOfUnit.rangeOfAttack * startTile.resource.battleModifier.additionalShootingRange * startTile.typeOfBuilding.battleModifier.additionalShootingRange * startTile.typeOfFlora.battleModifier.additionalShootingRange * startTile.typeOfLand.battleModifier.additionalShootingRange;
+            shootingRange = shootingRange * startTile.unit.owner.battleModifier.additionalShootingRange;
 
-        //drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, true, false);
+            //drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, true, false);
 
-        while((GeneralUtility.Round(shootingRange) > 0)){
-            if(GeneralUtility.Round(shootingRange) == 1){
-                //really costil
-                drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, true);
+            while((GeneralUtility.Round(shootingRange) > 0)){
+                if(GeneralUtility.Round(shootingRange) == 1){
+                    //really costil
+                    drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, true);
+                }
+                else{
+                    Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, true);
+                }
+                shootingRange--;
             }
-            else{
-                Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, true);
-            }
-            shootingRange--;
+
         }
 
         return new TwoTTT<Tile[], HashMap<Point, Tile>>(LightMap.values().toArray(new Tile[0]), UnitMap);
@@ -56,51 +59,55 @@ public class LightPlay implements Serializable {
         LightMap = new HashMap<>();
         UnitMap = new HashMap<>();
         CitiMap = new HashMap<>();
-        currentTile = startTile;
-        CurrentMap = startTile.map;
-        CurrentUnit = startTile.unit;
-        if(CurrentUnit.typeOfUnit.isFlying){
-            CurrentProjectile = Projectile.LightFlying; //TODO Перейти по всій програмі в модінг формат типу Projectile.AllTypeOfProjectile.get("NAME")
-        }
-        else{
-            CurrentProjectile = Projectile.LightLand;
-        }
-        double visionRange = CurrentUnit.typeOfUnit.visionRange * startTile.resource.battleModifier.additionalVisionRange * startTile.typeOfBuilding.battleModifier.additionalVisionRange * startTile.typeOfFlora.battleModifier.additionalVisionRange * startTile.typeOfLand.battleModifier.additionalVisionRange;
-        while((GeneralUtility.Round(visionRange) > 0)){
-            if(GeneralUtility.Round(visionRange) == 1){
-                //really costil
-                drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), true, false, true);
+        if(startTile != null) {
+            currentTile = startTile;
+            CurrentMap = startTile.map;
+            CurrentUnit = startTile.unit;
+            if(CurrentUnit.typeOfUnit.isFlying){
+                CurrentProjectile = Projectile.LightFlying; //TODO Перейти по всій програмі в модінг формат типу Projectile.AllTypeOfProjectile.get("NAME")
             }
             else{
-                Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), true, false, true);
+                CurrentProjectile = Projectile.LightLand;
             }
-            visionRange--;
+            double visionRange = CurrentUnit.typeOfUnit.visionRange * startTile.resource.battleModifier.additionalVisionRange * startTile.typeOfBuilding.battleModifier.additionalVisionRange * startTile.typeOfFlora.battleModifier.additionalVisionRange * startTile.typeOfLand.battleModifier.additionalVisionRange;
+            while((GeneralUtility.Round(visionRange) > 0)){
+                if(GeneralUtility.Round(visionRange) == 1){
+                    //really costil
+                    drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), true, false, true);
+                }
+                else{
+                    Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), true, false, true);
+                }
+                visionRange--;
+            }
         }
         return new ThreeTTT<>(LightMap.values().toArray(new Tile[0]), UnitMap, CitiMap);
     }
 
     public static Tile[] findVisionRange(Tile startTile){
         LightMap = new HashMap<>();
-        CurrentMap = startTile.map;
-        CurrentUnit = startTile.unit;
-        currentTile = startTile;
-        if(CurrentUnit.typeOfUnit.isFlying){
-            CurrentProjectile = Projectile.LightFlying; //TODO Перейти по всій програмі в модінг формат типу Projectile.AllTypeOfProjectile.get("NAME")
-        }
-        else{
-            CurrentProjectile = Projectile.LightLand;
-        }
-        double visionRange = CurrentUnit.typeOfUnit.visionRange * startTile.resource.battleModifier.additionalVisionRange * startTile.typeOfBuilding.battleModifier.additionalVisionRange * startTile.typeOfFlora.battleModifier.additionalVisionRange * startTile.typeOfLand.battleModifier.additionalVisionRange;
-        //drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false);
-        while((GeneralUtility.Round(visionRange) > 0)){
-            if(GeneralUtility.Round(visionRange) == 1){
-                //really costil
-                drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false, false);
+        if(startTile != null){
+            CurrentMap = startTile.map;
+            CurrentUnit = startTile.unit;
+            currentTile = startTile;
+            if(CurrentUnit.typeOfUnit.isFlying){
+                CurrentProjectile = Projectile.LightFlying; //TODO Перейти по всій програмі в модінг формат типу Projectile.AllTypeOfProjectile.get("NAME")
             }
             else{
-                Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false, false);
+                CurrentProjectile = Projectile.LightLand;
             }
-            visionRange--;
+            double visionRange = CurrentUnit.typeOfUnit.visionRange * startTile.resource.battleModifier.additionalVisionRange * startTile.typeOfBuilding.battleModifier.additionalVisionRange * startTile.typeOfFlora.battleModifier.additionalVisionRange * startTile.typeOfLand.battleModifier.additionalVisionRange;
+            //drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false);
+            while((GeneralUtility.Round(visionRange) > 0)){
+                if(GeneralUtility.Round(visionRange) == 1){
+                    //really costil
+                    drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false, false);
+                }
+                else{
+                    Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(visionRange), false, false, false);
+                }
+                visionRange--;
+            }
         }
         return LightMap.values().toArray(new Tile[0]);
     }

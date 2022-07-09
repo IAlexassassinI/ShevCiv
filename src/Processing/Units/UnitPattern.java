@@ -196,9 +196,9 @@ public class UnitPattern extends Tag implements Serializable {
             null,
             null,
 
-            10,
+            0,
 
-            10,
+            100,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -207,16 +207,16 @@ public class UnitPattern extends Tag implements Serializable {
             1,
             1,
 
-            false,
+            true,
             Projectile.none,
-            0,
-            0,
-
-            1,
-            1,
-            1,
             10,
-            4,
+            1000,
+
+            0,
+            0,
+            0,
+            10000,
+            10,
             1,
 
             new String[]{Colonize.nameOfAbility},
@@ -1886,7 +1886,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            2,
+            3,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1921,7 +1921,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            2,
+            3,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1956,7 +1956,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            2,
+            3,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1991,7 +1991,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            2,
+            3,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -2062,7 +2062,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            2,
+            3,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -2156,7 +2156,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             new String[]{GetCargoSmall.nameOfAbility},
             1,
-            new  String[]{Tag.small}
+            new  String[]{Tag.big}
     ).initUnitPattern();
 
 }

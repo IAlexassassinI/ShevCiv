@@ -81,6 +81,7 @@ public class City implements Serializable {
         numberOfCitizen = STANDARD_NUMBER_OF_START_CITIZENS;
         numberOfFreeCitizen = numberOfCitizen;
         owner.playerCities.add(this);
+        this.addCitizenToTile(this.ownedTiles.peekFirst());
     }
 
     public void setName(String name) {
@@ -259,6 +260,13 @@ public class City implements Serializable {
     }
 
     public void conquerCiti(Player newOwner){
+        if(newOwner.isBarbarianAI){
+            Iterator<Tile> tileIterator = ownedTiles.iterator();
+            while(tileIterator.hasNext()){
+                this.removeCitizenFromTile(tileIterator.next());
+            }
+            this.addCitizenToTile(this.ownedTiles.peekFirst());
+        }
         LightPlay.removeFromPlayerVision(ownedTiles, owner);
         owner.playerCities.remove(this);
         newOwner.playerCities.add(this);

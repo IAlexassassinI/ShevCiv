@@ -38,7 +38,6 @@ public class GetCargoSmall extends SpecialAbility implements Serializable {
                 if(TMP_Tile.unit != null){
                     if(TMP_Tile.unit.typeOfUnit.tags.contains(Tag.small)){
                         whereCanTake.add(TMP_Tile);
-                        break;
                     }
                 }
             }
@@ -52,8 +51,10 @@ public class GetCargoSmall extends SpecialAbility implements Serializable {
             Tile TMP_Tile = currentUnit.onTile.map.getTile(currentUnit.onTile.coordinates.LookAt(Point.ALL_SIDES[i]));
             if(TMP_Tile != null){
                 if(TMP_Tile.unit == null){
-                    if(WhereCanBe.FullCheck(TMP_Tile, cargo.typeOfUnit.whereCanMove)){
-                        whereCanPut.add(TMP_Tile);
+                    if(cargo != null){
+                        if(WhereCanBe.FullCheck(TMP_Tile, cargo.typeOfUnit.whereCanMove)){
+                            whereCanPut.add(TMP_Tile);
+                        }
                     }
                 }
             }
@@ -93,7 +94,7 @@ public class GetCargoSmall extends SpecialAbility implements Serializable {
 
         isCargoFull = false;
         onTile.setUnit(cargo);
-        LightPlay.addToPlayerVision(cargo);
+        //LightPlay.addToPlayerVision(cargo);
         cargo = null;
         setOnCooldown();
     }
