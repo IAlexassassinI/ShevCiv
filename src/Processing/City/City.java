@@ -141,14 +141,9 @@ public class City implements Serializable {
         changeOrderInCreationList(creationList.indexOf(First), creationList.indexOf(Second));
     }
 
-    public Object addProduction(){
+    public CreatableObject addProduction(){
         if(!creationList.isEmpty()){
-            if(owner.inDepression){
-                creationList.peekFirst().addProgress(this.wealth.production * Player.DEPRESSION_DEBUFF);
-            }
-            else{
-                creationList.peekFirst().addProgress(this.wealth.production);
-            }
+            creationList.peekFirst().addProgress(this.wealth.production);
             if(creationList.peekFirst().status){
                 return creationList.pop();
             }
@@ -332,13 +327,13 @@ public class City implements Serializable {
         }else if(owner.inDepression != ownerWasInDepression){
             recalculateWealth();
         }
-        Object construct = addProduction();
+        CreatableObject<Object> construct = addProduction();
         if(construct != null){
-            if(construct.getClass() == Building.class){
-                addBuilding((Building) construct);
+            if(construct.object.getClass() == Building.class){
+                addBuilding((Building) construct.object);
             }
             else{
-                addUnit((UnitPattern) construct);
+                addUnit((UnitPattern) construct.object);
             }
         }
         if(!createdUnits.isEmpty() && ownedTiles.peekFirst().unit == null){
@@ -354,6 +349,7 @@ public class City implements Serializable {
             }
         }
         if(foodStock >= foodToNewCitizen){
+            foodStock = foodStock - foodToNewCitizen;
             numberOfCitizen++;
             numberOfFreeCitizen++;
         }
