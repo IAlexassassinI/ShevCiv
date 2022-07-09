@@ -414,6 +414,7 @@ public class City implements Serializable {
                 owner.getMoney(-PriceForTile);
                 tileToBuy.owner = this;
                 LightPlay.addToPlayerVision(tileToBuy, this.owner);
+                this.ownedTiles.add(tileToBuy);
             }
         }
     }

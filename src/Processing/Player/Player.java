@@ -26,7 +26,7 @@ public class Player implements Serializable {
         this.Map = game.Map;
         this.VisionMap = new int[Map.getHeight()][Map.getWidth()];
         this.OpenFOWMap = new boolean[Map.getHeight()][Map.getWidth()];
-        this.TechToResearch = (HashMap<String, ResearchCell>) ResearchCell.AllResearchCells.clone();
+        this.TechToResearch = ResearchCell.CreateCopyOfAllResearchCells();
         this.availableUpgradesOfTile.put(TypeOfBuilding.none.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.none.elementName), false));
         this.availableUpgradesOfTile.put(TypeOfBuilding.Farmland.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Farmland.elementName), false));
         //this.availableUpgradesOfTile.put(TypeOfBuilding.Mine.elementName, new TwoTTT<>(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.Mine.elementName), false));

@@ -30,6 +30,16 @@ public class ResearchCell {
 
     static public HashMap<String, ResearchCell> AllResearchCells = new HashMap<>();
 
+    static public HashMap<String, ResearchCell> CreateCopyOfAllResearchCells(){
+        Iterator<ResearchCell> iterator = AllResearchCells.values().iterator();
+        HashMap<String, ResearchCell> Answer = new HashMap<>();
+        while(iterator.hasNext()){
+            ResearchCell TMP_ResearchCell = new ResearchCell(iterator.next());
+            Answer.put(TMP_ResearchCell.nameOfResearch, TMP_ResearchCell);
+        }
+        return Answer;
+    }
+
     private ResearchCell(int Type, String nameOfResearch, String description, double researchPointCost, boolean canBeResearched,
                          String AND[], String OR[], String NOT[],
                          Object tech[]){
@@ -44,6 +54,21 @@ public class ResearchCell {
         this.preRequisitesNOT = new LinkedList<>(Arrays.stream(NOT).toList());
 
         this.techGiven = new LinkedList<>(Arrays.stream(tech).toList());
+
+    }
+
+    private ResearchCell(ResearchCell researchCell){
+
+        this.typeOfResearch = researchCell.typeOfResearch;
+        this.nameOfResearch = researchCell.nameOfResearch;
+        this.description = researchCell.description;
+        this.researchPointCost = researchCell.researchPointCost;
+        this.canBeResearched = researchCell.canBeResearched;
+        this.preRequisitesAND = researchCell.preRequisitesAND;
+        this.preRequisitesOR = researchCell.preRequisitesOR;
+        this.preRequisitesNOT = researchCell.preRequisitesNOT;
+
+        this.techGiven = researchCell.techGiven;
 
     }
 
