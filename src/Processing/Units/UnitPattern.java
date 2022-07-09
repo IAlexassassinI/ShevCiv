@@ -1066,8 +1066,8 @@ public class UnitPattern extends Tag implements Serializable {
             new  String[]{Tag.small}
     ).initUnitPattern();
 
-    public static UnitPattern HawkRider = new UnitPattern(
-            "HawkRider",
+    public static UnitPattern ElvenHawkRider = new UnitPattern(
+            "ElvenHawkRider",
             280,
             3000,
             null,
@@ -1102,7 +1102,7 @@ public class UnitPattern extends Tag implements Serializable {
     ).initUnitPattern();
 
     public static UnitPattern ElvenCarrier = new UnitPattern(
-            "ElvenCaravel",
+            "ElvenCarrier",
             200,
             1800,
             null,
