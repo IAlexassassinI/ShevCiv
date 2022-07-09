@@ -28,7 +28,7 @@ public class TechTreePanel extends Panel implements ComponentListener {
         super(360, 420, 1200, 240, 0);
         this.player = player;
         try {
-            this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"),1540, 410, 30, 30);
+            this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/exit.png"),1540, 410, 30, 30);
             this.exitButton.addListener(this);
             this.imageProcess = new Image("assets/graphics/buttons/process.png");
             this.imageProcessing = new Image("assets/graphics/buttons/processing.png");

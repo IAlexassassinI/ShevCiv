@@ -67,12 +67,11 @@ public class UnitComponent {
     public void prepareToMove() {
         this.setState(UnitState.PREPARE_TO_MOVE);
         this.movingArea = this.unit.getAllTilesInMoveRange();
-        /*System.out.println(this.movingArea == null);
-        for(Tile tile : this.movingArea) {
-            System.out.println((tile.coordinates.x - this.tileComponent.getTile().coordinates.x) + " " + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y));
-        }
-        System.out.println(7);*/
-        //System.out.println(movingArea);
+    }
+
+    public void prepareToMoveWithoutVisualization() {
+        this.setState(UnitState.IDLE);
+        this.movingArea = this.unit.getAllTilesInMoveRange();
     }
 
     public void prepareToAttack() {
@@ -86,6 +85,16 @@ public class UnitComponent {
             if(attackingArea != null) {
 
             }*/
+        }
+    }
+
+    public void prepareToAttackWithoutVisualization() {
+        this.setState(UnitState.IDLE);
+        if(this.unit.typeOfUnit.isRanged) {
+            this.attackingArea = this.unit.prepareToShoot();
+        }
+        else {
+            this.attackingArea = this.unit.prepareToMeleeAttack().toArray(new Tile[0]);
         }
     }
 
@@ -184,20 +193,37 @@ public class UnitComponent {
         setState(UnitState.ATTACKING);
     }
 
+    public void attack(Tile tile) {
+        if(!isInAttackingArea(tile)) {
+            this.state = UnitState.IDLE;
+            return;
+        }
+        this.tileToAttack = tileComponent.getMapComponent().getTileComponent(tile.coordinates.x, tile.coordinates.y);
+        setState(UnitState.ATTACKING);
+    }
+
     public void move(GameTileComponent tile) {
         if(!isInMovingArea(tile.getTile())){
             this.state = UnitState.IDLE;
             return;
         }
-        //this.x = tile.getX();
-        //this.y = tile.getY();
         this.movingPath = this.tileComponent.getTile().getUnit().move(tile.getTile());
         setState(UnitState.MOVING);
-        //System.out.println(movingPath);
-        //System.out.println("move");
         this.tileComponent.setUnitComponent(null);
         this.tileComponent = tile;
         tile.setUnitComponent(this);
+    }
+
+    public void move(Tile tile) {
+        if(!isInMovingArea(tile)){
+            this.state = UnitState.IDLE;
+            return;
+        }
+        this.movingPath = this.tileComponent.getTile().getUnit().move(tile);
+        setState(UnitState.MOVING);
+        this.tileComponent.setUnitComponent(null);
+        this.tileComponent = tileComponent.getMapComponent().getTileComponent(tile.coordinates.x, tile.coordinates.y);;
+        this.tileComponent.setUnitComponent(this);
     }
 
     public void translate(float dx, float dy) {

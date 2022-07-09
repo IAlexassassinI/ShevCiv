@@ -45,27 +45,27 @@ public class CityComponent {
                                 this.tileComponent.getWidth(),
                                 this.tileComponent.getHeight());
                         graphics.setColor(new Color(0.588f, 0.294f, 0, 1));
-                        graphics.drawString(String.valueOf(this.city.wealth.production),
+                        graphics.drawString(String.valueOf(tile.wealth.production),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth(),
                                 y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight());
                         graphics.setColor(Color.red);
-                        graphics.drawString(String.valueOf(this.city.wealth.food),
+                        graphics.drawString(String.valueOf(tile.wealth.food),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth(),
                                 y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 20);
                         graphics.setColor(Color.orange);
-                        graphics.drawString(String.valueOf(this.city.wealth.money),
+                        graphics.drawString(String.valueOf(tile.wealth.money),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth(),
                                 y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 40);
                         graphics.setColor(Color.magenta);
-                        graphics.drawString(String.valueOf(this.city.wealth.arcanumScience),
+                        graphics.drawString(String.valueOf(tile.wealth.arcanumScience),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 50,
                                 y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight());
                         graphics.setColor(Color.cyan);
-                        graphics.drawString(String.valueOf(this.city.wealth.engineeringScience),
+                        graphics.drawString(String.valueOf(tile.wealth.engineeringScience),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 50,
                                 y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 20);
                         graphics.setColor(Color.white);
-                        graphics.drawString(String.valueOf(this.city.wealth.societyScience),
+                        graphics.drawString(String.valueOf(tile.wealth.societyScience),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 50,
                                 y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 40);
                         if(tile.isProcessedByPeople) {
