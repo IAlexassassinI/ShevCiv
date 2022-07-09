@@ -62,7 +62,7 @@ public class Barbarian_AI {
             calculateSpawnOfBarbarian(tileIterator.next().ownedTiles.peekFirst());
         }
 
-
+        ME.doEndTurn();
 
     }
 

@@ -109,9 +109,7 @@ public class LightPlay implements Serializable {
 
     static boolean makePutPoint(int x, int y, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray){
         Tile TMP_Tile = CurrentMap.getTile(x,y);
-        if(TMP_Tile == currentTile){
-            return true;
-        }
+
         if(TMP_Tile != null){
             boolean terrainCheck = WhereCanBe.FullCheck(TMP_Tile, CurrentProjectile.whereCanBe);
             if(findingInVisionRange){
@@ -120,7 +118,12 @@ public class LightPlay implements Serializable {
                         return true;
                     }
                     else{
-                        return false;
+                        if(TMP_Tile == currentTile){
+                            return true;
+                        }
+                        else{
+                            return false;
+                        }
                     }
                 }
             }
@@ -139,6 +142,9 @@ public class LightPlay implements Serializable {
                 }
             }
             if(terrainCheck){
+                return true;
+            }
+            else if(TMP_Tile == currentTile){
                 return true;
             }
         }
