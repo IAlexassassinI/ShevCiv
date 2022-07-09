@@ -30,8 +30,8 @@ public class TechTreePanel extends Panel implements ComponentListener {
         try {
             this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"),1540, 410, 30, 30);
             this.exitButton.addListener(this);
-            this.imageProcess = new Image("assets/graphics/buttons/unit_control/colonise.png");
-            this.imageProcessing = new Image("assets/graphics/buttons/unit_control/colonise.png");
+            this.imageProcess = new Image("assets/graphics/buttons/process.png");
+            this.imageProcessing = new Image("assets/graphics/buttons/processing.png");
             //researchTech[0] = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 755, 475, 50, 50);
             //researchTech[1] = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 755, 535, 50, 50);
             //researchTech[2] = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1055, 475, 50, 50);
@@ -42,12 +42,12 @@ public class TechTreePanel extends Panel implements ComponentListener {
             //for(int i = 0; i < researchTech.length; i++) {
             //    researchTech[i].addListener(this);
             //}
-            engineeringTechButton[0] = new ButtonComponent(gameContainer, this.imageProcess, 665, 455, 90, 90);
-            engineeringTechButton[1] = new ButtonComponent(gameContainer, this.imageProcess, 665, 555, 90, 90);
-            societyTechButton[0] = new ButtonComponent(gameContainer, this.imageProcess, 1065, 455, 90, 90);
-            societyTechButton[1] = new ButtonComponent(gameContainer, this.imageProcess, 1065, 555, 90, 90);
-            arcanumTechButton[0] = new ButtonComponent(gameContainer, this.imageProcess, 1465, 455, 90, 90);
-            arcanumTechButton[1] = new ButtonComponent(gameContainer, this.imageProcess, 1465, 555, 90, 90);
+            engineeringTechButton[0] = new ButtonComponent(gameContainer, this.imageProcess, 665, 460, 90, 60);
+            engineeringTechButton[1] = new ButtonComponent(gameContainer, this.imageProcess, 665, 560, 90, 60);
+            societyTechButton[0] = new ButtonComponent(gameContainer, this.imageProcess, 1065, 460, 90, 60);
+            societyTechButton[1] = new ButtonComponent(gameContainer, this.imageProcess, 1065, 560, 90, 60);
+            arcanumTechButton[0] = new ButtonComponent(gameContainer, this.imageProcess, 1465, 460, 90, 60);
+            arcanumTechButton[1] = new ButtonComponent(gameContainer, this.imageProcess, 1465, 560, 90, 60);
 
             engineeringTechButton[0].addListener(this);
             engineeringTechButton[1].addListener(this);
