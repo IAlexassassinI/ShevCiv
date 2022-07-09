@@ -39,6 +39,7 @@ public class UnitComponent {
     private boolean right = true;
 
     public UnitComponent(GameTileComponent tileComponent) {
+        this.unit.unitComponent = this;
         this.tileComponent = tileComponent;
         this.x = this.tileComponent.getX();
         this.y = this.tileComponent.getY();
@@ -194,10 +195,6 @@ public class UnitComponent {
     }
 
     public void attack(Tile tile) {
-        if(!isInAttackingArea(tile)) {
-            this.state = UnitState.IDLE;
-            return;
-        }
         this.tileToAttack = tileComponent.getMapComponent().getTileComponent(tile.coordinates.x, tile.coordinates.y);
         setState(UnitState.ATTACKING);
     }
@@ -215,14 +212,10 @@ public class UnitComponent {
     }
 
     public void move(Tile tile) {
-        if(!isInMovingArea(tile)){
-            this.state = UnitState.IDLE;
-            return;
-        }
         this.movingPath = this.tileComponent.getTile().getUnit().move(tile);
         setState(UnitState.MOVING);
         this.tileComponent.setUnitComponent(null);
-        this.tileComponent = tileComponent.getMapComponent().getTileComponent(tile.coordinates.x, tile.coordinates.y);;
+        this.tileComponent = this.tileComponent.getMapComponent().getTileComponent(tile.coordinates.x, tile.coordinates.y);
         this.tileComponent.setUnitComponent(this);
     }
 
@@ -359,7 +352,6 @@ public class UnitComponent {
         if(this.currentAttackingTime > this.attackingTime) {
             this.currentAttackingTime = 0;
             this.unit.attack(this.tileToAttack.getTile(), this.unit.typeOfUnit.isRanged);
-            System.out.println("attack");
             this.state = UnitState.IDLE;
             this.projectileComponent = null;
         }//
