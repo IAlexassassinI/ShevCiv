@@ -18,6 +18,7 @@ public class CityComponent {
     private GameTileComponent tileComponent;
     private City city;
     private Image cityImage;
+    private Image citizenImage;
     private CityState state;
 
     public CityComponent(GameTileComponent tileComponent) {
@@ -26,6 +27,12 @@ public class CityComponent {
         this.x = tileComponent.getX();
         this.y = tileComponent.getY();
         this.cityImage = Images.city;
+        try {
+            this.citizenImage = new Image("assets/graphics/buttons/citizen.png");
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
+        this.ownedTiles = this.city.ownedTiles;
         this.state = CityState.IDLE;
     }
 
@@ -33,6 +40,19 @@ public class CityComponent {
         switch (this.state) {
             case IDLE :
                 this.cityImage.draw(this.x, this.y, this.tileComponent.getWidth(), this.tileComponent.getHeight());
+                for(Tile tile : ownedTiles) {
+                    //System.out.println(tile);
+                    if (tile != null) {
+                        if(this.tileComponent.getMapComponent().getGame().getCurrentPlayer() == this.city.owner) {
+                            graphics.setColor(new Color(0, 1, 0, 0.2f));
+                        }
+                        else graphics.setColor(new Color(1, 64453125, 0, 0.2f));
+                        graphics.fillRect(this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth(),
+                                y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight(),
+                                this.tileComponent.getWidth(),
+                                this.tileComponent.getHeight());
+                    }
+                }
                 break;
             case SHOW_AREA:
                 this.cityImage.draw(this.x, this.y, this.tileComponent.getWidth(), this.tileComponent.getHeight());
@@ -69,8 +89,14 @@ public class CityComponent {
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 50,
                                 y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 40);
                         if(tile.isProcessedByPeople) {
-                            graphics.setColor(Color.gray);
+                            /*graphics.setColor(Color.gray);
                             graphics.fillRect(
+                                    this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 40,
+                                    y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 70,
+                                    20,
+                                    20
+                            );*/
+                            citizenImage.draw(
                                     this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 40,
                                     y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 70,
                                     20,

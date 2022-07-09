@@ -16,6 +16,8 @@ public class Camera extends AbstractComponent {
 
     private MapComponent map;
 
+    private float maxTileSize = 600;
+
     private int mouseX;
     private int mouseY;
 
@@ -120,6 +122,7 @@ public class Camera extends AbstractComponent {
     }
 
     public void scaleMap(float k, float px, float py) {
+        if(k * this.map.getTileSize() > this.maxTileSize) return;
         if(this.map.getWidth() * k < this.width) {
             k = this.width / this.map.getWidth();
             //System.out.println(1 + " " + this.map.getX() + " " + this.map.getY());

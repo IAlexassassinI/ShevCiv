@@ -199,4 +199,8 @@ public class MapComponent extends AbstractComponent implements ComponentListener
             this.notifyListeners();
         }
     }
+
+    public float getTileSize() {
+        return this.tileComponents[0][0].getWidth();
+    }
 }

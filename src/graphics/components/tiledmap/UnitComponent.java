@@ -225,6 +225,10 @@ public class UnitComponent {
     }
 
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.tileComponent.getMapComponent().getGame().getCurrentPlayer() != this.unit.owner) {
+            graphics.setColor(Color.red);
+            graphics.fillRect(this.x + this.tileComponent.getWidth() * 0.02f, (float) (this.y + this.tileComponent.getHeight() - ((this.tileComponent.getHeight() / 2) / this.unit.typeOfUnit.maxHitPoints * this.unit.currentHitPoints)), this.tileComponent.getWidth() * 0.05f, (float) ((this.tileComponent.getHeight() / 2) / this.unit.typeOfUnit.maxHitPoints * this.unit.currentHitPoints));
+        }
         switch(this.state) {
             case IDLE:
                 if(left) {

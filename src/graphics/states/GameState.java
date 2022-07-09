@@ -73,7 +73,7 @@ public class GameState extends BasicGameState implements ComponentListener {
         this.cityControlPanel = new CityControlPanel(gameContainer, mapComponent);
         this.unitControlPanel = new UnitControlPanel(gameContainer, mapComponent);
 
-        goButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/go.png"), 20, 20, 500, 75);
+        goButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/techtree.png"), 20, 20, 75, 75);
         goButton.addListener(this);
         exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/exit.png"), 1400, 120, 500, 75);
         exitButton.addListener(this);
