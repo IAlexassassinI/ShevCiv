@@ -9,6 +9,7 @@ import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.TileFinder.Path;
 import Processing.Utilits.TileFinder.PathFinder;
 import Processing.Utilits.Wrapers.TwoTTT;
+import graphics.components.tiledmap.UnitComponent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import java.util.LinkedList;
 
 public class Unit implements Serializable {
     static final long serialVersionUID = 20L;
+
+    public UnitComponent unitComponent;
 
     public Unit(UnitPattern pattern, Player owner, Tile onTile){
         this.typeOfUnit = pattern;
