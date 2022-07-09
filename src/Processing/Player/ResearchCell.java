@@ -334,7 +334,7 @@ public class ResearchCell {
 
         ResearchCell DemonCulture = new ResearchCell(
                 SOCIETY_NUM,
-                "DwarfCulture",
+                "DemonCulture",
                 "descr",
                 0,
                 false,
