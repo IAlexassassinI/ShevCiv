@@ -59,6 +59,7 @@ public class Game implements Serializable {
     }
 
     public void doWin(){
+        win = true;
         System.out.println("YouWin");
     }
 
