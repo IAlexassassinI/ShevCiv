@@ -21,6 +21,8 @@ public class Game implements Serializable {
     public int currentPlayer = 0;
     public int year = 0;
 
+    public boolean win = false;
+
     public GameMap Map;
 
     HashMap<Player, Barbarian_AI> AI_ID = new HashMap<>();
@@ -41,7 +43,9 @@ public class Game implements Serializable {
             }
         }
         else if(players[currentPlayer].isBarbarianAI){
-            AI_ID.get(players[currentPlayer]).doTurn();
+            if(!win){
+                AI_ID.get(players[currentPlayer]).doTurn();
+            }
         }
         if(numberOfPlayers - numberOfDefeatedPlayers == 1){
             for(int i = 0; i < players.length; i++){
