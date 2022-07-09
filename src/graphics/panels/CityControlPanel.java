@@ -34,7 +34,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
     private CityComponent cityComponent;
 
     private Image addObjectToMakeImage;
-    private Image cancelMakingObjectImage;
+    private Image deleteObjectImage;
 
     private ArrayList<ButtonComponent> addObjectToMake;
     private ArrayList<ButtonComponent> destroyMadeObjects;
@@ -64,7 +64,8 @@ public class CityControlPanel extends Panel implements ComponentListener {
             this.buyTileButton.addListener(this);
             this.removeCitizenButton.addListener(this);
             this.destroyCityButton.addListener(this);
-            this.addObjectToMakeImage = new Image("assets/graphics/buttons/unit_control/colonise.png");
+            this.addObjectToMakeImage = new Image("assets/graphics/buttons/add.png");
+            this.deleteObjectImage = new Image("assets/graphics/buttons/delete.png");
             scrollingUpImage = new Image("assets/graphics/buttons/scroll_buttons/up_scroll_button_660_30.png");
             scrollingDownImage = new Image("assets/graphics/buttons/scroll_buttons/down_scroll_button_660_30.png");
         } catch (SlickException e) {
@@ -115,17 +116,35 @@ public class CityControlPanel extends Panel implements ComponentListener {
 
     public void updateCreationList() {
         this.cancelMakingObject = new ArrayList<>();
-        Panel makingObjects = new Panel(Orientation.VERTICAL,0, 0, 660, (this.cityComponent.getCity().creationList.size()) * 60, (this.cityComponent.getCity().creationList.size()) * 60);
+        Panel makingObjects = new Panel(Orientation.VERTICAL,0, 0, 660, (this.cityComponent.getCity().creationList.size() + this.cityComponent.getCity().createdUnits.size()) * 60, (this.cityComponent.getCity().creationList.size()) * 60  + this.cityComponent.getCity().createdUnits.size());
         for(CreatableObject creatableObject : this.cityComponent.getCity().creationList) {
             Panel panel = new Panel(0, 0, 660, 60, 660);
             panel.add(new BuildingUnitPanel(creatableObject, 0, 0, 600, 60, 600), 600);
-            ButtonComponent buttonComponent = new ButtonComponent(this.gameContainer, this.addObjectToMakeImage, 600, 0, 60, 60);
+            ButtonComponent buttonComponent = new ButtonComponent(this.gameContainer, this.deleteObjectImage, 600, 0, 60, 60);
             panel.add(buttonComponent, 60);
             this.cancelMakingObject.add(buttonComponent);
             panel.setParent(this.makingObjects);
             makingObjects.add(panel, 60);
             buttonComponent.setLocked(false);
             buttonComponent.addListener(this);
+        }
+        int i = 0;
+        for(UnitPattern unitPattern : this.cityComponent.getCity().createdUnits) {
+            Panel panel = new Panel(0, 0, 660, 60, 660);
+            BuildingUnitPanel buildingUnitPanel = new BuildingUnitPanel(unitPattern, 0, 0, 600, 60, 600);
+            buildingUnitPanel.setCreated(true);
+            if(i == 0) {
+                panel.add(buildingUnitPanel, 600);
+                ButtonComponent buttonComponent = new ButtonComponent(this.gameContainer, this.deleteObjectImage, 600, 0, 60, 60);
+                panel.add(buttonComponent, 60);
+                this.cancelMakingObject.add(buttonComponent);
+                buttonComponent.setLocked(false);
+                buttonComponent.addListener(this);
+            }
+            panel.add(buildingUnitPanel, 660);
+            panel.setParent(this.makingObjects);
+            makingObjects.add(panel, 60);
+            i++;
         }
         this.makingObjects.add(makingObjects, 0);
     }
@@ -135,10 +154,14 @@ public class CityControlPanel extends Panel implements ComponentListener {
         Panel madeObjectsPanel = new Panel(Orientation.VERTICAL, 0, 0, 660, (this.cityComponent.getCity().alreadyBuiltBuildings.size()) * 60, (this.cityComponent.getCity().alreadyBuiltBuildings.size()) * 60);
         for(Building building : this.cityComponent.getCity().alreadyBuiltBuildings) {
             Panel panel = new Panel(0, 0, 660, 60, 660);
-            panel.add(new BuildingUnitPanel(building, 0, 0, 600, 60, 600), 600);
-            ButtonComponent buttonComponent = new ButtonComponent(this.gameContainer, this.addObjectToMakeImage, 600, 0, 60, 60);
+            BuildingUnitPanel buildingUnitPanel = new BuildingUnitPanel(building, 0, 0, 600, 60, 600);
+            buildingUnitPanel.setCreated(true);
+            panel.add(buildingUnitPanel, 600);
+            ButtonComponent buttonComponent = new ButtonComponent(this.gameContainer, this.deleteObjectImage, 600, 0, 60, 60);
             panel.add(buttonComponent, 60);
             this.destroyMadeObjects.add(buttonComponent);
+            panel.setParent(this);
+            madeObjectsPanel.add(panel, 60);
             buttonComponent.setLocked(false);
             buttonComponent.addListener(this);
         }
@@ -259,14 +282,12 @@ public class CityControlPanel extends Panel implements ComponentListener {
         if(abstractComponent instanceof ButtonComponent) {
             for(int i = 0; i < this.addObjectToMake.size(); i++) {
                 if(this.addObjectToMake.get(i) == abstractComponent) {
-                    System.out.println(2);
+                    //System.out.println(2);
                     Iterator<Building> iterator = this.cityComponent.getCity().buildingsThatCanBeBuild.values().iterator();
                     int index = 0;
                     while(iterator.hasNext()) {
                         if(i == index) {
                             this.cityComponent.getCity().addToCreationList(iterator.next());
-                            updateCreationList();
-                            return;
                         }
                         else iterator.next();
                         index++;
@@ -274,11 +295,9 @@ public class CityControlPanel extends Panel implements ComponentListener {
                     Iterator<UnitPattern> unitPatternIterator = this.cityComponent.getCity().unitsThatCanBeBuild.values().iterator();
                     while(unitPatternIterator.hasNext()) {
                         if(i == index) {
-                            System.out.println(3);
+                            //System.out.println(3);
                             this.cityComponent.getCity().addToCreationList(unitPatternIterator.next());
-                            System.out.println(5);
-                            updateCreationList();
-                            return;
+                            //System.out.println(5);
                          }
                         else unitPatternIterator.next();
                         index++;
@@ -288,14 +307,15 @@ public class CityControlPanel extends Panel implements ComponentListener {
             for(int i = 0; i < this.destroyMadeObjects.size(); i++) {
                 if(this.destroyMadeObjects.get(i) == abstractComponent) {
                     this.cityComponent.getCity().destroyBuilding(this.cityComponent.getCity().alreadyBuiltBuildings.get(i));
-                    updateBuiltBuildings();
-                    return;
                 }
+            }
+            if(this.cancelMakingObject.size() > this.cityComponent.getCity().creationList.size() && this.cancelMakingObject.get(this.cityComponent.getCity().creationList.size()) == abstractComponent) {
+                this.cityComponent.getCity().removeFirstUnitReadyList();
             }
             for(int i = 0; i < this.cancelMakingObject.size(); i++) {
                 if(this.cancelMakingObject.get(i) == abstractComponent) {
                     this.cityComponent.getCity().removeFromCreationList(i);
-                    updateCreationList();
+                    break;
                 }
             }
             if(abstractComponent == exitButton) {
@@ -335,7 +355,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
 
     public void setExit(boolean exit) {
         this.exit = exit;
-        if(exit == true) {
+        if (exit == true) {
             this.cityComponent.setState(CityState.IDLE);
         }
     }
@@ -343,6 +363,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
     public class BuildingUnitPanel extends Panel {
 
         private Object object;
+        private boolean created = false;
 
         public BuildingUnitPanel(Object object, float x, float y, float width, float height, int parts) {
             super(x, y, width, height, parts);
@@ -353,12 +374,18 @@ public class CityControlPanel extends Panel implements ComponentListener {
         public void render(GameContainer container, Graphics g) throws SlickException {
             if(object instanceof CreatableObject) {
                 Object o = ((CreatableObject) object).object;
-                g.setColor(Color.white);
                 if(o instanceof UnitPattern) {
+                    g.setColor(Color.white);
                     g.drawString(((UnitPattern)o).NameOfUnit, this.x, this.y);
-                    g.drawString("Production cost: " + ((UnitPattern)o).productionCost, this.x, this.y + 20);
+                    g.setColor(Color.gray);
+                    g.fillRoundRect(this.x, this.y + 20, this.width, 20, 5);
+                    g.setColor(Color.green);
+                    g.fillRoundRect(this.x, this.y + 20, Math.min((float) (this.width / ((CreatableObject) object).goal * ((CreatableObject) object).progress), this.width), 20, 5);
+                    g.setColor(Color.white);
+                    g.drawString( ((CreatableObject) object).progress+ "/" + ((CreatableObject) object).goal, this.x + this.width / 2 - 100, this.y + 21);
                 }
                 else if(o instanceof Building) {
+                    g.setColor(Color.white);
                     g.drawString(((Building)o).name, this.x, this.y);
                     g.setColor(new Color(0.588f, 0.294f, 0, 1));
                     g.drawString(String.valueOf(((Building)o).passiveWealth.production), this.x, this.y+20);
@@ -372,15 +399,26 @@ public class CityControlPanel extends Panel implements ComponentListener {
                     g.drawString(String.valueOf(((Building)o).passiveWealth.engineeringScience), this.x+400, this.y+20);
                     g.setColor(Color.white);
                     g.drawString(String.valueOf(((Building)o).passiveWealth.societyScience), this.x+500, this.y+20);
-                    g.drawString("Production cost: " + ((Building)o).productionCost, this.x, this.y+40 );
+                    g.setColor(Color.gray);
+                    g.fillRoundRect(this.x, this.y + 40, this.width, 20, 5);
+                    g.setColor(Color.green);
+                    g.fillRoundRect(this.x, this.y + 40, Math.min((float) (this.width / ((CreatableObject) object).goal * ((CreatableObject) object).progress), this.width), 20, 5);
+                    g.setColor(Color.white);
+                    g.drawString( ((CreatableObject) object).progress+ "/" + ((CreatableObject) object).goal, this.x + this.width / 2 - 100, this.y + 41);
                 }
             }
             else if(object instanceof UnitPattern) {
                 g.setColor(Color.white);
                 g.drawString(((UnitPattern)object).NameOfUnit, this.x, this.y);
-                g.drawString("Production cost: " + ((UnitPattern)object).productionCost, this.x, this.y + 20);
+                if(!this.created) {
+                    g.drawString("Production cost: " + ((UnitPattern) object).productionCost, this.x, this.y + 20);
+                }
+                else {
+                    g.drawString("Created!", this.x, this.y + 20);
+                }
             }
             else if(object instanceof Building) {
+                g.setColor(Color.white);
                 g.drawString(((Building)object).name, this.x, this.y);
                 g.setColor(new Color(0.588f, 0.294f, 0, 1));
                 g.drawString(String.valueOf(((Building)object).passiveWealth.production), this.x, this.y+20);
@@ -394,8 +432,18 @@ public class CityControlPanel extends Panel implements ComponentListener {
                 g.drawString(String.valueOf(((Building)object).passiveWealth.engineeringScience), this.x+400, this.y+20);
                 g.setColor(Color.white);
                 g.drawString(String.valueOf(((Building)object).passiveWealth.societyScience), this.x+500, this.y+20);
-                g.drawString("Production cost: " + ((Building)object).productionCost, this.x, this.y+40 );
+                if(!this.created) {
+                    g.drawString("Production cost: " + ((Building) object).productionCost, this.x, this.y + 40);
+                }
             }
+        }
+
+        public boolean isCreated() {
+            return created;
+        }
+
+        public void setCreated(boolean created) {
+            this.created = created;
         }
     }
 

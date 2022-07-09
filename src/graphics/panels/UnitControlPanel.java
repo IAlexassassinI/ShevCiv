@@ -137,6 +137,9 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         }
         else if(getCargo) {
             this.getCargoButton.render(container, g);
+            /*if(((GetCargoSmall) this.unitComponent.getUnit().Abilities.get(0)).isCargoFull) {
+
+            }*/
         }
         else if(construct) {
             this.buildFarmlandButton.render(container, g);

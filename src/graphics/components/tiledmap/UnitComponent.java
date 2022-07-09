@@ -39,12 +39,12 @@ public class UnitComponent {
     private boolean right = true;
 
     public UnitComponent(GameTileComponent tileComponent) {
-        this.unit.unitComponent = this;
         this.tileComponent = tileComponent;
         this.x = this.tileComponent.getX();
         this.y = this.tileComponent.getY();
         this.state = UnitState.IDLE;
         this.unit = this.tileComponent.getTile().getUnit();
+        this.unit.unitComponent = this;
         try {
             SpriteSheet idleRightSpriteSheet = new SpriteSheet("assets/graphics/units/" + this.unit.typeOfUnit.NameOfUnit + "IdleRight.png", TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
             SpriteSheet idleLeftSpriteSheet = new SpriteSheet("assets/graphics/units/" + this.unit.typeOfUnit.NameOfUnit + "IdleLeft.png", TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
@@ -225,6 +225,10 @@ public class UnitComponent {
     }
 
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.tileComponent.getMapComponent().getGame().getCurrentPlayer() != this.unit.owner) {
+            graphics.setColor(Color.red);
+            graphics.fillRect(this.x + this.tileComponent.getWidth() * 0.02f, (float) (this.y + this.tileComponent.getHeight() - ((this.tileComponent.getHeight() / 2) / this.unit.typeOfUnit.maxHitPoints * this.unit.currentHitPoints)), this.tileComponent.getWidth() * 0.05f, (float) ((this.tileComponent.getHeight() / 2) / this.unit.typeOfUnit.maxHitPoints * this.unit.currentHitPoints));
+        }
         switch(this.state) {
             case IDLE:
                 if(left) {
