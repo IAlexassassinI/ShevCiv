@@ -1,5 +1,6 @@
 package graphics.components.tiledmap;
 
+import Processing.Game.Game;
 import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
 import graphics.loads.Images;
@@ -10,6 +11,8 @@ import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.GUIContext;
 
 public class GameMapComponent extends MapComponent {
+
+    private Game game;
 
     public GameMapComponent(GUIContext container, GameMap map, float x, float y) {
         super(container, map, x, y);
@@ -97,5 +100,13 @@ public class GameMapComponent extends MapComponent {
                 ((GameTileComponent)this.tileComponents[i][j]).setMapComponent(this);
             }
         }
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

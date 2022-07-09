@@ -241,12 +241,14 @@ public class Panel {
 
     public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
         for(Panel panel : this.panels) {
+            if(panel.parent != null && !parent.contains(newx, newy)) continue;
             panel.mouseMovedSignalise(oldx, oldy, newx, newy);
         }
     }
 
     public void mousePressedSignalise(int button, int x, int y) {
         for(Panel panel : this.panels) {
+            if(panel.parent != null && !parent.contains(x, y)) continue;
             panel.mousePressedSignalise(button, x, y);
         }
     }

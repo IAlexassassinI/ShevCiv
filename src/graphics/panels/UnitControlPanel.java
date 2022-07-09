@@ -42,16 +42,16 @@ public class UnitControlPanel extends Panel implements ComponentListener {
     private ButtonComponent buildNoneButton;
     private ButtonComponent exitButton;
 
-    private boolean exit = false;
+    private boolean exit = true;
     private boolean colonise = false;
     private boolean construct = false;
     private boolean getCargo = false;
 
-    public UnitControlPanel(GameContainer gameContainer, GameMapComponent gameMapComponent, UnitComponent unitComponent) {
+    public UnitControlPanel(GameContainer gameContainer, GameMapComponent gameMapComponent) {
         super(1220, 860, 700, 220, 0);
         this.gameMapComponent = gameMapComponent;
         this.gameMapComponent.addListener(this);
-        this.unitComponent = unitComponent;
+        //this.unitComponent = unitComponent;
         try {
             this.moveButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/move.png"), 1440, 920, 50, 50);
             this.attackButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/attack.png"), 1500, 920, 50, 50);
@@ -80,7 +80,7 @@ public class UnitControlPanel extends Panel implements ComponentListener {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-        init();
+        //init();
     }
 
     public void init() {
@@ -268,6 +268,7 @@ public class UnitControlPanel extends Panel implements ComponentListener {
 
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
+        if(this.exit) return;
         if(abstractComponent instanceof SelectButtonComponent) {
             if(abstractComponent == moveButton) {
                 this.unitComponent.prepareToMove();
