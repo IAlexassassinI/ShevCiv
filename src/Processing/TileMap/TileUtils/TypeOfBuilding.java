@@ -24,13 +24,13 @@ public class TypeOfBuilding extends TileLayer implements Serializable {
             WhereCanBe.onLandNoMountain, 0, false).initBuildings();
     public static TypeOfBuilding Farmland = new TypeOfBuilding("Farmland", true, 0,
             BattleModifier.none, new Wealth(0,0,2,0,0,0),
-            WhereCanBe.onLandNoMountain, 2, false).initBuildings();
+            WhereCanBe.onLandNoMountain, 2, true).initBuildings();
     public static TypeOfBuilding Mine = new TypeOfBuilding("Mine", true, 0,
             BattleModifier.none, new Wealth(2,1,0,0,0,0),
-            WhereCanBe.onHills,  2, false).initBuildings();
+            WhereCanBe.onHills,  2, true).initBuildings();
     public static TypeOfBuilding Sawmill = new TypeOfBuilding("Sawmill", false, 0,
             BattleModifier.none, new Wealth(1,0,0,0,0,0),
-            WhereCanBe.onForest, 2, false).initBuildings();
+            WhereCanBe.onForest, 2, true).initBuildings();
 
     //Maybe HashMap
     public boolean destroyFlora;

@@ -140,7 +140,7 @@ public class Unit implements Serializable {
 
             attackOwn = attackOwn * this.owner.battleModifier.additionalAttackRanged;
             defenceTarget =  defenceTarget * whatAttack.unit.owner.battleModifier.additionalDefenseRanged;
-
+            System.out.println(whatAttack.unit.typeOfUnit.NameOfUnit);
             whatAttack.unit.hit(calculateDamage(attackOwn, defenceTarget));
         }
         else{
@@ -172,6 +172,7 @@ public class Unit implements Serializable {
             double selfDamage = calculateDamage(attackTarget, defenceOwn);
             double targetDamage = calculateDamage(attackOwn, defenceTarget);
 
+            System.out.println(whatAttack.unit.typeOfUnit.NameOfUnit);
             if(whatAttack.unit.hit(targetDamage)){
                 this.hit(selfDamage * BattleModifier.RESPONSE_WHEN_KILLED);
             }

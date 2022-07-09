@@ -37,8 +37,11 @@ public class Barbarian_AI {
         AllUnits = ME.playerUnits;
     }
 
+
+
     public void doTurn(){
-        Iterator<Unit> iterator = AllUnits.iterator();
+        LinkedList<Unit> TMP_ListOfUnits = new LinkedList<>(AllUnits);
+        Iterator<Unit> iterator = TMP_ListOfUnits.iterator();
         while(iterator.hasNext()){
             unitIsSettler = false;
             Unit currentUnit = iterator.next();
@@ -48,7 +51,10 @@ public class Barbarian_AI {
             calculateShooting(currentUnit);
             Tile tileToMove = calculateUnitMove(currentUnit);
             if(tileToMove != null){
-                currentUnit.move(tileToMove);
+                if(currentUnit.onTile != null){
+                    //currentUnit.unitComponent.move(tileToMove);
+                    currentUnit.move(tileToMove);
+                }
             }
             calculateShooting(currentUnit);
             if(unitIsSettler){
@@ -58,8 +64,9 @@ public class Barbarian_AI {
         }
 
         Iterator<City> tileIterator = ME.playerCities.iterator();
-        while(iterator.hasNext()){
-            calculateSpawnOfBarbarian(tileIterator.next().ownedTiles.peekFirst());
+        while(tileIterator.hasNext()){
+            City TMP_City = tileIterator.next();
+            calculateSpawnOfBarbarian(TMP_City.ownedTiles.peekFirst());
         }
 
         ME.doEndTurn();
@@ -191,8 +198,10 @@ public class Barbarian_AI {
     public boolean scanSquareForEnemy(Tile tile, int squareRadius){
         for(int y = -squareRadius; y < squareRadius; y++){
             for(int x = -squareRadius; x < squareRadius; x++){
-                if(this.ME.Game.Map.getTile(tile.coordinates.LookAt(x,y)).unit != null && this.ME.Game.Map.getTile(tile.coordinates.LookAt(x,y)).unit.owner != this.ME){
-                    return true;
+                if(this.ME.Game.Map.getTile(tile.coordinates.LookAt(x,y)) != null){
+                    if(this.ME.Game.Map.getTile(tile.coordinates.LookAt(x,y)).unit != null && this.ME.Game.Map.getTile(tile.coordinates.LookAt(x,y)).unit.owner != this.ME){
+                        return true;
+                    }
                 }
             }
         }
@@ -202,17 +211,17 @@ public class Barbarian_AI {
     public void calculateSpawnOfBarbarian(Tile tile){
         if(tile.unit != null){
             if(tile.unit.owner != ME){
-                tile.unit.hit(STAY_DAMAGE);
+                //tile.unit.hit(STAY_DAMAGE);
             }
         }
         else{
             if(scanSquareForEnemy(tile, 2)){
-                if(Game.RandomGen.nextInt(100) <= randomIntToSpawn*1.35){
+                if(Game.RandomGen.nextInt(100) <= randomIntToSpawn*1.2){
                     spawnOrk(tile);
                 }
             }
             else if(scanSquareForEnemy(tile, 3)){
-                if(Game.RandomGen.nextInt(100) <= randomIntToSpawn*1.25){
+                if(Game.RandomGen.nextInt(100) <= randomIntToSpawn*1.1){
                     spawnOrk(tile);
                 }
             }
@@ -225,6 +234,9 @@ public class Barbarian_AI {
     }
 
     public void calculateMelee(Unit unit){
+        if(unit.onTile == null){
+            return;
+        }
         for(int i = 0; i < unit.currentNumberOfAttacks; i++){
             unit.prepareToMeleeAttack();
             Iterator<Tile> iterator = Unit.whereCanAttackMelee.iterator();
@@ -241,12 +253,16 @@ public class Barbarian_AI {
                 }
             }
             if(target != null){
+                //unit.unitComponent.attack(target);
                 unit.attackMelee(target);
             }
         }
     }
 
     public void calculateShooting(Unit unit){
+        if(unit.onTile == null){
+            return;
+        }
         if(unit.typeOfUnit.isRanged){
             for(int i = 0; i < unit.currentNumberOfAttacks; i++){
                 unit.prepareToShoot();
@@ -264,6 +280,7 @@ public class Barbarian_AI {
                     }
                 }
                 if(target != null){
+                    //unit.unitComponent.attack(target);
                     unit.attackRanged(target);
                 }
             }
@@ -271,6 +288,9 @@ public class Barbarian_AI {
     }
 
     public Tile calculateUnitMove(Unit unit){
+        if(unit.onTile == null){
+            return null;
+        }
         ThreeTTT<Tile[], HashMap<Point, Tile>, HashMap<Point, Tile>> light = LightPlay.AI_Vision(unit.onTile);
         HashMap<Tile, Path> moveRange = unit.prepareMove();
 
@@ -325,39 +345,47 @@ public class Barbarian_AI {
 
         LinkedList<Tile> whereCanBoardOrUnboard = new LinkedList<>();
 
-        if(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWyvern.NameOfUnit) != unit.typeOfUnit){
+        if(UnitPattern.AllUnitPattern.get(unit.typeOfUnit.NameOfUnit) != UnitPattern.OrkWyvern){
             for(int i = 0; i < 8; i++){
                 Tile toProceed = unit.onTile.map.getTile(unit.onTile.coordinates.LookAt(Point.ALL_SIDES[i]));
-                if(toProceed.unit != null){
+                if(toProceed == null || toProceed.unit != null){
                     continue;
                 }
-                if(!WhereCanBe.FullCheck(toProceed, unit.typeOfUnit.whereCanMove) && WhereCanBe.FullCheck(toProceed, UnitPattern.OrkBarge.whereCanMove)){
-                    whereCanBoardOrUnboard.add(toProceed);
+                if(UnitPattern.AllUnitPattern.get(unit.typeOfUnit.NameOfUnit) == UnitPattern.OrkBarge){
+                    if(!WhereCanBe.FullCheck(toProceed, unit.typeOfUnit.whereCanMove) && WhereCanBe.FullCheck(toProceed, UnitPattern.OrkPeon.whereCanMove)){
+                        whereCanBoardOrUnboard.add(toProceed);
+                    }
                 }
-                else if(!WhereCanBe.FullCheck(toProceed, unit.typeOfUnit.whereCanMove) && WhereCanBe.FullCheck(toProceed, UnitPattern.OrkPeon.whereCanMove)){
+                else if(!WhereCanBe.FullCheck(toProceed, unit.typeOfUnit.whereCanMove) && WhereCanBe.FullCheck(toProceed, UnitPattern.OrkBarge.whereCanMove)) {
                     whereCanBoardOrUnboard.add(toProceed);
                 }
             }
         }
 
-        int randomIndex = Game.RandomGen.nextInt(moveRange.size() + whereCanBoardOrUnboard.size());
-        if(randomIndex < moveRange.size()){
-            Iterator<Path> findMove = moveRange.values().iterator();
-            for(int i = 0; i < randomIndex; i++){
-                findMove.next();
+        if(moveRange.size() + whereCanBoardOrUnboard.size() > 0){
+            int randomIndex = Game.RandomGen.nextInt(moveRange.size() + whereCanBoardOrUnboard.size());
+            if(randomIndex < moveRange.size()){
+                Iterator<Path> findMove = moveRange.values().iterator();
+                for(int i = 0; i < randomIndex; i++){
+                    findMove.next();
+                }
+                return findMove.next().tilePath.peekLast();
             }
-            return findMove.next().tilePath.peekLast();
+            else{
+                Tile tileToBoard = whereCanBoardOrUnboard.get(randomIndex - moveRange.size());
+                boardUnBoard(unit, tileToBoard);
+                return null;
+            }
         }
-        else{
-            Tile tileToBoard = whereCanBoardOrUnboard.get(randomIndex - moveRange.size());
-            boardUnBoard(unit, tileToBoard);
-            return null;
-        }
+        return null;
 
     }
 
     private void boardUnBoard(Unit unit, Tile tile){
-        if(UnitPattern.AllUnitPattern.get(UnitPattern.OrkBarge.NameOfUnit) == unit.typeOfUnit){
+        if(unit.onTile == null){
+            return;
+        }
+        if(UnitPattern.AllUnitPattern.get(unit.typeOfUnit.NameOfUnit) == UnitPattern.OrkBarge){
             Iterator<SpecialAbility> abilityIterator = unit.Abilities.iterator();
             GetCargoSmall foundAbility = null;
             while(abilityIterator.hasNext()){
@@ -405,6 +433,9 @@ public class Barbarian_AI {
     }
 
     private void tryColonize(Unit unit){
+        if(unit.onTile == null){
+            return;
+        }
         if(checkForCiti(unit.onTile)){
             Iterator<SpecialAbility> iterator = unit.Abilities.iterator();
             while(iterator.hasNext()){

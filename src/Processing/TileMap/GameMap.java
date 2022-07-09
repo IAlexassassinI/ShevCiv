@@ -52,13 +52,16 @@ public class GameMap implements Serializable {
 
     public Tile getTile(int x, int y){
         if(x < 0){
-            x = width - ((-1*x) % width);
+            x = ((-1*x) % width);
+            if(x != 0){
+                x = width - x;
+            }
         }
         else{
             x = x % width;
         }
 
-        if(y < 0 || y > height){
+        if(y < 0 || y >= height){
             return null;
         }
 
@@ -164,8 +167,7 @@ public class GameMap implements Serializable {
         for(int i = 0; i < game.numberOfPlayers; i++){
             Tile TMP_Tile = Found.get(Game.RandomGen.nextInt(Found.size()));
             Found.remove(TMP_Tile);
-            TMP_Tile.unit = new Unit(game.players[i].mySettlerType, game.players[i], TMP_Tile);
-            LightPlay.addToPlayerVision(TMP_Tile.unit);
+            TMP_Tile.setUnit(new Unit(game.players[i].mySettlerType, game.players[i], TMP_Tile));
         }
     }
 

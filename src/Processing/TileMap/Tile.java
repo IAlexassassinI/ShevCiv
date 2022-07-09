@@ -5,6 +5,7 @@ import Processing.Player.Player;
 import Processing.TileMap.TileUtils.*;
 import Processing.Units.Unit;
 import Processing.Utilits.Point;
+import Processing.Utilits.TileFinder.LightPlay;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 import Processing.Utilits.Wrapers.CreatableObject;
@@ -161,6 +162,7 @@ public class Tile implements Serializable {
         this.unit = unit;
         if(unit != null){
             unit.onTile = this;
+            LightPlay.addToPlayerVision(unit);
         }
     }
 

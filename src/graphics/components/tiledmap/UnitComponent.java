@@ -39,12 +39,12 @@ public class UnitComponent {
     private boolean right = true;
 
     public UnitComponent(GameTileComponent tileComponent) {
-        this.unit.unitComponent = this;
         this.tileComponent = tileComponent;
         this.x = this.tileComponent.getX();
         this.y = this.tileComponent.getY();
         this.state = UnitState.IDLE;
         this.unit = this.tileComponent.getTile().getUnit();
+        this.unit.unitComponent = this;
         try {
             SpriteSheet idleRightSpriteSheet = new SpriteSheet("assets/graphics/units/" + this.unit.typeOfUnit.NameOfUnit + "IdleRight.png", TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
             SpriteSheet idleLeftSpriteSheet = new SpriteSheet("assets/graphics/units/" + this.unit.typeOfUnit.NameOfUnit + "IdleLeft.png", TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
