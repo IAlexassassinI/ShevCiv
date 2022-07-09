@@ -20,27 +20,25 @@ public class GameTileComponent extends TileComponent {
 
     @Override
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer()))return;
         super.render(guiContext, graphics);
         renderFilter(guiContext, graphics);
     }
 
     public void renderUnit(GUIContext guiContext, Graphics graphics) throws SlickException {
-        if(this.getTile().getUnit() != null && this.unitComponent == null) {
-            this.unitComponent = new UnitComponent(this);
-        }
+        if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer()))return;
         if(this.getTile().getUnit() != null && this.unitComponent != null) {
             this.unitComponent.render(guiContext, graphics);
         }
     }
 
     public void renderEmbeddedTypeOfBuilding(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer()))return;
         Images.typesOfBuildingSpriteSheet.getSprite(this.getTile().typeOfBuilding.Type,0).drawEmbedded(this.x, this.y, this.width, this.height);
     }
 
     public void renderCity(GUIContext guiContext, Graphics graphics) throws SlickException {
-        if(this.getTile().getCity() != null && this.cityComponent == null) {
-            this.cityComponent = new CityComponent(this);
-        }
+        if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer()))return;
         if(this.getTile().getCity() != null && this.cityComponent != null) {
             this.cityComponent.render(guiContext, graphics);
         }
@@ -54,6 +52,7 @@ public class GameTileComponent extends TileComponent {
     }
 
     public void renderFilter(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer()))return;
         if(this.mouseClicked) {
             graphics.setColor(this.mouseDownColor);
             graphics.fillRect(this.x, this.y, this.width, this.height);
@@ -62,6 +61,24 @@ public class GameTileComponent extends TileComponent {
             graphics.setColor(this.mouseOverColor);
             graphics.fillRect(this.x, this.y, this.width, this.height);
         }
+    }
+
+    @Override
+    public void renderEmbeddedTypeOfLand(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer()))return;
+        super.renderEmbeddedTypeOfLand(guiContext, graphics);
+    }
+
+    @Override
+    public void renderEmbeddedTypeOfFlora(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer()))return;
+        super.renderEmbeddedTypeOfFlora(guiContext, graphics);
+    }
+
+    @Override
+    public void renderEmbeddedResource(GUIContext guiContext, Graphics graphics) throws SlickException {
+        if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer()))return;
+        super.renderEmbeddedResource(guiContext, graphics);
     }
 
     @Override
@@ -157,8 +174,14 @@ public class GameTileComponent extends TileComponent {
     }
 
     public void update(GameContainer gameContainer, int delta) throws SlickException{
-        if(this.getTile().getUnit() == null && this.unitComponent != null) this.unitComponent = null;
-        if(this.getTile().getCity() == null && this.cityComponent != null) this.cityComponent = null;
+        if(this.getTile().getUnit() != null && this.unitComponent == null) {
+            this.unitComponent = new UnitComponent(this);
+        }
+        else if(this.getTile().getUnit() == null && this.unitComponent != null) this.unitComponent = null;
+        if(this.getTile().getCity() != null && this.cityComponent == null) {
+            this.cityComponent = new CityComponent(this);
+        }
+        else if(this.getTile().getCity() == null && this.cityComponent != null) this.cityComponent = null;
         if(this.unitComponent != null && this.getTile().getUnit() != null) this.unitComponent.update(gameContainer, delta);
     }
 }

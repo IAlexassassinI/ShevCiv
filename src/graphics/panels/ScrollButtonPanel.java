@@ -89,19 +89,17 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
     }
 
     public void update(GameContainer gameContainer, int delta) throws SlickException {
+        button1.setLocked(true);
+        button2.setLocked(true);
         if(this.scrollingRight || this.scrollingLeft || this.scrollingUp || this.scrollingDown) {
             button1.setLocked(true);
             button2.setLocked(true);
         }
-        else {
-            button1.setLocked(false);
-            button2.setLocked(false);
+        else if(!this.contains(this.panel.x, this.panel.y) && this.panel.width > 0 && this.panel.height > 0){
+            this.button1.setLocked(false);
         }
-        if(this.contains(this.panel.x, this.panel.y)){
-            this.button2.setLocked(true);
-        }
-        if(this.contains(this.panel.x + this.panel.width - 1, this.panel.y + this.panel.height - 1)) {
-            this.button1.setLocked(true);
+        if(!this.contains(this.panel.x + this.panel.width - 1, this.panel.y + this.panel.height - 1) && this.panel.width > 0 && this.panel.height > 0) {
+            this.button2.setLocked(false);
         }
         if(this.scrollingRight) {
             float areaWidth = getWidth() - 2 * this.button2.getWidth();
@@ -143,7 +141,7 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
             float areaHeight = getHeight() - 2 * this.button2.getHeight();
             if(this.currentScrollingLength + areaHeight / this.scrollingTime * delta >= areaHeight) {
                 this.panel.translate(0, -(areaHeight - this.currentScrollingLength));
-                this.scrollingUp = false;
+                this.scrollingDown = false;
                 this.currentScrollingLength = 0;
             }
             else {
@@ -299,10 +297,10 @@ public class ScrollButtonPanel extends Panel implements ComponentListener {
         }
         else if(getOrientation() == Orientation.VERTICAL) {
             if(abstractComponent == this.button1) {
-                this.scrollingDown = true;
+                this.scrollingUp = true;
             }
             else if(abstractComponent == this.button2) {
-                this.scrollingUp = true;
+                this.scrollingDown = true;
             }
         }
     }

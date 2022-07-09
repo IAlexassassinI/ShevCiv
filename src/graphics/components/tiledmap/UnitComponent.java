@@ -50,10 +50,10 @@ public class UnitComponent {
             SpriteSheet movingRightSpriteSheet = new SpriteSheet("assets/graphics/units/" + this.unit.typeOfUnit.NameOfUnit + "MovingRight.png", TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
             SpriteSheet movingLeftSpriteSheet = new SpriteSheet("assets/graphics/units/" + this.unit.typeOfUnit.NameOfUnit + "MovingLeft.png", TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
 
-            this.idleRightAnimation = new Animation(idleRightSpriteSheet, 0, 0, idleRightSpriteSheet.getHorizontalCount()-1, 0, true, 150, true);
-            this.idleLeftAnimation = new Animation(idleLeftSpriteSheet, 0, 0, idleLeftSpriteSheet.getHorizontalCount()-1, 0, true, 150, true);
-            this.movingRightAnimation = new Animation(movingRightSpriteSheet, 0, 0, movingRightSpriteSheet.getHorizontalCount()-1, 0, true, 150, true);
-            this.movingLeftAnimation = new Animation(movingLeftSpriteSheet, 0, 0, movingLeftSpriteSheet.getHorizontalCount()-1, 0, true, 150, true);
+            this.idleRightAnimation = new Animation(idleRightSpriteSheet, 0, 0, idleRightSpriteSheet.getHorizontalCount()-1, 0, true, 200, true);
+            this.idleLeftAnimation = new Animation(idleLeftSpriteSheet, 0, 0, idleLeftSpriteSheet.getHorizontalCount()-1, 0, true, 200, true);
+            this.movingRightAnimation = new Animation(movingRightSpriteSheet, 0, 0, movingRightSpriteSheet.getHorizontalCount()-1, 0, true, 200, true);
+            this.movingLeftAnimation = new Animation(movingLeftSpriteSheet, 0, 0, movingLeftSpriteSheet.getHorizontalCount()-1, 0, true, 200, true);
         } catch (SlickException e) {
             e.printStackTrace();
         }

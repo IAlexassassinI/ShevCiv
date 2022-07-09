@@ -29,7 +29,6 @@ public class GameState extends BasicGameState implements ComponentListener {
     private boolean isUnitControl = false;
     private boolean isCityControl = false;
     private boolean isTechTreeControl = false;
-    private GameTileComponent currentUnitTile;
 
     private ButtonComponent goButton;
     private ButtonComponent exitButton;
@@ -60,15 +59,19 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
         Game game = new Game(map, 2, 0, 50, 2);
-        Unit worker = new Unit(UnitPattern.ElvenHawkRider, game.getCurrentPlayer(), map.getTile(6,4));
+        Unit worker = new Unit(UnitPattern.OrkSwordsman, game.getCurrentPlayer(), map.getTile(6,4));
         map.getTile(6,4).setUnit(worker);
         LightPlay.addToPlayerVision(worker);
 
         this.game = game;
 
         this.mapComponent = new GameMapComponent(gameContainer, map, 20, 20);
+        this.mapComponent.setGame(this.game);
         this.mapComponent.addListener(this);
         this.camera = new Camera(gameContainer, 20, 20, 1880, 960, this.mapComponent);
+
+        this.cityControlPanel = new CityControlPanel(gameContainer, mapComponent);
+        this.unitControlPanel = new UnitControlPanel(gameContainer, mapComponent);
 
         goButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/go.png"), 20, 20, 500, 75);
         goButton.addListener(this);
@@ -88,7 +91,10 @@ public class GameState extends BasicGameState implements ComponentListener {
         else if(this.isTechTreeControl) {
             this.techTreePanel.render(gameContainer, graphics);
         }
-        this.goButton.render(gameContainer, graphics);
+        if(!isTechTreeControl) {
+            this.goButton.render(gameContainer, graphics);
+        }
+
     }
 
     @Override
@@ -194,7 +200,7 @@ public class GameState extends BasicGameState implements ComponentListener {
             this.stateBasedGame.enterState(MainMenu.ID);
             return;
         }
-        if(key == Input.KEY_SPACE) {
+        if(key == Input.KEY_SPACE && !isCityControl && !isUnitControl && !isTechTreeControl) {
             this.game.players[this.game.currentPlayer].doEndTurn();
             //cityControlPanel.updateCreationList();
         }
@@ -207,23 +213,14 @@ public class GameState extends BasicGameState implements ComponentListener {
             return;
         }
         if(abstractComponent instanceof GameMapComponent) {
-            if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getCity() != null && button == Input.MOUSE_RIGHT_BUTTON) {
+            if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getCity() != null && button == Input.MOUSE_RIGHT_BUTTON && this.game.getCurrentPlayer() == ((GameMapComponent) abstractComponent).getSelectedTile().getTile().getCity().owner) {
                 isCityControl = true;
-                if(this.cityControlPanel == null) {
-                    this.cityControlPanel = new CityControlPanel(this.gameContainer, this.mapComponent, ((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getCityComponent());
-                }
-                else {
-                    this.cityControlPanel.setCityComponent(((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getCityComponent());
-                }
+                this.cityControlPanel.setCityComponent(((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getCityComponent());
             }
-            else if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getUnit() != null && button == Input.MOUSE_LEFT_BUTTON) {
+            else if(((GameMapComponent) abstractComponent).getSelectedTile().getTile().getUnit() != null && button == Input.MOUSE_LEFT_BUTTON && this.game.getCurrentPlayer() == ((GameMapComponent) abstractComponent).getSelectedTile().getTile().getUnit().owner) {
                 isUnitControl = true;
-                if(this.unitControlPanel == null)this.unitControlPanel = new UnitControlPanel(this.gameContainer, this.mapComponent, ((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getUnitComponent());
-                else {
-                    this.unitControlPanel.setUnitComponent(((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getUnitComponent());
-                }
+                this.unitControlPanel.setUnitComponent(((GameTileComponent)((GameMapComponent) abstractComponent).getSelectedTile()).getUnitComponent());
                 //this.camera.setWidth(1360);
-                currentUnitTile = (GameTileComponent) ((GameMapComponent) abstractComponent).getSelectedTile();
             }
             /*else if(this.currentUnitTile != null && this.currentUnitTile.getUnitComponent().isInMovingArea(((GameMapComponent) abstractComponent).getSelectedTile().getTile())) {
                 //((GameMapComponent) abstractComponent).getSelectedTile().getTile()

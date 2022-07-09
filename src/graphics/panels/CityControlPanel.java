@@ -27,7 +27,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
 
     private double tilePrice = -1;
 
-    private boolean exit;
+    private boolean exit = true;
 
     private GameContainer gameContainer;
     private GameMapComponent gameMapComponent;
@@ -44,12 +44,14 @@ public class CityControlPanel extends Panel implements ComponentListener {
     private ScrollButtonPanel makingObjects;
     private ScrollButtonPanel madeObjects;
 
-    public CityControlPanel(GameContainer gameContainer, GameMapComponent gameMapComponent, CityComponent cityComponent) {
+    public CityControlPanel(GameContainer gameContainer, GameMapComponent gameMapComponent) {
         super(1260, 0, 660, 1080, 1080);
         this.gameContainer = gameContainer;
         this.gameMapComponent = gameMapComponent;
         this.gameMapComponent.addListener(this);
-        this.cityComponent = cityComponent;
+        //this.cityComponent = cityComponent;
+        Image scrollingUpImage = null;
+        Image scrollingDownImage = null;
         try {
             this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1890, 0, 30, 30);
             this.putCitizenButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1270, 70, 152, 40);
@@ -63,12 +65,14 @@ public class CityControlPanel extends Panel implements ComponentListener {
             this.removeCitizenButton.addListener(this);
             this.destroyCityButton.addListener(this);
             this.addObjectToMakeImage = new Image("assets/graphics/buttons/unit_control/colonise.png");
+            scrollingUpImage = new Image("assets/graphics/buttons/scroll_buttons/up_scroll_button_660_30.png");
+            scrollingDownImage = new Image("assets/graphics/buttons/scroll_buttons/down_scroll_button_660_30.png");
         } catch (SlickException e) {
             e.printStackTrace();
         }
-        objectsToMake = new ScrollButtonPanel(gameContainer, Orientation.VERTICAL, this.addObjectToMakeImage, this.addObjectToMakeImage, 1260, 140, 660, 300, 300);
-        makingObjects = new ScrollButtonPanel(gameContainer, Orientation.VERTICAL, this.addObjectToMakeImage, this.addObjectToMakeImage, 1260, 460, 660, 300, 300);
-        madeObjects  = new ScrollButtonPanel(gameContainer, Orientation.VERTICAL, this.addObjectToMakeImage, this.addObjectToMakeImage, 1260, 780, 660, 300, 300);
+        objectsToMake = new ScrollButtonPanel(gameContainer, Orientation.VERTICAL, scrollingUpImage, scrollingDownImage, 1260, 140, 660, 300, 300);
+        makingObjects = new ScrollButtonPanel(gameContainer, Orientation.VERTICAL, scrollingUpImage, scrollingDownImage, 1260, 780, 660, 300, 300);
+        madeObjects  = new ScrollButtonPanel(gameContainer, Orientation.VERTICAL, scrollingUpImage, scrollingDownImage, 1260, 460, 660, 300, 300);
         /*try {
             this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1890, 0, 30, 30);
             this.addObjectToMakeImage = new Image("assets/graphics/buttons/unit_control/colonise.png");
@@ -76,7 +80,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
         } catch (SlickException e) {
             e.printStackTrace();
         }*/
-        init();
+        //init();
     }
 
     public void init() {
@@ -118,6 +122,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
             ButtonComponent buttonComponent = new ButtonComponent(this.gameContainer, this.addObjectToMakeImage, 600, 0, 60, 60);
             panel.add(buttonComponent, 60);
             this.cancelMakingObject.add(buttonComponent);
+            panel.setParent(this.makingObjects);
             makingObjects.add(panel, 60);
             buttonComponent.setLocked(false);
             buttonComponent.addListener(this);
@@ -250,7 +255,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
 
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
-        System.out.println(1);
+        if(this.exit) return;
         if(abstractComponent instanceof ButtonComponent) {
             for(int i = 0; i < this.addObjectToMake.size(); i++) {
                 if(this.addObjectToMake.get(i) == abstractComponent) {
@@ -312,7 +317,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
             }
 
         }
-        //update();
+        update();
     }
 
     public CityComponent getCityComponent() {
@@ -348,6 +353,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
         public void render(GameContainer container, Graphics g) throws SlickException {
             if(object instanceof CreatableObject) {
                 Object o = ((CreatableObject) object).object;
+                g.setColor(Color.white);
                 if(o instanceof UnitPattern) {
                     g.drawString(((UnitPattern)o).NameOfUnit, this.x, this.y);
                     g.drawString("Production cost: " + ((UnitPattern)o).productionCost, this.x, this.y + 20);

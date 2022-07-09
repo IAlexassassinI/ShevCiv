@@ -48,6 +48,13 @@ public class TechTreePanel extends Panel implements ComponentListener {
             societyTechButton[1] = new ButtonComponent(gameContainer, this.imageProcess, 1065, 555, 90, 90);
             arcanumTechButton[0] = new ButtonComponent(gameContainer, this.imageProcess, 1465, 455, 90, 90);
             arcanumTechButton[1] = new ButtonComponent(gameContainer, this.imageProcess, 1465, 555, 90, 90);
+
+            engineeringTechButton[0].addListener(this);
+            engineeringTechButton[1].addListener(this);
+            societyTechButton[0].addListener(this);
+            societyTechButton[1].addListener(this);
+            arcanumTechButton[0].addListener(this);
+            arcanumTechButton[1].addListener(this);
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -171,7 +178,7 @@ public class TechTreePanel extends Panel implements ComponentListener {
                 g.setColor(Color.gray);
                 g.fillRoundRect(this.x+5, this.y + 105, 390, 30, 5);
                 g.setColor(Color.green);
-                g.fillRoundRect(this.x+5, this.y + 105, (float) (this.player.toChooseEngineering.get(0).researchPointCost / 390 * this.player.toChooseEngineering.get(0).accumulatedResearch), 30, 5);
+                g.fillRoundRect(this.x+5, this.y + 105, (float) (390 / this.player.toChooseEngineering.get(0).researchPointCost * this.player.toChooseEngineering.get(0).accumulatedResearch), 30, 5);
                 g.setColor(Color.white);
                 g.drawString(this.player.toChooseEngineering.get(0).accumulatedResearch + "/" + this.player.toChooseEngineering.get(0).researchPointCost, this.x+155, this.y + 111);
             }
@@ -188,7 +195,7 @@ public class TechTreePanel extends Panel implements ComponentListener {
                 g.setColor(Color.gray);
                 g.fillRoundRect(this.x+5, this.y + 205, 390, 30, 5);
                 g.setColor(Color.green);
-                g.fillRoundRect(this.x+5, this.y + 205, (float) (this.player.toChooseEngineering.get(1).researchPointCost / 390 * this.player.toChooseEngineering.get(1).accumulatedResearch), 30, 5);
+                g.fillRoundRect(this.x+5, this.y + 205, (float) (390 / this.player.toChooseEngineering.get(1).researchPointCost * this.player.toChooseEngineering.get(1).accumulatedResearch), 30, 5);
                 g.setColor(Color.white);
                 g.drawString(this.player.toChooseEngineering.get(1).accumulatedResearch + "/" + this.player.toChooseEngineering.get(1).researchPointCost, this.x+155, this.y + 211);
             }
@@ -207,7 +214,7 @@ public class TechTreePanel extends Panel implements ComponentListener {
                 g.setColor(Color.gray);
                 g.fillRoundRect(this.x+405, this.y + 105, 390, 30, 5);
                 g.setColor(Color.green);
-                g.fillRoundRect(this.x+405, this.y + 105, (float) (this.player.toChooseSociety.get(0).researchPointCost / 390 * this.player.toChooseSociety.get(0).accumulatedResearch), 30, 5);
+                g.fillRoundRect(this.x+405, this.y + 105, (float) (390 / this.player.toChooseSociety.get(0).researchPointCost * this.player.toChooseSociety.get(0).accumulatedResearch), 30, 5);
                 g.setColor(Color.white);
                 g.drawString(this.player.toChooseSociety.get(0).accumulatedResearch + "/" + this.player.toChooseSociety.get(0).researchPointCost, this.x+555, this.y + 111);
             }
@@ -224,7 +231,7 @@ public class TechTreePanel extends Panel implements ComponentListener {
                 g.setColor(Color.gray);
                 g.fillRoundRect(this.x+405, this.y + 205, 390, 30, 5);
                 g.setColor(Color.green);
-                g.fillRoundRect(this.x+405, this.y + 205, (float) (this.player.toChooseSociety.get(1).researchPointCost / 390 * this.player.toChooseSociety.get(1).accumulatedResearch), 30, 5);
+                g.fillRoundRect(this.x+405, this.y + 205, (float) (390 / this.player.toChooseSociety.get(1).researchPointCost * this.player.toChooseSociety.get(1).accumulatedResearch), 30, 5);
                 g.setColor(Color.white);
                 g.drawString(this.player.toChooseSociety.get(1).accumulatedResearch + "/" + this.player.toChooseSociety.get(1).researchPointCost, this.x+555, this.y + 211);
             }
@@ -243,7 +250,7 @@ public class TechTreePanel extends Panel implements ComponentListener {
                 g.setColor(Color.gray);
                 g.fillRoundRect(this.x+805, this.y + 105, 390, 30, 5);
                 g.setColor(Color.green);
-                g.fillRoundRect(this.x+805, this.y + 105, (float) (this.player.toChooseArcanum.get(0).researchPointCost / 390 * this.player.toChooseArcanum.get(0).accumulatedResearch), 30, 5);
+                g.fillRoundRect(this.x+805, this.y + 105, (float) (390 / this.player.toChooseArcanum.get(0).researchPointCost * this.player.toChooseArcanum.get(0).accumulatedResearch), 30, 5);
                 g.setColor(Color.white);
                 g.drawString(this.player.toChooseArcanum.get(0).accumulatedResearch + "/" + this.player.toChooseArcanum.get(0).researchPointCost, this.x+955, this.y + 111);
             }
@@ -260,7 +267,7 @@ public class TechTreePanel extends Panel implements ComponentListener {
                 g.setColor(Color.gray);
                 g.fillRoundRect(this.x+805, this.y + 205, 390, 30, 5);
                 g.setColor(Color.green);
-                g.fillRoundRect(this.x+805, this.y + 205, (float) (this.player.toChooseArcanum.get(1).researchPointCost / 390 * this.player.toChooseArcanum.get(1).accumulatedResearch), 30, 5);
+                g.fillRoundRect(this.x+805, this.y + 205, (float) (390 / this.player.toChooseArcanum.get(1).researchPointCost * this.player.toChooseArcanum.get(1).accumulatedResearch), 30, 5);
                 g.setColor(Color.white);
                 g.drawString(this.player.toChooseArcanum.get(1).accumulatedResearch + "/" + this.player.toChooseArcanum.get(1).researchPointCost, this.x+955, this.y + 211);
             }
@@ -270,6 +277,7 @@ public class TechTreePanel extends Panel implements ComponentListener {
 
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
+        System.out.println(2);
         if(abstractComponent == engineeringTechButton[0]) {
             this.player.chosenEngineering = this.player.toChooseEngineering.get(0);
         }

@@ -37,6 +37,8 @@ public class Camera extends AbstractComponent {
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
         graphics.setColor(Color.red);
         graphics.fillRect(this.x-1,this.y-1,this.width+2,this.height+2);
+        graphics.setColor(Color.black);
+        graphics.fillRect(this.x,this.y,this.width,this.height);
         graphics.setClip((int) this.x, (int) this.y, (int) this.width, (int) this.height);
         map.render(guiContext, graphics);
         graphics.clearClip();
