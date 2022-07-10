@@ -53,6 +53,10 @@ public class GameTileComponent extends TileComponent {
             graphics.setColor(Color.black);
             graphics.fillRect(this.x, this.y, this.width, this.height);
         }
+        else if(this.mapComponent.getGame() != null && !this.getTile().isVisibleFor(this.mapComponent.getGame().getCurrentPlayer())) {
+            graphics.setColor(this.mouseOverColor);
+            graphics.fillRect(this.x, this.y, this.width, this.height);
+        }
     }
 
     public void renderFilter(GUIContext guiContext, Graphics graphics) throws SlickException {

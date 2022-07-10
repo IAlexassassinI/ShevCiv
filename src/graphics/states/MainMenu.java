@@ -69,7 +69,8 @@ public class MainMenu extends BasicGameState implements ComponentListener {
     public void componentActivated(AbstractComponent abstractComponent) {
         if(abstractComponent instanceof ButtonComponent) {
             if(abstractComponent == this.newGameButton) {
-                game.enterState(GameState.ID);
+                //game.enterState(GameState.ID);
+                game.enterState(SetGameState.ID);
             }
             else if(abstractComponent == this.editMapButton) {
                 game.enterState(EditMap.ID);

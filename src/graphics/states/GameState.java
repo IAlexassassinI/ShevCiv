@@ -51,14 +51,17 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        //GameMap map = new GameMap(20, 20);
+
+    }
+
+    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame, int numberOfPlayers, int levelOfDifficulty) throws SlickException {
         this.gameContainer = gameContainer;
         this.stateBasedGame = stateBasedGame;
         GameMap map = SaveLoadInterface.LoadGameMapFromFile("assets/saved_maps/map.txt");
         //map.getTile(0, 0).setTypeOfLand(TypeOfLand.FlatLand);
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
-        Game game = new Game(map, 2, 0, 50, 2);
+        Game game = new Game(map, numberOfPlayers, 0, levelOfDifficulty * 10, levelOfDifficulty);
         Unit worker = new Unit(UnitPattern.Settler, game.getCurrentPlayer(), map.getTile(6,4));
         map.getTile(6,4).setUnit(worker);
         LightPlay.addToPlayerVision(worker);

@@ -16,6 +16,7 @@ public class Main extends StateBasedGame {
         this.addState(new MainMenu());
         this.addState(new EditMap());
         this.addState(new GameState());
+        this.addState(new SetGameState());
     }
 
     public static void main(String[] args) {
