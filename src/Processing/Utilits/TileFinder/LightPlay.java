@@ -112,8 +112,6 @@ public class LightPlay implements Serializable {
         return LightMap.values().toArray(new Tile[0]);
     }
 
-
-
     static boolean makePutPoint(int x, int y, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray){
         Tile TMP_Tile = CurrentMap.getTile(x,y);
 
@@ -158,69 +156,7 @@ public class LightPlay implements Serializable {
         return false;
     }
 
-    /*
-    static void drawLine(int x0, int y0, int x1, int y1, boolean withUnitsArray, boolean findingInVisionRange) {
-        int dx = Math.abs(x1 - x0);
-        int dy = Math.abs(y1 - y0);
-        int sx = x1 >= x0 ? 1 : -1;
-        int sy = y1 >= y0 ? 1 : -1;
-
-        int de;
-        int d;
-        int d1;
-        int d2;
-        int y = y0;
-        int x = x0;
-        int main_sx = 0;
-        int sub_sx = 0;
-        int main_sy = 0;
-        int sub_sy = 0;
-
-        if(dy <= dx){
-            de = dx;
-            d = (dy << 1) - dx;
-            d1 = dy << 1;
-            d2 = (dy - dx) << 1;
-            x = x + sx;
-            main_sx = sx;
-            sub_sy = sy;
-        }
-        else{
-            de = dy;
-            d = (dx << 1) - dy;
-            d1 = dx << 1;
-            d2 = (dx - dy) << 1;
-            y = y + sy;
-            main_sy = sy;
-            sub_sx = sx;
-        }
-
-        if(!makePutPoint(x0, y0, withUnitsArray, findingInVisionRange)){
-            return;
-        }
-        for(int i = 1; i <= de; i++) {
-            if(d > 0) {
-                d = d + d2;
-                x = x + sub_sx;
-                y = y + sub_sy;
-            }else{
-                d = d + d1;
-            }
-            x = x + main_sx;
-            y = y + main_sy;
-
-        }
-        if(!makePutPoint(x0, y0, withUnitsArray, findingInVisionRange)){
-            return;
-        }
-
-    }
-
-     */
-
-
-    static void drawLine(int x0, int y0, int x1, int y1, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray)
-    {
+    static void drawLine(int x0, int y0, int x1, int y1, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray) {
         int dx = Math.abs(x1 - x0);
         int dy = Math.abs(y1 - y0);
         int sx = x1 >= x0 ? 1 : -1;
@@ -272,24 +208,21 @@ public class LightPlay implements Serializable {
         }
     }
 
-    static void plot_circle(int x, int y, int x_center, int  y_center, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray)
-    {
+    static void setPointsOfCircle(int x, int y, int x_center, int  y_center, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray) {
         drawLine(x_center,y_center,x_center+x,y_center+y, withUnitsArray, findingInVisionRange, withCitiesArray);
         drawLine(x_center,y_center,x_center-x,y_center+y, withUnitsArray, findingInVisionRange, withCitiesArray);
         drawLine(x_center,y_center,x_center+x,y_center-y, withUnitsArray, findingInVisionRange, withCitiesArray);
         drawLine(x_center,y_center,x_center-x,y_center-y, withUnitsArray, findingInVisionRange, withCitiesArray);
     }
 
-    /* Вычерчивание окружности с использованием алгоритма Мичнера */
-    static void Circle(int x_center, int y_center, int radius, boolean withUnitsArray, boolean findingInVisionRange , boolean withCitiesArray)
-    {
+    static void Circle(int x_center, int y_center, int radius, boolean withUnitsArray, boolean findingInVisionRange , boolean withCitiesArray) {
         int x,y,delta;
         x = 0;
         y = radius;
         delta=3-2*radius;
         while(x<y) {
-            plot_circle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange, withCitiesArray);
-            plot_circle(y,x,x_center,y_center,withUnitsArray, findingInVisionRange, withCitiesArray);
+            setPointsOfCircle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange, withCitiesArray);
+            setPointsOfCircle(y,x,x_center,y_center,withUnitsArray, findingInVisionRange, withCitiesArray);
             if (delta<0)
                 delta+=4*x+6;
             else {
@@ -299,7 +232,7 @@ public class LightPlay implements Serializable {
             x++;
         }
 
-        if(x==y) plot_circle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange, withCitiesArray);
+        if(x==y) setPointsOfCircle(x,y,x_center,y_center,withUnitsArray, findingInVisionRange, withCitiesArray);
     }
 
     static void drawCircle(int x0, int y0, int radius, boolean withUnitsArray, boolean findingInVisionRange, boolean withCitiesArray) {
