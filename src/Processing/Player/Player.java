@@ -308,7 +308,13 @@ public class Player implements Serializable {
     }
 
     public void doDefeat(){
-
+        if(this.isBarbarianAI){
+            //dont show defeat screen
+        }
+        else{
+            //show defeat screen
+            //wait(10000); //10sec
+        }
     }
 
 }
