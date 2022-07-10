@@ -63,8 +63,8 @@ public class ProjectileComponent {
     private boolean moveToDestination(GameContainer gameContainer, int delta) {
         //GameTileComponent destination = this.unitComponent.getTileComponent().getMapComponent().getTileComponent(tile.coordinates.x, tile.coordinates.y);
         if(destination.getX() == this.x && destination.getY() == this.y)return false;
-        float dwidth = this.unitComponent.getTileComponent().getWidth() / (float)this.movingTime * (float)delta;
-        float dheight = this.unitComponent.getTileComponent().getHeight() / (float)this.movingTime * (float)delta;
+        float dwidth = (this.unitComponent.getTileComponent().getWidth() * Math.abs(this.unitComponent.getTileComponent().getTile().coordinates.x -this.destination.getTile().coordinates.x)) / (float)this.movingTime * (float)delta;
+        float dheight = (this.unitComponent.getTileComponent().getHeight() * Math.abs(this.unitComponent.getTileComponent().getTile().coordinates.y -this.destination.getTile().coordinates.y)) / (float)this.movingTime * (float)delta;
         //System.out.println(this.tileComponent.getWidth() / this.movingTime);
         //System.out.println(destination.getX() + " " +this.x + " " +destination.getY() + " " +this.y);
         if(this.x < destination.getX()) {

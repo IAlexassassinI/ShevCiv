@@ -54,10 +54,10 @@ public class CityControlPanel extends Panel implements ComponentListener {
         Image scrollingDownImage = null;
         try {
             this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/exit.png"), 1890, 0, 30, 30);
-            this.putCitizenButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1270, 70, 152, 40);
-            this.removeCitizenButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1432, 70, 152, 40);
-            this.buyTileButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1594, 70, 152, 40);
-            this.destroyCityButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1756, 70, 154, 40);
+            this.putCitizenButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/add_citizen.png"), 1270, 70, 152, 40);
+            this.removeCitizenButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/remove_citizen.png"), 1432, 70, 152, 40);
+            this.buyTileButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/buy_tile.png"), 1594, 70, 152, 40);
+            this.destroyCityButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/delete_city_control.png"), 1756, 70, 154, 40);
 
             this.exitButton.addListener(this);
             this.putCitizenButton.addListener(this);
@@ -116,7 +116,7 @@ public class CityControlPanel extends Panel implements ComponentListener {
 
     public void updateCreationList() {
         this.cancelMakingObject = new ArrayList<>();
-        Panel makingObjects = new Panel(Orientation.VERTICAL,0, 0, 660, (this.cityComponent.getCity().creationList.size() + this.cityComponent.getCity().createdUnits.size()) * 60, (this.cityComponent.getCity().creationList.size()) * 60  + this.cityComponent.getCity().createdUnits.size());
+        Panel makingObjects = new Panel(Orientation.VERTICAL,0, 0, 660, (this.cityComponent.getCity().creationList.size() + this.cityComponent.getCity().createdUnits.size()) * 60, (this.cityComponent.getCity().creationList.size() + this.cityComponent.getCity().createdUnits.size()) * 60);
         for(CreatableObject creatableObject : this.cityComponent.getCity().creationList) {
             Panel panel = new Panel(0, 0, 660, 60, 660);
             panel.add(new BuildingUnitPanel(creatableObject, 0, 0, 600, 60, 600), 600);
@@ -133,15 +133,14 @@ public class CityControlPanel extends Panel implements ComponentListener {
             Panel panel = new Panel(0, 0, 660, 60, 660);
             BuildingUnitPanel buildingUnitPanel = new BuildingUnitPanel(unitPattern, 0, 0, 600, 60, 600);
             buildingUnitPanel.setCreated(true);
+            panel.add(buildingUnitPanel, 600);
             if(i == 0) {
-                panel.add(buildingUnitPanel, 600);
                 ButtonComponent buttonComponent = new ButtonComponent(this.gameContainer, this.deleteObjectImage, 600, 0, 60, 60);
                 panel.add(buttonComponent, 60);
                 this.cancelMakingObject.add(buttonComponent);
                 buttonComponent.setLocked(false);
                 buttonComponent.addListener(this);
             }
-            panel.add(buildingUnitPanel, 660);
             panel.setParent(this.makingObjects);
             makingObjects.add(panel, 60);
             i++;
@@ -312,10 +311,12 @@ public class CityControlPanel extends Panel implements ComponentListener {
             if(this.cancelMakingObject.size() > this.cityComponent.getCity().creationList.size() && this.cancelMakingObject.get(this.cityComponent.getCity().creationList.size()) == abstractComponent) {
                 this.cityComponent.getCity().removeFirstUnitReadyList();
             }
-            for(int i = 0; i < this.cancelMakingObject.size(); i++) {
-                if(this.cancelMakingObject.get(i) == abstractComponent) {
-                    this.cityComponent.getCity().removeFromCreationList(i);
-                    break;
+            else {
+                for (int i = 0; i < this.cancelMakingObject.size(); i++) {
+                    if (this.cancelMakingObject.get(i) == abstractComponent) {
+                        this.cityComponent.getCity().removeFromCreationList(i);
+                        break;
+                    }
                 }
             }
             if(abstractComponent == exitButton) {

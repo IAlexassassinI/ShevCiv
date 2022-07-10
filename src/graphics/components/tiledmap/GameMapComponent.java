@@ -21,10 +21,11 @@ public class GameMapComponent extends MapComponent {
     @Override
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
         super.render(guiContext, graphics);
-        renderTypeOfBuildings(guiContext, graphics);
         renderCity(guiContext, graphics);
+        renderTypeOfBuildings(guiContext, graphics);
         renderUnits(guiContext, graphics);
         renderFilters(guiContext, graphics);
+        renderAdditionals(guiContext, graphics);
     }
 
     public void renderUnits(GUIContext guiContext, Graphics graphics) throws SlickException {
@@ -62,8 +63,16 @@ public class GameMapComponent extends MapComponent {
     public void renderCity(GUIContext guiContext, Graphics graphics) throws SlickException {
         for(int i = 0; i < this.map.getHeight(); i++) {
             for(int j = 0; j < this.map.getWidth(); j++) {
+                ((GameTileComponent) this.tileComponents[i][j]).renderCity(guiContext, graphics);
+            }
+        }
+    }
+
+    public void renderAdditionals(GUIContext guiContext, Graphics graphics) throws SlickException {
+        for(int i = 0; i < this.map.getHeight(); i++) {
+            for(int j = 0; j < this.map.getWidth(); j++) {
                 if(this.camera == null || this.camera.containsTileComponent(this.tileComponents[i][j])) {
-                    ((GameTileComponent) this.tileComponents[i][j]).renderCity(guiContext, graphics);
+                    ((GameTileComponent) this.tileComponents[i][j]).renderAdditionals(guiContext, graphics);
                 }
             }
         }

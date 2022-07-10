@@ -31,6 +31,8 @@ public class UnitControlPanel extends Panel implements ComponentListener {
     private Image attackRanged;
     private Image defenceMelee;
     private Image defenceRanged;
+    private Image getCargoImage;
+    private Image putCargoImage;
 
     private SelectButtonComponent moveButton;
     private SelectButtonComponent attackButton;
@@ -48,20 +50,22 @@ public class UnitControlPanel extends Panel implements ComponentListener {
     private boolean getCargo = false;
 
     public UnitControlPanel(GameContainer gameContainer, GameMapComponent gameMapComponent) {
-        super(1220, 860, 700, 220, 0);
+        super(1220, 760, 700, 220, 0);
         this.gameMapComponent = gameMapComponent;
         this.gameMapComponent.addListener(this);
         //this.unitComponent = unitComponent;
         try {
-            this.moveButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/move.png"), 1440, 920, 50, 50);
-            this.attackButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/attack.png"), 1500, 920, 50, 50);
-            this.coloniseButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 920, 50, 50);
-            this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/exit.png"), 1890, 860, 30, 30);
-            this.getCargoButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 920, 50, 50);
-            this.buildFarmlandButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 920, 50, 50);
-            this.buildMineButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1620, 920, 50, 50);
-            this.buildSawmillButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1680, 920, 50, 50);
-            this.buildNoneButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1740, 920, 50, 50);
+            this.moveButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/move.png"), 1440, 820, 50, 50);
+            this.attackButton = new SelectButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/attack.png"), 1500, 820, 50, 50);
+            this.coloniseButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/colonise.png"), 1560, 820, 50, 50);
+            this.exitButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/exit.png"), 1890, 760, 30, 30);
+            this.getCargoImage = new Image("assets/graphics/buttons/unit_control/get_cargo.png");
+            this.putCargoImage = new Image("assets/graphics/buttons/unit_control/put_cargo.png");
+            this.getCargoButton = new SelectButtonComponent(gameContainer, this.getCargoImage, 1560, 820, 50, 50);
+            this.buildFarmlandButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/buildFarmland.png"), 1560, 820, 50, 50);
+            this.buildMineButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/buildMine.png"), 1620, 820, 50, 50);
+            this.buildSawmillButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/unit_control/buildSawmill.png"), 1680, 820, 50, 50);
+            this.buildNoneButton = new ButtonComponent(gameContainer, new Image("assets/graphics/buttons/delete.png"), 1740, 820, 50, 50);
 
             this.getCargoButton.addListener(this);
             this.buildFarmlandButton.addListener(this);
@@ -105,29 +109,29 @@ public class UnitControlPanel extends Panel implements ComponentListener {
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
         g.setColor(Color.black);
-        g.fillRect(1220, 860, 700, 220);
+        g.fillRect(1220, 760, 700, 220);
 
-        this.unitComponent.getCurrentAnimation().draw(1230, 870, 200, 200);
+        this.unitComponent.getCurrentAnimation().draw(1230, 770, 200, 200);
 
         g.setColor(Color.white);
-        g.drawString("ACP: " + this.unitComponent.getUnit().currentActionPoints + "/" + this.unitComponent.getUnit().typeOfUnit.maxActionPoints, 1230, 870);
-        g.drawString("ATP: " + this.unitComponent.getUnit().currentNumberOfAttacks + "/" + this.unitComponent.getUnit().typeOfUnit.maxNumberOfAttacks, 1230, 890);
-        this.attackMelee.draw(1230, 910, 20,20);
-        g.drawString(String.valueOf(this.unitComponent.getUnit().typeOfUnit.attackMelee), 1250, 910);
-        this.attackRanged.draw(1230, 930, 20,20);
-        g.drawString(String.valueOf(this.unitComponent.getUnit().typeOfUnit.rangedAttack), 1250, 930);
-        this.defenceMelee.draw(1230, 950, 20,20);
-        g.drawString(String.valueOf(this.unitComponent.getUnit().typeOfUnit.defenceMelee), 1250, 950);
-        this.defenceRanged.draw(1230, 970, 20,20);
-        g.drawString(String.valueOf(this.unitComponent.getUnit().typeOfUnit.defenceRanged), 1250, 970);
-        g.drawString(unitComponent.getUnit().typeOfUnit.NameOfUnit, 1440, 880);
+        g.drawString("ACP: " + this.unitComponent.getUnit().currentActionPoints + "/" + this.unitComponent.getUnit().typeOfUnit.maxActionPoints, 1230, 770);
+        g.drawString("ATP: " + this.unitComponent.getUnit().currentNumberOfAttacks + "/" + this.unitComponent.getUnit().typeOfUnit.maxNumberOfAttacks, 1230, 790);
+        this.attackMelee.draw(1230, 810, 20,20);
+        g.drawString(String.valueOf(this.unitComponent.getUnit().typeOfUnit.attackMelee), 1250, 810);
+        this.attackRanged.draw(1230, 830, 20,20);
+        g.drawString(String.valueOf(this.unitComponent.getUnit().typeOfUnit.rangedAttack), 1250, 830);
+        this.defenceMelee.draw(1230, 850, 20,20);
+        g.drawString(String.valueOf(this.unitComponent.getUnit().typeOfUnit.defenceMelee), 1250, 850);
+        this.defenceRanged.draw(1230, 870, 20,20);
+        g.drawString(String.valueOf(this.unitComponent.getUnit().typeOfUnit.defenceRanged), 1250, 870);
+        g.drawString(unitComponent.getUnit().typeOfUnit.NameOfUnit, 1440, 780);
 
         g.setColor(Color.gray);
-        g.fillRoundRect(1440, 1000,470, 40, 5);
+        g.fillRoundRect(1440, 900,470, 40, 5);
         g.setColor(Color.green);
-        g.fillRoundRect(1440, 1000, Math.max((float) (470.0 / this.unitComponent.getUnit().typeOfUnit.maxHitPoints * this.unitComponent.getUnit().currentHitPoints), 0), 40, 5);
+        g.fillRoundRect(1440, 900, Math.max((float) (470.0 / this.unitComponent.getUnit().typeOfUnit.maxHitPoints * this.unitComponent.getUnit().currentHitPoints), 0), 40, 5);
         g.setColor(Color.white);
-        g.drawString( this.unitComponent.getUnit().currentHitPoints + "/" + this.unitComponent.getUnit().typeOfUnit.maxHitPoints, 1640, 1011);
+        g.drawString( this.unitComponent.getUnit().currentHitPoints + "/" + this.unitComponent.getUnit().typeOfUnit.maxHitPoints, 1640, 911);
 
         this.moveButton.render(container, g);
         this.attackButton.render(container, g);
@@ -212,6 +216,17 @@ public class UnitControlPanel extends Panel implements ComponentListener {
                 }
             }
         }
+        if(getCargo) {
+            if(((GetCargoSmall) this.unitComponent.getUnit().Abilities.get(0)).isCargoFull) {
+                this.getCargoButton.setImage(this.putCargoImage);
+            }
+            else {
+                this.getCargoButton.setImage(this.getCargoImage);
+            }
+        }
+        this.moveButton.setSelected(false);
+        this.attackButton.setSelected(false);
+        this.getCargoButton.setSelected(false);
         if(this.unitComponent.getState() == UnitState.PREPARE_TO_MOVE) {
             this.moveButton.setSelected(true);
             this.attackButton.setSelected(false);

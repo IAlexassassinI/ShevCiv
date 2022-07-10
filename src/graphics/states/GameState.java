@@ -59,9 +59,9 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
         Game game = new Game(map, 2, 0, 50, 2);
-        //Unit worker = new Unit(UnitPattern.DemonMilitia, game.getCurrentPlayer(), map.getTile(6,4));
-        //map.getTile(6,4).setUnit(worker);
-        //LightPlay.addToPlayerVision(worker);
+        Unit worker = new Unit(UnitPattern.Settler, game.getCurrentPlayer(), map.getTile(6,4));
+        map.getTile(6,4).setUnit(worker);
+        LightPlay.addToPlayerVision(worker);
 
         this.game = game;
 
@@ -82,6 +82,32 @@ public class GameState extends BasicGameState implements ComponentListener {
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
         this.camera.render(gameContainer,graphics);
+        graphics.setColor(Color.white);
+        graphics.drawString("Turn: " + this.game.year,20, 990);
+        graphics.drawString("Current player: " + (this.game.currentPlayer + 1), 20, 1020);
+        graphics.drawString("Player race: " + this.game.getCurrentPlayer().race, 220, 1020);
+        graphics.drawString("Resources per turn: ", 420, 1020);
+        graphics.setColor(Color.orange);
+        //System.out.println(gameContainer.getDefaultFont().getWidth("Resources per turn: "));
+        graphics.drawString(String.valueOf(this.game.getCurrentPlayer().moneyIncome), 591, 1020);
+        graphics.setColor(Color.cyan);
+        graphics.drawString(String.valueOf(this.game.getCurrentPlayer().engineeringScienceIncome), 691, 1020);
+        graphics.setColor(Color.magenta);
+        graphics.drawString(String.valueOf(this.game.getCurrentPlayer().arcanumScienceIncome), 791, 1020);
+        graphics.setColor(Color.white);
+        graphics.drawString(String.valueOf(this.game.getCurrentPlayer().societyScienceIncome), 891, 1020);
+
+        graphics.drawString("Accumulated resources: ", 1020, 1020);
+        graphics.setColor(Color.orange);
+        //System.out.println(gameContainer.getDefaultFont().getWidth("Accumulated resources: "));
+        graphics.drawString(String.valueOf(this.game.getCurrentPlayer().money), 1220, 1020);
+        graphics.setColor(Color.cyan);
+        graphics.drawString(String.valueOf(this.game.getCurrentPlayer().engineeringScience), 1320, 1020);
+        graphics.setColor(Color.magenta);
+        graphics.drawString(String.valueOf(this.game.getCurrentPlayer().arcanumScience), 1420, 1020);
+        graphics.setColor(Color.white);
+        graphics.drawString(String.valueOf(this.game.getCurrentPlayer().societyScience), 1520, 1020);
+
         if(this.isUnitControl) {
             this.unitControlPanel.render(gameContainer, graphics);
         }
