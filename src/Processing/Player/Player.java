@@ -37,24 +37,24 @@ public class Player implements Serializable {
 
         if(this.race.equals("none")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.Settler.NameOfUnit);
-            ResearchCell.AllResearchCells.get("HumanCulture").openToTechPlayer(this);
-            ResearchCell.AllResearchCells.get("Pottery").openToTechPlayer(this);
+            ResearchCell.AllResearchCells.get("HumanCulture").researchToPlayer(this);
+            ResearchCell.AllResearchCells.get("Pottery").researchToPlayer(this);
         }
         else if(this.race.equals("Human")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.HumanSettler.NameOfUnit);
-            ResearchCell.AllResearchCells.get("HumanCulture").openToTechPlayer(this);
+            ResearchCell.AllResearchCells.get("HumanCulture").researchToPlayer(this);
         }
         else if(this.race.equals("Elven")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.ElvenSettler.NameOfUnit);
-            ResearchCell.AllResearchCells.get("ElvenCulture").openToTechPlayer(this);
+            ResearchCell.AllResearchCells.get("ElvenCulture").researchToPlayer(this);
         }
         else if(this.race.equals("Dwarf")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.DwarfSettler.NameOfUnit);
-            ResearchCell.AllResearchCells.get("DwarfCulture").openToTechPlayer(this);
+            ResearchCell.AllResearchCells.get("DwarfCulture").researchToPlayer(this);
         }
         else if(this.race.equals("Demon")){
             this.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.DemonSettler.NameOfUnit);
-            ResearchCell.AllResearchCells.get("DemonCulture").openToTechPlayer(this);
+            ResearchCell.AllResearchCells.get("DemonCulture").researchToPlayer(this);
         }
         ResearchCell.modifyAvailableResearchToPlayer(this);
         ResearchCell.generateNextResearchChooseToPlayer(this, ResearchCell.ENGINEERING_NUM);
