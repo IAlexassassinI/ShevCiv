@@ -1015,7 +1015,7 @@ public class UnitPattern extends Tag implements Serializable {
             1,
 
             true,
-            Projectile.Fireball,
+            Projectile.BigFireball,
             2,
             22,
 
