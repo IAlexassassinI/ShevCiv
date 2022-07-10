@@ -10,6 +10,8 @@ import graphics.components.button.ButtonComponent;
 import graphics.components.camera.Camera;
 import graphics.components.tiledmap.GameMapComponent;
 import graphics.components.tiledmap.GameTileComponent;
+import graphics.loads.Images;
+import graphics.loads.Sounds;
 import graphics.panels.CityControlPanel;
 import graphics.panels.TechTreePanel;
 import graphics.panels.UnitControlPanel;
@@ -51,19 +53,24 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
-        //GameMap map = new GameMap(20, 20);
+
+    }
+
+    public void init(GameContainer gameContainer, StateBasedGame stateBasedGame, int numberOfPlayers, int levelOfDifficulty) throws SlickException {
         this.gameContainer = gameContainer;
         this.stateBasedGame = stateBasedGame;
         GameMap map = SaveLoadInterface.LoadGameMapFromFile("assets/saved_maps/map.txt");
         //map.getTile(0, 0).setTypeOfLand(TypeOfLand.FlatLand);
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
-        Game game = new Game(map, 2, 0, 50, 2);
-        Unit worker = new Unit(UnitPattern.Settler, game.getCurrentPlayer(), map.getTile(6,4));
+        Game game = new Game(map, numberOfPlayers, 1, levelOfDifficulty * 10, levelOfDifficulty);
+        Unit worker = new Unit(UnitPattern.ElvenMage, game.getCurrentPlayer(), map.getTile(6,4));
+        System.out.println(UnitPattern.ElvenMage.projectile.name);
         map.getTile(6,4).setUnit(worker);
         LightPlay.addToPlayerVision(worker);
 
         this.game = game;
+        this.game.setGameState(this);
 
         this.mapComponent = new GameMapComponent(gameContainer, map, 20, 20);
         this.mapComponent.setGame(this.game);
@@ -81,6 +88,7 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
+        Images.background.draw(0,0,1920,1080);
         this.camera.render(gameContainer,graphics);
         graphics.setColor(Color.white);
         graphics.drawString("Turn: " + this.game.year,20, 990);
@@ -125,6 +133,16 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
+        if(this.game.win) {
+            for(int i = 0; i < this.game.players.length; i++){
+                if(!this.game.players[i].isDefeated){
+                    Sounds.winSound.play();
+                    ((WinState) this.stateBasedGame.getState(WinState.ID)).init(this.game.players[i]);
+                    this.stateBasedGame.enterState(WinState.ID);
+                    break;
+                }
+            }
+        }
         if(isUnitControl && (this.unitControlPanel.isExit() || this.unitControlPanel.getUnitComponent().getUnit().currentHitPoints <= 0)) {
             this.isUnitControl = false;
         }
@@ -275,5 +293,13 @@ public class GameState extends BasicGameState implements ComponentListener {
                 }
             }
         }
+    }
+
+    public StateBasedGame getStateBasedGame() {
+        return stateBasedGame;
+    }
+
+    public void setStateBasedGame(StateBasedGame stateBasedGame) {
+        this.stateBasedGame = stateBasedGame;
     }
 }

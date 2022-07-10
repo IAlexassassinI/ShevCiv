@@ -2,6 +2,7 @@ package graphics.states;
 
 import graphics.components.button.ButtonComponent;
 import graphics.loads.Images;
+import graphics.loads.Sounds;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -35,12 +36,14 @@ public class MainMenu extends BasicGameState implements ComponentListener {
 
         this.game = stateBasedGame;
         this.gameContainer = gameContainer;
+        Sounds.backgroundMusic.loop();
 
         //stateBasedGame.addState(new EditMap());
     }
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
+        Images.mainBackground.draw(0,0,1920,1080);
         newGameButton.render(gameContainer, graphics);
         editMapButton.render(gameContainer, graphics);
         exitButton.render(gameContainer, graphics);
@@ -69,7 +72,8 @@ public class MainMenu extends BasicGameState implements ComponentListener {
     public void componentActivated(AbstractComponent abstractComponent) {
         if(abstractComponent instanceof ButtonComponent) {
             if(abstractComponent == this.newGameButton) {
-                game.enterState(GameState.ID);
+                //game.enterState(GameState.ID);
+                game.enterState(SetGameState.ID);
             }
             else if(abstractComponent == this.editMapButton) {
                 game.enterState(EditMap.ID);

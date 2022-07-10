@@ -8,6 +8,7 @@ import Processing.Units.Ability.GetCargoSmall;
 import Processing.Units.Ability.SpecialAbility;
 import Processing.Units.Projectile;
 import Processing.Units.Unit;
+import graphics.loads.Sounds;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.state.StateBasedGame;
@@ -34,6 +35,8 @@ public class UnitComponent {
     private int currentAttackingTime = 0;
 
     private ProjectileComponent projectileComponent;
+
+    private boolean attackAfterMoving = false;
 
     private boolean left = false;
     private boolean right = true;
@@ -195,6 +198,8 @@ public class UnitComponent {
     }
 
     public void attack(Tile tile) {
+        if(this.state == UnitState.ATTACKING) return;
+        if(this.state == UnitState.MOVING) attackAfterMoving = true;
         this.tileToAttack = tileComponent.getMapComponent().getTileComponent(tile.coordinates.x, tile.coordinates.y);
         setState(UnitState.ATTACKING);
     }
@@ -212,6 +217,8 @@ public class UnitComponent {
     }
 
     public void move(Tile tile) {
+        if(this.state == UnitState.ATTACKING || this.state == UnitState.MOVING) return;
+        attackAfterMoving = false;
         this.movingPath = this.tileComponent.getTile().getUnit().move(tile);
         setState(UnitState.MOVING);
         this.tileComponent.setUnitComponent(null);
@@ -364,6 +371,7 @@ public class UnitComponent {
     public void updateMoving(GameContainer gameContainer, int delta) throws SlickException{
         if(this.movingPath == null || this.movingPath.size() == 0){
             this.state = UnitState.IDLE;
+            if(attackAfterMoving) this.state = UnitState.ATTACKING;
             return;
         }
         if(!moveToTile(this.movingPath.getFirst(), gameContainer, delta)) {
@@ -491,6 +499,10 @@ public class UnitComponent {
         if(this.state == UnitState.MOVING) return;
         if(this.state == UnitState.ATTACKING) return;
         this.state = state;
+        if(this.state == UnitState.ATTACKING) {
+            Sounds.attackSound.stop();
+            Sounds.attackSound.play();
+        }
     }
 
     public GameTileComponent getTileComponent() {

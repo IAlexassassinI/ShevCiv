@@ -209,6 +209,7 @@ public class Unit implements Serializable {
     }
 
     public Unit destroy(){
+        this.unitComponent.getTileComponent().setUnitComponent(null);
         LightPlay.removeFromPlayerVision(this);
         if(onTile != null){
             onTile.unit = null;

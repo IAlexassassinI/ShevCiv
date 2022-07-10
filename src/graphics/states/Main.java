@@ -1,5 +1,6 @@
 package graphics.states;
 
+import graphics.loads.Sounds;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tests.ScalableTest;
@@ -13,9 +14,14 @@ public class Main extends StateBasedGame {
 
     @Override
     public void initStatesList(GameContainer gameContainer) throws SlickException {
+        new Sounds();
         this.addState(new MainMenu());
         this.addState(new EditMap());
         this.addState(new GameState());
+        this.addState(new SetGameState());
+        this.addState(new WinState());
+        this.addState(new LoseState());
+        this.addState(new CreditsState());
     }
 
     public static void main(String[] args) {

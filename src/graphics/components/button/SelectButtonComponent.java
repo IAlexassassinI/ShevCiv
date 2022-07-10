@@ -1,6 +1,7 @@
 package graphics.components.button;
 
 import graphics.components.tiledmap.SelectStyle;
+import graphics.loads.Sounds;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.GUIContext;
 
@@ -45,6 +46,7 @@ public class SelectButtonComponent extends ButtonComponent {
 
     public void mousePressedSignalise(int button, int x, int y) {
         if(contains(x, y) && button == Input.MOUSE_LEFT_BUTTON && !this.locked) {
+            Sounds.clickSound.play();
             this.selected = !this.selected;
             this.currentColor = this.normalColor;
             this.backgroundColor = Color.white;

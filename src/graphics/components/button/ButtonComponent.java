@@ -1,5 +1,6 @@
 package graphics.components.button;
 
+import graphics.loads.Sounds;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.GUIContext;
@@ -80,6 +81,7 @@ public class ButtonComponent extends AbstractComponent {
     public void mousePressedSignalise(int button, int x, int y) {
         if(this.locked)return;
         if(contains(x, y) && button == Input.MOUSE_LEFT_BUTTON) {
+            Sounds.clickSound.play();
             this.mouseDown = true;
             this.currentColor = this.mouseOverColor;
             this.backgroundColor = Color.white;

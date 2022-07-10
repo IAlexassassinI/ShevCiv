@@ -1,8 +1,10 @@
 package graphics.components.tiledmap;
 
 import Processing.TileMap.Tile;
+import graphics.loads.Sounds;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.GUIContext;
+import org.newdawn.slick.openal.SoundStore;
 
 public class ProjectileComponent {
 
@@ -15,6 +17,7 @@ public class ProjectileComponent {
 
     private boolean left = true;
     private boolean right = false;
+    private boolean isSound = false;
 
     private Image projectileRight;
     private Image projectileLeft;
@@ -29,8 +32,13 @@ public class ProjectileComponent {
         this.destination = destination;
         this.unitComponent = unitComponent;
         try {
-            this.projectileRight = new Image("assets/graphics/units/projectiles/rock.png");
-            this.projectileLeft = new Image("assets/graphics/units/projectiles/rock.png");
+            this.projectileRight = new Image("assets/graphics/units/projectiles/" + unitComponent.getUnit().typeOfUnit.projectile.name + "Right" + ".png");
+            this.projectileLeft = new Image("assets/graphics/units/projectiles/" + unitComponent.getUnit().typeOfUnit.projectile.name + "Left" + ".png");
+
+            if(unitComponent.getUnit().typeOfUnit.projectile.name.equals("BigFireball")) {
+                SpriteSheet animationSpriteSheet = new SpriteSheet("assets/graphics/units/projectiles/COTTON.png", TileComponent.STANDARD_WIDTH, TileComponent.STANDARD_HEIGHT);
+                explosionAnimation = new Animation(animationSpriteSheet, 0, 0, animationSpriteSheet.getHorizontalCount()-1, 0, true, 100, true);
+            }
         } catch (SlickException e) {
             e.printStackTrace();
         }
@@ -45,7 +53,13 @@ public class ProjectileComponent {
                 this.projectileRight.draw(this.x, this.y, this.unitComponent.getTileComponent().getWidth(), this.unitComponent.getTileComponent().getHeight());
             }
         }
-        else if(this.currentTime > this.movingTime && this.currentTime <= this.explosionTime && this.explosionAnimation != null) {
+        else if(this.currentTime > this.movingTime && this.currentTime <= this.explosionTime + this.movingTime && this.explosionAnimation != null) {
+            if(!isSound) {
+                //SoundStore.get().stopSoundEffect(0);
+                Sounds.attackSound.stop();
+                Sounds.explosionSound.play();
+                isSound = true;
+            }
             this.explosionAnimation.draw(this.x, this.y, this.unitComponent.getTileComponent().getWidth(), this.unitComponent.getTileComponent().getHeight());
         }
     }
