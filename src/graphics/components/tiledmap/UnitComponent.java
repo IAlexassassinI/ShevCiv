@@ -8,6 +8,7 @@ import Processing.Units.Ability.GetCargoSmall;
 import Processing.Units.Ability.SpecialAbility;
 import Processing.Units.Projectile;
 import Processing.Units.Unit;
+import graphics.loads.Sounds;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.GUIContext;
 import org.newdawn.slick.state.StateBasedGame;
@@ -498,6 +499,10 @@ public class UnitComponent {
         if(this.state == UnitState.MOVING) return;
         if(this.state == UnitState.ATTACKING) return;
         this.state = state;
+        if(this.state == UnitState.ATTACKING) {
+            Sounds.attackSound.stop();
+            Sounds.attackSound.play();
+        }
     }
 
     public GameTileComponent getTileComponent() {

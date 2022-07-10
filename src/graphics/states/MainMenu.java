@@ -2,6 +2,7 @@ package graphics.states;
 
 import graphics.components.button.ButtonComponent;
 import graphics.loads.Images;
+import graphics.loads.Sounds;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -35,6 +36,7 @@ public class MainMenu extends BasicGameState implements ComponentListener {
 
         this.game = stateBasedGame;
         this.gameContainer = gameContainer;
+        Sounds.backgroundMusic.loop();
 
         //stateBasedGame.addState(new EditMap());
     }
