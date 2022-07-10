@@ -63,7 +63,7 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 0).setTypeOfLand(TypeOfLand.FlatLand);
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
-        Game game = new Game(map, numberOfPlayers, 0, levelOfDifficulty * 10, levelOfDifficulty);
+        Game game = new Game(map, numberOfPlayers, 1, levelOfDifficulty * 5, levelOfDifficulty);
         //Unit worker = new Unit(UnitPattern.ElvenMage, game.getCurrentPlayer(), map.getTile(6,4));
 //        map.getTile(1,1).setUnit(new Unit(UnitPattern.OrkBarge, game.getCurrentPlayer(), map.getTile(1,1)));
 //        LightPlay.addToPlayerVision(map.getTile(1,1).unit);
