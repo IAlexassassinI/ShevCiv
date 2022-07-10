@@ -42,10 +42,10 @@ public class LightPlay implements Serializable {
             while((GeneralUtility.Round(shootingRange) > 0)){
                 if(GeneralUtility.Round(shootingRange) == 1){
                     //really costil
-                    drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, true);
+                    drawCircle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, false);
                 }
                 else{
-                    Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, true);
+                    Circle(startTile.coordinates.x, startTile.coordinates.y, GeneralUtility.Round(shootingRange), true, false, false);
                 }
                 shootingRange--;
             }

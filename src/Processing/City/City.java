@@ -59,6 +59,7 @@ public class City implements Serializable {
 
     public City(Unit unit){
         unit.onTile.setTypeOfBuilding(TypeOfBuilding.AllTypeOfBuilding.get(TypeOfBuilding.City.elementName));
+        unit.onTile.owner = this;
         this.owner = unit.owner;
         this.ownedTiles.add(unit.onTile);
         this.ownerWasInDepression = owner.inDepression;

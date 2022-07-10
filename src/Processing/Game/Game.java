@@ -21,17 +21,30 @@ public class Game implements Serializable {
     public int currentPlayer = 0;
     public int year = 0;
 
+    public boolean win = false;
+
     public GameMap Map;
 
     HashMap<Player, Barbarian_AI> AI_ID = new HashMap<>();
 
     public void giveTurn(){
+        if(win){
+            return;
+        }
         currentPlayer++;
         if(currentPlayer == numberOfPlayers){
             year++;
             currentPlayer = 0;
         }
         players[currentPlayer].myTurn = true;
+        if(numberOfPlayers - numberOfDefeatedPlayers == 1){
+            for(int i = 0; i < players.length; i++){
+                if(!players[i].isDefeated){
+                    doWin();
+                    break;
+                }
+            }
+        }
         if(players[currentPlayer].isDefeated){
             if(numberOfPlayers != numberOfDefeatedPlayers){
                 giveTurn();
@@ -41,20 +54,16 @@ public class Game implements Serializable {
             }
         }
         else if(players[currentPlayer].isBarbarianAI){
-            AI_ID.get(players[currentPlayer]).doTurn();
-        }
-        if(numberOfPlayers - numberOfDefeatedPlayers == 1){
-            for(int i = 0; i < players.length; i++){
-                if(!players[i].isDefeated){
-                    doWin();
-                    break;
-                }
+            if(!win){
+                AI_ID.get(players[currentPlayer]).doTurn();
             }
         }
+
 
     }
 
     public void doWin(){
+        win = true;
         System.out.println("YouWin");
     }
 
