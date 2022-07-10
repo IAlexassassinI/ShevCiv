@@ -3,6 +3,7 @@ package graphics.states;
 import Processing.Player.Player;
 import graphics.components.button.ButtonComponent;
 import graphics.loads.Images;
+import graphics.loads.Sounds;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -20,6 +21,7 @@ public class WinState extends BasicGameState implements ComponentListener {
     private Player winPlayer;
     private Image winImage;
     private StateBasedGame stateBasedGame;
+    private GameContainer gameContainer;
 
     @Override
     public int getID() {
@@ -29,7 +31,7 @@ public class WinState extends BasicGameState implements ComponentListener {
     @Override
     public void init(GameContainer gameContainer, StateBasedGame stateBasedGame) throws SlickException {
         nextButton = new ButtonComponent(gameContainer, Images.next, 1700, 960, 200, 100);
-
+        this.gameContainer = gameContainer;
         nextButton.addListener(this);
         this.stateBasedGame = stateBasedGame;
     }
@@ -64,11 +66,13 @@ public class WinState extends BasicGameState implements ComponentListener {
     public void mousePressed(int button, int x, int y) {
         super.mousePressed(button, x, y);
         this.nextButton.mousePressedSignalise(button, x, y);
+        gameContainer.getInput().consumeEvent();
     }
 
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
         if (abstractComponent == nextButton) {
+            Sounds.creditsSound.play();
             this.stateBasedGame.enterState(CreditsState.ID);
         }
     }

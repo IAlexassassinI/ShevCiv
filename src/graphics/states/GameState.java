@@ -11,6 +11,7 @@ import graphics.components.camera.Camera;
 import graphics.components.tiledmap.GameMapComponent;
 import graphics.components.tiledmap.GameTileComponent;
 import graphics.loads.Images;
+import graphics.loads.Sounds;
 import graphics.panels.CityControlPanel;
 import graphics.panels.TechTreePanel;
 import graphics.panels.UnitControlPanel;
@@ -135,6 +136,7 @@ public class GameState extends BasicGameState implements ComponentListener {
         if(this.game.win) {
             for(int i = 0; i < this.game.players.length; i++){
                 if(!this.game.players[i].isDefeated){
+                    Sounds.winSound.play();
                     ((WinState) this.stateBasedGame.getState(WinState.ID)).init(this.game.players[i]);
                     this.stateBasedGame.enterState(WinState.ID);
                     break;

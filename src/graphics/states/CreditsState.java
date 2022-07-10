@@ -3,6 +3,7 @@ package graphics.states;
 import Processing.Player.Player;
 import graphics.components.button.ButtonComponent;
 import graphics.loads.Images;
+import graphics.loads.Sounds;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -64,6 +65,7 @@ public class CreditsState extends BasicGameState implements ComponentListener {
     @Override
     public void componentActivated(AbstractComponent abstractComponent) {
         if (abstractComponent == nextButton) {
+            Sounds.backgroundMusic.loop();
             this.stateBasedGame.enterState(MainMenu.ID);
         }
     }

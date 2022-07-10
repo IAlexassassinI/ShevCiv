@@ -13,6 +13,7 @@ import Processing.Units.UnitPattern;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 import Processing.Utilits.Wrapers.TwoTTT;
+import graphics.loads.Sounds;
 import graphics.states.LoseState;
 import org.newdawn.slick.state.GameState;
 
@@ -315,6 +316,7 @@ public class Player implements Serializable {
         }
         else{
             if(Game.getGameState() != null) {
+                Sounds.loseSound.play();
                 Game.getGameState().getStateBasedGame().enterState(LoseState.ID);
             }
             //show defeat screen
