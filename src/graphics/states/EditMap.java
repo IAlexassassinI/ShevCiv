@@ -271,6 +271,8 @@ public class EditMap extends BasicGameState implements ComponentListener {
             }
             else if(abstractComponent == this.loadButton) {
                 this.editMapComponent = new EditMapComponent(gameContainer, SaveLoadInterface.LoadGameMapFromFile(saveFile), 20, 20);
+                this.editMapComponent.addListener(this);
+                this.gameMap = this.editMapComponent.getMap();
                 this.camera = new Camera(gameContainer, 20, 20, this.camera.getWidth(), this.camera.getHeight(), this.editMapComponent);
             }
             else if(abstractComponent == this.exitButton) {

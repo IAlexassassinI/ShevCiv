@@ -200,6 +200,14 @@ public class MapComponent extends AbstractComponent implements ComponentListener
         }
     }
 
+    public GameMap getMap() {
+        return map;
+    }
+
+    public void setMap(GameMap map) {
+        this.map = map;
+    }
+
     public float getTileSize() {
         return this.tileComponents[0][0].getWidth();
     }

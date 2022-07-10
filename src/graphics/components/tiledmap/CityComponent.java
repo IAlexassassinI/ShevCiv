@@ -79,23 +79,16 @@ public class CityComponent {
                         graphics.setColor(Color.magenta);
                         graphics.drawString(String.valueOf(tile.wealth.arcanumScience),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 50,
-                                y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight());
+                                y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 40);
                         graphics.setColor(Color.cyan);
                         graphics.drawString(String.valueOf(tile.wealth.engineeringScience),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 50,
-                                y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 20);
+                                y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight());
                         graphics.setColor(Color.white);
                         graphics.drawString(String.valueOf(tile.wealth.societyScience),
                                 this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 50,
-                                y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 40);
+                                y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 20);
                         if(tile.isProcessedByPeople) {
-                            /*graphics.setColor(Color.gray);
-                            graphics.fillRect(
-                                    this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 40,
-                                    y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 70,
-                                    20,
-                                    20
-                            );*/
                             citizenImage.draw(
                                     this.x + (tile.coordinates.x - this.tileComponent.getTile().coordinates.x) * this.tileComponent.getWidth() + 40,
                                     y + (tile.coordinates.y - this.tileComponent.getTile().coordinates.y) * this.tileComponent.getHeight() + 70,
