@@ -4,7 +4,6 @@ import Processing.TileMap.GameMap;
 import Processing.TileMap.Tile;
 import Processing.TileMap.TileUtils.TypeOfLand;
 import graphics.components.camera.Camera;
-import graphics.components.selectComponents.SelectComponent;
 import graphics.components.tiledmap.MapComponent;
 import graphics.components.tiledmap.TileComponent;
 import graphics.loads.Images;

@@ -218,12 +218,12 @@ public class CityControlPanel extends Panel implements ComponentListener {
         g.drawString(String.valueOf(this.cityComponent.getCity().wealth.food), this.x+100, this.y+20);
         g.setColor(Color.orange);
         g.drawString(String.valueOf(this.cityComponent.getCity().wealth.money), this.x+200, this.y+20);
-        g.setColor(Color.magenta);
-        g.drawString(String.valueOf(this.cityComponent.getCity().wealth.engineeringScience), this.x+300, this.y+20);
         g.setColor(Color.cyan);
-        g.drawString(String.valueOf(this.cityComponent.getCity().wealth.arcanumScience), this.x+400, this.y+20);
+        g.drawString(String.valueOf(this.cityComponent.getCity().wealth.engineeringScience), this.x+300, this.y+20);
+        g.setColor(Color.magenta);
+        g.drawString(String.valueOf(this.cityComponent.getCity().wealth.arcanumScience), this.x+500, this.y+20);
         g.setColor(Color.white);
-        g.drawString(String.valueOf(this.cityComponent.getCity().wealth.societyScience), this.x+500, this.y+20);
+        g.drawString(String.valueOf(this.cityComponent.getCity().wealth.societyScience), this.x+400, this.y+20);
         g.drawString("Citizens (free/all): " + this.cityComponent.getCity().numberOfFreeCitizen + "/" + this.cityComponent.getCity().numberOfCitizen, this.x, this.y+40);
         g.setColor(Color.white);
         g.drawString("Buildings and units you can create:", 1260, 120);

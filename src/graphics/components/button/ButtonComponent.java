@@ -101,31 +101,6 @@ public class ButtonComponent extends AbstractComponent {
         this.image = image;
     }
 
-    /*public void mouseMoved(int oldx, int oldy, int newx, int newy) {
-        if(contains(newx, newy) && !this.locked) {
-            this.mouseOver = true;
-            this.currentColor = this.mouseOverColor;
-            this.backgroundColor = Color.black;
-        }
-        else {
-            this.currentColor = normalColor;
-            this.mouseOver = false;
-        }
-    }
-
-    public void mousePressed(int button, int x, int y) {
-        if(contains(x, y) && button == Input.MOUSE_LEFT_BUTTON && !this.locked) {
-            this.mouseDown = true;
-            this.currentColor = this.mouseOverColor;
-            this.backgroundColor = Color.white;
-            notifyListeners();
-        }
-        else {
-            this.currentColor = normalColor;
-            this.mouseDown = false;
-        }
-    }*/
-
     @Override
     public int getX() {
         return (int) this.x;
