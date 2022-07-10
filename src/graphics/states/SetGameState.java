@@ -2,6 +2,7 @@ package graphics.states;
 
 import graphics.components.button.ButtonComponent;
 import graphics.components.button.SelectButtonComponent;
+import graphics.loads.Images;
 import graphics.panels.EmptyPanel;
 import graphics.panels.Orientation;
 import graphics.panels.SelectionPanel;
@@ -63,6 +64,7 @@ public class SetGameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
+        Images.background.draw(0,0,1920,1080);
         this.numberOfPlayersImage.draw(660, 357, 600, 75);
         this.numberOfPlayers.render(gameContainer, graphics);
         this.levelOfDifficultyImage.draw(660, 502, 600, 75);

@@ -4,6 +4,7 @@ import Processing.Player.Player;
 import graphics.components.button.ButtonComponent;
 import graphics.components.tiledmap.CityComponent;
 import graphics.components.tiledmap.GameMapComponent;
+import graphics.loads.Images;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -156,8 +157,9 @@ public class TechTreePanel extends Panel implements ComponentListener {
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        g.setColor(Color.black);
-        g.fillRect(this.x-10, this.y-10, this.width+20, this.height+20);
+        Images.bookPaper.getSubImage(0, 0, (int) (this.width+20), (int) (this.height+20)).draw(this.x-10, this.y-10, this.width+20, this.height+20);
+        //g.setColor(Color.black);
+        //g.fillRect(this.x-10, this.y-10, this.width+20, this.height+20);
         g.setColor(Color.white);
         g.drawString("Tech tree", this.x, this.y);
         g.drawString("Engineering science", this.x, this.y+20);

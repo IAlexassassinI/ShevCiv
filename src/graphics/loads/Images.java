@@ -22,6 +22,8 @@ public class Images {
     public static Image buttonEditMap;
     public static Image buttonExit;
     public static Image city;
+    public static Image background;
+    public static Image bookPaper;
     //public static HashMap<String, Image> typesOfFlora;
     //public static HashMap<String, Image> resources;
 
@@ -39,6 +41,8 @@ public class Images {
             buttonEditMap = new Image("assets/graphics/buttons/edit_map.png");
             buttonExit = new Image("assets/graphics/buttons/exit.png");
             city = new Image("assets/graphics/TypeOfBuilding/city.png");
+            background = new Image("assets/graphics/Background.png");
+            bookPaper = new Image("assets/graphics/BookPaper.png");
         } catch (SlickException e) {
             e.printStackTrace();
         }

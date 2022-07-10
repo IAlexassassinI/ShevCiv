@@ -10,6 +10,7 @@ import graphics.components.button.ButtonComponent;
 import graphics.components.camera.Camera;
 import graphics.components.tiledmap.GameMapComponent;
 import graphics.components.tiledmap.GameTileComponent;
+import graphics.loads.Images;
 import graphics.panels.CityControlPanel;
 import graphics.panels.TechTreePanel;
 import graphics.panels.UnitControlPanel;
@@ -62,7 +63,8 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
         Game game = new Game(map, numberOfPlayers, 0, levelOfDifficulty * 10, levelOfDifficulty);
-        Unit worker = new Unit(UnitPattern.Settler, game.getCurrentPlayer(), map.getTile(6,4));
+        Unit worker = new Unit(UnitPattern.ElvenMage, game.getCurrentPlayer(), map.getTile(6,4));
+        System.out.println(UnitPattern.ElvenMage.projectile.name);
         map.getTile(6,4).setUnit(worker);
         LightPlay.addToPlayerVision(worker);
 
@@ -84,6 +86,7 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
+        Images.background.draw(0,0,1920,1080);
         this.camera.render(gameContainer,graphics);
         graphics.setColor(Color.white);
         graphics.drawString("Turn: " + this.game.year,20, 990);
