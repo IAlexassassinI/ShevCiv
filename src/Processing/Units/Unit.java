@@ -121,6 +121,9 @@ public class Unit implements Serializable {
         if(whatAttack == null){
             return;
         }
+        if(whatAttack.unit == null){
+            return;
+        }
         if(this.currentNumberOfAttacks <= 0){
             return;
         }
