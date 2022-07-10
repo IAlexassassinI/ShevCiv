@@ -83,8 +83,8 @@ public class Tile implements Serializable {
     }
 
     public void setTypeOfLand(TypeOfLand typeOfLand) {
-        this.typeOfLand = typeOfLand;
         this.wealth.dMinusWealth(this.typeOfLand.wealth);
+        this.typeOfLand = typeOfLand;
         this.wealth.dWealth(this.typeOfLand.wealth);
         if(!WhereCanBe.FullCheck(this, this.typeOfFlora.whereCanExist)){
             this.setTypeOfFlora(TypeOfFlora.none);
@@ -162,7 +162,7 @@ public class Tile implements Serializable {
         this.unit = unit;
         if(unit != null){
             unit.onTile = this;
-            LightPlay.addToPlayerVision(unit);
+            //LightPlay.addToPlayerVision(unit);
         }
     }
 

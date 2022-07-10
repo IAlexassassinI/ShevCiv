@@ -77,6 +77,7 @@ public class Barbarian_AI {
         if(!scanSquareForEnemy(tile, 3)){
             if(Game.RandomGen.nextInt(100) <= 20){
                 tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSettler.NameOfUnit), ME, tile));
+                LightPlay.addToPlayerVision(tile.unit);
                 return;
             }
         }
@@ -85,30 +86,36 @@ public class Barbarian_AI {
 
         if(intToRand <= 10){
             tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkPeon.NameOfUnit), ME, tile));
+            LightPlay.addToPlayerVision(tile.unit);
             return;
         }
         else if(intToRand <= 20){
             switch(Game.RandomGen.nextInt(3)){
                 case 0:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 1:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkPeon.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
             }
             return;
         }
         else if(intToRand <= 30){
             tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+            LightPlay.addToPlayerVision(tile.unit);
             return;
         }
         else if(intToRand <= 40){
             switch(Game.RandomGen.nextInt(3)){
                 case 0:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 1:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkHunter.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
             }
             return;
@@ -117,12 +124,15 @@ public class Barbarian_AI {
             switch(Game.RandomGen.nextInt(3)){
                 case 0:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 1:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkHunter.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 2:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
             }
             return;
@@ -131,15 +141,19 @@ public class Barbarian_AI {
             switch(Game.RandomGen.nextInt(4)){
                 case 0:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 1:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkHunter.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 2:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 3:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWolfRider.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
             }
             return;
@@ -148,15 +162,19 @@ public class Barbarian_AI {
             switch(Game.RandomGen.nextInt(4)){
                 case 0:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSwordsman.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 1:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWyvern.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 2:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 3:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWolfRider.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
             }
             return;
@@ -165,15 +183,19 @@ public class Barbarian_AI {
             switch(Game.RandomGen.nextInt(4)){
                 case 0:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.VeryBigOrk.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 1:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWyvern.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 2:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 3:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWolfRider.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
             }
             return;
@@ -182,12 +204,15 @@ public class Barbarian_AI {
             switch(Game.RandomGen.nextInt(4)){
                 case 0:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.VeryBigOrk.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 1:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkWyvern.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
                 case 2:
                     tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkCatapult.NameOfUnit), ME, tile));
+                    LightPlay.addToPlayerVision(tile.unit);
                     break;
             }
             return;
@@ -406,6 +431,7 @@ public class Barbarian_AI {
         }
         else{
             tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkBarge.NameOfUnit), ME, tile));
+            LightPlay.addToPlayerVision(tile.unit);
             Iterator<SpecialAbility> abilityIterator = tile.unit.Abilities.iterator();
             GetCargoSmall foundAbility = null;
             while(abilityIterator.hasNext()){

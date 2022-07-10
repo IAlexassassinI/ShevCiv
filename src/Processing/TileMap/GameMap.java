@@ -168,6 +168,7 @@ public class GameMap implements Serializable {
             Tile TMP_Tile = Found.get(Game.RandomGen.nextInt(Found.size()));
             Found.remove(TMP_Tile);
             TMP_Tile.setUnit(new Unit(game.players[i].mySettlerType, game.players[i], TMP_Tile));
+            LightPlay.addToPlayerVision(TMP_Tile.unit);
         }
     }
 
