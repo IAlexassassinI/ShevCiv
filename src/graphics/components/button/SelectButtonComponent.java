@@ -52,18 +52,6 @@ public class SelectButtonComponent extends ButtonComponent {
             this.backgroundColor = Color.white;
             notifyListeners();
         }
-        //System.out.println(this.x + " " + this.y + " " + this.width + " " + this.height + " " + x + " " + y);
-        //System.out.println(x >= this.x && x < this.x + this.width);
-        /*if(consists(x, y) && button == Input.MOUSE_LEFT_BUTTON && !this.locked) {
-            this.mouseDown = true;
-            this.currentColor = this.mouseOverColor;
-            this.backgroundColor = Color.white;
-            notifyListeners();
-        }
-        else {
-            this.currentColor = normalColor;
-            this.mouseDown = false;
-        }*/
     }
 
     public int getId() {
