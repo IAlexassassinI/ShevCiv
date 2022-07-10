@@ -130,6 +130,7 @@ public class EditMap extends BasicGameState implements ComponentListener {
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
+        Images.background.draw(0,0,1920,1080);
         this.camera.render(gameContainer, graphics);
         this.category.render(gameContainer, graphics);
         switch (category.getSelectedComponent().getId()) {

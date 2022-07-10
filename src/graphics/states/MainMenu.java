@@ -41,6 +41,7 @@ public class MainMenu extends BasicGameState implements ComponentListener {
 
     @Override
     public void render(GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics) throws SlickException {
+        Images.background.draw(0,0,1920,1080);
         newGameButton.render(gameContainer, graphics);
         editMapButton.render(gameContainer, graphics);
         exitButton.render(gameContainer, graphics);

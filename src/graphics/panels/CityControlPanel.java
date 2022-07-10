@@ -8,6 +8,7 @@ import Processing.Utilits.Wrapers.CreatableObject;
 import graphics.components.button.ButtonComponent;
 import graphics.components.button.SelectButtonComponent;
 import graphics.components.tiledmap.*;
+import graphics.loads.Images;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -206,8 +207,9 @@ public class CityControlPanel extends Panel implements ComponentListener {
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        g.setColor(Color.black);
-        g.fillRect(this.x, this.y, this.width, this.height);
+        Images.bookPaper.getSubImage(0, 0, (int) this.width, (int) this.height).draw(this.x, this.y, this.width, this.height);
+        //g.setColor(Color.black);
+        //g.fillRect(this.x, this.y, this.width, this.height);
         g.setColor(Color.white);
         g.drawString("City", 1260, 0);
         g.setColor(new Color(0.588f, 0.294f, 0, 1));

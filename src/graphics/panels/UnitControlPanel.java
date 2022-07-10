@@ -13,6 +13,7 @@ import graphics.components.tiledmap.GameMapComponent;
 import graphics.components.tiledmap.GameTileComponent;
 import graphics.components.tiledmap.UnitComponent;
 import graphics.components.tiledmap.UnitState;
+import graphics.loads.Images;
 import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -108,8 +109,9 @@ public class UnitControlPanel extends Panel implements ComponentListener {
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        g.setColor(Color.black);
-        g.fillRect(1220, 760, 700, 220);
+        Images.bookPaper.getSubImage(0, 0, 700, 220).draw(1220, 760, 700, 220);
+        //g.setColor(Color.black);
+        //g.fillRect(1220, 760, 700, 220);
 
         this.unitComponent.getCurrentAnimation().draw(1230, 770, 200, 200);
 
