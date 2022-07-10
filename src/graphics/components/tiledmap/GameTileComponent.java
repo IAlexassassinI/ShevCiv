@@ -27,6 +27,7 @@ public class GameTileComponent extends TileComponent {
 
     public void renderUnit(GUIContext guiContext, Graphics graphics) throws SlickException {
         if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer()))return;
+        if(this.mapComponent.getGame() != null && !this.getTile().isVisibleFor(this.mapComponent.getGame().getCurrentPlayer()))return;
         if(this.getTile().getUnit() != null && this.unitComponent != null) {
             this.unitComponent.render(guiContext, graphics);
         }
@@ -48,7 +49,10 @@ public class GameTileComponent extends TileComponent {
     }
 
     public void renderAdditionals(GUIContext guiContext, Graphics graphics) throws SlickException {
-        //if(this.getTile().getTypeOfLand().Type > this.getTile().getMap().getTile(this.))
+        if(this.mapComponent.getGame() != null && this.getTile().isFogOfWarFor(this.mapComponent.getGame().getCurrentPlayer())) {
+            graphics.setColor(Color.black);
+            graphics.fillRect(this.x, this.y, this.width, this.height);
+        }
     }
 
     public void renderFilter(GUIContext guiContext, Graphics graphics) throws SlickException {
