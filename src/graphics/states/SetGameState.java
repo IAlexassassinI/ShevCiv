@@ -3,13 +3,11 @@ package graphics.states;
 import graphics.components.button.ButtonComponent;
 import graphics.components.button.SelectButtonComponent;
 import graphics.loads.Images;
+import graphics.loads.Sounds;
 import graphics.panels.EmptyPanel;
 import graphics.panels.Orientation;
 import graphics.panels.SelectionPanel;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.state.BasicGameState;
@@ -91,7 +89,24 @@ public class SetGameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
+        gameContainer.setMusicVolume(Sounds.musicVolume);
+        gameContainer.setSoundVolume(Sounds.soundVolume);
+    }
 
+    @Override
+    public void keyPressed(int key, char c) {
+        if(key == Input.KEY_RIGHT) {
+            Sounds.musicVolume = Math.min(1f, Sounds.musicVolume + 0.05f);
+        }
+        if(key == Input.KEY_LEFT) {
+            Sounds.musicVolume = Math.max(0, Sounds.musicVolume - 0.05f);
+        }
+        if(key == Input.KEY_UP) {
+            Sounds.soundVolume = Math.min(1f, Sounds.soundVolume + 0.05f);
+        }
+        if(key == Input.KEY_DOWN) {
+            Sounds.soundVolume = Math.max(0, Sounds.soundVolume - 0.05f);
+        }
     }
 
     @Override

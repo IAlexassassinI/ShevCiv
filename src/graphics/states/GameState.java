@@ -133,6 +133,8 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
+        gameContainer.setMusicVolume(Sounds.musicVolume);
+        gameContainer.setSoundVolume(Sounds.soundVolume);
         if(this.game.win) {
             for(int i = 0; i < this.game.players.length; i++){
                 if(!this.game.players[i].isDefeated){
@@ -240,6 +242,18 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void keyPressed(int key, char c) {
+        if(key == Input.KEY_RIGHT) {
+            Sounds.musicVolume = Math.min(1f, Sounds.musicVolume + 0.05f);
+        }
+        if(key == Input.KEY_LEFT) {
+            Sounds.musicVolume = Math.max(0, Sounds.musicVolume - 0.05f);
+        }
+        if(key == Input.KEY_UP) {
+            Sounds.soundVolume = Math.min(1f, Sounds.soundVolume + 0.05f);
+        }
+        if(key == Input.KEY_DOWN) {
+            Sounds.soundVolume = Math.max(0, Sounds.soundVolume - 0.05f);
+        }
         if(key == Input.KEY_ESCAPE) {
             this.stateBasedGame.enterState(MainMenu.ID);
             return;

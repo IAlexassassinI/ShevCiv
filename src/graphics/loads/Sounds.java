@@ -17,6 +17,9 @@ public class Sounds {
     public static Music winSound;
     public static Music loseSound;
 
+    public static float musicVolume = 0.2f;
+    public static float soundVolume = 0.5f;
+
     public static LinkedList<Sound> allSounds;
 
     static {

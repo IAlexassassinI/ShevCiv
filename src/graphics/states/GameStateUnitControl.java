@@ -6,6 +6,7 @@ import Processing.TileMap.GameMap;
 import graphics.components.camera.Camera;
 import graphics.components.tiledmap.GameMapComponent;
 import graphics.components.tiledmap.GameTileComponent;
+import graphics.loads.Sounds;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -39,7 +40,8 @@ public class GameStateUnitControl extends BasicGameState implements ComponentLis
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
-
+        gameContainer.setMusicVolume(Sounds.musicVolume);
+        gameContainer.setSoundVolume(Sounds.soundVolume);
     }
 
     @Override
@@ -62,6 +64,8 @@ public class GameStateUnitControl extends BasicGameState implements ComponentLis
     public void mousePressed(int button, int x, int y) {
 
     }
+
+
 
     @Override
     public void mouseWheelMoved(int newValue) {
