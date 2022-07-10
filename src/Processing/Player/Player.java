@@ -13,6 +13,8 @@ import Processing.Units.UnitPattern;
 import Processing.Utilits.Wealth;
 import Processing.Utilits.WhereCanBe;
 import Processing.Utilits.Wrapers.TwoTTT;
+import graphics.states.LoseState;
+import org.newdawn.slick.state.GameState;
 
 import java.io.Serializable;
 import java.util.*;
@@ -312,9 +314,14 @@ public class Player implements Serializable {
             //dont show defeat screen
         }
         else{
+            if(Game.getGameState() != null) {
+                Game.getGameState().getStateBasedGame().enterState(LoseState.ID);
+            }
             //show defeat screen
             //wait(10000); //10sec
         }
     }
+
+
 
 }

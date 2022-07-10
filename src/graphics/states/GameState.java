@@ -62,13 +62,14 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 0).setTypeOfLand(TypeOfLand.FlatLand);
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
-        Game game = new Game(map, numberOfPlayers, 0, levelOfDifficulty * 10, levelOfDifficulty);
+        Game game = new Game(map, numberOfPlayers, 1, levelOfDifficulty * 10, levelOfDifficulty);
         Unit worker = new Unit(UnitPattern.ElvenMage, game.getCurrentPlayer(), map.getTile(6,4));
         System.out.println(UnitPattern.ElvenMage.projectile.name);
         map.getTile(6,4).setUnit(worker);
         LightPlay.addToPlayerVision(worker);
 
         this.game = game;
+        this.game.setGameState(this);
 
         this.mapComponent = new GameMapComponent(gameContainer, map, 20, 20);
         this.mapComponent.setGame(this.game);
@@ -131,6 +132,15 @@ public class GameState extends BasicGameState implements ComponentListener {
 
     @Override
     public void update(GameContainer gameContainer, StateBasedGame stateBasedGame, int delta) throws SlickException {
+        if(this.game.win) {
+            for(int i = 0; i < this.game.players.length; i++){
+                if(!this.game.players[i].isDefeated){
+                    ((WinState) this.stateBasedGame.getState(WinState.ID)).init(this.game.players[i]);
+                    this.stateBasedGame.enterState(WinState.ID);
+                    break;
+                }
+            }
+        }
         if(isUnitControl && (this.unitControlPanel.isExit() || this.unitControlPanel.getUnitComponent().getUnit().currentHitPoints <= 0)) {
             this.isUnitControl = false;
         }
@@ -281,5 +291,13 @@ public class GameState extends BasicGameState implements ComponentListener {
                 }
             }
         }
+    }
+
+    public StateBasedGame getStateBasedGame() {
+        return stateBasedGame;
+    }
+
+    public void setStateBasedGame(StateBasedGame stateBasedGame) {
+        this.stateBasedGame = stateBasedGame;
     }
 }

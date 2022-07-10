@@ -23,7 +23,9 @@ public class Images {
     public static Image buttonExit;
     public static Image city;
     public static Image background;
+    public static Image mainBackground;
     public static Image bookPaper;
+    public static Image next;
     //public static HashMap<String, Image> typesOfFlora;
     //public static HashMap<String, Image> resources;
 
@@ -43,6 +45,8 @@ public class Images {
             city = new Image("assets/graphics/TypeOfBuilding/city.png");
             background = new Image("assets/graphics/Background.png");
             bookPaper = new Image("assets/graphics/BookPaper.png");
+            mainBackground = new Image("assets/graphics/MainBackground.png");
+            next = new Image("assets/graphics/next.png");
         } catch (SlickException e) {
             e.printStackTrace();
         }
