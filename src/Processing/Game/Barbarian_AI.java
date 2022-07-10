@@ -315,6 +315,9 @@ public class Barbarian_AI {
             Iterator<Tile> foundCities = light.third.values().iterator();
             while(foundCities.hasNext()){
                 Tile citiTile = foundCities.next();
+                if(citiTile.owner.owner == ME){
+                    continue;
+                }
                 if(citiTile.unit == null){
                     if(moveRange.containsKey(citiTile)){
                         return citiTile;

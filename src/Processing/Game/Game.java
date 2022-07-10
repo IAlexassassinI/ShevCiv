@@ -28,12 +28,23 @@ public class Game implements Serializable {
     HashMap<Player, Barbarian_AI> AI_ID = new HashMap<>();
 
     public void giveTurn(){
+        if(win){
+            return;
+        }
         currentPlayer++;
         if(currentPlayer == numberOfPlayers){
             year++;
             currentPlayer = 0;
         }
         players[currentPlayer].myTurn = true;
+        if(numberOfPlayers - numberOfDefeatedPlayers == 1){
+            for(int i = 0; i < players.length; i++){
+                if(!players[i].isDefeated){
+                    doWin();
+                    break;
+                }
+            }
+        }
         if(players[currentPlayer].isDefeated){
             if(numberOfPlayers != numberOfDefeatedPlayers){
                 giveTurn();
@@ -47,14 +58,7 @@ public class Game implements Serializable {
                 AI_ID.get(players[currentPlayer]).doTurn();
             }
         }
-        if(numberOfPlayers - numberOfDefeatedPlayers == 1){
-            for(int i = 0; i < players.length; i++){
-                if(!players[i].isDefeated){
-                    doWin();
-                    break;
-                }
-            }
-        }
+
 
     }
 
