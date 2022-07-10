@@ -75,7 +75,7 @@ public class Barbarian_AI {
 
     public void spawnOrk(Tile tile){
         if(!scanSquareForEnemy(tile, 3)){
-            if(Game.RandomGen.nextBoolean()){
+            if(Game.RandomGen.nextInt(100) <= 20){
                 tile.setUnit(new Unit(UnitPattern.AllUnitPattern.get(UnitPattern.OrkSettler.NameOfUnit), ME, tile));
                 return;
             }
