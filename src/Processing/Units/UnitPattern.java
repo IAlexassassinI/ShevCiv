@@ -1886,7 +1886,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            3,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1921,7 +1921,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            3,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1956,7 +1956,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            3,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -1991,7 +1991,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            3,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
@@ -2062,7 +2062,7 @@ public class UnitPattern extends Tag implements Serializable {
 
             0,
 
-            3,
+            2,
 
             false,
             WhereCanBe.onLandNoMountain,
