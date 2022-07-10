@@ -58,7 +58,7 @@ public class GameState extends BasicGameState implements ComponentListener {
         //map.getTile(0, 0).setTypeOfLand(TypeOfLand.FlatLand);
         //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
-        Game game = new Game(map, 2, 1, 50, 2);
+        Game game = new Game(map, 3, 0, 50, 2);
         //Unit worker = new Unit(UnitPattern.DemonMilitia, game.getCurrentPlayer(), map.getTile(6,4));
         //map.getTile(6,4).setUnit(worker);
         //LightPlay.addToPlayerVision(worker);

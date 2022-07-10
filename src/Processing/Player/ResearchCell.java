@@ -924,7 +924,7 @@ public class ResearchCell {
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
-                        UnitPattern.AllUnitPattern.get(UnitPattern.GriffinRider.NameOfUnit)
+                        UnitPattern.AllUnitPattern.get(UnitPattern.ElvenHawkRider.NameOfUnit)
                 }
         ).initCell();
 
@@ -1218,7 +1218,7 @@ public class ResearchCell {
                 new String[]{}, //OR
                 new String[]{}, //NOT
                 new Object[]{
-                        UnitPattern.AllUnitPattern.get(UnitPattern.DwarfMortar.NameOfUnit)
+                        UnitPattern.AllUnitPattern.get(UnitPattern.HellCannon.NameOfUnit)
                 }
         ).initCell();
 
