@@ -4,6 +4,7 @@ import Processing.Player.Player;
 import Processing.Player.ResearchCell;
 import Processing.TileMap.GameMap;
 import Processing.Units.UnitPattern;
+import graphics.states.GameState;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -11,6 +12,9 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Game implements Serializable {
+
+    private GameState gameState;
+
     static final long serialVersionUID = 4L;
 
     public static final Random RandomGen = new Random(System.currentTimeMillis());
@@ -94,7 +98,7 @@ public class Game implements Serializable {
         for(int i = 0; i < numberOfAI; i++){
             Player toProc = this.players[numberOfHumans+i];
             toProc.isBarbarianAI = true;
-            toProc.race = "Orc";
+            toProc.race = "Ork";
             toProc.mySettlerType = UnitPattern.AllUnitPattern.get(UnitPattern.OrkSettler.NameOfUnit);
             AI_ID.put(toProc, new Barbarian_AI(toProc, spawnRateOfAI, levelOfAI));
         }
@@ -102,4 +106,11 @@ public class Game implements Serializable {
         this.Map.GenerateSettlers(this);
     }
 
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 }

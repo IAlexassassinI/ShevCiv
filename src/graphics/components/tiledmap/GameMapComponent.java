@@ -21,8 +21,8 @@ public class GameMapComponent extends MapComponent {
     @Override
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
         super.render(guiContext, graphics);
-        renderCity(guiContext, graphics);
         renderTypeOfBuildings(guiContext, graphics);
+        renderCity(guiContext, graphics);
         renderUnits(guiContext, graphics);
         renderFilters(guiContext, graphics);
         renderAdditionals(guiContext, graphics);

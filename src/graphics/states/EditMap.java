@@ -206,6 +206,7 @@ public class EditMap extends BasicGameState implements ComponentListener {
         this.typesOfFlora.mousePressedSignalise(button, x, y);
         this.typesOfLand.mousePressedSignalise(button, x, y);
         this.resources.mousePressedSignalise(button, x, y);
+        this.gameContainer.getInput().consumeEvent();
     }
 
     @Override
@@ -253,8 +254,8 @@ public class EditMap extends BasicGameState implements ComponentListener {
                 SaveLoadInterface.SaveGameMapToFile(this.gameMap, saveFile);
             }
             else if(abstractComponent == this.loadButton) {
-                //this.editMapComponent = new EditMapComponent(gameContainer, SaveLoadInterface.LoadGameMapFromFile(saveFile), 20, 20);
-                //this.camera = new Camera(gameContainer, 20, 20, this.camera.getWidth(), this.camera.getHeight(), this.editMapComponent);
+                this.editMapComponent = new EditMapComponent(gameContainer, SaveLoadInterface.LoadGameMapFromFile(saveFile), 20, 20);
+                this.camera = new Camera(gameContainer, 20, 20, this.camera.getWidth(), this.camera.getHeight(), this.editMapComponent);
             }
             else if(abstractComponent == this.exitButton) {
                 this.game.enterState(MainMenu.ID);
