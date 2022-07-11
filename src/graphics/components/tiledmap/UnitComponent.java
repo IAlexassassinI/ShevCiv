@@ -80,6 +80,10 @@ public class UnitComponent {
     }
 
     public void prepareToAttack() {
+        if(this.unit.currentNumberOfAttacks == 0){
+            setState(UnitState.IDLE);
+            return;
+        }
         this.setState(UnitState.PREPARE_TO_ATTACK);
         if(this.unit.typeOfUnit.isRanged) {
             this.attackingArea = this.unit.prepareToShoot();
@@ -190,7 +194,7 @@ public class UnitComponent {
     private GameTileComponent tileToAttack;
 
     public void attack(GameTileComponent tile) {
-        if(!isInAttackingArea(tile.getTile())) {
+        if(!isInAttackingArea(tile.getTile()) || tile.getTile().getUnit() == null) {
             this.state = UnitState.IDLE;
             return;
         }

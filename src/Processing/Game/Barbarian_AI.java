@@ -52,7 +52,9 @@ public class Barbarian_AI {
             Tile tileToMove = calculateUnitMove(currentUnit);
             if(tileToMove != null){
                 if(currentUnit.onTile != null){
-                    currentUnit.unitComponent.move(tileToMove);
+                    if(currentUnit.unitComponent != null) {
+                        currentUnit.unitComponent.move(tileToMove);
+                    }
                     //currentUnit.move(tileToMove);
                 }
             }
@@ -278,8 +280,10 @@ public class Barbarian_AI {
                 }
             }
             if(target != null){
-                unit.unitComponent.attack(target);
-                unit.attackMelee(target);
+                if(unit.unitComponent != null) {
+                    unit.unitComponent.attack(target);
+                    unit.attackMelee(target);
+                }
             }
         }
     }
@@ -305,8 +309,10 @@ public class Barbarian_AI {
                     }
                 }
                 if(target != null){
-                    unit.unitComponent.attack(target);
-                    unit.attackRanged(target);
+                    if(unit.unitComponent != null) {
+                        unit.unitComponent.attack(target);
+                        unit.attackRanged(target);
+                    }
                 }
             }
         }
