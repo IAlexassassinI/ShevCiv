@@ -22,7 +22,6 @@ public class UnitComponent {
 
     private float x;
     private float y;
-    //private int unitId;
     private GameTileComponent tileComponent;
 
     private Animation idleRightAnimation;

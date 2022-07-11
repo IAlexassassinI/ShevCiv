@@ -60,14 +60,13 @@ public class GameState extends BasicGameState implements ComponentListener {
         this.gameContainer = gameContainer;
         this.stateBasedGame = stateBasedGame;
         GameMap map = SaveLoadInterface.LoadGameMapFromFile("assets/saved_maps/map.txt");
-        //map.getTile(0, 0).setTypeOfLand(TypeOfLand.FlatLand);
-        //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
         Game game = new Game(map, numberOfPlayers, 1, levelOfDifficulty * 10, levelOfDifficulty);
-        Unit worker = new Unit(UnitPattern.ElvenMage, game.getCurrentPlayer(), map.getTile(6,4));
+
+        /*Unit worker = new Unit(UnitPattern.ElvenMage, game.getCurrentPlayer(), map.getTile(6,4));
         System.out.println(UnitPattern.ElvenMage.projectile.name);
         map.getTile(6,4).setUnit(worker);
-        LightPlay.addToPlayerVision(worker);
+        LightPlay.addToPlayerVision(worker);*/
 
         this.game = game;
         this.game.setGameState(this);
