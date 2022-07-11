@@ -35,7 +35,7 @@ public class GetCargoSmall extends SpecialAbility implements Serializable {
         for(int i = 0; i < Point.ALL_SIDES.length-1; i++){
             Tile TMP_Tile = currentUnit.onTile.map.getTile(currentUnit.onTile.coordinates.LookAt(Point.ALL_SIDES[i]));
             if(TMP_Tile != null){
-                if(TMP_Tile.unit != null){
+                if(TMP_Tile.unit != null && TMP_Tile.unit.owner == this.currentUnit.owner){
                     if(TMP_Tile.unit.typeOfUnit.tags.contains(Tag.small)){
                         whereCanTake.add(TMP_Tile);
                     }
