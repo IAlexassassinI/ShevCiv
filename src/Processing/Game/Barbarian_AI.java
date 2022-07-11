@@ -279,7 +279,7 @@ public class Barbarian_AI {
             }
             if(target != null){
                 unit.unitComponent.attack(target);
-                //unit.attackMelee(target);
+                unit.attackMelee(target);
             }
         }
     }
@@ -306,7 +306,7 @@ public class Barbarian_AI {
                 }
                 if(target != null){
                     unit.unitComponent.attack(target);
-                    //unit.attackRanged(target);
+                    unit.attackRanged(target);
                 }
             }
         }

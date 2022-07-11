@@ -20,6 +20,8 @@ public class UnitComponent {
     private Unit unit;
     private UnitState state;
 
+    private boolean isAI = false;
+
     private float x;
     private float y;
     private GameTileComponent tileComponent;
@@ -198,9 +200,15 @@ public class UnitComponent {
 
     public void attack(Tile tile) {
         if(this.state == UnitState.ATTACKING) return;
-        if(this.state == UnitState.MOVING) attackAfterMoving = true;
+        if(this.state == UnitState.MOVING) {
+            attackAfterMoving = true;
+            isAI = true;
+            this.tileToAttack = tileComponent.getMapComponent().getTileComponent(tile.coordinates.x, tile.coordinates.y);
+            return;
+        }
+        isAI = true;
+        this.state = UnitState.ATTACKING;
         this.tileToAttack = tileComponent.getMapComponent().getTileComponent(tile.coordinates.x, tile.coordinates.y);
-        setState(UnitState.ATTACKING);
     }
 
     public void move(GameTileComponent tile) {
@@ -361,7 +369,9 @@ public class UnitComponent {
         this.currentAttackingTime += delta;
         if(this.currentAttackingTime > this.attackingTime) {
             this.currentAttackingTime = 0;
-            this.unit.attack(this.tileToAttack.getTile(), this.unit.typeOfUnit.isRanged);
+            if(!isAI) {
+                this.unit.attack(this.tileToAttack.getTile(), this.unit.typeOfUnit.isRanged);
+            }
             this.state = UnitState.IDLE;
             this.projectileComponent = null;
         }//
