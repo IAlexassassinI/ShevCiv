@@ -43,9 +43,6 @@ public class GameTileComponent extends TileComponent {
         if(this.getTile().getCity() != null && this.cityComponent != null) {
             this.cityComponent.render(guiContext, graphics);
         }
-        /*if(this.getTile().getCity() != null) {
-            Images.city.draw(this.x, this.y, this.width, this.height);
-        }*/
     }
 
     public void renderAdditionals(GUIContext guiContext, Graphics graphics) throws SlickException {
@@ -115,28 +112,6 @@ public class GameTileComponent extends TileComponent {
     public void setUnitComponent(UnitComponent unitComponent) {
         this.unitComponent = unitComponent;
     }
-
-    /*@Override
-    public void mouseClicked(int button, int x, int y, int clickCount) {
-        if(button == Input.MOUSE_LEFT_BUTTON && contains(x, y)) {
-            this.mouseClicked = true;
-            notifyListeners();
-        }
-        else {
-            this.mouseClicked = false;
-        }
-    }
-
-    @Override
-    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
-        this.mouseClicked = false;
-        if(this.contains(newx, newy)) {
-            this.mouseOver = true;
-        }
-        else {
-            this.mouseOver = false;
-        }
-    }*/
 
     public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
         if(contains(x, y)) {

@@ -72,23 +72,9 @@ public class TileComponent extends AbstractComponent {
 
     @Override
     public void render(GUIContext guiContext, Graphics graphics) throws SlickException {
-        //Images.typesOfLand.get("Void").draw(this.x, this.y, this.width, this.height);
         Images.typesOfLandSpriteSheet.getSprite(this.tile.typeOfLand.Type,0).draw(this.x, this.y, this.width, this.height);
         Images.typesOfFloraSpriteSheet.getSprite(this.tile.typeOfFlora.Type,0).draw(this.x, this.y, this.width, this.height);
         Images.resourcesSpriteSheet.getSprite(this.tile.resource.Type,0).draw(this.x, this.y, this.width, this.height);
-
-        //if(this.tile.river)
-        //graphics.setColor(this.backgroundColor);
-        //if(this.selectStyle == SelectStyle.BRIGHTER) graphics.fillRect(this.imageX, this.imageY, this.imageWidth, this.imageHeight);
-        //if(this.selectStyle == SelectStyle.BRIGHTER) graphics.fillRect(this.x, this.y, this.width, this.height);
-        //else if(selectStyle == SelectStyle.WHITE_BORDER) graphics.fillRoundRect(this.x - this.width * 0.05f, this.y - this.height * 0.05f, this.width * 1.1f, this.height * 1.1f, (int) (this.width * 0.05f));
-        //Image typeOfLand = new Image("assets/graphics/typeOfLand/" + this.tile.typeOfLand.elementName + ".png");
-        //typeOfLand.draw(this.x, this.y, this.width, this.height, this.currentColor);
-        //Renderer.get().glBegin(SGL.GL_QUADS);
-        //Images.getTypeOfLandImage(this.tile.typeOfLand.elementName).drawEmbedded(this.x, this.y, this.width, this.height);
-        //Renderer.get().glEnd();
-        //Images.getTypeOfLandImage(this.tile.typeOfLand.elementName).draw(this.imageX, this.imageY, this.currentColor);
-        //this.tile.getTypeOfLand().image.draw(this.x, this.y, this.width, this.height, this.currentColor);
     }
 
     public void renderEmbeddedTypeOfLand(GUIContext guiContext, Graphics graphics) throws SlickException {
@@ -106,7 +92,6 @@ public class TileComponent extends AbstractComponent {
     public void scale(float sx, float sy) {
         this.width = this.width * sx;
         this.height = this.height * sy;
-        //System.out.println(this.x + " " + this.y + " " + this.width + " " + this.height);
     }
 
     public void scale(float sx, float sy, float px, float py) {
@@ -118,7 +103,6 @@ public class TileComponent extends AbstractComponent {
     public void scaleImage(float sx, float sy) {
         this.imageWidth = this.imageWidth * sx;
         this.imageHeight = this.imageHeight * sy;
-        //System.out.println(this.x + " " + this.y + " " + this.width + " " + this.height);
     }
 
     public void scaleImage(float sx, float sy, float px, float py) {
@@ -137,25 +121,7 @@ public class TileComponent extends AbstractComponent {
         this.imageY += dy;
     }
 
-    /*@Override
-    public void mouseClicked(int button, int x, int y, int clickCount) {
-        if(button != Input.MOUSE_LEFT_BUTTON) return;
-        if(clickCount != 1) return;
-        if(x < this.x || x > this.x + this.width) return;
-        if(y < this.y || y > this.y + this.height) return;
-        setSelected(!this.selected);
-        if(!this.selected) {
-            this.currentColor = this.mouseOverColor;
-        }
-        this.notifyListeners();
-    }
-
-    @Override
-    public void mouseMoved(int oldx, int oldy, int newx, int newy) {
-    }*/
-
     public void mouseClickedSignalise(int button, int x, int y, int clickCount) {
-        //if(button != Input.MOUSE_LEFT_BUTTON) return;
         if(clickCount != 1) return;
         if(x < this.x || x > this.x + this.width) return;
         if(y < this.y || y > this.y + this.height) return;
@@ -167,36 +133,11 @@ public class TileComponent extends AbstractComponent {
     }
 
     public void mouseMovedSignalise(int oldx, int oldy, int newx, int newy) {
-        /*if(this.selected)return;
-        if(this.contains(newx, newy)) {
-            this.currentColor = this.mouseOverColor;
-        }
-        else this.currentColor = this.color;
-        */
+
     }
 
     public void setSelected(boolean selected) {
-        /*this.selected = selected;
-        if(this.selected) {
-            if(this.selectStyle == SelectStyle.BRIGHTER) {
-                this.backgroundColor = Color.white;
-                this.currentColor = this.mouseOverColor;
-            }
-            else if(this.selectStyle == SelectStyle.WHITE_BORDER) {
-                this.backgroundColor = Color.white;
-                this.currentColor = this.color;
-            }
-        }
-        else {
-            if(this.selectStyle == SelectStyle.BRIGHTER) {
-                this.backgroundColor = Color.black;
-                this.currentColor = this.color;
-            }
-            else if(this.selectStyle == SelectStyle.WHITE_BORDER) {
-                this.backgroundColor = Color.black;
-                this.currentColor = this.color;
-            }
-        }*/
+
     }
 
     public Camera getCamera() {

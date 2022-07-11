@@ -60,23 +60,13 @@ public class GameState extends BasicGameState implements ComponentListener {
         this.gameContainer = gameContainer;
         this.stateBasedGame = stateBasedGame;
         GameMap map = SaveLoadInterface.LoadGameMapFromFile("assets/saved_maps/map.txt");
-        //map.getTile(0, 0).setTypeOfLand(TypeOfLand.FlatLand);
-        //map.getTile(0, 1).setTypeOfLand(TypeOfLand.FlatLand);
 
-        Game game = new Game(map, numberOfPlayers, 1, levelOfDifficulty * 5, levelOfDifficulty);
-        //Unit worker = new Unit(UnitPattern.ElvenMage, game.getCurrentPlayer(), map.getTile(6,4));
-//        map.getTile(1,1).setUnit(new Unit(UnitPattern.OrkBarge, game.getCurrentPlayer(), map.getTile(1,1)));
-//        LightPlay.addToPlayerVision(map.getTile(1,1).unit);
-//        map.getTile(6,5).setUnit(new Unit(UnitPattern.OrkWyvern,  game.getCurrentPlayer(), map.getTile(6,5)));
-//        LightPlay.addToPlayerVision(map.getTile(6,5).unit);
-//        map.getTile(6,6).setUnit(new Unit(UnitPattern.OrkSwordsman, game.getCurrentPlayer(), map.getTile(6,6)));
-//        LightPlay.addToPlayerVision(map.getTile(6,6).unit);
-//        map.getTile(6,7).setUnit(new Unit(UnitPattern.VeryBigOrk,  game.getCurrentPlayer(), map.getTile(6,7)));
-//        LightPlay.addToPlayerVision(map.getTile(6,7).unit);
-//        map.getTile(7,7).setUnit(new Unit(UnitPattern.OrkCatapult, game.getCurrentPlayer(), map.getTile(7,7)));
-//        LightPlay.addToPlayerVision(map.getTile(7,7).unit);
-//        map.getTile(3,4).setUnit(new Unit(UnitPattern.OrkPeon, game.getCurrentPlayer(), map.getTile(3,4)));
-//        LightPlay.addToPlayerVision(map.getTile(3,4).unit);
+        Game game = new Game(map, numberOfPlayers, 1, levelOfDifficulty * 10, levelOfDifficulty);
+
+        /*Unit worker = new Unit(UnitPattern.ElvenMage, game.getCurrentPlayer(), map.getTile(6,4));
+        System.out.println(UnitPattern.ElvenMage.projectile.name);
+        map.getTile(6,4).setUnit(worker);
+        LightPlay.addToPlayerVision(worker);*/
 
         this.game = game;
         this.game.setGameState(this);
