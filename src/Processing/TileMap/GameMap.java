@@ -164,11 +164,29 @@ public class GameMap implements Serializable {
                 }
             }
         }
-        for(int i = 0; i < game.numberOfPlayers; i++){
-            Tile TMP_Tile = Found.get(Game.RandomGen.nextInt(Found.size()));
-            Found.remove(TMP_Tile);
-            TMP_Tile.setUnit(new Unit(game.players[i].mySettlerType, game.players[i], TMP_Tile));
+        if(Found.size() < game.numberOfPlayers){
+            for(int y = 0; y < height; y++){
+                for(int x = 0; x < width; x++){
+                        Found.add(this.getTile(x,y));
+                }
+            }
+            for(int i = 0; i < game.numberOfPlayers; i++){
+                Tile TMP_Tile = Found.get(Game.RandomGen.nextInt(Found.size()));
+                Found.remove(TMP_Tile);
+                TMP_Tile.setTypeOfLand(TypeOfLand.AllTypeOfLand.get(TypeOfLand.FlatLand.elementName));
+                TMP_Tile.setUnit(new Unit(game.players[i].mySettlerType, game.players[i], TMP_Tile));
+                LightPlay.addToPlayerVision(TMP_Tile.unit);
+            }
         }
+        else{
+            for(int i = 0; i < game.numberOfPlayers; i++){
+                Tile TMP_Tile = Found.get(Game.RandomGen.nextInt(Found.size()));
+                Found.remove(TMP_Tile);
+                TMP_Tile.setUnit(new Unit(game.players[i].mySettlerType, game.players[i], TMP_Tile));
+                LightPlay.addToPlayerVision(TMP_Tile.unit);
+            }
+        }
+
     }
 
 }

@@ -45,7 +45,7 @@ public class City implements Serializable {
     public LinkedList<Integer> jobsCount = new LinkedList<>();
     public LinkedList<Integer> jobsOccupiedCount = new LinkedList<>();
 
-    public static final double FOOD_FOR_NEW_CITIZEN = 32;
+    public static final double FOOD_FOR_NEW_CITIZEN = 64;
     public static final double BASE_FOOD_STOCK = 5;
     public static final int STANDARD_NUMBER_OF_START_CITIZENS = 1;
     public static final double BASIC_TILE_PRICE = 10;
